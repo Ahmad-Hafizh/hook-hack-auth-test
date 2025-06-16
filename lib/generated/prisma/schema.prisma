@@ -1,0 +1,42 @@
+generator client {
+  provider      = "prisma-client-js"
+  output        = "../lib/generated/prisma"
+  binaryTargets = ["native", "windows"]
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+/// This model contains row level security and requires additional setup for migrations. Visit https://pris.ly/d/row-level-security for more info.
+model V2_format {
+  system_status          String   @default("")
+  search_url             String?  @default("")
+  scraping_brand         String?  @default("")
+  scraping_industry      String?  @default("")
+  scraping_caption       String?  @default("")
+  scraping_landingpage   String?  @default("")
+  scraping_likes         BigInt?
+  scraping_comments      BigInt?
+  scraping_shares        BigInt?
+  scraping_ctr           BigInt?
+  scraping_budget        String?  @default("")
+  scraping_ctr_top       BigInt?
+  scraping_ctr_sec       Json?    @db.Json
+  scraping_cvr_top       BigInt?
+  scraping_cvr_sec       Json?    @db.Json
+  system_id              BigInt   @id @default(autoincrement())
+  search_condition       String?  @default("")
+  video_product_category String?  @default("")
+  video_product_details  String?  @default("")
+  video_target_age       String?  @default("")
+  video_target_gender    String?  @default("")
+  video_content_type     String?  @default("")
+  video_content_summary  String?  @default("")
+  video_content_music    String?  @default("")
+  video_content_speed    String?  @default("")
+  video_target_details   String?  @default("")
+  system_usable          Boolean?
+  video_url              String?  @default("")
+}

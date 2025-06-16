@@ -1,13 +1,10 @@
 import type { Metadata } from "next";
-import {Noto_Sans_JP} from "next/font/google"; 
+import { Noto_Sans_JP } from "next/font/google";
 import { ThemeProvider } from "@/components/theme-provider";
-import type React from "react"
-import "@/app/globals.css"
+import type React from "react";
+import "@/app/globals.css";
 
-
-
-
-const noto = Noto_Sans_JP({subsets:["latin"], variable: "--font-jp"});
+const noto = Noto_Sans_JP({ subsets: ["latin"], variable: "--font-jp" });
 
 export const metadata: Metadata = {
   title: "Clip-Studio - TikTok Analysis Tool | CVR Optimization",
@@ -21,9 +18,12 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en" suppressHydrationWarning>
-            <head>
+      <head>
         <title>Clip-Studio | TikTok Video Analysis Tool</title>
-        <meta name="description" content="Advanced TikTok video analytics and insights for creators and brands" />
+        <meta
+          name="description"
+          content="Advanced TikTok video analytics and insights for creators and brands"
+        />
         <link rel="icon" href="/tiktok-favicon.svg" type="image/svg+xml" />
       </head>
       <body className={`${noto.className}`}>
@@ -32,7 +32,8 @@ export default function RootLayout({
           <div className="max-w-7xl mx-auto flex items-center justify-between">
             <div className="flex items-center space-x-2">
               <a href="/">
-                <img src="/clipstudio.svg" alt="logo" className="h-9 w-auto my-3" />
+                {/* <img src="/clipstudio.svg" alt="logo" className="h-9 w-auto my-3" /> */}
+                <h2 className="text-3xl font-bold py-3">Hook Hack</h2>
               </a>
             </div>
             <div className="flex items-center gap-6">

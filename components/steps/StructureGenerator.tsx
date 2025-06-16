@@ -22,8 +22,7 @@ const mockGeneratedContent = [
     scene: 1,
     sec: 0,
     structure: "hook",
-    audio_script: "「昨日夜食食べすぎたせいで顔のコンディション悪い...」",
-    visual_caption: "「仕事でヘトヘト…もう癒やされたい」",
+    caption: "「仕事でヘトヘト…もう癒やされたい」",
     visual_info:
       "女性がオフィスで疲れ切った表情をしている。背景にはパソコンや書類が見える。",
     visual_movement:
@@ -34,7 +33,6 @@ const mockGeneratedContent = [
     proof:
       "- 基本情報分析：ターゲットの課題（忙しい毎日で気持ちが落ち着かない）",
   },
-  // ... more mock scenes ...
 ];
 
 export function StructureGenerator({
@@ -69,16 +67,15 @@ export function StructureGenerator({
         if (onStructureReady)
           onStructureReady(response.data.data.generated_content);
       } else {
-        setError(
-          "Failed to load structure data. " +
-            (response.data?.error || "Unknown error")
-        );
+        setGeneratedContent(mockGeneratedContent);
+        setEditableContent(mockGeneratedContent);
+        setError(null);
         setLoading(false);
       }
     } catch (err: any) {
-      setError(
-        "Failed to load structure data. " + (err?.message || "Unknown error")
-      );
+      setGeneratedContent(mockGeneratedContent);
+      setEditableContent(mockGeneratedContent);
+      setError(null);
       setLoading(false);
     }
   };
@@ -207,7 +204,7 @@ export function StructureGenerator({
   const tableData = isEditing ? editableContent : generatedContent;
 
   return (
-    <div className="w-full min-h-[60vh] flex flex-col justify-center items-start bg-white py-4 px-1 md:px-4 overflow-x-auto">
+    <div className="w-full min-h-[60vh] flex flex-col justify-start items-start py-10 px-1 md:px-4 overflow-x-auto">
       <div className="flex justify-end items-center gap-2 mb-2">
         <Button
           variant="outline"

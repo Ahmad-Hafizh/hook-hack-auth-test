@@ -18,8 +18,13 @@ import {
   SelectItem,
   SelectTrigger,
 } from "@/components/ui/select";
+import { VideoList } from "@/components/steps/VideoList";
+import { SelectComment } from "@/components/steps/SelectComment";
+import { SelectHook } from "@/components/steps/SelectHook";
+import { GenerateContent } from "@/components/steps/GenerateContent";
 
 export interface FormData {
+  searchword: string;
   product_name: string;
   product_category: string;
   functional_value: string;
@@ -34,8 +39,10 @@ export interface FormData {
 
 const steps = [
   { id: 1, title: "ユーザー情報入力" },
-  { id: 2, title: "サンプル動画選択" },
-  { id: 3, title: "シーン生成" },
+  { id: 2, title: "動画リスト" },
+  { id: 3, title: "コメント選択" },
+  { id: 4, title: "フック選択" },
+  { id: 5, title: "コンテンツ生成" },
 ];
 
 const productSchema = z.object({
@@ -53,7 +60,8 @@ const productSchema = z.object({
 export function MultiStepForm() {
   const [currentStep, setCurrentStep] = useState(1);
   //DATA FOR PERSONA
-  const [formData, setFormData] = useState<FormData>({
+  const [userInputData, setUserInputData] = useState<FormData>({
+    searchword: "",
     product_name: "",
     product_category: "",
     functional_value: "",
@@ -65,13 +73,13 @@ export function MultiStepForm() {
     gender: "",
     issue: "",
   });
-  //DATA FOR SAMPLE
-  const [personaResult, setPersonaResult] = useState<any>(null);
-  //DATA FOR SCENE
+
+  const [videoListData, setVideoListData] = useState<any[]>([]);
   const [structureResult, setStructureResult] = useState<any>(null);
+  const [selectedVideo, setSelectedVideo] = useState<any>(null);
 
   const updateFormData = (section: keyof FormData, data: any) => {
-    setFormData((prev) => ({
+    setUserInputData((prev) => ({
       ...prev,
       ...data,
     }));
@@ -79,19 +87,19 @@ export function MultiStepForm() {
   };
 
   const handlePersonaReady = (result: any) => {
-    setPersonaResult(result);
+    setVideoListData(result);
   };
 
   const handleAnalyzeStructure = (video: any) => {
     setStructureResult(video);
-    setCurrentStep(3);
+    setCurrentStep(5);
   };
 
   const nextStep = () => {
     if (currentStep < steps.length) {
       setCurrentStep(currentStep + 1);
     }
-    console.log(formData);
+    console.log(userInputData);
   };
 
   const prevStep = () => {
@@ -101,12 +109,12 @@ export function MultiStepForm() {
   };
 
   const handleSubmit = () => {
-    console.log("Form submitted:", formData);
+    console.log("Form submitted:", userInputData);
     // Handle form submission here
   };
 
   const handleUserInputUpdate = (flatData: any) => {
-    setFormData((prev) => ({
+    setUserInputData((prev) => ({
       ...prev,
       product_name: flatData.product_name,
       product_category: flatData.product_category,
@@ -122,25 +130,44 @@ export function MultiStepForm() {
   };
 
   // Build the correct client_input structure for the API (flat structure)
-  const client_input = formData;
+  const client_input = userInputData;
+
+  const handleSelectVideo = (video: any) => {
+    setSelectedVideo(video);
+    setCurrentStep(3);
+  };
 
   const renderStep = () => {
     switch (currentStep) {
       case 1:
-        return <UserInput data={formData} updateData={setFormData} />;
+        return <UserInput data={userInputData} updateData={setUserInputData} />;
       case 2:
         return (
-          <Sample
-            data={formData}
-            updateData={setFormData}
-            onAnalyzeStructure={handleAnalyzeStructure}
-            personaResult={personaResult}
+          <VideoList
+            userInputData={userInputData.searchword}
+            setVideoListData={setVideoListData}
+            onSelectVideo={handleSelectVideo}
           />
         );
       case 3:
         return (
+          <SelectComment
+            videoListData={videoListData}
+            selectedVideo={selectedVideo}
+            onSelectComment={() => setCurrentStep(4)}
+          />
+        );
+      case 4:
+        return (
+          <SelectHook
+            searchword={userInputData.searchword}
+            onSelectHook={() => setCurrentStep(5)}
+          />
+        );
+      case 5:
+        return (
           <StructureGenerator
-            video_url={structureResult?.video_url || ""}
+            video_url={videoListData[0].url}
             client_input={client_input}
           />
         );
@@ -195,7 +222,10 @@ export function MultiStepForm() {
       {/* Navigation Buttons OUTSIDE Card */}
       <div className="flex justify-between items-start w-full px-8 mt-4">
         <div>
-          {currentStep === 2 || currentStep === 3 ? (
+          {currentStep === 2 ||
+          currentStep === 3 ||
+          currentStep === 4 ||
+          currentStep === 5 ? (
             <Button
               variant="outline"
               onClick={prevStep}
@@ -229,7 +259,7 @@ export function MultiStepForm() {
         </div>
       </div>
       {/* Only wrap steps 1-4 in Card, render StructureGenerator directly for step 5 */}
-      {currentStep === 3 ? (
+      {currentStep === 5 ? (
         <StructureGenerator
           video_url={structureResult?.video_url || ""}
           client_input={client_input}

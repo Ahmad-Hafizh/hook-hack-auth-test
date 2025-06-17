@@ -77,7 +77,9 @@ export const SelectHook: React.FC<SelectHookProps> = ({
         {/* Card */}
         <div className="w-full bg-white">
           {/* Header Row */}
-          <h2 className="text-2xl text-left font-semibold mb-6">Select Hook</h2>
+          <h2 className="text-2xl text-left font-semibold mb-6">
+            About Comment
+          </h2>
           <div className="flex flex-row gap-4 mb-4 w-full">
             {/* <div className="border border-gray-400 rounded-md flex-1 flex flex-col items-start justify-center p-5 gap-2">
               <div className="text-sm text-gray-500 font-semibold">
@@ -92,7 +94,7 @@ export const SelectHook: React.FC<SelectHookProps> = ({
 
             <div className="border border-gray-400 rounded-md flex flex-col items-start justify-center p-5 gap-2 w-full">
               <div className="text-sm text-gray-500 font-semibold">
-                About the Comment
+                Comment Insight
               </div>
               <div className="text-base text-gray-700 text-center">
                 {data.sampledComment}
@@ -115,6 +117,9 @@ export const SelectHook: React.FC<SelectHookProps> = ({
             <div className="text-sm text-gray-600">{data.insightSummary}</div>
           </div> */}
           {/* Hooks Table - styled like SelectComment */}
+          <h2 className="text-2xl text-left font-semibold mt-7 mb-3">
+            Select Hook
+          </h2>
           <div className="w-full flex flex-col items-center">
             <table className="min-w-full border-separate border-spacing-y-3 mb-4">
               <thead>

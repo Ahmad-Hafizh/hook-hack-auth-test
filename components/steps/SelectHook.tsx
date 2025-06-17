@@ -110,8 +110,8 @@ export const SelectHook: React.FC<SelectHookProps> = ({
               <h2 className="text-sm">50</h2>
             </div>
             <div className="font-semibold text-base mb-1 border border-gray-400 rounded-md py-4 px-4 flex flex-col items-start justify-center w-full text-left">
-              <h2 className="text-xs font-normal">Positive/Negative Tone</h2>
-              <h2 className="text-sm">Positive</h2>
+              <h2 className="text-xs font-normal">Value</h2>
+              <h2 className="text-sm">Functional</h2>
             </div>
           </div>
           {/* <div className="border border-gray-400 rounded-md py-4 px-4 mb-6 w-full text-left">

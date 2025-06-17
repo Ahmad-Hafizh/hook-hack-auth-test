@@ -66,47 +66,54 @@ export const SelectComment: React.FC<SelectCommentProps> = ({
   return (
     <div className="w-full flex flex-col items-center">
       {/* About video card section */}
+
       <div className="w-full flex justify-start items-center mb-2">
         <h2 className="text-2xl text-left font-semibold mb-6">About Video</h2>
       </div>
       <div className="w-full flex flex-col items-center mb-8">
         <div className="w-full  bg-white rounded-xl  p-6 border border-gray-400 mb-4">
-          <div className="mb-2 text-xs text-gray-500 font-semibold tracking-wide">
+          <div className="mb-2 text-sm text-gray-600 font-semibold tracking-wide">
             Video sample
-          </div>
-          <div className="mb-2 text-lg font-bold">Sample Video Title</div>
-          <div className="mb-1 text-sm text-gray-700">
-            Creator: <span className="font-medium">Jane Doe</span>
-          </div>
-          <div className="mb-1 text-sm text-gray-700">
-            Date: <span className="font-medium">2024-06-01</span>
-          </div>
-          <div className="mb-2 text-sm text-gray-700">
-            Duration: <span className="font-medium">2:34</span>
           </div>
           <div className="text-sm text-gray-600">Sample brief description</div>
         </div>
         {/* Navigation boxes */}
-        <div className="flex flex-row justify-between gap-8 w-full mt-2">
-          <div className=" h-32 flex items-center justify-center text-3xl bg-white rounded-lg border border-gray-400 w-full font-bold p-5 flex-col gap-2">
-            <h2 className="w-full font-semibold text-gray-600 text-sm">Who</h2>
-            <h3 className="w-full text-sm text-gray-800">
-              This is a sample description
-            </h3>
+        {commentData && (
+          <div className="flex flex-row justify-between gap-5 w-full mt-1">
+            <div className="h-24 flex items-center justify-center bg-white rounded-lg border border-gray-400 w-full font-bold px-5 py-3 flex-col gap-2">
+              <h2 className="w-full font-semibold text-gray-600 text-sm">
+                Likes
+              </h2>
+              <h3 className="w-full text-xl text-gray-800">
+                {commentData.datas.likes.toLocaleString()}
+              </h3>
+            </div>
+            <div className="h-24 flex items-center justify-center bg-white rounded-lg border border-gray-400 w-full font-bold px-5 py-3 flex-col gap-2">
+              <h2 className="w-full font-semibold text-gray-600 text-sm">
+                Comments
+              </h2>
+              <h3 className="w-full text-xl text-gray-800">
+                {commentData.datas.comments.toLocaleString()}
+              </h3>
+            </div>
+            <div className="h-24 flex items-center justify-center bg-white rounded-lg border border-gray-400 w-full font-bold px-5 py-1 flex-col gap-2">
+              <h2 className="w-full font-semibold text-gray-600 text-sm">
+                Saves
+              </h2>
+              <h3 className="w-full text-xl text-gray-800">
+                {commentData.datas.saves.toLocaleString()}
+              </h3>
+            </div>
+            <div className="h-24 flex items-center justify-center bg-white rounded-lg border border-gray-400 w-full font-bold px-5 py-1 flex-col gap-2">
+              <h2 className="w-full font-semibold text-gray-600 text-sm">
+                Shares
+              </h2>
+              <h3 className="w-full text-xl text-gray-800">
+                {commentData.datas.shares.toLocaleString()}
+              </h3>
+            </div>
           </div>
-          <div className=" h-32 flex items-center justify-center text-3xl bg-white rounded-lg border border-gray-400 w-full font-bold p-5 flex-col gap-2">
-            <h2 className="w-full font-semibold text-gray-600 text-sm">What</h2>
-            <h3 className="w-full text-sm text-gray-800">
-              This is a sample description
-            </h3>
-          </div>
-          <div className=" h-32 flex items-center justify-center text-3xl bg-white rounded-lg border border-gray-400 w-full font-bold p-5 flex-col gap-2">
-            <h2 className="w-full font-semibold text-gray-600 text-sm">How</h2>
-            <h3 className="w-full text-sm text-gray-800">
-              This is a sample description
-            </h3>
-          </div>
-        </div>
+        )}
       </div>
       {/* End about video card section */}
       <div className="w-full flex justify-start items-center mt-5 mb-2">
@@ -116,28 +123,24 @@ export const SelectComment: React.FC<SelectCommentProps> = ({
       </div>
       {commentData && (
         <>
-          <div className="mb-4 w-full flex justify-start items-center">
+          {/* <div className="mb-4 w-full flex justify-start items-center">
             <strong>Stats: </strong> Likes: {commentData.datas.likes}, Comments:{" "}
             {commentData.datas.comments}, Saves: {commentData.datas.saves},
             Shares: {commentData.datas.shares}
-          </div>
+          </div> */}
           <table className="min-w-full border-separate border-spacing-y-3 mb-4">
             <thead>
               <tr>
-                <th className="px-2 py-1 border">#</th>
-                <th className="px-2 py-1 border">User</th>
-                <th className="px-2 py-1 border">Like</th>
                 <th className="px-2 py-1 border">Comment</th>
+                <th className="px-2 py-1 border">Like</th>
                 <th className="px-2 py-1 border">Action</th>
               </tr>
             </thead>
             <tbody>
               {commentData.comments.map((c: any, idx: number) => (
                 <tr key={c.number}>
-                  <td className="px-2 py-1 border">{c.number}</td>
-                  <td className="px-2 py-1 border">{c.name}</td>
-                  <td className="px-2 py-1 border">{c.like}</td>
                   <td className="px-2 py-1 border">{c.text}</td>
+                  <td className="px-2 py-1 border">{c.like}</td>
                   <td className="px-2 py-1 border">
                     <Button
                       className="bg-[#E6E6FA] text-[#433D8B] px-4 py-1 rounded-full"

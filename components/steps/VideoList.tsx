@@ -60,50 +60,40 @@ export const VideoList: React.FC<VideoListProps> = ({
   return (
     <div className="w-full flex flex-col items-center">
       <h2 className="text-xl font-semibold mb-6">List of Videos</h2>
-      <div className="overflow-x-auto w-full">
-        <table className="min-w-full border-separate border-spacing-y-3">
-          <thead>
-            <tr>
-              <th className="px-2 py-1 border">番号</th>
-              <th className="px-2 py-1 border">いいね数</th>
-              <th className="px-2 py-1 border">リンク</th>
-              <th className="px-2 py-1 border">Who</th>
-              <th className="px-2 py-1 border">What</th>
-              <th className="px-2 py-1 border">How</th>
-              <th className="px-2 py-1 border">Action</th>
-            </tr>
-          </thead>
-          <tbody>
-            {data.map((video, idx) => (
-              <tr key={video.url}>
-                <td className="px-2 py-1 border">#{video.number}</td>
-                <td className="px-2 py-1 border">{video.like}</td>
-                <td className="px-2 py-1 border">
-                  <a href={video.url} target="_blank" rel="noopener noreferrer">
-                    www.tiktok
-                  </a>
-                </td>
-                <td className="px-2 py-1 border">
-                  {/* who info here if available */}
-                </td>
-                <td className="px-2 py-1 border">
-                  {/* what info here if available */}
-                </td>
-                <td className="px-2 py-1 border">
-                  {/* how info here if available */}
-                </td>
-                <td className="px-2 py-1 border">
-                  <Button
-                    className="bg-[#E6E6FA] text-[#433D8B] px-4 py-1 rounded-full"
-                    onClick={() => onSelectVideo(video)}
-                  >
-                    Use
-                  </Button>
-                </td>
-              </tr>
-            ))}
-          </tbody>
-        </table>
+      <div className="w-full grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-x-5 gap-y-5">
+        {data.map((video, idx) => (
+          <div
+            key={video.url}
+            className="bg-white border rounded-lg shadow-md flex flex-col p-4 min-w-[250px] max-w-3xl mx-auto"
+          >
+            {/* Video Placeholder */}
+            <div className="w-full h-80 bg-gray-200 flex items-center justify-center rounded mb-3">
+              <span className="text-gray-500">video</span>
+            </div>
+            {/* Likes */}
+            <div className="flex items-center mb-2">
+              <span className="text-pink-500 mr-1">❤</span>
+              <span className="text-sm font-medium">
+                {video.like.toLocaleString()} Likes
+              </span>
+            </div>
+            {/* About the video (what & who) */}
+            <div className="bg-gray-100 rounded p-3 text-xs text-gray-700 mb-3">
+              <h2 className="font-semibold mb-2">About the video</h2>
+              <h2>
+                This is the sample text for the description, the what, and the
+                who of the video.
+              </h2>
+            </div>
+            {/* Use Button */}
+            <Button
+              className="bg-[#E6E6FA] text-[#433D8B] px-4 py-1 rounded"
+              onClick={() => onSelectVideo(video)}
+            >
+              Use
+            </Button>
+          </div>
+        ))}
       </div>
     </div>
   );

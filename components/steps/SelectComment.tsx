@@ -132,6 +132,7 @@ export const SelectComment: React.FC<SelectCommentProps> = ({
             <thead>
               <tr>
                 <th className="px-2 py-1 border">Comment</th>
+                <th className="px-2 py-1 border">Value</th>
                 <th className="px-2 py-1 border">Like</th>
                 <th className="px-2 py-1 border">Action</th>
               </tr>
@@ -140,6 +141,7 @@ export const SelectComment: React.FC<SelectCommentProps> = ({
               {commentData.comments.map((c: any, idx: number) => (
                 <tr key={c.number}>
                   <td className="px-2 py-1 border">{c.text}</td>
+                  <td className="px-2 py-1 border">Functional</td>
                   <td className="px-2 py-1 border">{c.like}</td>
                   <td className="px-2 py-1 border">
                     <Button

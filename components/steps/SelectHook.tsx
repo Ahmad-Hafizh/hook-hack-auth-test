@@ -45,6 +45,8 @@ export const SelectHook: React.FC<SelectHookProps> = ({
 }) => {
   const [data, setData] = useState<any>(null);
   const [loading, setLoading] = useState(false);
+  const [editingIdx, setEditingIdx] = useState<number | null>(null);
+  const [editedHook, setEditedHook] = useState<string>("");
 
   useEffect(() => {
     console.log("searchword", searchword);
@@ -124,8 +126,7 @@ export const SelectHook: React.FC<SelectHookProps> = ({
             <table className="min-w-full border-separate border-spacing-y-3 mb-4">
               <thead>
                 <tr>
-                  <th className="px-2 py-1 border">#</th>
-                  <th className="px-2 py-1 border">Type</th>
+                  <th className="px-2 py-1 border">No</th>
                   <th className="px-2 py-1 border">Hook</th>
                   <th className="px-2 py-1 border">Action</th>
                 </tr>
@@ -134,9 +135,18 @@ export const SelectHook: React.FC<SelectHookProps> = ({
                 {data.hooks.map((h: any, idx: number) => (
                   <tr key={h.type}>
                     <td className="px-2 py-1 border">{idx + 1}</td>
-                    <td className="px-2 py-1 border">{h.type}</td>
-                    <td className="px-2 py-1 border">{h.hook}</td>
                     <td className="px-2 py-1 border">
+                      {editingIdx === idx ? (
+                        <textarea
+                          className="w-full border rounded p-1 text-sm"
+                          value={editedHook}
+                          onChange={(e) => setEditedHook(e.target.value)}
+                        />
+                      ) : (
+                        h.hook
+                      )}
+                    </td>
+                    <td className="px-2 py-1 border flex gap-2">
                       <Button
                         className="bg-[#E6E6FA] text-[#433D8B] px-4 py-1 rounded-full"
                         disabled={idx !== 0}
@@ -146,6 +156,33 @@ export const SelectHook: React.FC<SelectHookProps> = ({
                       >
                         use
                       </Button>
+                      {editingIdx === idx ? (
+                        <Button
+                          className="bg-green-200 text-green-900 px-4 py-1 rounded-full"
+                          onClick={() => {
+                            // Save edited hook
+                            const newHooks = [...data.hooks];
+                            newHooks[idx] = {
+                              ...newHooks[idx],
+                              hook: editedHook,
+                            };
+                            setData({ ...data, hooks: newHooks });
+                            setEditingIdx(null);
+                          }}
+                        >
+                          Save
+                        </Button>
+                      ) : (
+                        <Button
+                          className="bg-yellow-100 text-yellow-900 px-4 py-1 rounded-full"
+                          onClick={() => {
+                            setEditingIdx(idx);
+                            setEditedHook(h.hook);
+                          }}
+                        >
+                          Edit
+                        </Button>
+                      )}
                     </td>
                   </tr>
                 ))}

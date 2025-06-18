@@ -57,13 +57,13 @@ export function UserInput({ data, updateData, errors = {} }: UserInputProps) {
             name="searchword"
             value={data.searchword || ""}
             onChange={handleChange}
-            placeholder="例：日焼け止め 20代女性 敏感肌"
+            placeholder="例：日焼け止め、化粧水など"
           />
         </div>
       </div>
       {/* Product Info */}
       <div>
-        <h2 className="font-bold text-2xl mb-4">商品情報</h2>
+        <h2 className="font-bold text-2xl mb-4">プロダクト情報</h2>
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
           <div>
             <Label htmlFor="product_name">商品名</Label>

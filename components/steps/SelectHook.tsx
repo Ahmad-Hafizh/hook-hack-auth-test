@@ -79,12 +79,12 @@ export const SelectHook: React.FC<SelectHookProps> = ({
         <div className="w-full bg-white">
           {/* Header Row */}
           <h2 className="text-2xl text-left font-semibold mb-6">
-            About Comment
+            コメント情報
           </h2>
           <div className="flex flex-row gap-4 mb-4 w-full">
             <div className="border border-gray-400 rounded-md flex flex-col items-start justify-center p-5 gap-2 w-full">
               <div className="text-sm text-gray-500 font-semibold">
-                Comment Insight
+                コメント
               </div>
               <div className="text-base text-gray-700 text-center">
                 {comment?.text || comment?.analyse || "No comment selected."}
@@ -93,24 +93,24 @@ export const SelectHook: React.FC<SelectHookProps> = ({
           </div>
           <div className="w-full flex gap-5 mb-4">
             <div className="font-semibold text-base border border-gray-400 rounded-md py-4 px-4 flex flex-col items-start justify-center w-full text-left">
-              <h2 className="text-xs font-normal">Likes</h2>
+              <h2 className="text-xs font-normal">いいね数</h2>
               <h2 className="text-sm">{comment?.like ?? "-"}</h2>
             </div>
             <div className="font-semibold text-base border border-gray-400 rounded-md py-4 px-4 flex flex-col items-start justify-center w-full text-left">
-              <h2 className="text-xs font-normal">Value</h2>
+              <h2 className="text-xs font-normal">価値</h2>
               <h2 className="text-sm">{comment?.value ?? "-"}</h2>
             </div>
           </div>
-          <h2 className="text-2xl text-left font-semibold mt-7 mb-3">
-            Select Hook
+          <h2 className="text-2xl text-center font-semibold mt-12 mb-4">
+            参考にしたいフックを選択してください。
           </h2>
           <div className="w-full flex flex-col items-center">
             <table className="min-w-full border-separate border-spacing-y-3 mb-4">
               <thead>
                 <tr>
                   <th className="px-2 py-1 border">No</th>
-                  <th className="px-2 py-1 border">Hook</th>
-                  <th className="px-2 py-1 border">Action</th>
+                  <th className="px-2 py-1 border">フック</th>
+                  <th className="px-2 py-1 border">選択・編集</th>
                 </tr>
               </thead>
               <tbody>
@@ -133,7 +133,7 @@ export const SelectHook: React.FC<SelectHookProps> = ({
                         className="bg-[#E6E6FA] text-[#433D8B] px-4 py-1 rounded-full"
                         onClick={() => onSelectHook && onSelectHook(hook)}
                       >
-                        use
+                        選択
                       </Button>
                       {editingIdx === idx ? (
                         <Button
@@ -146,7 +146,7 @@ export const SelectHook: React.FC<SelectHookProps> = ({
                             setEditingIdx(null);
                           }}
                         >
-                          Save
+                          保存
                         </Button>
                       ) : (
                         <Button
@@ -156,7 +156,7 @@ export const SelectHook: React.FC<SelectHookProps> = ({
                             setEditedHook(hook);
                           }}
                         >
-                          Edit
+                          編集
                         </Button>
                       )}
                     </td>

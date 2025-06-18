@@ -27,35 +27,35 @@ const mockData = [
   {
     tiktok_url: "https://www.tiktok.com/@example/video/123",
     like: 389000,
-    analyse: "This is a sample analysis for video 1.",
+    analyse: "動画のターゲットや訴求内容について説明します。",
     storage_url: "https://res.cloudinary.com/demo/video/upload/sample1.mp4",
     id: "123",
   },
   {
     tiktok_url: "https://www.tiktok.com/@example/video/456",
     like: 12000,
-    analyse: "This is a sample analysis for video 2.",
+    analyse: "動画のターゲットや訴求内容について説明します。",
     storage_url: "https://res.cloudinary.com/demo/video/upload/sample2.mp4",
     id: "456",
   },
   {
     tiktok_url: "https://www.tiktok.com/@example/video/789",
     like: 5400,
-    analyse: "This is a sample analysis for video 3.",
+    analyse: "動画のターゲットや訴求内容について説明します。",
     storage_url: "https://res.cloudinary.com/demo/video/upload/sample3.mp4",
     id: "789",
   },
   {
     tiktok_url: "https://www.tiktok.com/@example/video/101",
     like: 3200,
-    analyse: "This is a sample analysis for video 4.",
+    analyse: "動画のターゲットや訴求内容について説明します。",
     storage_url: "https://res.cloudinary.com/demo/video/upload/sample4.mp4",
     id: "101",
   },
   {
     tiktok_url: "https://www.tiktok.com/@example/video/102",
     like: 2100,
-    analyse: "This is a sample analysis for video 5.",
+    analyse: "動画のターゲットや訴求内容について説明します。",
     storage_url: "https://res.cloudinary.com/demo/video/upload/sample5.mp4",
     id: "102",
   },
@@ -89,7 +89,9 @@ export const VideoList: React.FC<VideoListProps> = ({
 
   return (
     <div className="w-full flex flex-col items-center">
-      <h2 className="text-xl font-semibold mb-6">List of Videos</h2>
+      <h2 className="text-xl font-semibold mb-6">
+        参考にしたい動画を選択してください。
+      </h2>
       <div className="w-full grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-x-5 gap-y-5">
         {data.map((video, idx) => (
           <div
@@ -112,12 +114,12 @@ export const VideoList: React.FC<VideoListProps> = ({
             <div className="flex items-center mb-2">
               <span className="text-pink-500 mr-1">❤</span>
               <span className="text-sm font-medium">
-                {video.like?.toLocaleString()} Likes
+                {video.like?.toLocaleString()} いいね
               </span>
             </div>
             {/* About the video (what & who) */}
             <div className="bg-gray-100 rounded p-3 text-xs text-gray-700 mb-3 h-full">
-              <h2 className="font-semibold mb-2">About the video</h2>
+              <h2 className="font-semibold mb-2">サマリー</h2>
               <h2>{video.analyse || "No description available."}</h2>
             </div>
             {/* Use Button */}
@@ -125,7 +127,7 @@ export const VideoList: React.FC<VideoListProps> = ({
               className="bg-[#E6E6FA] text-[#433D8B] px-4 py-1 rounded"
               onClick={() => onSelectVideo(video)}
             >
-              Use
+              選択
             </Button>
           </div>
         ))}

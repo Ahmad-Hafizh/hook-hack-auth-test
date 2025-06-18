@@ -52,13 +52,13 @@ export function StructureGenerator({
     setError(null);
     const payload = {
       input: {
-        video_url,
-        client_input,
+        demo: true,
+        keyword: client_input.searchword,
       },
     };
     console.log("INI PAYLOAD : ", payload);
     try {
-      const response = await callApi.post("/scene", payload);
+      const response = await callApi.post("/generate-content", payload);
       console.log("INI RESPONSE NEW API : ", response);
       if (response.data.success) {
         setGeneratedContent(response.data.data.generated_content);
@@ -212,7 +212,7 @@ export function StructureGenerator({
           onClick={callingAPI}
           disabled={loading}
         >
-          Regenerate
+          再生成
         </Button>
         <Button
           variant="outline"
@@ -225,7 +225,7 @@ export function StructureGenerator({
               : generatedContent.length === 0)
           }
         >
-          Download CSV
+          CSVダウンロード
         </Button>
         {!isEditing ? (
           <Button
@@ -234,11 +234,11 @@ export function StructureGenerator({
             onClick={handleEdit}
             disabled={loading || tableData.length === 0}
           >
-            Edit
+            編集
           </Button>
         ) : (
           <Button variant="default" size="sm" onClick={handleSave}>
-            Save
+            保存
           </Button>
         )}
       </div>

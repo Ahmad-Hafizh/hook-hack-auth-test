@@ -39,7 +39,7 @@ export interface FormData {
 
 const steps = [
   { id: 1, title: "ユーザー情報入力" },
-  { id: 2, title: "動画リスト" },
+  { id: 2, title: "動画選択" },
   { id: 3, title: "コメント選択" },
   { id: 4, title: "フック選択" },
   { id: 5, title: "コンテンツ生成" },

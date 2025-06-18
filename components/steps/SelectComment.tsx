@@ -107,12 +107,12 @@ export const SelectComment: React.FC<SelectCommentProps> = ({
       {/* About video card section */}
 
       <div className="w-full flex justify-start items-center mb-2">
-        <h2 className="text-2xl text-left font-semibold mb-6">About Video</h2>
+        <h2 className="text-2xl text-left font-semibold mb-6">動画情報</h2>
       </div>
       <div className="w-full flex flex-col items-center mb-8">
         <div className="w-full bg-white rounded-xl p-6 border border-gray-300 mb-4">
-          <div className="mb-4">
-            <h2>Summary</h2>
+          <div className="my-3">
+            <h2 className="text-lg font-semibold mb-4">サマリー</h2>
             <div className="w-full border rounded p-4 text-center text-base text-gray-800 font-medium">
               {selectedVideo.analyse || "No description available."}
             </div>
@@ -121,25 +121,25 @@ export const SelectComment: React.FC<SelectCommentProps> = ({
           {commentData && commentData.datas && (
             <div className="grid grid-cols-4 gap-2">
               <div className="border-r last:border-r-0 border-gray-300 flex flex-col items-center justify-center py-3">
-                <span className="text-sm text-gray-500 mb-1">Like</span>
+                <span className="text-sm text-gray-500 mb-1">いいね数</span>
                 <span className="text-lg font-semibold text-gray-800">
                   {commentData.datas.like?.toLocaleString() ?? "-"}
                 </span>
               </div>
               <div className="border-r last:border-r-0 border-gray-300 flex flex-col items-center justify-center py-3">
-                <span className="text-sm text-gray-500 mb-1">Comment</span>
+                <span className="text-sm text-gray-500 mb-1">コメント数</span>
                 <span className="text-lg font-semibold text-gray-800">
                   {commentData.datas.comment?.toLocaleString() ?? "-"}
                 </span>
               </div>
               <div className="border-r last:border-r-0 border-gray-300 flex flex-col items-center justify-center py-3">
-                <span className="text-sm text-gray-500 mb-1">Save</span>
+                <span className="text-sm text-gray-500 mb-1">シェア数</span>
                 <span className="text-lg font-semibold text-gray-800">
                   {commentData.datas.save?.toLocaleString() ?? "-"}
                 </span>
               </div>
               <div className="flex flex-col items-center justify-center py-3">
-                <span className="text-sm text-gray-500 mb-1">Share</span>
+                <span className="text-sm text-gray-500 mb-1">セーブ数</span>
                 <span className="text-lg font-semibold text-gray-800">
                   {commentData.datas.share?.toLocaleString() ?? "-"}
                 </span>
@@ -149,9 +149,9 @@ export const SelectComment: React.FC<SelectCommentProps> = ({
         </div>
       </div>
       {/* End about video card section */}
-      <div className="w-full flex justify-start items-center mt-5 mb-2">
-        <h2 className="text-2xl text-left font-semibold mb-2">
-          Comments & Stats
+      <div className="w-full flex justify-center items-center mt-5 mb-2">
+        <h2 className="text-2xl text-center font-semibold mb-2">
+          参考にしたいコメントを選択してください。
         </h2>
       </div>
       {commentData && (
@@ -162,24 +162,28 @@ export const SelectComment: React.FC<SelectCommentProps> = ({
           <table className="min-w-full border-separate border-spacing-y-3 mb-4">
             <thead>
               <tr>
-                <th className="px-2 py-1 border">Comment</th>
-                <th className="px-2 py-1 border">Value</th>
-                <th className="px-2 py-1 border">Like</th>
-                <th className="px-2 py-1 border">Action</th>
+                <th className="px-2 py-1 border">コメント</th>
+                <th className="px-2 py-1 border w-[150px]">価値</th>
+                <th className="px-2 py-1 border w-[100px]">いいね数</th>
+                <th className="px-2 py-1 border">選択</th>
               </tr>
             </thead>
             <tbody>
               {commentData.comments.map((c: any, idx: number) => (
                 <tr key={c.text + "-" + c.like + "-" + (c.name || idx)}>
                   <td className="px-2 py-1 border">{c.text}</td>
-                  <td className="px-2 py-1 border">{c.value}</td>
-                  <td className="px-2 py-1 border">{c.like}</td>
+                  <td className="px-2 py-1 border w-[150px] text-center">
+                    {c.value}
+                  </td>
+                  <td className="px-2 py-1 border w-[100px] text-center">
+                    {c.like}
+                  </td>
                   <td className="px-2 py-1 border">
                     <Button
                       className="bg-[#E6E6FA] text-[#433D8B] px-4 py-1 rounded-full"
                       onClick={() => onSelectComment && onSelectComment(c)}
                     >
-                      Use
+                      選択
                     </Button>
                   </td>
                 </tr>

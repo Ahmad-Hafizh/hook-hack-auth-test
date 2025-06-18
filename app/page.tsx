@@ -1,12 +1,35 @@
-"use client";
-import { MultiStepForm } from "@/components/multi-step-form";
+import Navbar from "@/components/navbar";
+import Hero from "@/components/landingpage/hero";
+import TrustedBy from "@/components/landingpage/trusted-by";
+import Features from "@/components/landingpage/features";
+import DashboardPreview from "@/components/landingpage/dashboard-preview";
+import Testimonial from "@/components/landingpage/testimonial";
+import FeaturesDetail from "@/components/landingpage/features-detail";
+import AIFeatures from "@/components/landingpage/ai-features";
+import CTA from "@/components/landingpage/cta";
+import Footer from "@/components/footer";
+import Newsletter from "@/components/landingpage/newsletter";
+import Benefit from "@/components/landingpage/benefit";
+import MemberShowcase from "@/components/member-showcase";
+import CompanyFooter from "@/components/company-footer";
 
-export default function Home() {
+export default function LandingPage() {
   return (
-    <div className="min-h-screen bg-gradient-to-br from-slate-50 via-white to-purple-50 flex items-center justify-center py-8 px-2 sm:px-6 md:px-12 lg:px-24">
-      <div className="w-full max-w-5xl mx-auto">
-        <MultiStepForm />
-      </div>
+    <div className="min-h-screen bg-white">
+      <Navbar />
+      <Hero />
+      {/* <TrustedBy /> */}
+      <FeaturesDetail />
+      <Benefit />
+      <MemberShowcase />
+      {/* <Features /> */}
+      {/* <DashboardPreview />
+      <Testimonial />
+      <AIFeatures /> */}
+      <CTA />
+      {/* <Newsletter /> */}
+      <CompanyFooter />
+      <Footer />
     </div>
   );
 }

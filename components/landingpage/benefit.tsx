@@ -45,8 +45,8 @@ export default function Features() {
       icon: <TrendingUp className="w-8 h-8 text-[#FE2C55]" />,
       title: "ディスプレイ広告のクリエイティブのセンターピンであるhook",
       points: [
-        "Discover trending hashtags, sounds, and content formats to stay ahead of the curve.",
-        "Analyze which hooks drive the most engagement.",
+        "ディスプレイ広告の質を高めるためには、脳のシステム2（時間はかかるが論理的で正確な判断）の前に働くシステム1（直感的で10歳児レベルの判断力）を突破するため、ユーザーにとって自分事化できるhookが重要です",
+        "広告で伝えたい商品・サービスの必要性をユーザーの文脈に合わせた上で、hookを制作していくことが望ましいです（hookがずれるとただの煩わしい「広告」になる懸念があります）",
       ],
       color: "#FE2C55",
     },
@@ -54,30 +54,30 @@ export default function Features() {
       icon: <Users className="w-8 h-8 text-[#25F4EE]" />,
       title: "国内Webマーケティングの市場構造｜生成AIの現在地点",
       points: [
-        "Understand your audience demographics, behavior patterns, and optimal posting times.",
-        "Leverage AI insights to optimize your marketing strategy.",
+        "現状は生成AIがクリエイティブ領域にも活用が進み始めていますが、クオリティはプロンプトを投げるディレクター・クリエイターの力量に依るところが大きく、プロンプトが一般的な場合、LLMの性質上、最大公約数的になる傾向が強い課題がありま",
+        "ショート動画のクリエイター市場は2000年代から歴史のあるSEM市場（SEO・リスティング広告）と比較して若手の方々が多い特徴がありますが、クライアントの事業理解やユーザーの解像度に課題を抱えている場合、上司・クライアントに企画を通すことや、成果を向上することのハードルが高いケースがあります",
       ],
       color: "#25F4EE",
     },
   ];
 
   return (
-    <section id="features" ref={ref} className="px-4 py-16 bg-gray-50">
+    <section id="features" ref={ref} className="px-10 py-32 bg-gray-50">
       <div className="max-w-7xl mx-auto">
         <div
           className={`text-center mb-16 transition-all duration-700 ${
             isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-10"
           }`}
         >
-          <h2 className="text-3xl lg:text-4xl font-bold text-gray-900 mb-4">
-            Everything you need to analyze TikTok content
+          <h2 className="text-3xl lg:text-3xl font-bold text-gray-900 mb-4">
+            今後、ますますショート動画広告、特にHookの重要性が高まることが想定されます
           </h2>
           <p className="text-xl text-gray-600 max-w-3xl mx-auto">
-            Comprehensive tools to track performance, understand trends, and
-            optimize your TikTok strategy
+            Hook is going to be the center of display ads. It is important to
+            take a look at this hook.
           </p>
         </div>
-        <div className="grid md:grid-cols-3 gap-8 w-full">
+        <div className="flex flex-col gap-8 w-full">
           {featureCards.map((card, index) => (
             <Card
               key={card.title}
@@ -95,14 +95,14 @@ export default function Features() {
                 >
                   {card.icon}
                 </div>
-                <h3 className="text-xl font-semibold text-gray-900 mb-4 mt-3">
+                <h3 className="text-2xl font-semibold text-gray-900 mb-4 mt-3">
                   {card.title}
                 </h3>
                 <ul className="mt-7 space-y-1">
                   {card.points.map((point, idx) => (
                     <li
                       key={idx}
-                      className="text-gray-600 text-sm leading-relaxed text-left mb-5"
+                      className="text-gray-600 text-lg leading-relaxed text-left mb-5 px-14"
                     >
                       - {point}
                     </li>
@@ -111,6 +111,13 @@ export default function Features() {
               </CardContent>
             </Card>
           ))}
+        </div>
+        <div className="mt-20">
+          <h2 className="text-2xl font-semibold text-gray-900 mb-4 text-center">
+            上記のような市場構造において、今後のWeb市場のセンターピンであるhookの精度を高める
+            ため、ユーザーの生の声としてオーガニック投稿のコメントを抽出し、企画案の出力まで行いま
+            す
+          </h2>
         </div>
       </div>
     </section>

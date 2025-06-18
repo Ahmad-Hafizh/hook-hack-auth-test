@@ -59,18 +59,18 @@ export default function Navbar() {
         {/* Desktop navigation */}
         <nav className="hidden md:flex items-center space-x-8">
           <a
-            href="#features"
-            className="text-gray-600 hover:text-gray-900"
-            onClick={handleSmoothScroll}
-          >
-            Features
-          </a>
-          <a
             href="#benefit"
             className="text-gray-600 hover:text-gray-900"
             onClick={handleSmoothScroll}
           >
             Benefit
+          </a>
+          <a
+            href="#features"
+            className="text-gray-600 hover:text-gray-900"
+            onClick={handleSmoothScroll}
+          >
+            Features
           </a>
           <a
             href="#about"
@@ -96,15 +96,16 @@ export default function Navbar() {
             className="text-gray-600 hover:text-gray-900 py-2"
             onClick={handleSmoothScroll}
           >
-            Features
+            Benefit
           </a>
           <a
             href="#benefit"
             className="text-gray-600 hover:text-gray-900 py-2"
             onClick={handleSmoothScroll}
           >
-            Benefit
+            Feature
           </a>
+
           <a
             href="#about"
             className="text-gray-600 hover:text-gray-900 py-2"

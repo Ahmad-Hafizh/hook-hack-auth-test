@@ -1,55 +1,24 @@
-import type { Metadata } from "next";
-import { Noto_Sans_JP } from "next/font/google";
-import { ThemeProvider } from "@/components/theme-provider";
-import type React from "react";
-import "@/app/globals.css";
-
-const noto = Noto_Sans_JP({ subsets: ["latin"], variable: "--font-jp" });
-
-export const metadata: Metadata = {
-  title: "Clip-Studio - TikTok Analysis Tool | CVR Optimization",
-  description: "Tool for TikTok video CVR analysis and content optimization",
-};
+import type React from "react"
+import "@/app/globals.css"
+import { ThemeProvider } from "@/components/theme-provider"
 
 export default function RootLayout({
   children,
 }: {
-  children: React.ReactNode;
+  children: React.ReactNode
 }) {
   return (
     <html lang="en" suppressHydrationWarning>
       <head>
         <title>Clip-Studio | TikTok Video Analysis Tool</title>
-        <meta
-          name="description"
-          content="Advanced TikTok video analytics and insights for creators and brands"
-        />
+        <meta name="description" content="Advanced TikTok video analytics and insights for creators and brands" />
         <link rel="icon" href="/tiktok-favicon.svg" type="image/svg+xml" />
       </head>
-      <body className={`${noto.className}`}>
-        {/* Navbar */}
-        <header className="fixed top-0 left-0 right-0 z-50 px-4 py-4 transition-all duration-300 bg-white shadow-md">
-          <div className="max-w-7xl mx-auto flex items-center justify-between">
-            <div className="flex items-center space-x-2">
-              <a href="/">
-                {/* <img src="/clipstudio.svg" alt="logo" className="h-9 w-auto my-3" /> */}
-                <h2 className="text-3xl font-bold py-3">Hook Hack</h2>
-              </a>
-            </div>
-            <div className="flex items-center gap-6">
-              {/* <a href="#dashboard" className="text-gray-700 hover:text-purple-700 transition-colors">Dashboard</a>
-              <a href="#analytics" className="text-gray-700 hover:text-purple-700 transition-colors">Analytics</a>
-              <a href="#settings" className="text-gray-700 hover:text-purple-700 transition-colors">Settings</a>
-              <div className="w-8 h-8 bg-gray-200 rounded-full flex items-center justify-center text-gray-400 font-bold">A</div> */}
-            </div>
-          </div>
-        </header>
-        <div className="h-16"></div>
-        <style>{`html { scroll-behavior: smooth; }`}</style>
-        <ThemeProvider defaultTheme="light" forcedTheme="light">
+      <body>
+        <ThemeProvider defaultTheme="light">
           {children}
         </ThemeProvider>
       </body>
     </html>
-  );
+  )
 }

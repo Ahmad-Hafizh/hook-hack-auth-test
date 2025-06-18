@@ -24,11 +24,41 @@ const fetchVideoList = async (searchword: string, amount: number = 10) => {
 };
 
 const mockData = [
-  { url: "https://www.tiktok.com/@example/video/123", like: 389000, number: 1 },
-  { url: "https://www.tiktok.com/@example/video/456", like: 12000, number: 2 },
-  { url: "https://www.tiktok.com/@example/video/789", like: 5400, number: 3 },
-  { url: "https://www.tiktok.com/@example/video/101", like: 3200, number: 4 },
-  { url: "https://www.tiktok.com/@example/video/102", like: 2100, number: 5 },
+  {
+    tiktok_url: "https://www.tiktok.com/@example/video/123",
+    like: 389000,
+    analyse: "This is a sample analysis for video 1.",
+    storage_url: "https://res.cloudinary.com/demo/video/upload/sample1.mp4",
+    id: "123",
+  },
+  {
+    tiktok_url: "https://www.tiktok.com/@example/video/456",
+    like: 12000,
+    analyse: "This is a sample analysis for video 2.",
+    storage_url: "https://res.cloudinary.com/demo/video/upload/sample2.mp4",
+    id: "456",
+  },
+  {
+    tiktok_url: "https://www.tiktok.com/@example/video/789",
+    like: 5400,
+    analyse: "This is a sample analysis for video 3.",
+    storage_url: "https://res.cloudinary.com/demo/video/upload/sample3.mp4",
+    id: "789",
+  },
+  {
+    tiktok_url: "https://www.tiktok.com/@example/video/101",
+    like: 3200,
+    analyse: "This is a sample analysis for video 4.",
+    storage_url: "https://res.cloudinary.com/demo/video/upload/sample4.mp4",
+    id: "101",
+  },
+  {
+    tiktok_url: "https://www.tiktok.com/@example/video/102",
+    like: 2100,
+    analyse: "This is a sample analysis for video 5.",
+    storage_url: "https://res.cloudinary.com/demo/video/upload/sample5.mp4",
+    id: "102",
+  },
 ];
 
 export const VideoList: React.FC<VideoListProps> = ({
@@ -63,27 +93,32 @@ export const VideoList: React.FC<VideoListProps> = ({
       <div className="w-full grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-x-5 gap-y-5">
         {data.map((video, idx) => (
           <div
-            key={video.url}
+            key={video.tiktok_url}
             className="bg-white border rounded-lg shadow-md flex flex-col p-4 min-w-[250px] max-w-3xl mx-auto"
           >
             {/* Video Placeholder */}
-            <div className="w-full h-80 bg-gray-200 flex items-center justify-center rounded mb-3">
-              <span className="text-gray-500">video</span>
+            <div className="w-full h-96 bg-gray-200 flex items-center justify-center rounded mb-3">
+              {video.storage_url ? (
+                <video
+                  src={video.storage_url}
+                  controls
+                  className="w-full h-full object-cover rounded"
+                />
+              ) : (
+                <span className="text-gray-500">video</span>
+              )}
             </div>
             {/* Likes */}
             <div className="flex items-center mb-2">
               <span className="text-pink-500 mr-1">❤</span>
               <span className="text-sm font-medium">
-                {video.like.toLocaleString()} Likes
+                {video.like?.toLocaleString()} Likes
               </span>
             </div>
             {/* About the video (what & who) */}
-            <div className="bg-gray-100 rounded p-3 text-xs text-gray-700 mb-3">
+            <div className="bg-gray-100 rounded p-3 text-xs text-gray-700 mb-3 h-full">
               <h2 className="font-semibold mb-2">About the video</h2>
-              <h2>
-                This is the sample text for the description, the what, and the
-                who of the video.
-              </h2>
+              <h2>{video.analyse || "No description available."}</h2>
             </div>
             {/* Use Button */}
             <Button

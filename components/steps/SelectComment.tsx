@@ -12,15 +12,54 @@ const mockResponse = {
   success: true,
   data: {
     comments: [
-      { name: "User A", like: 1000, text: "Sample comment 1", number: 1 },
-      { name: "User B", like: 500, text: "Sample comment 2", number: 2 },
-      { name: "User C", like: 200, text: "Sample comment 3", number: 3 },
+      {
+        name: "えぬえふ",
+        like: 3617,
+        text: "女子サッカー部の者です。左のやつ時間置いて2回塗るとまじで焼けないです。アネッサと比較しても肌に優しいしコスパが良すぎます。毎日太陽にさらされてるのに肌白いと褒めていただけるので本当にオススメします",
+        value: "機能的価値",
+      },
+      {
+        name: "すいれん 柴石",
+        like: 3307,
+        text: "どっちも使ったことあるけど白くなるのは伸び悪いし日焼け効果高いのはアリーだから間違えないで",
+        value: "機能的価値",
+      },
+      {
+        name: "( ◜ᴗ◝)",
+        like: 1636,
+        text: "Bioreばり良い、、。顔に使ってるんですけど、使い始めてから焼けてないって断言出来るくらい焼けてないです！！！",
+        value: "機能的価値",
+      },
+      {
+        name: "B型女子",
+        like: 1558,
+        text: "女子サッカー部の者です。左のやつ時間置いて2回塗るとまじで焼けないです。アネッサと比較しても肌に優しいしコスパが良すぎます。毎日太陽にさらされてるのに肌白いと褒めていただけるので本当にオススメします",
+        value: "機能的価値",
+      },
+      {
+        name: "小麦粉",
+        like: 806,
+        text: "右の日焼け止めを使ったらトーンアップしたおかげで、顔色悪いよ？大丈夫？と言われたので色黒さんは顔には向いてなさそうです😂",
+        value: "機能的価値",
+      },
+      {
+        name: "",
+        like: 445,
+        text: "2つ目水に濡れたら白くなって手にカルピスついてるみたいになるから手の甲とかには塗らん方がいい🥲👍🏻",
+        value: "機能的価値",
+      },
+      {
+        name: "まる",
+        like: 424,
+        text: "右を愛用している者です！ベタつきも少なく、光拡散ラメが入っているのでトーンアップ効果があります。よく白いねと言われるほど、最強です(><)♡♡これはリピ買いするほど良いのでオススメです！",
+        value: "機能的価値",
+      },
     ],
     datas: {
-      likes: 389000,
-      comments: 2164,
-      saves: 47800,
-      shares: 4479,
+      like: 389000,
+      comment: 999,
+      save: 999,
+      share: 999,
     },
   },
 };
@@ -34,7 +73,7 @@ export const SelectComment: React.FC<SelectCommentProps> = ({
   useEffect(() => {
     console.log("INI SELECTED VIDEO : ", selectedVideo);
     const fetchComments = async () => {
-      if (selectedVideo && selectedVideo.url) {
+      if (selectedVideo) {
         try {
           const payload = {
             input: { demo: true, url: selectedVideo.url, amount: 10 },
@@ -71,49 +110,43 @@ export const SelectComment: React.FC<SelectCommentProps> = ({
         <h2 className="text-2xl text-left font-semibold mb-6">About Video</h2>
       </div>
       <div className="w-full flex flex-col items-center mb-8">
-        <div className="w-full  bg-white rounded-xl  p-6 border border-gray-400 mb-4">
-          <div className="mb-2 text-sm text-gray-600 font-semibold tracking-wide">
-            Video sample
+        <div className="w-full bg-white rounded-xl p-6 border border-gray-300 mb-4">
+          <div className="mb-4">
+            <h2>Summary</h2>
+            <div className="w-full border rounded p-4 text-center text-base text-gray-800 font-medium">
+              {selectedVideo.analyse || "No description available."}
+            </div>
           </div>
-          <div className="text-sm text-gray-600">Sample brief description</div>
+
+          {commentData && commentData.datas && (
+            <div className="grid grid-cols-4 gap-2">
+              <div className="border-r last:border-r-0 border-gray-300 flex flex-col items-center justify-center py-3">
+                <span className="text-sm text-gray-500 mb-1">Like</span>
+                <span className="text-lg font-semibold text-gray-800">
+                  {commentData.datas.like?.toLocaleString() ?? "-"}
+                </span>
+              </div>
+              <div className="border-r last:border-r-0 border-gray-300 flex flex-col items-center justify-center py-3">
+                <span className="text-sm text-gray-500 mb-1">Comment</span>
+                <span className="text-lg font-semibold text-gray-800">
+                  {commentData.datas.comment?.toLocaleString() ?? "-"}
+                </span>
+              </div>
+              <div className="border-r last:border-r-0 border-gray-300 flex flex-col items-center justify-center py-3">
+                <span className="text-sm text-gray-500 mb-1">Save</span>
+                <span className="text-lg font-semibold text-gray-800">
+                  {commentData.datas.save?.toLocaleString() ?? "-"}
+                </span>
+              </div>
+              <div className="flex flex-col items-center justify-center py-3">
+                <span className="text-sm text-gray-500 mb-1">Share</span>
+                <span className="text-lg font-semibold text-gray-800">
+                  {commentData.datas.share?.toLocaleString() ?? "-"}
+                </span>
+              </div>
+            </div>
+          )}
         </div>
-        {/* Navigation boxes */}
-        {commentData && (
-          <div className="flex flex-row justify-between gap-5 w-full mt-1">
-            <div className="h-24 flex items-center justify-center bg-white rounded-lg border border-gray-400 w-full font-bold px-5 py-3 flex-col gap-2">
-              <h2 className="w-full font-semibold text-gray-600 text-sm">
-                Likes
-              </h2>
-              <h3 className="w-full text-xl text-gray-800">
-                {commentData.datas.likes.toLocaleString()}
-              </h3>
-            </div>
-            <div className="h-24 flex items-center justify-center bg-white rounded-lg border border-gray-400 w-full font-bold px-5 py-3 flex-col gap-2">
-              <h2 className="w-full font-semibold text-gray-600 text-sm">
-                Comments
-              </h2>
-              <h3 className="w-full text-xl text-gray-800">
-                {commentData.datas.comments.toLocaleString()}
-              </h3>
-            </div>
-            <div className="h-24 flex items-center justify-center bg-white rounded-lg border border-gray-400 w-full font-bold px-5 py-1 flex-col gap-2">
-              <h2 className="w-full font-semibold text-gray-600 text-sm">
-                Saves
-              </h2>
-              <h3 className="w-full text-xl text-gray-800">
-                {commentData.datas.saves.toLocaleString()}
-              </h3>
-            </div>
-            <div className="h-24 flex items-center justify-center bg-white rounded-lg border border-gray-400 w-full font-bold px-5 py-1 flex-col gap-2">
-              <h2 className="w-full font-semibold text-gray-600 text-sm">
-                Shares
-              </h2>
-              <h3 className="w-full text-xl text-gray-800">
-                {commentData.datas.shares.toLocaleString()}
-              </h3>
-            </div>
-          </div>
-        )}
       </div>
       {/* End about video card section */}
       <div className="w-full flex justify-start items-center mt-5 mb-2">
@@ -124,9 +157,7 @@ export const SelectComment: React.FC<SelectCommentProps> = ({
       {commentData && (
         <>
           {/* <div className="mb-4 w-full flex justify-start items-center">
-            <strong>Stats: </strong> Likes: {commentData.datas.likes}, Comments:{" "}
-            {commentData.datas.comments}, Saves: {commentData.datas.saves},
-            Shares: {commentData.datas.shares}
+            <strong>Stats: </strong> Likes: {commentData.datas.likes}, Comments: {commentData.datas.comments}, Saves: {commentData.datas.saves}, Shares: {commentData.datas.shares}
           </div> */}
           <table className="min-w-full border-separate border-spacing-y-3 mb-4">
             <thead>
@@ -139,14 +170,13 @@ export const SelectComment: React.FC<SelectCommentProps> = ({
             </thead>
             <tbody>
               {commentData.comments.map((c: any, idx: number) => (
-                <tr key={c.number}>
+                <tr key={c.text + "-" + c.like + "-" + (c.name || idx)}>
                   <td className="px-2 py-1 border">{c.text}</td>
-                  <td className="px-2 py-1 border">Functional</td>
+                  <td className="px-2 py-1 border">{c.value}</td>
                   <td className="px-2 py-1 border">{c.like}</td>
                   <td className="px-2 py-1 border">
                     <Button
                       className="bg-[#E6E6FA] text-[#433D8B] px-4 py-1 rounded-full"
-                      disabled={idx !== 0}
                       onClick={() => onSelectComment && onSelectComment(c)}
                     >
                       Use

@@ -77,6 +77,7 @@ export function MultiStepForm() {
   const [videoListData, setVideoListData] = useState<any[]>([]);
   const [structureResult, setStructureResult] = useState<any>(null);
   const [selectedVideo, setSelectedVideo] = useState<any>(null);
+  const [selectedComment, setSelectedComment] = useState<any>(null);
 
   const updateFormData = (section: keyof FormData, data: any) => {
     setUserInputData((prev) => ({
@@ -154,13 +155,17 @@ export function MultiStepForm() {
           <SelectComment
             videoListData={videoListData}
             selectedVideo={selectedVideo}
-            onSelectComment={() => setCurrentStep(4)}
+            onSelectComment={(comment) => {
+              setSelectedComment(comment);
+              setCurrentStep(4);
+            }}
           />
         );
       case 4:
         return (
           <SelectHook
             searchword={userInputData.searchword}
+            comment={selectedComment}
             onSelectHook={() => setCurrentStep(5)}
           />
         );

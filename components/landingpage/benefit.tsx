@@ -54,7 +54,7 @@ export default function Features() {
       icon: <Users className="w-8 h-8 text-[#25F4EE]" />,
       title: "国内Webマーケティングの市場構造｜生成AIの現在地点",
       points: [
-        "現状は生成AIがクリエイティブ領域にも活用が進み始めていますが、クオリティはプロンプトを投げるディレクター・クリエイターの力量に依るところが大きく、プロンプトが一般的な場合、LLMの性質上、最大公約数的になる傾向が強い課題がありま",
+        "現状は生成AIがクリエイティブ領域にも活用が進み始めていますが、クオリティはプロンプトを投げるディレクター・クリエイターの力量に依るところが大きく、プロンプトが一般的な場合、LLMの性質上、最大公約数的になる傾向が強い課題があります",
         "ショート動画のクリエイター市場は2000年代から歴史のあるSEM市場（SEO・リスティング広告）と比較して若手の方々が多い特徴がありますが、クライアントの事業理解やユーザーの解像度に課題を抱えている場合、上司・クライアントに企画を通すことや、成果を向上することのハードルが高いケースがあります",
       ],
       color: "#25F4EE",
@@ -72,10 +72,6 @@ export default function Features() {
           <h2 className="text-3xl lg:text-3xl font-bold text-gray-900 mb-4">
             今後、ますますショート動画広告、特にHookの重要性が高まることが想定されます
           </h2>
-          <p className="text-xl text-gray-600 max-w-3xl mx-auto">
-            Hook is going to be the center of display ads. It is important to
-            take a look at this hook.
-          </p>
         </div>
         <div className="flex flex-col gap-8 w-full">
           {featureCards.map((card, index) => (
@@ -102,7 +98,7 @@ export default function Features() {
                   {card.points.map((point, idx) => (
                     <li
                       key={idx}
-                      className="text-gray-600 text-lg leading-relaxed text-left mb-5 px-14"
+                      className="text-gray-600 text-sm leading-relaxed text-left mb-5 px-24 py-2"
                     >
                       - {point}
                     </li>
@@ -114,9 +110,7 @@ export default function Features() {
         </div>
         <div className="mt-20">
           <h2 className="text-2xl font-semibold text-gray-900 mb-4 text-center">
-            上記のような市場構造において、今後のWeb市場のセンターピンであるhookの精度を高める
-            ため、ユーザーの生の声としてオーガニック投稿のコメントを抽出し、企画案の出力まで行いま
-            す
+            上記のような市場構造において、今後のWeb市場のセンターピンであるhookの精度を高めるため、ユーザーの生の声としてオーガニック投稿のコメントを抽出し企画案の出力まで行います
           </h2>
         </div>
       </div>

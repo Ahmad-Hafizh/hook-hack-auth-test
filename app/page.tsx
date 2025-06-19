@@ -26,7 +26,7 @@ export default function LandingPage() {
       {/* <DashboardPreview />
       <Testimonial />
       <AIFeatures /> */}
-      <CTA />
+      {/* <CTA /> */}
       {/* <Newsletter /> */}
       <CompanyFooter />
       <Footer />

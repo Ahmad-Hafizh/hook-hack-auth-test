@@ -45,6 +45,14 @@ export default function CompanyFooter() {
                 >
                   https://samurai-style.tokyo/
                 </a>
+                <div className="mt-6 w-full">
+                  <a
+                    href="/app"
+                    className="inline-block px-8 py-3 bg-[#25F4EE] text-white font-bold rounded-lg shadow hover:bg-[#1ecbe1] transition-colors text-lg"
+                  >
+                    無料トライアルを申し込む
+                  </a>
+                </div>
               </div>
             </div>
           </div>
@@ -52,7 +60,7 @@ export default function CompanyFooter() {
         <div className="flex-1 flex justify-center items-center">
           <div className="rounded-lg overflow-hidden shadow-lg w-[350px] h-[500px] bg-gray-100">
             <Image
-              src="https://images.unsplash.com/photo-1719336870427-c8409dea0be4?q=80&w=987&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+              src="/building.png"
               alt="Company Building"
               width={240}
               height={340}

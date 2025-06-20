@@ -36,7 +36,7 @@ export default function Hero() {
   return (
     <section
       ref={ref}
-      className="pt-32 bg-gradient-to-br from-[#F0F9FF] via-[#FDF6F0] to-white min-h-screen h-screen flex flex-col items-center justify-center"
+      className="pt-32 bg-gradient-to-br from-[#c2a3ff] via-[white] to-[#e5d2fa] min-h-screen h-screen flex flex-col items-center justify-center"
     >
       <div className=" mx-auto w-full flex flex-col items-center h-full">
         {/* Video Centered */}
@@ -53,13 +53,13 @@ export default function Hero() {
               autoPlay
               loop
               playsInline
-              className="rounded-lg w-full h-full object-cover"
+              className="rounded-lg w-full h-full object-cover border-4 border-[#4000B3]"
             />
           </div>
         </div>
         {/* Main Headline */}
         <h1
-          className={`text-3xl md:text-3xl lg:text-4xl font-bold text-center text-[#17153B] mb-4 tracking-tight transition-all duration-1000 w-full ${
+          className={`text-3xl md:text-3xl lg:text-4xl font-bold text-center text-[#4000B3] mb-4 tracking-tight transition-all duration-1000 w-full ${
             isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-10"
           }`}
         >
@@ -67,7 +67,7 @@ export default function Hero() {
         </h1>
         {/* Subheadline */}
         <div className="flex flex-col items-center mb-5">
-          <span className="inline-block text-[#433D8B] px-4 py-1 font-semibold text-4xl mb-2">
+          <span className="inline-block text-[#6D01D7] px-4 py-1 font-semibold text-4xl mb-2">
             『Hook Hack』
           </span>
         </div>
@@ -76,21 +76,21 @@ export default function Hero() {
           <a href="/app">
             <Button
               size="lg"
-              className="bg-gradient-to-r from-[#25F4EE] to-[#FE2C55] hover:from-[#FE2C55] hover:to-[#25F4EE] text-white px-10 py-6 text-lg font-bold rounded-md shadow-lg transition-all"
+              className="bg-gradient-to-r from-[#4000B3] to-[#6D01D7] hover:from-[#6D01D7] hover:to-[#4000B3] text-white px-10 py-6 text-lg font-bold rounded-md shadow-lg transition-all border-2 border-[#75f567]"
             >
               無料トライアルを申し込む
             </Button>
           </a>
         </div>
         {/* Paragraph Section */}
-        <div className="w-full bg-white/80 p-8 mt-12 flex flex-col items-center h-full">
-          <h2 className="text-3xl font-bold text-[#433D8B] mb-3">
+        <div className="w-full p-8 mt-12 flex flex-col items-center h-full ">
+          <h2 className="text-3xl font-bold text-[#6D01D7] mb-3">
             Hook Hackとは
           </h2>
-          <p className="text-lg text-gray-700 mb-2 text-center">
+          <p className="text-lg text-black mb-2 text-center">
             離脱が多いショート動画広告の最初の3秒（Hook）を最適化（Hack）するツールです
           </p>
-          <p className="text-lg text-gray-700 text-center">
+          <p className="text-lg text-black text-center">
             実際にユーザーがコメントしている内容を元にHookの言葉選びができるため、
             <br />
             企画案をまとめる際に上司・クライアントへの説得力を高めることができ、ユーザーにも自分事化されやすくなります

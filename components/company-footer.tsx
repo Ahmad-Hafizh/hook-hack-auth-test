@@ -5,35 +5,41 @@ export default function CompanyFooter() {
     <footer className="w-full bg-white py-32 mt-5">
       <div className="max-w-6xl mx-auto px-4 flex flex-col md:flex-row items-start md:items-center gap-8 md:gap-16">
         <div className="flex-1 min-w-[250px]">
-          <h3 className="text-4xl font-bold mb-8 text-[#17153B]">会社概要</h3>
+          <h3 className="text-4xl font-bold mb-8 text-[#4000B3]">会社概要</h3>
           <div className="w-full">
             <div className="grid grid-cols-12 gap-y-4 gap-x-2 text-gray-800 text-base">
-              <div className="col-span-3 font-semibold text-xl">名称</div>
+              <div className="col-span-3 font-semibold text-xl text-[#6D01D7]">
+                名称
+              </div>
               <div className="col-span-9">
                 サムライスタイル株式会社
                 <br />
-                <span className="text-sm text-gray-500">
+                <span className="text-sm text-[#c2a3ff]">
                   (Samurai Style Co., Ltd.)
                 </span>
               </div>
 
-              <div className="col-span-3 font-semibold text-xl">代表取締役</div>
+              <div className="col-span-3 font-semibold text-xl text-[#6D01D7]">
+                代表取締役
+              </div>
               <div className="col-span-9">
                 橋本 圭司（
-                <a href="#" className="text-blue-600 underline">
+                <a href="#" className="text-[#4000B3] underline">
                   プロフィール
                 </a>
                 ）
               </div>
 
-              <div className="col-span-3 font-semibold text-xl">住所</div>
+              <div className="col-span-3 font-semibold text-xl text-[#6D01D7]">
+                住所
+              </div>
               <div className="col-span-9">
                 〒150-0043
                 <br />
                 東京都渋谷区道玄坂1-10-8 渋谷道玄坂東急ビル2F
               </div>
 
-              <div className="col-span-3 font-semibold text-xl">
+              <div className="col-span-3 font-semibold text-xl text-[#6D01D7]">
                 コーポレートサイト
               </div>
               <div className="col-span-9">
@@ -41,7 +47,7 @@ export default function CompanyFooter() {
                   href="https://samurai-style.tokyo/"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="text-blue-600 underline"
+                  className="text-[#4000B3] underline"
                 >
                   https://samurai-style.tokyo/
                 </a>
@@ -50,7 +56,7 @@ export default function CompanyFooter() {
           </div>
         </div>
         <div className="flex-1 flex justify-center items-center">
-          <div className="rounded-lg overflow-hidden shadow-lg w-[350px] h-[500px] bg-gray-100">
+          <div className="rounded-lg overflow-hidden shadow-lg w-[350px] h-[500px] bg-[#c2a3ff]">
             <Image
               src="/building.png"
               alt="Company Building"

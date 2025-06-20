@@ -193,7 +193,7 @@ export function MultiStepForm() {
       initial={{ opacity: 0, y: 20 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.5 }}
-      className="w-full  min-h-screen flex flex-col justify-center"
+      className="w-full min-h-screen flex flex-col justify-center "
     >
       {/* Stepper Header OUTSIDE Card */}
       <div className="p-8 text-black">
@@ -206,16 +206,16 @@ export function MultiStepForm() {
                   className={`flex items-center justify-center w-8 h-8 rounded-full text-md font-bold transition-all duration-200
                     ${
                       currentStep === step.id
-                        ? "bg-[#433D8B] text-white shadow-lg"
+                        ? "bg-[#4000B3] text-white shadow-lg"
                         : currentStep > step.id
-                        ? "bg-[#433D8B] text-white"
-                        : "bg-[#DDE6ED] text-black"
+                        ? "bg-[#6D01D7] text-white"
+                        : "bg-[#c2a3ff] text-black"
                     }
                   `}
                 >
                   {step.id}
                 </div>
-                <span className="text-xs mt-2 text-[#17153B] font-medium whitespace-nowrap mx-3">
+                <span className="text-xs mt-2 text-[#4000B3] font-medium whitespace-nowrap mx-3">
                   {step.title}
                 </span>
               </div>
@@ -223,7 +223,7 @@ export function MultiStepForm() {
               {idx < steps.length - 1 && (
                 <div
                   className={`h-[2px] -mt-5 w-12 mx-2 transition-colors duration-200 ${
-                    currentStep > step.id ? "bg-[#433D8B]" : "bg-[#DDE6ED]"
+                    currentStep > step.id ? "bg-[#4000B3]" : "bg-[#c2a3ff]"
                   }`}
                 />
               )}
@@ -241,7 +241,7 @@ export function MultiStepForm() {
             <Button
               variant="outline"
               onClick={prevStep}
-              className="flex items-center gap-2 border-[#2E236C] text-[#2E236C] bg-[#DDE6ED] hover:bg-[#9DB2BF] transition-colors"
+              className="flex items-center gap-2 text-[#4000B3] bg-[#c2a3ff] hover:bg-[#6D01D7] hover:text-white transition-colors"
             >
               <ChevronLeft className="w-4 h-4" />
               前に戻る
@@ -253,7 +253,7 @@ export function MultiStepForm() {
             <Button
               type="submit"
               form="user-input-form"
-              className="bg-gradient-to-r from-[#17153B] to-[#2E236C] text-white flex items-center gap-2 transition-all duration-200 transform hover:scale-105"
+              className="bg-gradient-to-r from-[#4000B3] to-[#6D01D7] text-white flex items-center gap-2 transition-all duration-200 transform hover:scale-105"
             >
               次のステップへ
               <ChevronRight className="w-4 h-4" />
@@ -263,7 +263,7 @@ export function MultiStepForm() {
             <Button
               disabled
               onClick={nextStep}
-              className="bg-gradient-to-r from-[#17153B] to-[#2E236C] text-white flex items-center gap-2 transition-all duration-200 transform hover:scale-105"
+              className="bg-gradient-to-r from-[#4000B3] to-[#6D01D7] text-white flex items-center gap-2 transition-all duration-200 transform hover:scale-105"
             >
               シーンを生成！
               <ChevronRight className="w-4 h-4" />

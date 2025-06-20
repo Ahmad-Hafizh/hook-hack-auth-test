@@ -33,46 +33,46 @@ export default function Features() {
 
   const featureCards = [
     {
-      icon: <BarChart3 className="w-8 h-8 text-[#25F4EE]" />,
+      icon: <BarChart3 className="w-8 h-8 text-[#4000B3]" />,
       title: "ディスプレイ広告の需要増加",
       points: [
         "Webでの顧客接点において、能動層は検索エンジンからAI（LLM）に置き換わり、SEOからLLM対策としてのLLMOへのシフトが一部発生するが、広告主が取れる面（インプレッション）は減少していく見込みです",
         "Webマーケティングにおける受動層へのアプローチの重要性が相対的に高まることが想定されます",
       ],
-      color: "#25F4EE",
+      color: "#4000B3",
     },
     {
-      icon: <TrendingUp className="w-8 h-8 text-[#FE2C55]" />,
+      icon: <TrendingUp className="w-8 h-8 text-[#6D01D7]" />,
       title: "ディスプレイ広告のクリエイティブのセンターピンであるhook",
       points: [
         "ディスプレイ広告の質を高めるためには、脳のシステム2（時間はかかるが論理的で正確な判断）の前に働くシステム1（直感的で10歳児レベルの判断力）を突破するため、ユーザーにとって自分事化できるhookが重要です",
         "広告で伝えたい商品・サービスの必要性をユーザーの文脈に合わせた上で、hookを制作していくことが望ましいです（hookがずれるとただの煩わしい「広告」になる懸念があります）",
       ],
-      color: "#FE2C55",
+      color: "#6D01D7",
     },
     {
-      icon: <Users className="w-8 h-8 text-[#25F4EE]" />,
+      icon: <Users className="w-8 h-8 text-[#c2a3ff]" />,
       title: "国内Webマーケティングの市場構造｜生成AIの現在地点",
       points: [
         "現状は生成AIがクリエイティブ領域にも活用が進み始めていますが、クオリティはプロンプトを投げるディレクター・クリエイターの力量に依るところが大きく、プロンプトが一般的な場合、LLMの性質上、最大公約数的になる傾向が強い課題があります",
         "ショート動画のクリエイター市場は2000年代から歴史のあるSEM市場（SEO・リスティング広告）と比較して若手の方々が多い特徴がありますが、クライアントの事業理解やユーザーの解像度に課題を抱えている場合、上司・クライアントに企画を通すことや、成果を向上することのハードルが高いケースがあります",
       ],
-      color: "#25F4EE",
+      color: "#c2a3ff",
     },
   ];
 
   return (
-    <section id="features" ref={ref} className="px-10 py-32 bg-gray-50">
+    <section id="features" ref={ref} className="px-10 py-32 bg-[#f6f4fa]">
       <div className="max-w-7xl mx-auto">
         <div
           className={`text-center mb-16 transition-all duration-700 ${
             isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-10"
           }`}
         >
-          <h2 className="text-3xl lg:text-3xl font-bold text-gray-900 mb-4">
+          <h2 className="text-3xl lg:text-3xl font-bold text-[#4000B3] mb-4">
             今後、ますますショート動画広告、特にHookの重要性が高まることが想定されます
           </h2>
-          <h2 className="text-3xl lg:text-3xl font-bold text-gray-900 my-12">
+          <h2 className="text-3xl lg:text-3xl font-bold text-[#6D01D7] my-12">
             市場構造
           </h2>
         </div>
@@ -80,7 +80,7 @@ export default function Features() {
           {featureCards.map((card, index) => (
             <Card
               key={card.title}
-              className={`border-0 shadow-lg hover:shadow-xl transition-all duration-700 ${
+              className={`shadow-lg hover:shadow-xl transition-all duration-700 ${
                 isVisible
                   ? "opacity-100 translate-y-0"
                   : "opacity-0 translate-y-10"
@@ -89,8 +89,7 @@ export default function Features() {
             >
               <CardContent className="p-8 text-center">
                 <div
-                  className={`w-16 h-16 bg-[${card.color}]/10 rounded-full flex items-center justify-center mx-auto mb-6`}
-                  style={{ backgroundColor: `${card.color}10` }}
+                  className={`w-16 h-16 bg-white rounded-full flex items-center justify-center mx-auto mb-6`}
                 >
                   {card.icon}
                 </div>

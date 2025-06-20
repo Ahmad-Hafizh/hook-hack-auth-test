@@ -26,38 +26,39 @@ const fetchVideoList = async (searchword: string, amount: number = 10) => {
 const mockData = [
   {
     tiktok_url: "https://www.tiktok.com/@example/video/123",
-    like: 389000,
-    analyse: "動画のターゲットや訴求内容について説明します。",
-    storage_url: "https://res.cloudinary.com/demo/video/upload/sample1.mp4",
+    like: 2000,
+    analyse:
+      "東京の美容室で話題の眉毛ペンシルを紹介。石原さとみがアシスタントに列を作らせてまで買わせたというエピソードを交え、商品の特長を紹介。セールスポイントは、ウォータープルーフで汗にも強く、24時間落ちないこと。アイライン、ヘアライン、つけまつげにも使える。",
+    storage_url:
+      "https://res.cloudinary.com/dyyaw3qpo/video/upload/v1749447045/jqkzecy60srcf0whcxyw.mp4",
     id: "123",
   },
   {
     tiktok_url: "https://www.tiktok.com/@example/video/456",
-    like: 12000,
-    analyse: "動画のターゲットや訴求内容について説明します。",
-    storage_url: "https://res.cloudinary.com/demo/video/upload/sample2.mp4",
+    like: 225,
+    analyse:
+      "子供の肌の乾燥に悩む母親がアトピロンボディソープを試したところ、乾燥肌が改善された様子を紹介",
+    storage_url:
+      "https://res.cloudinary.com/dyyaw3qpo/video/upload/v1749447103/mq1t1ear2bdd7xkrgh8h.mp4",
     id: "456",
   },
   {
     tiktok_url: "https://www.tiktok.com/@example/video/789",
-    like: 5400,
-    analyse: "動画のターゲットや訴求内容について説明します。",
-    storage_url: "https://res.cloudinary.com/demo/video/upload/sample3.mp4",
+    like: 271,
+    analyse:
+      "眉毛ブリーチのやり方を説明する動画。眉毛ブリーチで眉を明るくすることで垢ぬけ感を出せることを伝えている。",
+    storage_url:
+      "https://res.cloudinary.com/dyyaw3qpo/video/upload/v1749447161/ggygrtwfbsulxwjhom0x.mp4",
     id: "789",
   },
   {
     tiktok_url: "https://www.tiktok.com/@example/video/101",
-    like: 3200,
-    analyse: "動画のターゲットや訴求内容について説明します。",
-    storage_url: "https://res.cloudinary.com/demo/video/upload/sample4.mp4",
+    like: 451,
+    analyse:
+      "Aurelie.のクレンジングオイルが、毛穴の角栓を溶かして、たまご肌になると訴求。MEGUMIさんもおすすめしており、通常8000円するところ、20分間限定で48%OFFになる。",
+    storage_url:
+      "https://res.cloudinary.com/dyyaw3qpo/video/upload/v1749447252/gszjzj8rm7gvnapvn9da.mp4",
     id: "101",
-  },
-  {
-    tiktok_url: "https://www.tiktok.com/@example/video/102",
-    like: 2100,
-    analyse: "動画のターゲットや訴求内容について説明します。",
-    storage_url: "https://res.cloudinary.com/demo/video/upload/sample5.mp4",
-    id: "102",
   },
 ];
 

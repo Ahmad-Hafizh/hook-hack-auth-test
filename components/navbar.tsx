@@ -43,7 +43,7 @@ export default function Navbar() {
     >
       <div className="max-w-7xl mx-auto flex items-center justify-between">
         <div className="flex items-center space-x-2">
-          <span className="text-2xl font-bold text-gray-900">Hook-Hack</span>
+          <span className="text-2xl font-bold text-[#4000B3]">Hook-Hack</span>
         </div>
 
         {/* Mobile menu button */}
@@ -60,28 +60,27 @@ export default function Navbar() {
         <nav className="hidden md:flex items-center space-x-8">
           <a
             href="#benefit"
-            className="text-gray-600 hover:text-gray-900"
+            className="text-[#6D01D7] hover:text-[#4000B3]"
             onClick={handleSmoothScroll}
           >
             主な機能
           </a>
           <a
             href="#features"
-            className="text-gray-600 hover:text-gray-900"
+            className="text-[#6D01D7] hover:text-[#4000B3]"
             onClick={handleSmoothScroll}
           >
             市場構造
           </a>
           <a
             href="#about"
-            className="text-gray-600 hover:text-gray-900"
+            className="text-[#6D01D7] hover:text-[#4000B3]"
             onClick={handleSmoothScroll}
           >
             メンバー紹介
           </a>
           <a href="/app">
-            {" "}
-            <Button className="bg-[#FE2C55] hover:bg-[#FE2C55]/90 text-white">
+            <Button className="bg-gradient-to-r from-[#4000B3] to-[#6D01D7] hover:from-[#6D01D7] hover:to-[#4000B3] text-white border-2 border-[#75f567]">
               アプリへ移動
             </Button>
           </a>
@@ -114,7 +113,7 @@ export default function Navbar() {
             メンバー紹介
           </a>
           <a href="/app">
-            <Button className="bg-[#FE2C55] hover:bg-[#FE2C55]/90 text-white w-full">
+            <Button className="bg-gradient-to-r from-[#4000B3] to-[#6D01D7] hover:from-[#6D01D7] hover:to-[#4000B3] text-white w-full border-2 border-[#75f567]">
               アプリへ移動
             </Button>
           </a>

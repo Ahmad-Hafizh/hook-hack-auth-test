@@ -32,7 +32,7 @@ export default function LandingPage() {
       <div className="mt-6 w-full flex justify-center items-center my-20">
         <a
           href="/app"
-          className="inline-block px-8 py-3 bg-[#25F4EE] text-white font-bold rounded-lg shadow hover:bg-[#1ecbe1] transition-colors text-lg"
+          className="inline-block px-8 py-3 bg-gradient-to-r from-[#4000B3] to-[#6D01D7] hover:from-[#6D01D7] hover:to-[#4000B3] text-white border-2 border-[#75f567] rounded-lg"
         >
           無料トライアルを申し込む
         </a>

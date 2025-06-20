@@ -72,7 +72,7 @@ export default function FeaturesDetail() {
 
   return (
     <section className="px-4 py-24 bg-white" id="benefit">
-      <h2 className="text-3xl font-bold text-gray-900 text-center mb-20">
+      <h2 className="text-3xl font-bold text-[#4000B3] text-center mb-20">
         主な機能
       </h2>
       <div className="max-w-7xl mx-auto space-y-24">
@@ -87,10 +87,10 @@ export default function FeaturesDetail() {
                 : "opacity-0 -translate-x-10"
             }`}
           >
-            <h3 className="text-3xl font-bold text-gray-900">
+            <h3 className="text-3xl font-bold text-[#6D01D7]">
               1. 人気動画・コメントの一覧表示
             </h3>
-            <p className="text-lg text-gray-600">
+            <p className="text-lg text-black">
               制作したい広告のジャンルを入力すると、対象ジャンルにおける人気動画を一覧で表示でき、
               動画を選択すると、対象動画へのコメントを一覧で見ることができます
             </p>
@@ -112,11 +112,11 @@ export default function FeaturesDetail() {
             </ul> */}
           </div>
           <div
-            className={`bg-gray-50 rounded-2xl p-6 transition-all duration-1000${
+            className={`bg-gray-100 rounded-2xl p-6 transition-all duration-1000${
               isVisibleSection1
                 ? " opacity-100 translate-x-0 delay-200"
                 : " opacity-0 translate-x-10"
-            } w-[600px] h-[400px] flex items-center justify-center mx-auto`}
+            } w-[600px] h-[400px] flex items-center justify-center mx-auto `}
           >
             <Image
               src="/feature1.png"
@@ -133,7 +133,7 @@ export default function FeaturesDetail() {
           className="grid lg:grid-cols-2 gap-12 items-center"
         >
           <div
-            className={`bg-gray-50 rounded-2xl p-6 order-2 lg:order-1 transition-all duration-1000${
+            className={`bg-gray-100 rounded-2xl p-6 order-2 lg:order-1 transition-all duration-1000${
               isVisibleSection2
                 ? " opacity-100 translate-x-0 delay-200"
                 : " opacity-0 -translate-x-10"
@@ -154,10 +154,10 @@ export default function FeaturesDetail() {
                 : "opacity-0 translate-x-10"
             }`}
           >
-            <h3 className="text-3xl font-bold text-gray-900">
+            <h3 className="text-3xl font-bold text-[#6D01D7]">
               2. コメント分析
             </h3>
-            <p className="text-lg text-gray-600">
+            <p className="text-lg text-black">
               人気コメントについて、ポジティブ・ネガティブ・クエスチョンの3分類に分けて表示できます
               <br />
               実際に多くのユーザーが反応しているコメントの中から、悩み（ネガティブ）や願い（ポジティ
@@ -193,8 +193,8 @@ export default function FeaturesDetail() {
                 : "opacity-0 -translate-x-10"
             }`}
           >
-            <h3 className="text-3xl font-bold text-gray-900">3. 動画企画</h3>
-            <p className="text-lg text-gray-600">
+            <h3 className="text-3xl font-bold text-[#6D01D7]">3. 動画企画</h3>
+            <p className="text-lg text-black">
               実際にHookに選定したコメント（願い・悩みなど）と、入力する広告制作する商品・サービスの情報に基づき、自動で動画企画案を出力します
               コマ割りごとのテキスト・画像イメージまでを出力できるため、企画案制作の効率化が可能です
             </p>
@@ -216,7 +216,7 @@ export default function FeaturesDetail() {
             </ul> */}
           </div>
           <div
-            className={`bg-gray-50 rounded-2xl p-6 transition-all duration-1000${
+            className={`bg-gray-100 rounded-2xl p-6 transition-all duration-1000${
               isVisibleSection3
                 ? " opacity-100 translate-x-0 delay-200"
                 : " opacity-0 translate-x-10"

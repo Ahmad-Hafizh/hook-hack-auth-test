@@ -31,14 +31,14 @@ export default function MemberShowcase() {
   return (
     <section className="py-20 bg-white" id="about">
       <div className="max-w-7xl mx-auto px-4">
-        <h2 className="text-3xl font-bold text-center text-[#17153B] mb-12">
+        <h2 className="text-3xl font-bold text-center text-[#4000B3] mb-12">
           メンバー紹介
         </h2>
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-8">
           {members.map((member) => (
             <div
               key={member.name}
-              className="bg-white rounded-xl shadow-lg flex flex-col items-center p-6 border border-gray-100 hover:shadow-xl transition-all"
+              className=" rounded-xl shadow-lg flex flex-col items-center p-6 hover:shadow-xl transition-all"
             >
               <div className="w-56 h-56 mb-4 rounded-lg overflow-hidden">
                 <Image
@@ -49,11 +49,11 @@ export default function MemberShowcase() {
                   className="object-cover w-full h-full"
                 />
               </div>
-              <div className="text-lg font-semibold text-[#17153B] mb-1">
+              <div className="text-lg font-semibold text-[#4000B3] mb-1">
                 {member.name}
               </div>
-              <div className="text-sm text-gray-500 mb-4">{member.job}</div>
-              <div className="text-xs text-gray-600 text-center whitespace-pre-line min-h-[3.5em]">
+              <div className="text-sm text-[#6D01D7] mb-4">{member.job}</div>
+              <div className="text-xs text-black text-center whitespace-pre-line min-h-[3.5em]">
                 {member.bio}
               </div>
             </div>

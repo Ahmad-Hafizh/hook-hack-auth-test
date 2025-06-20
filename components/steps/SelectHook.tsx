@@ -13,18 +13,13 @@ interface SelectHookProps {
   onSelectHook?: (hook: any) => void;
 }
 
-const mockHookResponse = {
-  percent: 87,
-  likes: 120,
-  sampledComment: "This product changed my life! Highly recommended.",
-  insightSummary:
-    "This comment shows strong excitement and trust in the product, which can be leveraged as a hook.",
-  hooks: [
-    { type: "Question", hook: "How is your life?" },
-    { type: "Excitement", hook: "Do you want to have fun!" },
-    { type: "Curiosity", hook: "What happens if you try this?" },
-  ],
-};
+const mockHooks = [
+  "あなたも試してみませんか？",
+  "今すぐチェック！",
+  "知らなきゃ損する！",
+  "たった1分で変わる秘密",
+  "みんなが驚いた理由とは？",
+];
 
 // API call function
 async function fetchHooks(searchword: string) {
@@ -55,7 +50,7 @@ export const SelectHook: React.FC<SelectHookProps> = ({
       if (apiHooks) {
         setHooks(apiHooks);
       } else {
-        setHooks([]);
+        setHooks(mockHooks);
       }
       setLoading(false);
     };

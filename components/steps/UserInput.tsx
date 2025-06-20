@@ -91,6 +91,7 @@ export function UserInput({
         className="space-y-10 w-full px-2 sm:px-0"
       >
         {/* Searchword Section */}
+        <h2 className="font-bold text-2xl mb-4">検索ワード</h2>
         <FormField
           control={form.control}
           name="searchword"

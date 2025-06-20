@@ -22,6 +22,7 @@ import { VideoList } from "@/components/steps/VideoList";
 import { SelectComment } from "@/components/steps/SelectComment";
 import { SelectHook } from "@/components/steps/SelectHook";
 import { GenerateContent } from "@/components/steps/GenerateContent";
+import { useWatch } from "react-hook-form";
 
 export interface FormData {
   searchword: string;
@@ -141,11 +142,17 @@ export function MultiStepForm() {
   const renderStep = () => {
     switch (currentStep) {
       case 1:
-        return <UserInput data={userInputData} updateData={setUserInputData} />;
+        return (
+          <UserInput
+            data={userInputData}
+            updateData={setUserInputData}
+            onNextStep={() => setCurrentStep(2)}
+          />
+        );
       case 2:
         return (
           <VideoList
-            userInputData={userInputData.searchword}
+            userInputData={userInputData}
             setVideoListData={setVideoListData}
             onSelectVideo={handleSelectVideo}
           />
@@ -244,7 +251,8 @@ export function MultiStepForm() {
         <div>
           {currentStep === 1 && (
             <Button
-              onClick={nextStep}
+              type="submit"
+              form="user-input-form"
               className="bg-gradient-to-r from-[#17153B] to-[#2E236C] text-white flex items-center gap-2 transition-all duration-200 transform hover:scale-105"
             >
               次のステップへ

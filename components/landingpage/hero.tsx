@@ -39,19 +39,21 @@ export default function Hero() {
       className="pt-32 bg-gradient-to-br from-[#F0F9FF] via-[#FDF6F0] to-white min-h-screen h-screen flex flex-col items-center justify-center"
     >
       <div className=" mx-auto w-full flex flex-col items-center h-full">
-        {/* Image Centered */}
+        {/* Video Centered */}
         <div
           className={`relative transition-all duration-1000 delay-300 mb-11 w-full flex justify-center items-center ${
             isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-10"
           }`}
         >
-          <div className="bg-white rounded-2xl shadow-2xl p-6 flex justify-center items-center w-2/3 max-w-5xl">
-            <Image
-              src="/placeholder.svg?height=400&width=600"
-              alt="TikTok Analytics Dashboard"
-              width={1200}
-              height={500}
-              className="rounded-lg w-full object-contain"
+          <div className="bg-white rounded-2xl shadow-2xl p-6 flex justify-center items-center w-2/3 max-w-5xl h-[400px]">
+            <video
+              src="/hooklp.mp4"
+              controls
+              muted
+              autoPlay
+              loop
+              playsInline
+              className="rounded-lg w-full h-full object-cover"
             />
           </div>
         </div>

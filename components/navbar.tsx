@@ -63,26 +63,26 @@ export default function Navbar() {
             className="text-gray-600 hover:text-gray-900"
             onClick={handleSmoothScroll}
           >
-            Benefit
+            主な機能
           </a>
           <a
             href="#features"
             className="text-gray-600 hover:text-gray-900"
             onClick={handleSmoothScroll}
           >
-            Features
+            市場構造
           </a>
           <a
             href="#about"
             className="text-gray-600 hover:text-gray-900"
             onClick={handleSmoothScroll}
           >
-            About
+            メンバー紹介
           </a>
           <a href="/app">
             {" "}
             <Button className="bg-[#FE2C55] hover:bg-[#FE2C55]/90 text-white">
-              Get Started
+              アプリへ移動
             </Button>
           </a>
         </nav>
@@ -92,18 +92,18 @@ export default function Navbar() {
       {isMobileMenuOpen && (
         <div className="md:hidden absolute top-full left-0 right-0 bg-white shadow-lg p-4 flex flex-col space-y-4 animate-in slide-in-from-top duration-300">
           <a
-            href="#features"
-            className="text-gray-600 hover:text-gray-900 py-2"
-            onClick={handleSmoothScroll}
-          >
-            Benefit
-          </a>
-          <a
             href="#benefit"
             className="text-gray-600 hover:text-gray-900 py-2"
             onClick={handleSmoothScroll}
           >
-            Feature
+            主な機能
+          </a>
+          <a
+            href="#features"
+            className="text-gray-600 hover:text-gray-900 py-2"
+            onClick={handleSmoothScroll}
+          >
+            市場構造
           </a>
 
           <a
@@ -111,11 +111,11 @@ export default function Navbar() {
             className="text-gray-600 hover:text-gray-900 py-2"
             onClick={handleSmoothScroll}
           >
-            About
+            メンバー紹介
           </a>
           <a href="/app">
             <Button className="bg-[#FE2C55] hover:bg-[#FE2C55]/90 text-white w-full">
-              Get Started
+              アプリへ移動
             </Button>
           </a>
         </div>

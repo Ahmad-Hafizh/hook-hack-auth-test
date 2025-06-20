@@ -45,14 +45,6 @@ export default function CompanyFooter() {
                 >
                   https://samurai-style.tokyo/
                 </a>
-                <div className="mt-6 w-full">
-                  <a
-                    href="/app"
-                    className="inline-block px-8 py-3 bg-[#25F4EE] text-white font-bold rounded-lg shadow hover:bg-[#1ecbe1] transition-colors text-lg"
-                  >
-                    無料トライアルを申し込む
-                  </a>
-                </div>
               </div>
             </div>
           </div>

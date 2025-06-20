@@ -29,7 +29,7 @@ const members = [
 
 export default function MemberShowcase() {
   return (
-    <section className="py-20 bg-white">
+    <section className="py-20 bg-white" id="about">
       <div className="max-w-7xl mx-auto px-4">
         <h2 className="text-3xl font-bold text-center text-[#17153B] mb-12">
           メンバー紹介

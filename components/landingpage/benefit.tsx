@@ -72,6 +72,9 @@ export default function Features() {
           <h2 className="text-3xl lg:text-3xl font-bold text-gray-900 mb-4">
             今後、ますますショート動画広告、特にHookの重要性が高まることが想定されます
           </h2>
+          <h2 className="text-3xl lg:text-3xl font-bold text-gray-900 my-12">
+            市場構造
+          </h2>
         </div>
         <div className="flex flex-col gap-8 w-full">
           {featureCards.map((card, index) => (

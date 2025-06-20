@@ -12,7 +12,7 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { z } from "zod";
-import { useForm } from "react-hook-form";
+import { useForm, useWatch } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import {
   Form,
@@ -28,23 +28,34 @@ import { Button } from "@/components/ui/button";
 interface UserInputProps {
   data: any;
   updateData: (data: any) => void;
+  onNextStep?: () => void;
   errors?: Record<string, string>;
 }
 
-export function UserInput({ data, updateData, errors = {} }: UserInputProps) {
+export function UserInput({
+  data,
+  updateData,
+  onNextStep,
+  errors = {},
+}: UserInputProps) {
   const form = useForm({
     resolver: zodResolver(userInputSchema),
     defaultValues: data,
     mode: "onBlur",
   });
 
+  const watchedValues = useWatch({ control: form.control });
+
   // Sync form state with parent
   useEffect(() => {
-    form.reset(data);
+    if (JSON.stringify(form.getValues()) !== JSON.stringify(data)) {
+      form.reset(data);
+    }
   }, [data]);
 
   const onSubmit = (values: any) => {
     updateData(values);
+    if (onNextStep) onNextStep();
   };
 
   const handleChange = (
@@ -75,6 +86,7 @@ export function UserInput({ data, updateData, errors = {} }: UserInputProps) {
   return (
     <Form {...form}>
       <form
+        id="user-input-form"
         onSubmit={form.handleSubmit(onSubmit)}
         className="space-y-10 w-full px-2 sm:px-0"
       >
@@ -306,14 +318,6 @@ export function UserInput({ data, updateData, errors = {} }: UserInputProps) {
             </FormItem>
           )}
         />
-        <div className="flex justify-end">
-          <Button
-            type="submit"
-            className="bg-[#433D8B] text-white px-6 py-2 rounded"
-          >
-            次へ
-          </Button>
-        </div>
       </form>
     </Form>
   );

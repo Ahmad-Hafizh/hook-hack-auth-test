@@ -70,12 +70,16 @@ export const VideoList: React.FC<VideoListProps> = ({
   useEffect(() => {
     console.log("userInputData", userInputData);
     const getVideos = async () => {
-      if (userInputData) {
+      if (userInputData?.searchword) {
         try {
-          const res = await fetchVideoList(userInputData, 10);
+          const res = await fetchVideoList(userInputData.searchword, 10);
           if (res.success) {
             setVideoListData(res.data);
             setData(res.data);
+          } else {
+            console.log("API call was not successful. Using mock data.");
+            setVideoListData(mockData);
+            setData(mockData);
           }
         } catch (err) {
           console.log("ERROR : ", err);
@@ -85,7 +89,7 @@ export const VideoList: React.FC<VideoListProps> = ({
       }
     };
     getVideos();
-  }, [userInputData.searchword]);
+  }, [userInputData?.searchword]);
 
   return (
     <div className="w-full flex flex-col items-center">

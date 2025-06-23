@@ -7,8 +7,9 @@ import "@/app/globals.css";
 const noto = Noto_Sans_JP({ subsets: ["latin"], variable: "--font-jp" });
 
 export const metadata: Metadata = {
-  title: "Clip-Studio - TikTok Analysis Tool | CVR Optimization",
-  description: "Tool for TikTok video CVR analysis and content optimization",
+  title: "Hook-Hack | Hook Generator Tools",
+  description:
+    "Advanced TikTok video analytics and insights for creators and brands",
 };
 
 export default function RootLayout({
@@ -19,7 +20,7 @@ export default function RootLayout({
   return (
     <html lang="en" suppressHydrationWarning>
       <head>
-        <title>Clip-Studio | TikTok Video Analysis Tool</title>
+        <title>Hook-Hack | Hook Generator Tools</title>
         <meta
           name="description"
           content="Advanced TikTok video analytics and insights for creators and brands"

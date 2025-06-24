@@ -3,7 +3,7 @@ import { Play } from "lucide-react";
 
 export default function Footer() {
   return (
-    <footer className=" bg-gradient-to-br from-[#4000B3] to-[#c2a3ff]  text-white px-4 py-12">
+    <footer className=" bg-gradient-to-br from-black to-[#1a1a1a]  text-white px-4 py-12">
       <div className="max-w-7xl mx-auto">
         <div className="grid md:grid-cols-4 gap-8 mb-8">
           <div className="space-y-4">
@@ -13,9 +13,10 @@ export default function Footer() {
               </div>
               <span className="text-xl font-bold">Clip-Studio</span>
             </div> */}
-            <span className="text-3xl font-bold text-white my-3 block">
+            {/* <span className="text-3xl font-bold text-white my-3 block">
               Hook Hack
-            </span>
+            </span> */}
+            <img src="/newlogo.svg" alt="Hook-Hack" className="w-40 py-2" />
 
             <p className="text-gray-100">
               The ultimate TikTok analytics platform for creators and brands.

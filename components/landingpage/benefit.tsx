@@ -33,7 +33,7 @@ export default function Features() {
 
   const featureCards = [
     {
-      icon: <BarChart3 className="w-8 h-8 text-[#4000B3]" />,
+      icon: <BarChart3 className="w-8 h-8 text-white" />,
       title: "ディスプレイ広告の需要増加",
       points: [
         "Webでの顧客接点において、能動層は検索エンジンからAI（LLM）に置き換わり、SEOからLLM対策としてのLLMOへのシフトが一部発生するが、広告主が取れる面（インプレッション）は減少していく見込みです",
@@ -42,7 +42,7 @@ export default function Features() {
       color: "#4000B3",
     },
     {
-      icon: <TrendingUp className="w-8 h-8 text-[#6D01D7]" />,
+      icon: <TrendingUp className="w-8 h-8 text-white" />,
       title: "ディスプレイ広告のクリエイティブのセンターピンであるhook",
       points: [
         "ディスプレイ広告の質を高めるためには、脳のシステム2（時間はかかるが論理的で正確な判断）の前に働くシステム1（直感的で10歳児レベルの判断力）を突破するため、ユーザーにとって自分事化できるhookが重要です",
@@ -51,7 +51,7 @@ export default function Features() {
       color: "#6D01D7",
     },
     {
-      icon: <Users className="w-8 h-8 text-[#c2a3ff]" />,
+      icon: <Users className="w-8 h-8 text-white" />,
       title: "国内Webマーケティングの市場構造｜生成AIの現在地点",
       points: [
         "現状は生成AIがクリエイティブ領域にも活用が進み始めていますが、クオリティはプロンプトを投げるディレクター・クリエイターの力量に依るところが大きく、プロンプトが一般的な場合、LLMの性質上、最大公約数的になる傾向が強い課題があります",
@@ -62,17 +62,20 @@ export default function Features() {
   ];
 
   return (
-    <section id="features" ref={ref} className="px-10 py-32 bg-[#f6f4fa]">
+    <section id="features" ref={ref} className="px-10 py-32 bg-black">
       <div className="max-w-7xl mx-auto">
         <div
           className={`text-center mb-16 transition-all duration-700 ${
             isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-10"
           }`}
         >
-          <h2 className="text-3xl lg:text-3xl font-bold text-[#4000B3] mb-4">
+          <h2 className="text-3xl lg:text-3xl font-bold text-[#fe2858] mb-4">
             今後、ますますショート動画広告、特にHookの重要性が高まることが想定されます
           </h2>
-          <h2 className="text-3xl lg:text-3xl font-bold text-[#6D01D7] my-12">
+          <h2
+            className="text-3xl lg:text-3xl font-bold text-white my-12"
+            style={{ textShadow: "0 0 8px #2af0ea55" }}
+          >
             市場構造
           </h2>
         </div>
@@ -80,7 +83,7 @@ export default function Features() {
           {featureCards.map((card, index) => (
             <Card
               key={card.title}
-              className={`shadow-lg hover:shadow-xl transition-all duration-700 ${
+              className={`shadow-lg hover:shadow-xl transition-all duration-700 bg-[#18181b] border border-[#2af0ea22] ${
                 isVisible
                   ? "opacity-100 translate-y-0"
                   : "opacity-0 translate-y-10"
@@ -89,18 +92,18 @@ export default function Features() {
             >
               <CardContent className="p-8 text-center">
                 <div
-                  className={`w-16 h-16 bg-white rounded-full flex items-center justify-center mx-auto mb-6`}
+                  className={`w-16 h-16 bg-black rounded-full flex items-center justify-center mx-auto mb-6 border-2 text-white border-[#fe2858] shadow-[0_0_12px_#2af0ea33]`}
                 >
                   {card.icon}
                 </div>
-                <h3 className="text-2xl font-semibold text-gray-900 mb-4 mt-3">
+                <h3 className="text-2xl font-semibold text-white mb-4 mt-3">
                   {card.title}
                 </h3>
                 <ul className="mt-7 space-y-1">
                   {card.points.map((point, idx) => (
                     <li
                       key={idx}
-                      className="text-gray-600 text-sm leading-relaxed text-left mb-5 px-24 py-2"
+                      className="text-[#e5e5e5] text-sm leading-relaxed text-left mb-5 px-24 py-2 border-l-4 border-[#fe2858] bg-[#18181b] bg-opacity-80 shadow-[0_0_8px_#2af0ea22]"
                     >
                       - {point}
                     </li>
@@ -111,7 +114,10 @@ export default function Features() {
           ))}
         </div>
         <div className="mt-20">
-          <h2 className="text-2xl font-semibold text-gray-900 mb-4 text-center">
+          <h2
+            className="text-2xl font-semibold text-white mb-4 text-center"
+            style={{ textShadow: "0 0 8px #2af0ea55" }}
+          >
             上記のような市場構造において、今後のWeb市場のセンターピンであるhookの精度を高めるため、ユーザーの生の声としてオーガニック投稿のコメントを抽出し企画案の出力まで行います
           </h2>
         </div>

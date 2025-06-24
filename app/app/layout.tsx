@@ -33,8 +33,11 @@ export default function RootLayout({
           <div className="max-w-7xl mx-auto flex items-center justify-between">
             <div className="flex items-center space-x-2">
               <a href="/">
-                {/* <img src="/clipstudio.svg" alt="logo" className="h-9 w-auto my-3" /> */}
-                <h2 className="text-3xl font-bold py-3">Hook Hack</h2>
+                <img
+                  src="/newlogo.svg"
+                  alt="logo"
+                  className="h-9 w-auto my-3"
+                />
               </a>
             </div>
             <div className="flex items-center gap-6">

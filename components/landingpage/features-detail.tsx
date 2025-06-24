@@ -72,7 +72,7 @@ export default function FeaturesDetail() {
 
   return (
     <section className="px-4 py-24 bg-white" id="benefit">
-      <h2 className="text-3xl font-bold text-[#4000B3] text-center mb-20">
+      <h2 className="text-3xl font-bold text-[#fe2858] text-center mb-20">
         主な機能
       </h2>
       <div className="max-w-7xl mx-auto space-y-24">
@@ -87,7 +87,7 @@ export default function FeaturesDetail() {
                 : "opacity-0 -translate-x-10"
             }`}
           >
-            <h3 className="text-3xl font-bold text-[#6D01D7]">
+            <h3 className="text-3xl font-bold text-[#fe2858]">
               1. 人気動画・コメントの一覧表示
             </h3>
             <p className="text-lg text-black">
@@ -154,7 +154,7 @@ export default function FeaturesDetail() {
                 : "opacity-0 translate-x-10"
             }`}
           >
-            <h3 className="text-3xl font-bold text-[#6D01D7]">
+            <h3 className="text-3xl font-bold text-[#fe2858]">
               2. コメント分析
             </h3>
             <p className="text-lg text-black">
@@ -193,7 +193,7 @@ export default function FeaturesDetail() {
                 : "opacity-0 -translate-x-10"
             }`}
           >
-            <h3 className="text-3xl font-bold text-[#6D01D7]">3. 動画企画</h3>
+            <h3 className="text-3xl font-bold text-[#fe2858]">3. 動画企画</h3>
             <p className="text-lg text-black">
               実際にHookに選定したコメント（願い・悩みなど）と、入力する広告制作する商品・サービスの情報に基づき、自動で動画企画案を出力します
               コマ割りごとのテキスト・画像イメージまでを出力できるため、企画案制作の効率化が可能です

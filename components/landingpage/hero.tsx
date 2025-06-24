@@ -40,26 +40,22 @@ export default function Hero() {
     >
       <div className="mx-auto w-full flex flex-col items-center h-full my-40">
         {/* Video Centered */}
-        <h1
-          className={`text-3xl md:text-3xl lg:text-4xl font-bold text-center text-white my-10 tracking-tight transition-all duration-1000 w-full ${
-            isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-10"
-          }`}
-        >
-          「ユーザーが反応する」ショート動画広告制作ツール
-        </h1>
-        {/* Subheadline */}
-        <div className="flex flex-col items-center mb-4">
-          <span className="inline-block text-white px-4 py-1 font-semibold text-6xl my-2">
-            『Hook Hack』
-          </span>
-        </div>
-
         <div
           className={`relative transition-all duration-1000 delay-300 mb-11 w-full flex justify-center items-center ${
             isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-10"
           }`}
         >
-          <div className="bg-white rounded-2xl shadow-2xl p-6 flex justify-center items-center w-2/3 max-w-5xl h-[400px] my-3">
+          {/* Overlayed Text */}
+          <div className="absolute inset-0 flex flex-col items-center justify-center z-10 pointer-events-none">
+            <h1 className="text-3xl md:text-3xl lg:text-5xl font-bold text-center text-white tracking-tight drop-shadow-lg">
+              「ユーザーが反応する」ショート動画広告制作ツール
+            </h1>
+            <span className="inline-block text-white px-4 py-1 font-semibold text-6xl my-6 drop-shadow-lg">
+              『Hook Hack』
+            </span>
+          </div>
+          {/* Video */}
+          <div className=" rounded-2xl shadow-2xl flex justify-center items-center w-full h-[50vh] my-3">
             <video
               src="/hooklp.mp4"
               controls
@@ -67,7 +63,7 @@ export default function Hero() {
               autoPlay
               loop
               playsInline
-              className="rounded-lg w-full h-full object-cover border-4 border-[#4000B3]"
+              className="rounded-lg w-full h-full object-cover"
             />
           </div>
         </div>

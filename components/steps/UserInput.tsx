@@ -325,12 +325,12 @@ export function UserInput({
 }
 
 export const userInputSchema = z.object({
-  searchword: z.string().min(1, "検索ワードは必須です"),
-  product_name: z.string().min(1, "商品名は必須です"),
-  product_category: z.string().min(1, "商品カテゴリーは必須です"),
-  functional_value: z.string().min(1, "機能的価値は必須です"),
-  emotional_value: z.string().min(1, "感情的価値は必須です"),
-  currency: z.string().min(1, "通貨は必須です"),
+  searchword: z.string().min(1, "こちらは必須項目です。"),
+  product_name: z.string().min(1, "こちらは必須項目です。"),
+  product_category: z.string().min(1, "こちらは必須項目です。"),
+  functional_value: z.string().min(1, "こちらは必須項目です。"),
+  emotional_value: z.string().min(1, "こちらは必須項目です。"),
+  currency: z.string().min(1, "こちらは必須項目です。"),
   cost: z.union([
     z
       .string()
@@ -338,8 +338,8 @@ export const userInputSchema = z.object({
       .refine((val) => !isNaN(Number(val)), "価格は数値で入力してください"),
     z.number().min(0, "価格は必須です"),
   ]),
-  marketing_campaign: z.string().min(1, "キャンペーン等の記載は必須です"),
-  age: z.string().min(1, "年齢は必須です"),
-  gender: z.string().min(1, "性別は必須です"),
-  issue: z.string().min(1, "ペイン・課題は必須です"),
+  marketing_campaign: z.string().min(1, "こちらは必須項目です。"),
+  age: z.string().min(1, "こちらは必須項目です。"),
+  gender: z.string().min(1, "こちらは必須項目です。"),
+  issue: z.string().min(1, "こちらは必須項目です。"),
 });

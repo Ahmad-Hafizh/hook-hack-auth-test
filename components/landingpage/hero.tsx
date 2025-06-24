@@ -36,16 +36,30 @@ export default function Hero() {
   return (
     <section
       ref={ref}
-      className="pt-32 bg-gradient-to-br from-black to-[#1a1a1a] min-h-screen h-screen flex flex-col items-center justify-center"
+      className="py-40 bg-gradient-to-b from-black via-[#272727] to-black min-h-screen h-screen flex flex-col items-center justify-center "
     >
-      <div className=" mx-auto w-full flex flex-col items-center h-full">
+      <div className="mx-auto w-full flex flex-col items-center h-full my-40">
         {/* Video Centered */}
+        <h1
+          className={`text-3xl md:text-3xl lg:text-4xl font-bold text-center text-white my-10 tracking-tight transition-all duration-1000 w-full ${
+            isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-10"
+          }`}
+        >
+          「ユーザーが反応する」ショート動画広告制作ツール
+        </h1>
+        {/* Subheadline */}
+        <div className="flex flex-col items-center mb-4">
+          <span className="inline-block text-white px-4 py-1 font-semibold text-6xl my-2">
+            『Hook Hack』
+          </span>
+        </div>
+
         <div
           className={`relative transition-all duration-1000 delay-300 mb-11 w-full flex justify-center items-center ${
             isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-10"
           }`}
         >
-          <div className="bg-white rounded-2xl shadow-2xl p-6 flex justify-center items-center w-2/3 max-w-5xl h-[400px]">
+          <div className="bg-white rounded-2xl shadow-2xl p-6 flex justify-center items-center w-2/3 max-w-5xl h-[400px] my-3">
             <video
               src="/hooklp.mp4"
               controls
@@ -58,19 +72,7 @@ export default function Hero() {
           </div>
         </div>
         {/* Main Headline */}
-        <h1
-          className={`text-3xl md:text-3xl lg:text-4xl font-bold text-center text-white mb-4 tracking-tight transition-all duration-1000 w-full ${
-            isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-10"
-          }`}
-        >
-          「ユーザーが反応する」ショート動画広告制作ツール
-        </h1>
-        {/* Subheadline */}
-        <div className="flex flex-col items-center mb-5">
-          <span className="inline-block text-white px-4 py-1 font-semibold text-4xl mb-2">
-            『Hook Hack』
-          </span>
-        </div>
+
         {/* Button Centered */}
         <div className="flex justify-center mb-6">
           <a href="/app">
@@ -82,18 +84,34 @@ export default function Hero() {
             </Button>
           </a>
         </div>
-        {/* Paragraph Section */}
-        <div className="w-full p-8 mt-12 flex flex-col items-center h-full bg-[#fe2858]">
-          <h2 className="text-3xl font-bold text-white mb-3">Hook Hackとは</h2>
-          <p className="text-lg text-white mb-2 text-center">
-            離脱が多いショート動画広告の最初の3秒（Hook）を最適化（Hack）するツールです
-          </p>
-          <p className="text-lg text-white text-center">
-            実際にユーザーがコメントしている内容を元にHookの言葉選びができるため、
-            <br />
-            企画案をまとめる際に上司・クライアントへの説得力を高めることができ、ユーザーにも自分事化されやすくなります
-          </p>
-        </div>
+      </div>
+      {/* Arrow Down and Learn More */}
+      <div className="absolute left-1/2 bottom-10 transform -translate-x-1/2 flex flex-col items-center">
+        <a
+          href="#explain"
+          onClick={(e) => {
+            e.preventDefault();
+            const el = document.querySelector("#explain");
+            if (el) el.scrollIntoView({ behavior: "smooth" });
+          }}
+          className="flex flex-col items-center group cursor-pointer"
+        >
+          <span className="text-white text-lg mb-2">もっと詳しく</span>
+          <svg
+            className="w-8 h-8 text-white animate-bounce group-hover:text-[#fe2858]"
+            fill="none"
+            stroke="currentColor"
+            strokeWidth="2"
+            viewBox="0 0 24 24"
+            id="explain"
+          >
+            <path
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              d="M19 9l-7 7-7-7"
+            />
+          </svg>
+        </a>
       </div>
     </section>
   );

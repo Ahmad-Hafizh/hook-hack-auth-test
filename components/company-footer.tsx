@@ -40,7 +40,7 @@ export default function CompanyFooter() {
               </div>
 
               <div className="col-span-3 font-semibold text-xl text-[#fe2858]">
-                コーポレートサイト
+                コーポレート
               </div>
               <div className="col-span-9">
                 <a

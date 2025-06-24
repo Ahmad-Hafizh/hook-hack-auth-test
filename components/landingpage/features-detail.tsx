@@ -71,7 +71,7 @@ export default function FeaturesDetail() {
   }, [hasAnimatedSection1, hasAnimatedSection2, hasAnimatedSection3]);
 
   return (
-    <section className="px-4 py-24 bg-white" id="benefit">
+    <section className="px-4 py-[128px] bg-white" id="benefit">
       <h2 className="text-3xl font-bold text-[#fe2858] text-center mb-20">
         主な機能
       </h2>

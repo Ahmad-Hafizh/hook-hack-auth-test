@@ -36,8 +36,7 @@ export default function Features() {
       icon: <BarChart3 className="w-8 h-8 text-white" />,
       title: "ディスプレイ広告の需要増加",
       points: [
-        "Webでの顧客接点において、能動層は検索エンジンからAI（LLM）に置き換わり、SEOからLLM対策としてのLLMOへのシフトが一部発生するが、広告主が取れる面（インプレッション）は減少していく見込みです",
-        "Webマーケティングにおける受動層へのアプローチの重要性が相対的に高まることが想定されます",
+        " Webでの顧客接点において、能動層は検索エンジンからAI（LLM）に置き換わり、SEOからLLM対策としてのLLMOへのシフトが一部発生するが、広告主が取れる面（インプレッション）は減少していく見込みです。Webマーケティングにおける受動層へのアプローチの重要性が相対的に高まることが想定されます",
       ],
       color: "#4000B3",
     },
@@ -45,8 +44,7 @@ export default function Features() {
       icon: <TrendingUp className="w-8 h-8 text-white" />,
       title: "ディスプレイ広告のクリエイティブのセンターピンであるhook",
       points: [
-        "ディスプレイ広告の質を高めるためには、脳のシステム2（時間はかかるが論理的で正確な判断）の前に働くシステム1（直感的で10歳児レベルの判断力）を突破するため、ユーザーにとって自分事化できるhookが重要です",
-        "広告で伝えたい商品・サービスの必要性をユーザーの文脈に合わせた上で、hookを制作していくことが望ましいです（hookがずれるとただの煩わしい「広告」になる懸念があります）",
+        "ディスプレイ広告の質を高めるためには、脳のシステム2（時間はかかるが論理的で正確な判断）の前に働くシステム1（直感的で10歳児レベルの判断力）を突破するため、ユーザーにとって自分事化できるhookが重要です。広告で伝えたい商品・サービスの必要性をユーザーの文脈に合わせた上で、hookを制作していくことが望ましいです（hookがずれるとただの煩わしい「広告」になる懸念があります）",
       ],
       color: "#6D01D7",
     },
@@ -54,8 +52,11 @@ export default function Features() {
       icon: <Users className="w-8 h-8 text-white" />,
       title: "国内Webマーケティングの市場構造｜生成AIの現在地点",
       points: [
-        "現状は生成AIがクリエイティブ領域にも活用が進み始めていますが、クオリティはプロンプトを投げるディレクター・クリエイターの力量に依るところが大きく、プロンプトが一般的な場合、LLMの性質上、最大公約数的になる傾向が強い課題があります",
-        "ショート動画のクリエイター市場は2000年代から歴史のあるSEM市場（SEO・リスティング広告）と比較して若手の方々が多い特徴がありますが、クライアントの事業理解やユーザーの解像度に課題を抱えている場合、上司・クライアントに企画を通すことや、成果を向上することのハードルが高いケースがあります",
+        <>
+          現状は生成AIがクリエイティブ領域にも活用が進み始めていますが、クオリティはプロンプトを投げるディレクター・クリエイターの力量に依るところが大きく、プロンプトが一般的な場合、LLMの性質上、最大公約数的になる傾向が強い課題があります。
+          <br className="my-2" />
+          ショート動画のクリエイター市場は2000年代から歴史のあるSEM市場（SEO・リスティング広告）と比較して若手の方々が多い特徴がありますが、クライアントの事業理解やユーザーの解像度に課題を抱えている場合、上司・クライアントに企画を通すことや、成果を向上することのハードルが高いケースがあります。
+        </>,
       ],
       color: "#c2a3ff",
     },
@@ -83,7 +84,7 @@ export default function Features() {
           {featureCards.map((card, index) => (
             <Card
               key={card.title}
-              className={`shadow-lg hover:shadow-xl transition-all duration-700 bg-[#18181b] border border-[#2af0ea22] ${
+              className={`shadow-lg hover:shadow-xl transition-all duration-700 p-3 bg-[#18181b] border border-[#2af0ea22] ${
                 isVisible
                   ? "opacity-100 translate-y-0"
                   : "opacity-0 translate-y-10"
@@ -103,9 +104,9 @@ export default function Features() {
                   {card.points.map((point, idx) => (
                     <li
                       key={idx}
-                      className="text-[#e5e5e5] text-sm leading-relaxed text-left mb-5 px-24 py-2 border-l-4 border-[#fe2858] bg-[#18181b] bg-opacity-80 shadow-[0_0_8px_#2af0ea22]"
+                      className="text-[#e5e5e5] text-[19px] leading-relaxed text-left mb-2 px-20 mx-16 my-16 py-10 border-l-4 border-[#fe2858] bg-[#18181b] bg-opacity-80 shadow-[0_0_8px_#2af0ea22]"
                     >
-                      - {point}
+                      {point}
                     </li>
                   ))}
                 </ul>

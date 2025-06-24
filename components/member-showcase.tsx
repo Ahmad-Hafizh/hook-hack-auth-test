@@ -38,9 +38,9 @@ export default function MemberShowcase() {
           {members.map((member) => (
             <div
               key={member.name}
-              className=" rounded-xl shadow-lg flex flex-col items-center p-6 hover:shadow-xl transition-all bg-blue-300"
+              className="shadow-lg flex flex-col items-center p-6 hover:shadow-xl transition-all bg-white"
             >
-              <div className="w-56 h-56 mb-4 rounded-lg overflow-hidden">
+              <div className="w-56 h-56 mb-4 overflow-hidden">
                 <Image
                   src={member.photo}
                   alt={member.name}
@@ -49,11 +49,11 @@ export default function MemberShowcase() {
                   className="object-cover w-full h-full"
                 />
               </div>
-              <div className="text-lg font-semibold text-white mb-1">
+              <div className="text-lg font-semibold text-black mb-1">
                 {member.name}
               </div>
-              <div className="text-sm text-white mb-4">{member.job}</div>
-              <div className="text-xs text-white text-center whitespace-pre-line min-h-[3.5em] px-5">
+              <div className="text-sm text-black mb-4">{member.job}</div>
+              <div className="text-xs text-black text-center whitespace-pre-line min-h-[3.5em] px-5">
                 {member.bio}
               </div>
             </div>

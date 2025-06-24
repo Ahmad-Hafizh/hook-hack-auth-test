@@ -12,12 +12,14 @@ import Newsletter from "@/components/landingpage/newsletter";
 import Benefit from "@/components/landingpage/benefit";
 import MemberShowcase from "@/components/member-showcase";
 import CompanyFooter from "@/components/company-footer";
+import Explain from "@/components/landingpage/explain";
 
 export default function LandingPage() {
   return (
     <div className="min-h-screen bg-white">
       <Navbar />
       <Hero />
+      <Explain />
       {/* <TrustedBy /> */}
       <FeaturesDetail />
       <Benefit />
@@ -32,7 +34,7 @@ export default function LandingPage() {
       <div className="mt-6 w-full flex justify-center items-center my-20">
         <a
           href="/app"
-          className="inline-block px-8 py-3 bg-gradient-to-r from-[#fe2858] to-[#2af0ea] hover:from-[#2af0ea] hover:to-[#fe2858] text-white border-2 border-[#2af0ea] rounded-lg"
+          className="inline-block px-8 py-3 bg-[#2af0ea] text-black hover:bg-[#288784] hover:text-white transition-all duration-300 border-2 border-[#2af0ea] rounded-lg"
         >
           無料トライアルを申し込む
         </a>

@@ -44,7 +44,7 @@ export default function Navbar() {
       <div className="max-w-7xl mx-auto flex items-center justify-between">
         <div className="flex items-center space-x-2">
           {/* <span className="text-2xl font-bold text-white">Hook-Hack</span> */}
-          <img src="/newlogo.svg" alt="Hook-Hack" className="w-32 py-3" />
+          <img src="/newlogo.svg" alt="Hook-Hack" className="w-40 py-3" />
         </div>
 
         {/* Mobile menu button */}
@@ -81,7 +81,7 @@ export default function Navbar() {
             メンバー紹介
           </a>
           <a href="/app">
-            <Button className="bg-gradient-to-r from-[#fe2858] to-[#2af0ea] hover:from-[#2af0ea] hover:to-[#fe2858] text-white border-2 border-[#2af0ea]">
+            <Button className="bg-[#2af0ea] text-black hover:bg-[#288784] hover:text-white transition-all duration-300 border-2 border-[#2af0ea]">
               アプリへ移動
             </Button>
           </a>
@@ -114,7 +114,7 @@ export default function Navbar() {
             メンバー紹介
           </a>
           <a href="/app">
-            <Button className="bg-gradient-to-r from-[#fe2858] to-[#2af0ea] hover:from-[#2af0ea] hover:to-[#fe2858] text-white w-full border-2 border-[#2af0ea]">
+            <Button className="bg-[#2af0ea] text-black hover:bg-[#288784] hover:text-white transition-all duration-300 w-full border-2 border-[#2af0ea]">
               アプリへ移動
             </Button>
           </a>

@@ -4,6 +4,7 @@ import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import { Play } from "lucide-react";
 import { useState, useEffect } from "react";
+import TrialDialog from "@/components/landingpage/TrialDialog";
 
 export default function Navbar() {
   const [isScrolled, setIsScrolled] = useState(false);
@@ -80,10 +81,14 @@ export default function Navbar() {
           >
             メンバー紹介
           </a>
-          <a href="/app">
-            <Button className="bg-[#2af0ea] text-black hover:bg-[#288784] hover:text-white transition-all duration-300 border-2 border-[#2af0ea]">
-              アプリへ移動
-            </Button>
+          <a href="#">
+            <TrialDialog
+              trigger={
+                <Button className="bg-[#2af0ea] text-black hover:bg-[#288784] hover:text-white transition-all duration-300 border-2 border-[#2af0ea]">
+                  アプリへ移動
+                </Button>
+              }
+            />
           </a>
         </nav>
       </div>
@@ -114,9 +119,13 @@ export default function Navbar() {
             メンバー紹介
           </a>
           <a href="/app">
-            <Button className="bg-[#2af0ea] text-black hover:bg-[#288784] hover:text-white transition-all duration-300 w-full border-2 border-[#2af0ea]">
-              アプリへ移動
-            </Button>
+            <TrialDialog
+              trigger={
+                <Button className="bg-[#2af0ea] text-black hover:bg-[#288784] hover:text-white transition-all duration-300 w-full border-2 border-[#2af0ea]">
+                  アプリへ移動
+                </Button>
+              }
+            />
           </a>
         </div>
       )}

@@ -13,6 +13,9 @@ import Benefit from "@/components/landingpage/benefit";
 import MemberShowcase from "@/components/member-showcase";
 import CompanyFooter from "@/components/company-footer";
 import Explain from "@/components/landingpage/explain";
+import Schedule from "@/components/landingpage/schedule";
+import Price from "@/components/landingpage/price";
+import TrialDialog from "@/components/landingpage/TrialDialog";
 
 export default function LandingPage() {
   return (
@@ -24,6 +27,8 @@ export default function LandingPage() {
       <FeaturesDetail />
       <Benefit />
       <MemberShowcase />
+      <Schedule />
+      <Price />
       {/* <Features /> */}
       {/* <DashboardPreview />
       <Testimonial />
@@ -32,12 +37,13 @@ export default function LandingPage() {
       {/* <Newsletter /> */}
       <CompanyFooter />
       <div className="mt-6 w-full flex justify-center items-center my-20">
-        <a
-          href="/app"
-          className="inline-block px-8 py-3 bg-[#2af0ea] text-black hover:bg-[#288784] hover:text-white transition-all duration-300 border-2 border-[#2af0ea] rounded-lg"
-        >
-          無料トライアルを申し込む
-        </a>
+        <TrialDialog
+          trigger={
+            <button className="bg-[#2af0ea] text-black hover:bg-[#288784] hover:text-white transition-all duration-300 border-2 border-[#2af0ea] rounded-lg px-8 py-3 font-bold text-lg">
+              アプリへ移動
+            </button>
+          }
+        />
       </div>
       <Footer />
     </div>

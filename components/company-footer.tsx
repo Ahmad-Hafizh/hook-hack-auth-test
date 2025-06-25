@@ -1,4 +1,5 @@
 import Image from "next/image";
+import TrialDialog from "@/components/landingpage/TrialDialog";
 
 export default function CompanyFooter() {
   return (

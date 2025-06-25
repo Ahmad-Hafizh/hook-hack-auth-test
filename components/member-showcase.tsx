@@ -22,7 +22,7 @@ const members = [
   {
     name: "Satrio Buwono",
     job: "PM/エンジニア",
-    photo: "/1.png",
+    photo: "/satrio.png",
     bio: "インドネシア生まれ、インドネシア育ち。SaaSを専門に構築を行う、複数のITベンチャーを立ち上げた。弊社のオフショア開発事業のエンジニア統括を担う。",
   },
 ];

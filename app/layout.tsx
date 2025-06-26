@@ -2,6 +2,7 @@ import type React from "react";
 import "@/app/globals.css";
 import { ThemeProvider } from "@/components/theme-provider";
 import { Noto_Sans_JP } from "next/font/google";
+import { Toaster } from "@/components/ui/toaster";
 
 const noto = Noto_Sans_JP({ subsets: ["latin"], variable: "--font-jp" });
 
@@ -21,7 +22,10 @@ export default function RootLayout({
         <link rel="icon" href="/tiktok-favicon.svg" type="image/svg+xml" />
       </head>
       <body className={noto.className}>
-        <ThemeProvider defaultTheme="light">{children}</ThemeProvider>
+        <ThemeProvider defaultTheme="light">
+          <Toaster />
+          {children}
+        </ThemeProvider>
       </body>
     </html>
   );

@@ -63,18 +63,22 @@ export default function Features() {
   ];
 
   return (
-    <section id="features" ref={ref} className="px-10 py-32 bg-black">
+    <section
+      id="features"
+      ref={ref}
+      className="px-10 sm:px-6 md:px-10 py-16 md:py-24 lg:py-32 bg-black"
+    >
       <div className="max-w-7xl mx-auto">
         <div
           className={`text-center mb-16 transition-all duration-700 ${
             isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-10"
           }`}
         >
-          <h2 className="text-3xl lg:text-3xl font-bold text-[#fe2858] mb-4">
+          <h2 className="text-2xl md:text-3xl lg:text-3xl font-bold text-[#fe2858] mb-4">
             今後、ますますショート動画広告、特にHookの重要性が高まることが想定されます
           </h2>
           <h2
-            className="text-3xl lg:text-3xl font-bold text-white my-12"
+            className="text-2xl md:text-3xl lg:text-3xl font-bold text-white my-8 md:my-12"
             style={{ textShadow: "0 0 8px #2af0ea55" }}
           >
             市場構造
@@ -84,27 +88,27 @@ export default function Features() {
           {featureCards.map((card, index) => (
             <Card
               key={card.title}
-              className={`shadow-lg hover:shadow-xl transition-all duration-700 p-3 bg-[#18181b] border border-[#2af0ea22] ${
+              className={`shadow-lg hover:shadow-xl transition-all duration-700 p-3 bg-[#18181b] border border-[#2af0ea22] flex-1 ${
                 isVisible
                   ? "opacity-100 translate-y-0"
                   : "opacity-0 translate-y-10"
               }`}
               style={{ transitionDelay: `${index * 200}ms` }}
             >
-              <CardContent className="p-8 text-center">
+              <CardContent className="p-4 sm:p-6 md:p-8 text-center">
                 <div
                   className={`w-16 h-16 bg-black rounded-full flex items-center justify-center mx-auto mb-6 border-2 text-white border-[#fe2858] shadow-[0_0_12px_#2af0ea33]`}
                 >
                   {card.icon}
                 </div>
-                <h3 className="text-2xl font-semibold text-white mb-4 mt-3">
+                <h3 className="text-xl md:text-2xl font-semibold text-white mb-4 mt-3">
                   {card.title}
                 </h3>
-                <ul className="mt-7 space-y-1">
+                <ul className="mt-5 md:mt-7 space-y-1">
                   {card.points.map((point, idx) => (
                     <li
                       key={idx}
-                      className="text-[#e5e5e5] text-[19px] leading-relaxed text-left mb-2 px-20 mx-16 my-16 py-10 border-l-4 border-[#fe2858] bg-[#18181b] bg-opacity-80 shadow-[0_0_8px_#2af0ea22]"
+                      className="text-[#e5e5e5] text-base md:text-[19px] leading-relaxed text-left mb-2 px-4 md:px-10 lg:px-20 mx-2 md:mx-8 lg:mx-16 my-6 md:my-10 lg:my-16 py-4 md:py-8 lg:py-10 border-l-4 border-[#fe2858] bg-[#18181b] bg-opacity-80 shadow-[0_0_8px_#2af0ea22]"
                     >
                       {point}
                     </li>
@@ -116,7 +120,7 @@ export default function Features() {
         </div>
         <div className="mt-20">
           <h2
-            className="text-2xl font-semibold text-white mb-4 text-center"
+            className="text-lg md:text-2xl font-semibold text-white mb-4 text-center"
             style={{ textShadow: "0 0 8px #2af0ea55" }}
           >
             上記のような市場構造において、今後のWeb市場のセンターピンであるhookの精度を高めるため、ユーザーの生の声としてオーガニック投稿のコメントを抽出し企画案の出力まで行います

@@ -20,6 +20,7 @@ import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useState, useEffect, ReactNode } from "react";
 import { Button } from "@/components/ui/button";
+import { toast } from "@/hooks/use-toast";
 
 const TrialSchema = z.object({
   company: z.string().min(1, "会社名は必須です"),
@@ -35,16 +36,51 @@ type TrialDialogProps = {
 
 export default function TrialDialog({ trigger }: TrialDialogProps) {
   const [open, setOpen] = useState(false);
+  const [loading, setLoading] = useState(false);
   const form = useForm<TrialForm>({
     resolver: zodResolver(TrialSchema),
     defaultValues: { company: "", name: "", email: "", tiktok: "" },
   });
 
   async function onSubmit(values: TrialForm) {
-    console.log(values);
-    setOpen(false);
-    form.reset();
-    // Optionally show a toast or success message
+    setLoading(true);
+    try {
+      const res = await fetch("/api/trial", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          company_name: values.company,
+          name: values.name,
+          email: values.email,
+          tiktok_url: values.tiktok,
+        }),
+      });
+      if (res.ok) {
+        toast({
+          title: "お申し込みが完了しました",
+          description:
+            "ご登録ありがとうございます！担当者よりご連絡いたします。",
+        });
+        setOpen(false);
+        form.reset();
+      } else {
+        const data = await res.json();
+        toast({
+          title: "送信エラー",
+          description:
+            data?.error?.formErrors?.join("\n") ||
+            data?.error ||
+            "送信に失敗しました。再度お試しください。",
+        });
+      }
+    } catch (e) {
+      toast({
+        title: "サーバーエラー",
+        description: "送信中にエラーが発生しました。再度お試しください。",
+      });
+    } finally {
+      setLoading(false);
+    }
   }
 
   // Reset form when dialog is opened
@@ -57,7 +93,7 @@ export default function TrialDialog({ trigger }: TrialDialogProps) {
   return (
     <Dialog open={open} onOpenChange={setOpen}>
       <DialogTrigger asChild>{trigger}</DialogTrigger>
-      <DialogContent className="max-w-xl">
+      <DialogContent className="max-w-xl p-10">
         <DialogTitle asChild>
           <h2 className="text-2xl font-bold text-center mb-6">
             無料トライアルはこちら
@@ -137,7 +173,30 @@ export default function TrialDialog({ trigger }: TrialDialogProps) {
               <Button
                 type="submit"
                 className="bg-[#fe2858] text-white px-10 py-4 text-lg font-bold rounded-md shadow-lg hover:bg-[#ff5e81] z-10"
+                disabled={loading}
               >
+                {loading && (
+                  <svg
+                    className="animate-spin h-5 w-5 mr-2 inline text-white"
+                    xmlns="http://www.w3.org/2000/svg"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                  >
+                    <circle
+                      className="opacity-25"
+                      cx="12"
+                      cy="12"
+                      r="10"
+                      stroke="currentColor"
+                      strokeWidth="4"
+                    ></circle>
+                    <path
+                      className="opacity-75"
+                      fill="currentColor"
+                      d="M4 12a8 8 0 018-8v4a4 4 0 00-4 4H4z"
+                    ></path>
+                  </svg>
+                )}
                 申し込む
               </Button>
             </div>

@@ -71,26 +71,26 @@ export default function FeaturesDetail() {
   }, [hasAnimatedSection1, hasAnimatedSection2, hasAnimatedSection3]);
 
   return (
-    <section className="px-4 py-[128px] bg-white" id="benefit">
+    <section className="px-10 py-[64px] md:py-[128px] bg-white" id="benefit">
       <h2 className="text-3xl font-bold text-[#fe2858] text-center mb-20">
         主な機能
       </h2>
-      <div className="max-w-7xl mx-auto space-y-24">
+      <div className="max-w-7xl mx-auto space-y-16 md:space-y-24">
         <div
           ref={refSection1}
-          className="grid lg:grid-cols-2 gap-12 items-center"
+          className="grid grid-cols-1 lg:grid-cols-2 gap-8 md:gap-12 items-center"
         >
           <div
-            className={`space-y-6 transition-all duration-1000 max-w-2xl px-20 w-full mx-auto flex flex-col items-start gap-3 ${
+            className={`space-y-4 md:space-y-6 transition-all duration-1000 max-w-2xl px-2 md:px-10 lg:px-20 w-full mx-auto flex flex-col items-start gap-3 ${
               isVisibleSection1
                 ? "opacity-100 translate-x-0"
                 : "opacity-0 -translate-x-10"
             }`}
           >
-            <h3 className="text-3xl font-bold text-[#fe2858]">
+            <h3 className="text-xl md:text-3xl font-bold text-[#fe2858]">
               1. 人気動画・コメントの一覧表示
             </h3>
-            <p className="text-lg text-black">
+            <p className="text-base md:text-lg text-black">
               制作したい広告のジャンルを入力すると、対象ジャンルにおける人気動画を一覧で表示でき、
               動画を選択すると、対象動画へのコメントを一覧で見ることができます
             </p>
@@ -112,17 +112,17 @@ export default function FeaturesDetail() {
             </ul> */}
           </div>
           <div
-            className={`bg-gray-100 rounded-2xl p-6 transition-all duration-1000${
+            className={`bg-gray-100 rounded-2xl p-4 md:p-6 transition-all duration-1000${
               isVisibleSection1
                 ? " opacity-100 translate-x-0 delay-200"
                 : " opacity-0 translate-x-10"
-            } w-[600px] h-[400px] flex items-center justify-center mx-auto `}
+            } w-full max-w-lg h-[220px] md:h-[400px] flex items-center justify-center mx-auto`}
           >
             <Image
               src="/feature1.png"
               alt="Real-time Analytics"
-              width={400}
-              height={400}
+              width={320}
+              height={320}
               className="rounded-lg object-contain w-full h-full"
             />
           </div>
@@ -130,34 +130,34 @@ export default function FeaturesDetail() {
 
         <div
           ref={refSection2}
-          className="grid lg:grid-cols-2 gap-12 items-center"
+          className="grid grid-cols-1 lg:grid-cols-2 gap-8 md:gap-12 items-center"
         >
           <div
-            className={`bg-gray-100 rounded-2xl p-6 order-2 lg:order-1 transition-all duration-1000${
+            className={`bg-gray-100 rounded-2xl p-4 md:p-6 order-2 lg:order-1 transition-all duration-1000${
               isVisibleSection2
                 ? " opacity-100 translate-x-0 delay-200"
                 : " opacity-0 -translate-x-10"
-            } w-[600px] h-[400px] flex items-center justify-center mx-auto`}
+            } w-full max-w-lg h-[220px] md:h-[400px] flex items-center justify-center mx-auto`}
           >
             <Image
               src="/feature2.png"
               alt="Competitor Analysis"
-              width={400}
-              height={400}
+              width={320}
+              height={320}
               className="rounded-lg object-contain w-full h-full"
             />
           </div>
           <div
-            className={`space-y-6 order-1 lg:order-2 transition-all duration-1000 max-w-2xl px-20 w-full mx-auto flex flex-col items-start gap-3 ${
+            className={`space-y-4 md:space-y-6 order-1 lg:order-2 transition-all duration-1000 max-w-2xl px-2 md:px-10 lg:px-20 w-full mx-auto flex flex-col items-start gap-3 ${
               isVisibleSection2
                 ? "opacity-100 translate-x-0"
                 : "opacity-0 translate-x-10"
             }`}
           >
-            <h3 className="text-3xl font-bold text-[#fe2858]">
+            <h3 className="text-xl md:text-3xl font-bold text-[#fe2858]">
               2. コメント分析
             </h3>
-            <p className="text-lg text-black">
+            <p className="text-base md:text-lg text-black">
               人気コメントについて、ポジティブ・ネガティブ・クエスチョンの3分類に分けて表示できます
               <br />
               実際に多くのユーザーが反応しているコメントの中から、悩み（ネガティブ）や願い（ポジティ
@@ -184,17 +184,19 @@ export default function FeaturesDetail() {
 
         <div
           ref={refSection3}
-          className="grid lg:grid-cols-2 gap-12 items-center"
+          className="grid grid-cols-1 lg:grid-cols-2 gap-8 md:gap-12 items-center"
         >
           <div
-            className={`space-y-6 transition-all duration-1000 flex flex-col items-start gap-3 max-w-2xl px-20 w-full mx-auto ${
+            className={`space-y-4 md:space-y-6 transition-all duration-1000 flex flex-col items-start gap-3 max-w-2xl px-2 md:px-10 lg:px-20 w-full mx-auto ${
               isVisibleSection3
                 ? "opacity-100 translate-x-0"
-                : "opacity-0 -translate-x-10"
+                : "opacity-0 translate-x-10"
             }`}
           >
-            <h3 className="text-3xl font-bold text-[#fe2858]">3. 動画企画</h3>
-            <p className="text-lg text-black">
+            <h3 className="text-xl md:text-3xl font-bold text-[#fe2858]">
+              3. 動画企画
+            </h3>
+            <p className="text-base md:text-lg text-black">
               実際にHookに選定したコメント（願い・悩みなど）と、入力する広告制作する商品・サービスの情報に基づき、自動で動画企画案を出力します
               コマ割りごとのテキスト・画像イメージまでを出力できるため、企画案制作の効率化が可能です
             </p>
@@ -216,17 +218,17 @@ export default function FeaturesDetail() {
             </ul> */}
           </div>
           <div
-            className={`bg-gray-100 rounded-2xl p-6 transition-all duration-1000${
+            className={`bg-gray-100 rounded-2xl p-4 md:p-6 transition-all duration-1000${
               isVisibleSection3
                 ? " opacity-100 translate-x-0 delay-200"
                 : " opacity-0 translate-x-10"
-            } w-[600px] h-[400px] flex items-center justify-center mx-auto`}
+            } w-full max-w-lg h-[220px] md:h-[400px] flex items-center justify-center mx-auto`}
           >
             <Image
               src="/feature3.png"
               alt="Real-time Analytics"
-              width={400}
-              height={400}
+              width={320}
+              height={320}
               className="rounded-lg object-contain w-full h-full"
             />
           </div>

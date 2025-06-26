@@ -31,37 +31,6 @@ export default function Hero() {
   const ref = useRef<HTMLDivElement>(null);
   const [open, setOpen] = useState(false);
 
-  const TrialSchema = z.object({
-    company: z.string().min(1, "会社名は必須です"),
-    name: z.string().min(1, "お名前は必須です"),
-    email: z.string().email("正しいメールアドレスを入力してください"),
-    tiktok: z.string().url("正しいURLを入力してください"),
-  });
-  type TrialForm = z.infer<typeof TrialSchema>;
-
-  const form = useForm<TrialForm>({
-    resolver: zodResolver(TrialSchema),
-    defaultValues: { company: "", name: "", email: "", tiktok: "" },
-  });
-
-  async function onSubmit(values: TrialForm) {
-    await fetch("/api/trial", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(values),
-    });
-    setOpen(false);
-    form.reset();
-    // Optionally show a toast or success message
-  }
-
-  // Reset form when dialog is opened
-  useEffect(() => {
-    if (open) {
-      form.reset();
-    }
-  }, [open]);
-
   useEffect(() => {
     const observer = new IntersectionObserver(
       ([entry]) => {
@@ -87,7 +56,7 @@ export default function Hero() {
   return (
     <section
       ref={ref}
-      className="py-40 bg-gradient-to-b from-black via-[#272727] to-black min-h-screen h-screen flex flex-col items-center justify-center "
+      className=" py-40 bg-gradient-to-b from-black via-[#272727] to-black min-h-screen h-screen flex flex-col items-center justify-center"
     >
       <div className="mx-auto w-full flex flex-col items-center h-full my-36">
         {/* Video Centered */}
@@ -97,11 +66,11 @@ export default function Hero() {
           }`}
         >
           {/* Overlayed Text */}
-          <div className="absolute inset-0 flex flex-col items-center justify-center z-10 ">
-            <h1 className="text-3xl md:text-3xl lg:text-5xl font-bold text-center text-white tracking-tight drop-shadow-lg">
+          <div className="absolute inset-0 flex flex-col items-center justify-center z-10 px-2 sm:px-6">
+            <h1 className="text-2xl sm:text-3xl md:text-3xl lg:text-5xl font-bold text-center text-white tracking-tight drop-shadow-lg">
               「ユーザーが反応する」ショート動画広告制作ツール
             </h1>
-            <span className="inline-block text-white px-4 py-1 font-semibold text-6xl my-6 drop-shadow-lg">
+            <span className="inline-block text-white px-4 py-1 font-semibold text-4xl sm:text-6xl my-6 md:my-10 md:mb-10 drop-shadow-lg">
               『Hook Hack』
             </span>
             {/* Button Centered */}
@@ -109,7 +78,7 @@ export default function Hero() {
               trigger={
                 <Button
                   size="lg"
-                  className="bg-gradient-to-r from-[#fe2858] to-[#ff5e81] hover:from-[#c55064] hover:to-[rgb(215,73,97)] text-white px-10 py-6 text-lg font-bold rounded-md shadow-lg transition-all  "
+                  className="bg-gradient-to-r from-[#fe2858] to-[#ff5e81] hover:from-[#c55064] hover:to-[rgb(215,73,97)] text-white px-6 sm:px-10 py-4 sm:py-6 text-base sm:text-lg font-bold rounded-md shadow-lg transition-all  "
                 >
                   無料トライアルを申し込む
                 </Button>
@@ -117,7 +86,7 @@ export default function Hero() {
             />
           </div>
           {/* Video */}
-          <div className=" rounded-2xl shadow-2xl flex justify-center items-center w-full h-[65vh] my-3">
+          <div className=" shadow-2xl flex justify-center items-center w-full h-[40vh] sm:h-[65vh] my-3">
             <video
               src="/wide.mp4"
               controls
@@ -125,14 +94,14 @@ export default function Hero() {
               autoPlay
               loop
               playsInline
-              className="rounded-lg w-full h-full object-cover"
+              className="w-full h-full object-cover"
             />
           </div>
         </div>
         {/* Main Headline */}
       </div>
       {/* Arrow Down and Learn More */}
-      <div className="absolute left-1/2 bottom-10 transform -translate-x-1/2 flex flex-col items-center">
+      <div className="absolute left-1/2 bottom-10 transform -translate-x-1/2 flex flex-col items-center px-10 w-full">
         <a
           href="#explain"
           onClick={(e) => {
@@ -142,7 +111,9 @@ export default function Hero() {
           }}
           className="flex flex-col items-center group cursor-pointer"
         >
-          <span className="text-white text-lg mb-2">もっと詳しく</span>
+          <span className="text-white text-base sm:text-lg mb-2">
+            もっと詳しく
+          </span>
           <svg
             className="w-8 h-8 text-white animate-bounce group-hover:text-[#fe2858]"
             fill="none"

@@ -122,7 +122,7 @@ export default function Navbar() {
             <TrialDialog
               trigger={
                 <Button className="bg-[#2af0ea] text-black hover:bg-[#288784] hover:text-white transition-all duration-300 w-full border-2 border-[#2af0ea]">
-                  アプリへ移動
+                  無料トライアルを申し込む
                 </Button>
               }
             />

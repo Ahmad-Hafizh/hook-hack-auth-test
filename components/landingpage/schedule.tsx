@@ -15,7 +15,7 @@ const events = [
     button: (
       <TrialDialog
         trigger={
-          <button className="px-6 py-3 bg-[#fe2858] text-white rounded hover:bg-[#ff5e81] text-lg font-bold mt-3">
+          <button className="px-4 py-2 bg-[#fe2858] text-white rounded hover:bg-[#ff5e81] text-xs md:text-lg font-bold mt-2 md:mt-3">
             今すぐ申し込む
           </button>
         }
@@ -51,33 +51,43 @@ const events = [
 export default function Schedule() {
   return (
     <section
-      className="relative bg-black py-40 min-h-[400px] flex flex-col items-center"
+      className="relative bg-black py-20 md:py-40 min-h-[400px] flex flex-col items-center px-10"
       id="schedule"
     >
       <div className="max-w-7xl w-full mx-auto">
-        <h2 className="text-3xl font-bold text-white mb-2">スケジュール</h2>
-        <div className="text-white text-lg mb-12">Schedule</div>
-        <div className="relative w-full flex flex-col items-center mt-36">
+        <h2 className="text-3xl md:text-2xl font-bold text-white mb-24 md:mb-2 text-center md:text-left">
+          スケジュール
+        </h2>
+
+        <div className="relative w-full flex flex-col items-center mt-8 md:mt-36">
           {/* Horizontal timeline */}
-          <div className="absolute left-0 right-0 top-[92px] h-1 w-full bg-white z-0" />
-          <div className="relative w-full flex flex-row justify-between items-start z-10 pt-0 pb-8">
-            {events.map((event, idx) => (
-              <div className="flex flex-col items-center w-1/4" key={idx}>
-                <div className="text-white text-2xl font-bold mb-4 text-center leading-tight">
-                  {event.title}
-                </div>
-                <div className="flex flex-col items-center">
-                  <div
-                    className="-mt-2 w-10 h-10 rounded-full flex items-center justify-center z-10 mb-4"
-                    style={{ backgroundColor: event.circleColor, marginTop: 0 }}
-                  />
-                  <div className="bg-white text-black text-base px-4 py-2 rounded mb-3">
-                    {event.description}
+          <div className="absolute left-0 right-0 top-[52px] md:top-[92px] h-1 w-full bg-white z-0" />
+          <div className="relative w-full">
+            <div className="flex flex-row justify-between items-start z-10 pt-0 pb-8 gap-2 md:gap-0">
+              {events.map((event, idx) => (
+                <div
+                  className="flex flex-col items-center min-w-0 w-1/3"
+                  key={idx}
+                >
+                  <div className="text-xs md:text-2xl font-bold mb-2 md:mb-4 text-center leading-tight text-white">
+                    {event.title}
                   </div>
-                  {event.button}
+                  <div className="flex flex-col items-center">
+                    <div
+                      className="-mt-2 w-7 h-7 md:w-12 md:h-12 rounded-full flex items-center justify-center z-10 mb-2 md:mb-4"
+                      style={{
+                        backgroundColor: event.circleColor,
+                        marginTop: 0,
+                      }}
+                    />
+                    <div className="bg-white text-black text-[10px] md:text-base px-1 md:px-4 py-1 md:py-2 rounded mb-2 md:mb-3">
+                      {event.description}
+                    </div>
+                    {event.button}
+                  </div>
                 </div>
-              </div>
-            ))}
+              ))}
+            </div>
           </div>
         </div>
       </div>

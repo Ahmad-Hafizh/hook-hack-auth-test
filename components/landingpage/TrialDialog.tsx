@@ -169,6 +169,11 @@ export default function TrialDialog({ trigger }: TrialDialogProps) {
                 </FormItem>
               )}
             />
+            <div className="flex justify-center">
+              <h2 className="text-xs text-gray-500">
+                フリーメールアドレスのご利用や、運用実態のないTikTokアカウントでのお申し込みは、お断りさせていただく場合がございます。あらかじめご了承ください。
+              </h2>
+            </div>
             <div className="flex justify-center pt-2">
               <Button
                 type="submit"

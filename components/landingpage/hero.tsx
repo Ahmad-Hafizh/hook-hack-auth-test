@@ -87,15 +87,7 @@ export default function Hero() {
           </div>
           {/* Video */}
           <div className=" shadow-2xl flex justify-center items-center w-full h-[40vh] sm:h-[65vh] my-3">
-            <video
-              src="/wide.mp4"
-              controls
-              muted
-              autoPlay
-              loop
-              playsInline
-              className="w-full h-full object-cover"
-            />
+            <img src="/hero.gif" className="w-full h-full object-cover" />
           </div>
         </div>
         {/* Main Headline */}

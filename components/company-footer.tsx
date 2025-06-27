@@ -65,7 +65,7 @@ export default function CompanyFooter() {
               alt="Company Building"
               width={240}
               height={340}
-              className="object-cover w-full h-full"
+              className="object-cover hidden md:inline w-full h-full"
             />
           </div>
         </div>

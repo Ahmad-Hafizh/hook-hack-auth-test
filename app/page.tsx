@@ -26,9 +26,9 @@ export default function LandingPage() {
       {/* <TrustedBy /> */}
       <FeaturesDetail />
       <Benefit />
-      <MemberShowcase />
       <Schedule />
       <Price />
+      <MemberShowcase />
       {/* <Features /> */}
       {/* <DashboardPreview />
       <Testimonial />

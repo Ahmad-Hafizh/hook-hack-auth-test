@@ -45,7 +45,11 @@ export default function Navbar() {
       <div className="max-w-7xl mx-auto flex items-center justify-between">
         <div className="flex items-center space-x-2">
           {/* <span className="text-2xl font-bold text-white">Hook-Hack</span> */}
-          <img src="/newlogo.svg" alt="Hook-Hack" className="w-40 py-3" />
+          <img
+            src="/newlogo.svg"
+            alt="Hook-Hack"
+            className="w-32 md:w-40 py-3"
+          />
         </div>
 
         {/* Mobile menu button */}
@@ -75,6 +79,20 @@ export default function Navbar() {
             市場構造
           </a>
           <a
+            href="#schedule"
+            className="text-white hover:text-[#fe2858]"
+            onClick={handleSmoothScroll}
+          >
+            スケジュール
+          </a>
+          <a
+            href="#price"
+            className="text-white hover:text-[#fe2858]"
+            onClick={handleSmoothScroll}
+          >
+            料金体制
+          </a>
+          <a
             href="#about"
             className="text-white hover:text-[#fe2858]"
             onClick={handleSmoothScroll}
@@ -85,7 +103,7 @@ export default function Navbar() {
             <TrialDialog
               trigger={
                 <Button className="bg-[#2af0ea] text-black hover:bg-[#288784] hover:text-white transition-all duration-300 border-2 border-[#2af0ea]">
-                  アプリへ移動
+                  無料トライアルを申し込む
                 </Button>
               }
             />
@@ -110,7 +128,20 @@ export default function Navbar() {
           >
             市場構造
           </a>
-
+          <a
+            href="#schedule"
+            className="text-white hover:text-[#fe2858]"
+            onClick={handleSmoothScroll}
+          >
+            スケジュール
+          </a>
+          <a
+            href="#price"
+            className="text-white hover:text-[#fe2858]"
+            onClick={handleSmoothScroll}
+          >
+            料金体制
+          </a>
           <a
             href="#about"
             className="text-white hover:text-[#fe2858] py-2"

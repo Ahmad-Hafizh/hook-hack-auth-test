@@ -101,14 +101,14 @@ export default function Features() {
                 >
                   {card.icon}
                 </div>
-                <h3 className="text-xl md:text-2xl font-semibold text-white mb-4 mt-3">
+                <h3 className="text-lg md:text-2xl font-semibold text-white mb-4 mt-3">
                   {card.title}
                 </h3>
                 <ul className="mt-5 md:mt-7 space-y-1">
                   {card.points.map((point, idx) => (
                     <li
                       key={idx}
-                      className="text-[#e5e5e5] text-base md:text-[19px] leading-relaxed text-left mb-2 px-4 md:px-10 lg:px-20 mx-2 md:mx-8 lg:mx-16 my-6 md:my-10 lg:my-16 py-4 md:py-8 lg:py-10 border-l-4 border-[#fe2858] bg-[#18181b] bg-opacity-80 shadow-[0_0_8px_#2af0ea22]"
+                      className="text-[#e5e5e5] text-sm md:text-[19px] leading-relaxed text-left px-2"
                     >
                       {point}
                     </li>

@@ -26,7 +26,7 @@ const TrialSchema = z.object({
   company: z.string().min(1, "会社名は必須です"),
   name: z.string().min(1, "お名前は必須です"),
   email: z.string().email("正しいメールアドレスを入力してください"),
-  tiktok: z.string().url("正しいURLを入力してください"),
+  tiktok: z.string().min(1, "TikTokのユーザー名は必須です"),
 });
 type TrialForm = z.infer<typeof TrialSchema>;
 
@@ -157,11 +157,11 @@ export default function TrialDialog({ trigger }: TrialDialogProps) {
               name="tiktok"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>TikTokアカウント</FormLabel>
+                  <FormLabel>TikTokのユーザー名</FormLabel>
                   <FormControl>
                     <Input
                       {...field}
-                      placeholder="TikTokアカウントURL"
+                      placeholder="TikTokのユーザー名"
                       className="bg-white text-black"
                     />
                   </FormControl>

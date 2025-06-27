@@ -48,7 +48,7 @@ export default function Price() {
               {tier.highlight && (
                 <div className="absolute -top-7 left-1/2 -translate-x-1/2 z-20">
                   <span className="bg-white text-[#fe2858] border-2 border-[#fe2858] px-4 py-1 rounded-full text-sm font-bold shadow-lg">
-                    Most Popular
+                    一番人気
                   </span>
                 </div>
               )}

@@ -3,7 +3,7 @@ import { Play } from "lucide-react";
 
 export default function Footer() {
   return (
-    <footer className="bg-gradient-to-br from-black to-[#1a1a1a] text-white px-2 sm:px-4 py-8 md:py-12">
+    <footer className="bg-gradient-to-br from-black to-[#1a1a1a] text-white px-10 sm:px-4 py-8 md:py-12">
       <div className="max-w-7xl mx-auto">
         <div className="grid grid-cols-1 md:grid-cols-4 gap-8 mb-8">
           <div className="space-y-4 flex flex-col items-center md:items-start">
@@ -26,7 +26,7 @@ export default function Footer() {
               The ultimate TikTok analytics platform for creators and brands.
             </p>
           </div>
-          <div>
+          <div className="hidden md:inline">
             <h4 className="font-semibold mb-4 text-center md:text-left">
               Product
             </h4>
@@ -48,7 +48,7 @@ export default function Footer() {
               </li>
             </ul>
           </div>
-          <div>
+          <div className="hidden md:inline">
             <h4 className="font-semibold mb-4 text-center md:text-left">
               Company
             </h4>
@@ -70,7 +70,7 @@ export default function Footer() {
               </li>
             </ul>
           </div>
-          <div>
+          <div className="hidden md:inline">
             <h4 className="font-semibold mb-4 text-center md:text-left">
               Support
             </h4>

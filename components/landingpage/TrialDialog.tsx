@@ -67,10 +67,7 @@ export default function TrialDialog({ trigger }: TrialDialogProps) {
         const data = await res.json();
         toast({
           title: "送信エラー",
-          description:
-            data?.error?.formErrors?.join("\n") ||
-            data?.error ||
-            "送信に失敗しました。再度お試しください。",
+          description: "送信に失敗しました。再度お試しください。",
         });
       }
     } catch (e) {

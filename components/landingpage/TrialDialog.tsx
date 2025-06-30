@@ -174,6 +174,18 @@ export default function TrialDialog({ trigger }: TrialDialogProps) {
                 フリーメールアドレスのご利用や、運用実態のないTikTokアカウントでのお申し込みは、お断りさせていただく場合がございます。あらかじめご了承ください。
               </h2>
             </div>
+            <div className="flex justify-center">
+              <h2 className="text-xs text-gray-500">
+                個人情報の開示や削除依頼等のお問い合わせ先、およびお客様の個人情報を尊重して保護するための弊社の取り組みについては、弊社の
+                <a
+                  href="https://samurai-style.tokyo/privacy-policy"
+                  className="text-blue-500 underline"
+                >
+                  プライバシーポリシー
+                </a>
+                をご覧ください。
+              </h2>
+            </div>
             <div className="flex justify-center pt-2">
               <Button
                 type="submit"

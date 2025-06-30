@@ -61,7 +61,7 @@ export default function Schedule() {
 
         <div className="relative w-full flex flex-col items-center mt-8 md:mt-36">
           {/* Horizontal timeline */}
-          <div className="absolute left-0 right-0 top-[52px] md:top-[92px] h-1 w-full bg-white z-0" />
+          <div className="absolute left-0 right-0 top-[52px] md:top-[102px] h-1 w-full bg-white z-0" />
           <div className="relative w-full">
             <div className="flex flex-row justify-between items-start z-10 pt-0 pb-8 gap-2 md:gap-0">
               {events.map((event, idx) => (

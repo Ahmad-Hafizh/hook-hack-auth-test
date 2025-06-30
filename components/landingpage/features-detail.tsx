@@ -2,6 +2,7 @@
 
 import Image from "next/image";
 import { useEffect, useRef, useState } from "react";
+import TrialDialog from "./TrialDialog";
 
 export default function FeaturesDetail() {
   const [isVisibleSection1, setIsVisibleSection1] = useState(false);
@@ -71,7 +72,7 @@ export default function FeaturesDetail() {
   }, [hasAnimatedSection1, hasAnimatedSection2, hasAnimatedSection3]);
 
   return (
-    <section className="px-10 py-[64px] md:py-[128px] bg-white" id="benefit">
+    <section className="px-10 py-[70px] md:py-[128px] bg-white" id="benefit">
       <h2 className="text-3xl font-bold text-[#fe2858] text-center mb-20">
         主な機能
       </h2>
@@ -92,7 +93,7 @@ export default function FeaturesDetail() {
             </h3>
             <p className="text-base md:text-lg text-black">
               制作したい広告のジャンルを入力すると、対象ジャンルにおける人気動画を一覧で表示でき、
-              動画を選択すると、対象動画へのコメントを一覧で見ることができます
+              動画を選択すると、対象動画へのコメントを一覧で見ることができます。
             </p>
             {/* <ul className="space-y-3">
               <li className="flex items-center space-x-3">
@@ -158,10 +159,8 @@ export default function FeaturesDetail() {
               2. コメント分析
             </h3>
             <p className="text-base md:text-lg text-black">
-              人気コメントについて、ポジティブ・ネガティブ・クエスチョンの3分類に分けて表示できます
-              <br />
-              実際に多くのユーザーが反応しているコメントの中から、悩み（ネガティブ）や願い（ポジティ
-              ブ）に絞り込み、Hookに活用することができます
+              人気コメントについて、ポジティブ・ネガティブ・クエスチョンの3分類に分けて表示できます。実際に多くのユーザーが反応しているコメントの中から、悩み（ネガティブ）や願い（ポジティ
+              ブ）に絞り込み、Hookに活用することができます。
             </p>
             {/* <ul className="space-y-3">
               <li className="flex items-center space-x-3">
@@ -197,8 +196,9 @@ export default function FeaturesDetail() {
               3. 動画企画
             </h3>
             <p className="text-base md:text-lg text-black">
-              実際にHookに選定したコメント（願い・悩みなど）と、入力する広告制作する商品・サービスの情報に基づき、自動で動画企画案を出力します
-              コマ割りごとのテキスト・画像イメージまでを出力できるため、企画案制作の効率化が可能です
+              選定したHookコメント（機能的価値・情緒的価値など）と、入力された広告用の商品・サービス情報をもとに、自動で動画の企画案を生成します。各コマのテキストや画像イメージまで出力できるため、企画案の作成を効率化できます。
+              <br />{" "}
+              ※「絵コンテ生成」は今後追加予定の機能です。リリース時に仕様が変更となる可能性がありますので、あらかじめご了承ください。
             </p>
             {/* <ul className="space-y-3">
               <li className="flex items-center space-x-3">
@@ -225,13 +225,23 @@ export default function FeaturesDetail() {
             } w-full max-w-lg h-[220px] md:h-[400px] flex items-center justify-center mx-auto`}
           >
             <Image
-              src="/feature3.png"
+              src="/feature3new.png"
               alt="Real-time Analytics"
               width={320}
               height={320}
               className="rounded-lg object-contain w-full h-full"
             />
           </div>
+        </div>
+
+        <div className="mt-6 w-full flex justify-center items-center my-20">
+          <TrialDialog
+            trigger={
+              <button className="bg-[#2af0ea] text-black hover:bg-[#288784] hover:text-white transition-all duration-300 border-2 border-[#2af0ea] rounded-lg px-8 py-3 font-bold text-lg">
+                無料トライアルを申し込む
+              </button>
+            }
+          />
         </div>
       </div>
     </section>

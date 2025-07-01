@@ -9,6 +9,19 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
+model User {
+  id              BigInt   @id @default(autoincrement())
+  userId          String   @unique // Clerk user ID
+  firstName       String
+  lastName        String
+  email           String   @unique
+  phoneNumber     String?  // Allow null
+  tiktokUsername  String?  // Allow null
+  credit          Int      @default(0) // For payment system
+  createdAt       DateTime @default(now()) @db.Timestamptz(6)
+  updatedAt       DateTime @updatedAt @db.Timestamptz(6)
+}
+
 /// This model contains row level security and requires additional setup for migrations. Visit https://pris.ly/d/row-level-security for more info.
 model V2_format {
   system_status          String   @default("")

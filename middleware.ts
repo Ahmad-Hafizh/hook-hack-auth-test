@@ -1,19 +1,14 @@
 import { clerkMiddleware, createRouteMatcher } from "@clerk/nextjs/server";
 
-const isWebhookRoute = createRouteMatcher(["/api/webhooks/clerk(.*)"]);
+const isProtectedRoute = createRouteMatcher(["/dashboard(.*)", "/app(.*)"]);
 
 export default clerkMiddleware((auth, req) => {
-  if (isWebhookRoute(req)) {
-    return;
+  if (isProtectedRoute(req)) {
+    auth.protect();
   }
-  // All other routes are protected by default
+  // All other routes, including /api, are public and not protected
 });
 
 export const config = {
-  matcher: [
-    "/((?!.+\\.[\\w]+$|_next).*)",
-    "/",
-    "/(api|trpc)(.*)",
-    "/api/webhooks/clerk/:path*",
-  ],
+  matcher: ["/((?!.+.[w]+$|_next).*)", "/", "/(api|trpc)(.*)"],
 };

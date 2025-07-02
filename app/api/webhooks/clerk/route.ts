@@ -5,6 +5,9 @@ import { PrismaClient } from "../../../../lib/generated/prisma";
 
 const prisma = new PrismaClient();
 
+// Log the webhook endpoint address
+console.log("[Clerk Webhook] Listening at /api/webhooks/clerk");
+
 async function validateRequest(request: Request) {
   const headerPayload = await headers();
   const svix_id = headerPayload.get("svix-id");
@@ -18,6 +21,16 @@ async function validateRequest(request: Request) {
 
   // Get the body
   const payload = await request.text();
+
+  // Log the incoming request
+  console.log("[Clerk Webhook] Incoming request:");
+  console.log("Method:", request.method);
+  console.log("Headers:", {
+    svix_id,
+    svix_timestamp,
+    svix_signature,
+  });
+  console.log("Body:", payload);
 
   // Create a new Svix instance with your secret.
   const wh = new Webhook(process.env.CLERK_WEBHOOK_SECRET || "");

@@ -2,6 +2,7 @@ import { Webhook } from "svix";
 import { headers } from "next/headers";
 import { WebhookEvent } from "@clerk/nextjs/server";
 import { PrismaClient } from "../../../../lib/generated/prisma";
+import { sendOnboardingEmailWithResend } from "@/lib/resendService";
 
 const prisma = new PrismaClient();
 
@@ -97,6 +98,18 @@ export async function POST(request: Request) {
           },
         });
         console.log(`User created: ${id}`);
+        // Send onboarding email
+        if (email) {
+          try {
+            await sendOnboardingEmailWithResend(
+              email,
+              firstName || lastName || "User"
+            );
+            console.log(`Onboarding email sent to ${email}`);
+          } catch (err) {
+            console.error(`Failed to send onboarding email to ${email}:`, err);
+          }
+        }
       } else if (evt.type === "user.updated") {
         // Update existing user
         await prisma.user.update({

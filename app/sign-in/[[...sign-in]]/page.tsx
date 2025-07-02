@@ -8,7 +8,7 @@ export default function SignInPage() {
         // afterSignInUrl="/dashboard"
         // redirectUrl="/dashboard"
         fallbackRedirectUrl="/dashboard"
-        forceRedirectUrl="/dashboard"
+        // forceRedirectUrl="/dashboard"
         appearance={{
           elements: {
             formButtonPrimary: "bg-blue-500 hover:bg-blue-600",

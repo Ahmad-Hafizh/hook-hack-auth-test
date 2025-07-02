@@ -1,6 +1,13 @@
-import { clerkMiddleware } from "@clerk/nextjs/server";
+import { clerkMiddleware, createRouteMatcher } from "@clerk/nextjs/server";
 
-export default clerkMiddleware();
+const isWebhookRoute = createRouteMatcher(["/api/webhooks/clerk(.*)"]);
+
+export default clerkMiddleware((auth, req) => {
+  if (isWebhookRoute(req)) {
+    return;
+  }
+  // All other routes are protected by default
+});
 
 export const config = {
   matcher: ["/((?!.+\\.[\\w]+$|_next).*)", "/", "/(api|trpc)(.*)"],

@@ -130,3 +130,8 @@ export async function POST(request: Request) {
     return new Response("Webhook error", { status: 400 });
   }
 }
+
+export async function GET() {
+  console.log("[Clerk Webhook] GET request received!");
+  return new Response("GET OK", { status: 200 });
+}

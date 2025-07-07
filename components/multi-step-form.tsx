@@ -23,6 +23,7 @@ import { SelectComment } from "@/components/steps/SelectComment";
 import { SelectHook } from "@/components/steps/SelectHook";
 import { GenerateContent } from "@/components/steps/GenerateContent";
 import { useWatch } from "react-hook-form";
+import { useAuth } from "@clerk/nextjs";
 
 export interface FormData {
   searchword: string;
@@ -59,7 +60,10 @@ const productSchema = z.object({
 });
 
 export function MultiStepForm() {
+  const { userId } = useAuth();
   const [currentStep, setCurrentStep] = useState(1);
+  const [projectId, setProjectId] = useState<string | null>(null);
+
   //DATA FOR PERSONA
   const [userInputData, setUserInputData] = useState<FormData>({
     searchword: "",
@@ -79,6 +83,10 @@ export function MultiStepForm() {
   const [structureResult, setStructureResult] = useState<any>(null);
   const [selectedVideo, setSelectedVideo] = useState<any>(null);
   const [selectedComment, setSelectedComment] = useState<any>(null);
+  const [commentData, setCommentData] = useState<any>(null);
+  const [selectedHook, setSelectedHook] = useState<any>(null);
+  const [generatedContent, setGeneratedContent] = useState<any>(null);
+  const [isSaving, setIsSaving] = useState(false);
 
   const updateFormData = (section: keyof FormData, data: any) => {
     setUserInputData((prev) => ({
@@ -105,7 +113,8 @@ export function MultiStepForm() {
   };
 
   const prevStep = () => {
-    if (currentStep > 1) {
+    // Only allow going back from step 3 onwards (not from step 2 to step 1)
+    if (currentStep > 2) {
       setCurrentStep(currentStep - 1);
     }
   };
@@ -139,6 +148,138 @@ export function MultiStepForm() {
     setCurrentStep(3);
   };
 
+  const handleSelectHook = (hook: any) => {
+    setSelectedHook(hook);
+    setCurrentStep(5);
+  };
+
+  const handleContentGenerated = async (content: any) => {
+    console.log("🔄 handleContentGenerated called with:", content);
+    setGeneratedContent(content);
+    console.log("📝 About to save content to database...");
+    await updateProjectInDatabase("content", content);
+    console.log("✅ Content saved to database successfully");
+  };
+
+  const saveUserInputToDatabase = async (inputData?: any) => {
+    const dataToSave = inputData || userInputData;
+    console.log("🚩 userInputData before save:", dataToSave);
+    if (!userId) {
+      console.error("❌ No user ID available");
+      return;
+    }
+
+    console.log("📝 User ID:", userId);
+    setIsSaving(true);
+    try {
+      const projectData = {
+        userinput: JSON.stringify(dataToSave),
+      };
+      console.log("🚩 Sending to API (userinput):", projectData.userinput);
+
+      console.log("📤 Creating project with data:", projectData);
+
+      const response = await fetch("/api/project", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(projectData),
+      });
+
+      console.log("📥 Project creation response status:", response.status);
+
+      if (!response.ok) {
+        const errorText = await response.text();
+        console.error("❌ Project creation failed:", errorText);
+        throw new Error("Failed to save user input");
+      }
+
+      const result = await response.json();
+      console.log("✅ Project created successfully:", result);
+      console.log("📝 Setting project ID to:", result.project.id);
+      setProjectId(result.project.id);
+    } catch (error) {
+      console.error("❌ Error saving user input:", error);
+    } finally {
+      setIsSaving(false);
+    }
+  };
+
+  const updateProjectInDatabase = async (field: string, data: any) => {
+    console.log(
+      `🔄 updateProjectInDatabase called with field: ${field}, data:`,
+      data
+    );
+    console.log(`📝 Current projectId: ${projectId}`);
+    console.log(`📝 Field type: ${typeof field}`);
+    console.log(`📝 Data type: ${typeof data}`);
+    console.log(
+      `📝 Data length: ${Array.isArray(data) ? data.length : "not array"}`
+    );
+
+    if (!projectId) {
+      console.error("❌ No project ID available - cannot save to database");
+
+      return;
+    }
+
+    console.log(`📝 Project ID: ${projectId}`);
+    setIsSaving(true);
+    try {
+      const updateData: any = {
+        [field]: JSON.stringify(data),
+      };
+
+      console.log(`📤 Sending PATCH request to /api/project/${projectId}`);
+      console.log(`📤 Update data:`, updateData);
+      console.log(`📤 JSON.stringify(data):`, JSON.stringify(data));
+
+      const response = await fetch(`/api/project/${projectId}`, {
+        method: "PATCH",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(updateData),
+      });
+
+      console.log(`📥 Response status: ${response.status}`);
+
+      if (!response.ok) {
+        const errorText = await response.text();
+        console.error(`❌ Response not ok: ${errorText}`);
+        throw new Error(`Failed to update ${field}`);
+      }
+
+      const result = await response.json();
+      console.log(`✅ ${field} updated successfully:`, result);
+    } catch (error) {
+      console.error(`❌ Error updating ${field}:`, error);
+    } finally {
+      setIsSaving(false);
+    }
+  };
+
+  const handleUserInputComplete = async (values: any) => {
+    setUserInputData(values);
+    console.log("🚩 userInputData before save (from values):", values);
+    await saveUserInputToDatabase(values);
+    setCurrentStep(2);
+  };
+
+  const handleCommentSelected = async (comment: any, fullCommentData: any) => {
+    setSelectedComment(comment);
+    setCommentData(fullCommentData);
+    await updateProjectInDatabase("comment", fullCommentData.comments);
+    setCurrentStep(4);
+  };
+
+  const handleHookSelected = async (hook: any) => {
+    setSelectedHook(hook);
+    await updateProjectInDatabase("hook", hook);
+    setCurrentStep(5);
+  };
+
   const renderStep = () => {
     switch (currentStep) {
       case 1:
@@ -146,7 +287,7 @@ export function MultiStepForm() {
           <UserInput
             data={userInputData}
             updateData={setUserInputData}
-            onNextStep={() => setCurrentStep(2)}
+            onNextStep={handleUserInputComplete}
           />
         );
       case 2:
@@ -162,9 +303,8 @@ export function MultiStepForm() {
           <SelectComment
             videoListData={videoListData}
             selectedVideo={selectedVideo}
-            onSelectComment={(comment) => {
-              setSelectedComment(comment);
-              setCurrentStep(4);
+            onSelectComment={(comment, fullCommentData) => {
+              handleCommentSelected(comment, fullCommentData);
             }}
           />
         );
@@ -173,7 +313,7 @@ export function MultiStepForm() {
           <SelectHook
             searchword={userInputData.searchword}
             comment={selectedComment}
-            onSelectHook={() => setCurrentStep(5)}
+            onSelectHook={handleHookSelected}
           />
         );
       case 5:
@@ -181,6 +321,7 @@ export function MultiStepForm() {
           <StructureGenerator
             video_url={videoListData[0].url}
             client_input={client_input}
+            onContentGenerated={handleContentGenerated}
           />
         );
       default:
@@ -208,8 +349,8 @@ export function MultiStepForm() {
                       currentStep === step.id
                         ? "bg-[#fe2858] text-white shadow-lg"
                         : currentStep > step.id
-                        ? "bg-[#b72645] text-white"
-                        : "bg-[#f8d3db] text-[#b72645]"
+                          ? "bg-[#b72645] text-white"
+                          : "bg-[#f8d3db] text-[#b72645]"
                     }
                   `}
                 >
@@ -234,13 +375,11 @@ export function MultiStepForm() {
       {/* Navigation Buttons OUTSIDE Card */}
       <div className="flex justify-between items-start w-full px-8 mt-4">
         <div>
-          {currentStep === 2 ||
-          currentStep === 3 ||
-          currentStep === 4 ||
-          currentStep === 5 ? (
+          {currentStep === 3 || currentStep === 4 || currentStep === 5 ? (
             <Button
               variant="outline"
               onClick={prevStep}
+              disabled={isSaving}
               className="flex items-center gap-2 bg-[#2af0ea] text-black hover:bg-[#288784] hover:text-white transition-all duration-300 "
             >
               <ChevronLeft className="w-4 h-4" />
@@ -253,9 +392,10 @@ export function MultiStepForm() {
             <Button
               type="submit"
               form="user-input-form"
+              disabled={isSaving}
               className="bg-[#2af0ea] text-black hover:bg-[#288784] hover:text-white transition-all duration-300 "
             >
-              次のステップへ
+              {isSaving ? "保存中..." : "次のステップへ"}
               <ChevronRight className="w-4 h-4" />
             </Button>
           )}
@@ -276,6 +416,7 @@ export function MultiStepForm() {
         <StructureGenerator
           video_url={structureResult?.video_url || ""}
           client_input={client_input}
+          onContentGenerated={handleContentGenerated}
         />
       ) : (
         <Card className="shadow-2xl border-0 bg-white/90 backdrop-blur-sm rounded-2xl overflow-hidden p-10 mt-8">

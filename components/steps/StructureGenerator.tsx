@@ -15,6 +15,7 @@ interface StructureGeneratorProps {
   video_url: string;
   client_input: any;
   onStructureReady?: (result: any) => void;
+  onContentGenerated?: (content: any) => void;
 }
 
 const mockGeneratedContent = [
@@ -91,6 +92,7 @@ export function StructureGenerator({
   video_url,
   client_input,
   onStructureReady,
+  onContentGenerated,
 }: StructureGeneratorProps) {
   const [loading, setLoading] = useState(true);
   const [dotCount, setDotCount] = useState(1);
@@ -108,27 +110,50 @@ export function StructureGenerator({
         keyword: client_input.searchword,
       },
     };
-    console.log("INI PAYLOAD : ", payload);
+    console.log("🔄 callingAPI - INI PAYLOAD : ", payload);
     try {
       const response = await callApi.post("/generate-content", payload);
-      console.log("INI RESPONSE NEW API : ", response);
+      console.log("🔄 callingAPI - INI RESPONSE NEW API : ", response);
       if (response.data.success) {
         setGeneratedContent(response.data.data.generated_content);
         setEditableContent(response.data.data.generated_content);
         setLoading(false);
-        if (onStructureReady)
+        if (onStructureReady) {
+          console.log("🔄 callingAPI - calling onStructureReady");
           onStructureReady(response.data.data.generated_content);
+        }
+        if (onContentGenerated) {
+          console.log(
+            "🔄 callingAPI - calling onContentGenerated with:",
+            response.data.data.generated_content
+          );
+          onContentGenerated(response.data.data.generated_content);
+        }
       } else {
         setGeneratedContent(mockGeneratedContent);
         setEditableContent(mockGeneratedContent);
         setError(null);
         setLoading(false);
+        if (onContentGenerated) {
+          console.log(
+            "🔄 callingAPI - calling onContentGenerated with mock data:",
+            mockGeneratedContent
+          );
+          onContentGenerated(mockGeneratedContent);
+        }
       }
     } catch (err: any) {
       setGeneratedContent(mockGeneratedContent);
       setEditableContent(mockGeneratedContent);
       setError(null);
       setLoading(false);
+      if (onContentGenerated) {
+        console.log(
+          "🔄 callingAPI - calling onContentGenerated with mock data (error case):",
+          mockGeneratedContent
+        );
+        onContentGenerated(mockGeneratedContent);
+      }
     }
   };
 
@@ -153,9 +178,20 @@ export function StructureGenerator({
   };
 
   const handleSave = () => {
+    console.log("🔄 handleSave called with editableContent:", editableContent);
     setIsEditing(false);
     setGeneratedContent(editableContent);
-    if (onStructureReady) onStructureReady(editableContent);
+    if (onStructureReady) {
+      console.log("🔄 handleSave - calling onStructureReady");
+      onStructureReady(editableContent);
+    }
+    if (onContentGenerated) {
+      console.log(
+        "🔄 handleSave - calling onContentGenerated with:",
+        editableContent
+      );
+      onContentGenerated(editableContent);
+    }
   };
 
   const handleChange = (idx: number, key: string, value: string) => {

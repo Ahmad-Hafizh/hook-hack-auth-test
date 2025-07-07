@@ -5,7 +5,7 @@ import { Button } from "@/components/ui/button";
 interface SelectCommentProps {
   videoListData: any[];
   selectedVideo: any;
-  onSelectComment?: (comment: any) => void;
+  onSelectComment?: (comment: any, fullCommentData: any) => void;
 }
 
 const mockResponse = {
@@ -181,7 +181,9 @@ export const SelectComment: React.FC<SelectCommentProps> = ({
                   <td className="px-2 py-1 border">
                     <Button
                       className="bg-[#E6E6FA] text-[#433D8B] px-4 py-1 rounded-full"
-                      onClick={() => onSelectComment && onSelectComment(c)}
+                      onClick={() =>
+                        onSelectComment && onSelectComment(c, commentData)
+                      }
                     >
                       選択
                     </Button>

@@ -3,6 +3,14 @@ import { useUser, UserButton, UserProfile } from "@clerk/nextjs";
 import Link from "next/link";
 import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
+import {
+  Table,
+  TableBody,
+  TableCell,
+  TableHead,
+  TableHeader,
+  TableRow,
+} from "@/components/ui/table";
 
 export default function DashboardPage() {
   const { user, isSignedIn, isLoaded } = useUser();
@@ -11,6 +19,12 @@ export default function DashboardPage() {
   const [dbUser, setDbUser] = useState<any>(null);
   const [dbUserLoading, setDbUserLoading] = useState(true);
   const [dbUserError, setDbUserError] = useState("");
+  const [projects, setProjects] = useState<any[]>([]);
+  const [projectLoading, setProjectLoading] = useState(false);
+  const [projectError, setProjectError] = useState("");
+  const [page, setPage] = useState(1);
+  const [pageSize] = useState(10);
+  const [totalPages, setTotalPages] = useState(1);
 
   useEffect(() => {
     if (isLoaded && isSignedIn) {
@@ -40,6 +54,31 @@ export default function DashboardPage() {
       router.replace("/sign-in");
     }
   }, [isLoaded, isSignedIn, router]);
+
+  useEffect(() => {
+    if (isLoaded && isSignedIn) {
+      setProjectLoading(true);
+      setProjectError("");
+      fetch(`/api/project?page=${page}&pageSize=${pageSize}`)
+        .then(async (res) => {
+          if (!res.ok) {
+            const err = await res.json();
+            throw new Error(err.error || "Failed to fetch projects");
+          }
+          return res.json();
+        })
+        .then((data) => {
+          console.log("[Dashboard] Raw projects API response:", data);
+          setProjects(data.projects || []);
+          setTotalPages(data.totalPages || 1);
+          setProjectLoading(false);
+        })
+        .catch((err) => {
+          setProjectError(err.message);
+          setProjectLoading(false);
+        });
+    }
+  }, [isLoaded, isSignedIn, page, pageSize]);
 
   const handleGoToApp = () => {
     setLoadingToApp(true);
@@ -115,8 +154,17 @@ export default function DashboardPage() {
       {/* Main Content */}
       <main className="max-w-7xl mx-auto py-14 sm:px-6 lg:px-8">
         <div className="px-4 py-1 sm:px-0">
-          {/* Go to App Button */}
-          <div className="mb-8 flex justify-end">
+          {/* Go to App Button and Welcome Section in one row */}
+          <div className="flex justify-between items-center w-full mb-8">
+            <div>
+              <h1 className="text-3xl font-bold text-white mb-2">
+                Welcome to HookHack
+                {user?.firstName ? `, ${user.firstName}` : ""}
+              </h1>
+              <p className="text-gray-300">
+                Your TikTok analytics and insights dashboard
+              </p>
+            </div>
             <button
               onClick={handleGoToApp}
               className="bg-[#fe2858] hover:bg-[#e0244f] text-white px-5 py-2 text-base sm:text-lg font-bold rounded-md shadow-lg transition-all"
@@ -124,16 +172,7 @@ export default function DashboardPage() {
               Go to App
             </button>
           </div>
-
-          {/* Welcome Section */}
-          <div className="mb-8">
-            <h1 className="text-3xl font-bold text-white mb-2">
-              Welcome to HookHack{user?.firstName ? `, ${user.firstName}` : ""}
-            </h1>
-            <p className="text-gray-300">
-              Your TikTok analytics and insights dashboard
-            </p>
-          </div>
+          {/* End headline/button row */}
 
           {/* DB User Data Section */}
           <div className="mb-8">
@@ -240,6 +279,94 @@ export default function DashboardPage() {
                     </dl>
                   </div>
                 </div>
+              </div>
+            </div>
+          </div>
+
+          {/* Projects Table */}
+          <div className="mb-8">
+            <h2 className="text-xl font-bold text-white mb-4">
+              Your Generated Projects
+            </h2>
+            {projectLoading && (
+              <div className="text-gray-400">Loading projects...</div>
+            )}
+            {projectError && (
+              <div className="text-red-400 font-semibold">{projectError}</div>
+            )}
+            <div className="bg-[#232323] rounded-lg p-4 text-white shadow mb-4">
+              <Table>
+                <TableHeader>
+                  <TableRow>
+                    <TableHead className="text-white">Searchword</TableHead>
+                    <TableHead className="text-white">Product Name</TableHead>
+                    <TableHead className="text-white">Gender</TableHead>
+                    <TableHead className="text-white">Age</TableHead>
+                  </TableRow>
+                </TableHeader>
+                <TableBody>
+                  {projects.length === 0 && !projectLoading ? (
+                    <TableRow>
+                      <TableCell
+                        colSpan={4}
+                        className="text-center text-gray-400"
+                      >
+                        No projects found.
+                      </TableCell>
+                    </TableRow>
+                  ) : (
+                    projects.map((project) => {
+                      let userinput: any = {};
+                      try {
+                        userinput =
+                          typeof project.userinput === "string"
+                            ? JSON.parse(project.userinput)
+                            : project.userinput;
+                        console.log(
+                          "[Dashboard] Parsed userinput for project",
+                          project.id,
+                          ":",
+                          userinput
+                        );
+                      } catch (e) {
+                        console.error(
+                          "[Dashboard] Failed to parse userinput for project",
+                          project.id,
+                          project.userinput,
+                          e
+                        );
+                      }
+                      return (
+                        <TableRow key={project.id}>
+                          <TableCell>{userinput.searchword || "-"}</TableCell>
+                          <TableCell>{userinput.product_name || "-"}</TableCell>
+                          <TableCell>{userinput.gender || "-"}</TableCell>
+                          <TableCell>{userinput.age || "-"}</TableCell>
+                        </TableRow>
+                      );
+                    })
+                  )}
+                </TableBody>
+              </Table>
+              {/* Pagination Controls */}
+              <div className="flex justify-end items-center gap-2 mt-4">
+                <button
+                  className="px-3 py-1 rounded bg-[#181818] text-white disabled:opacity-50"
+                  onClick={() => setPage((p) => Math.max(1, p - 1))}
+                  disabled={page === 1}
+                >
+                  Previous
+                </button>
+                <span className="text-gray-300">
+                  Page {page} of {totalPages}
+                </span>
+                <button
+                  className="px-3 py-1 rounded bg-[#181818] text-white disabled:opacity-50"
+                  onClick={() => setPage((p) => Math.min(totalPages, p + 1))}
+                  disabled={page === totalPages}
+                >
+                  Next
+                </button>
               </div>
             </div>
           </div>

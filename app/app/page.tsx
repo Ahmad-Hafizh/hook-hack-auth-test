@@ -17,10 +17,10 @@ export default function Home() {
 
   if (!isLoaded)
     return (
-      <div className="min-h-screen flex flex-col items-center justify-center bg-gradient-to-br from-purple-200 via-white to-blue-200">
+      <div className="min-h-screen flex flex-col items-center justify-center bg-[#272727]">
         <div className="flex flex-col items-center">
           <svg
-            className="animate-spin h-12 w-12 text-purple-600 mb-6"
+            className="animate-spin h-12 w-12 text-[#fe2858] mb-6"
             xmlns="http://www.w3.org/2000/svg"
             fill="none"
             viewBox="0 0 24 24"
@@ -39,10 +39,8 @@ export default function Home() {
               d="M4 12a8 8 0 018-8v8z"
             />
           </svg>
-          <h2 className="text-2xl font-bold text-purple-700 mb-2">
-            Loading...
-          </h2>
-          <p className="text-gray-500">
+          <h2 className="text-2xl font-bold text-[#fe2858] mb-2">Loading...</h2>
+          <p className="text-gray-300">
             Please wait while we prepare your workspace.
           </p>
         </div>
@@ -79,8 +77,8 @@ export default function Home() {
         </div>
       </header>
       <div className="h-16"></div>
-      <div className="flex-1 flex items-center justify-center py-8 px-2 sm:px-6 md:px-12 lg:px-24">
-        <div className="w-full max-w-5xl mx-auto my-14">
+      <div className="flex-1 flex items-center justify-center px-2 sm:px-6 md:px-12 lg:px-24">
+        <div className="w-full max-w-5xl mx-auto">
           <MultiStepForm />
         </div>
       </div>

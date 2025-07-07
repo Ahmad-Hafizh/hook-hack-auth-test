@@ -28,7 +28,7 @@ import { Button } from "@/components/ui/button";
 interface UserInputProps {
   data: any;
   updateData: (data: any) => void;
-  onNextStep?: () => void;
+  onNextStep?: (values: any) => void;
   errors?: Record<string, string>;
 }
 
@@ -55,7 +55,7 @@ export function UserInput({
 
   const onSubmit = (values: any) => {
     updateData(values);
-    if (onNextStep) onNextStep();
+    if (onNextStep) onNextStep(values);
   };
 
   const handleChange = (

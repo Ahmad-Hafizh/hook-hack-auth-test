@@ -10,16 +10,17 @@ datasource db {
 }
 
 model User {
-  id              BigInt   @id @default(autoincrement())
-  userId          String   @unique // Clerk user ID
-  firstName       String
-  lastName        String
-  email           String   @unique
-  phoneNumber     String?  // Allow null
-  tiktokUsername  String?  // Allow null
-  credit          Int      @default(0) // For payment system
-  createdAt       DateTime @default(now()) @db.Timestamptz(6)
-  updatedAt       DateTime @updatedAt @db.Timestamptz(6)
+  id             BigInt    @id @default(autoincrement())
+  userId         String    @unique
+  email          String    @unique
+  phoneNumber    String?
+  tiktokUsername String?
+  credit         Int       @default(0)
+  createdAt      DateTime  @default(now()) @db.Timestamptz(6)
+  updatedAt      DateTime  @updatedAt @db.Timestamptz(6)
+  firstName      String
+  lastName       String
+  project        project[]
 }
 
 /// This model contains row level security and requires additional setup for migrations. Visit https://pris.ly/d/row-level-security for more info.
@@ -63,4 +64,18 @@ model requestlist {
   company_name String?
   email        String?
   tiktok_url   String?
+}
+
+/// This model contains row level security and requires additional setup for migrations. Visit https://pris.ly/d/row-level-security for more info.
+model project {
+  system_userid    String
+  system_createdAt DateTime @default(now()) @db.Timestamptz(6)
+  userinput        Json?    @db.Json
+  comment          Json?    @db.Json
+  hook             Json?    @db.Json
+  hook_count       Int?     @db.SmallInt
+  content          Json?    @db.Json
+  content_count    Int?     @db.SmallInt
+  id               BigInt   @id @unique @default(autoincrement())
+  User             User     @relation(fields: [system_userid], references: [userId], onDelete: NoAction, onUpdate: NoAction)
 }

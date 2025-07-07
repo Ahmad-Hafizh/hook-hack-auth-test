@@ -16,28 +16,22 @@ function serializeBigInt(obj: any): any {
   return obj;
 }
 
-export async function PATCH(
-  req: NextRequest,
-  { params }: { params: { id: string } }
-) {
+export async function PATCH(req: NextRequest) {
   try {
-    console.log("🔄 PATCH /api/project/[id] called");
-    console.log("📝 Params:", params);
-
     // Get Clerk user ID from request
     const authData = getAuth(req);
     const userId = authData?.userId;
-    console.log("📝 User ID from auth:", userId);
-
     if (!userId) {
-      console.error("❌ No user ID in auth");
       return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
     }
 
-    const projectId = BigInt(params.id);
+    // Extract projectId from URL
+    const url = new URL(req.url);
+    const pathParts = url.pathname.split("/");
+    const projectId = BigInt(pathParts[pathParts.length - 1]);
+
     const body = await req.json();
     console.log("📝 Request body:", body);
-    console.log("📝 Request body keys:", Object.keys(body));
     console.log("📝 Project ID (BigInt):", projectId);
 
     // Verify the project belongs to the user
@@ -66,7 +60,6 @@ export async function PATCH(
     // Auto-increment count fields when updating hook or content
     console.log("📝 body.hook:", body.hook);
     console.log("📝 body.content:", body.content);
-    console.log("📝 body:", body);
     console.log("📝 body.content type:", typeof body.content);
     console.log(
       "📝 body.content length:",
@@ -124,10 +117,7 @@ export async function PATCH(
   }
 }
 
-export async function GET(
-  req: NextRequest,
-  { params }: { params: { id: string } }
-) {
+export async function GET(req: NextRequest) {
   try {
     // Get Clerk user ID from request
     const authData = getAuth(req);
@@ -136,7 +126,10 @@ export async function GET(
       return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
     }
 
-    const projectId = BigInt(params.id);
+    // Extract projectId from URL
+    const url = new URL(req.url);
+    const pathParts = url.pathname.split("/");
+    const projectId = BigInt(pathParts[pathParts.length - 1]);
 
     // Fetch the specific project
     const project = await prisma.project.findFirst({

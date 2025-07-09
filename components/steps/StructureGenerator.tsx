@@ -14,6 +14,7 @@ import Image from "next/image";
 interface StructureGeneratorProps {
   video_url: string;
   client_input: any;
+  selectedHook?: any; // Add selectedHook prop
   onStructureReady?: (result: any) => void;
   onContentGenerated?: (content: any) => void;
 }
@@ -91,6 +92,7 @@ const mockGeneratedContent = [
 export function StructureGenerator({
   video_url,
   client_input,
+  selectedHook, // Add selectedHook parameter
   onStructureReady,
   onContentGenerated,
 }: StructureGeneratorProps) {
@@ -105,9 +107,12 @@ export function StructureGenerator({
     setLoading(true);
     setError(null);
     const payload = {
-      input: {
-        demo: true,
-        keyword: client_input.searchword,
+      hook: selectedHook?.text || selectedHook?.label || "",
+      user_info: {
+        ...client_input, // Spread all user input properties
+      },
+      other_rules: {
+        additionalProp1: {},
       },
     };
     console.log("🔄 callingAPI - INI PAYLOAD : ", payload);
@@ -170,7 +175,7 @@ export function StructureGenerator({
     return () => {
       clearInterval(dotInterval);
     };
-  }, [video_url, client_input]);
+  }, [video_url, client_input, selectedHook]); // Add selectedHook to dependencies
 
   const handleEdit = () => {
     setIsEditing(true);

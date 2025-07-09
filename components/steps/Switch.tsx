@@ -1,0 +1,120 @@
+import React from "react";
+import { Switch as ShadcnSwitch } from "@/components/ui/switch";
+
+interface SwitchProps {
+  commentInfo: {
+    comments: {
+      label: boolean;
+      text: string;
+      like: number;
+      name: string;
+      value?: string;
+    };
+    video_data: {
+      likes: number;
+      comments: number;
+      saves: number;
+      shares: number;
+      summary: string;
+      storage: string;
+    };
+  };
+  value: {
+    production: "Inside" | "Outside";
+    purpose: "Impression" | "Conversion";
+  };
+  onChange?: (values: {
+    production: "Inside" | "Outside";
+    purpose: "Impression" | "Conversion";
+  }) => void;
+}
+
+export const Switch: React.FC<SwitchProps> = ({
+  commentInfo,
+  value,
+  onChange,
+}) => {
+  const production = value.production;
+  const purpose = value.purpose;
+
+  const handleProduction = (checked: boolean) => {
+    const next = checked ? "Outside" : "Inside";
+    onChange?.({ production: next, purpose });
+  };
+  const handlePurpose = (checked: boolean) => {
+    const next = checked ? "Impression" : "Conversion";
+    onChange?.({ production, purpose: next });
+  };
+
+  return (
+    <div className="w-full flex flex-col items-center gap-12">
+      {/* Info Box (reuse from SelectHook) */}
+      <div className="w-full">
+        <h2 className="text-2xl text-left font-semibold mb-6">コメント情報</h2>
+        <div className="flex flex-row gap-4 mb-4 w-full">
+          <div className="border border-gray-400 rounded-md flex flex-col items-start justify-center p-5 gap-2 w-full">
+            <div className="text-sm text-gray-500 font-semibold">コメント</div>
+            <div className="text-base text-gray-700 text-center">
+              {commentInfo?.comments.text || "No comment selected."}
+            </div>
+          </div>
+        </div>
+        <div className="w-full flex gap-5 mb-4">
+          <div className="font-semibold text-base border border-gray-400 rounded-md py-4 px-4 flex flex-col items-start justify-center w-full text-left">
+            <h2 className="text-xs font-normal">いいね数</h2>
+            <h2 className="text-sm">{commentInfo?.comments.like ?? "-"}</h2>
+          </div>
+          <div className="font-semibold text-base border border-gray-400 rounded-md py-4 px-4 flex flex-col items-start justify-center w-full text-left">
+            <h2 className="text-xs font-normal">価値</h2>
+            <h2 className="text-sm">{commentInfo?.comments.value ?? "-"}</h2>
+          </div>
+        </div>
+      </div>
+      {/* Switches Row */}
+      <div className="flex flex-row gap-16 w-full justify-between">
+        {/* Inside/Outside Production Switch */}
+        <div className="border border-black rounded-md p-8 min-w-[320px] w-full flex flex-col items-center">
+          <div className="mb-4 text-lg font-medium">Production</div>
+          <div className="flex items-center gap-4">
+            <span
+              className={`px-4 py-2 rounded font-semibold text-lg transition-colors duration-200 ${production === "Inside" ? "bg-green-200 text-green-900" : "bg-gray-100 text-gray-500"}`}
+            >
+              Inside
+            </span>
+            <ShadcnSwitch
+              checked={production === "Outside"}
+              onCheckedChange={handleProduction}
+              className="mx-2"
+            />
+            <span
+              className={`px-4 py-2 rounded font-semibold text-lg transition-colors duration-200 ${production === "Outside" ? "bg-green-200 text-green-900" : "bg-gray-100 text-gray-500"}`}
+            >
+              Outside
+            </span>
+          </div>
+        </div>
+        {/* IMP/CV Purpose Switch */}
+        <div className="border border-black rounded-md p-8 min-w-[320px] w-full flex flex-col items-center">
+          <div className="mb-4 text-lg font-medium">Purpose</div>
+          <div className="flex items-center gap-4">
+            <span
+              className={`px-4 py-2 rounded font-semibold text-lg transition-colors duration-200 ${purpose === "Conversion" ? "bg-red-200 text-red-900" : "bg-gray-100 text-gray-500"}`}
+            >
+              Conversion
+            </span>
+            <ShadcnSwitch
+              checked={purpose === "Impression"}
+              onCheckedChange={handlePurpose}
+              className="mx-2"
+            />
+            <span
+              className={`px-4 py-2 rounded font-semibold text-lg transition-colors duration-200 ${purpose === "Impression" ? "bg-red-200 text-red-900" : "bg-gray-100 text-gray-500"}`}
+            >
+              Impression
+            </span>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+};

@@ -1,29 +1,18 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Card } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 import { UserInput } from "@/components/steps/UserInput";
-import { Persona } from "@/components/steps/Persona";
-import { Sample } from "@/components/steps/Sample";
-import { SceneGenerator } from "./steps/SceneGenerator";
-import { StructureGenerator } from "./steps/StructureGenerator";
-import { z } from "zod";
-import { UserInputTarget } from "./steps/UserInputTarget";
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-} from "@/components/ui/select";
-import { VideoList } from "@/components/steps/VideoList";
 import { SelectComment } from "@/components/steps/SelectComment";
 import { SelectHook } from "@/components/steps/SelectHook";
-import { GenerateContent } from "@/components/steps/GenerateContent";
-import { useWatch } from "react-hook-form";
+import { StructureGenerator } from "./steps/StructureGenerator";
 import { useAuth } from "@clerk/nextjs";
+import callApi from "@/config/axios/axios";
+import ReactDOM from "react-dom";
+import { Switch as ProductionSwitch } from "@/components/steps/Switch";
 
 export interface FormData {
   searchword: string;
@@ -41,30 +30,52 @@ export interface FormData {
 
 const steps = [
   { id: 1, title: "ユーザー情報入力" },
-  { id: 2, title: "動画選択" },
-  { id: 3, title: "コメント選択" },
-  { id: 4, title: "フック選択" },
+  { id: 2, title: "コメント選択" },
+  { id: 3, title: "フック選択" },
+  { id: 4, title: "プロダクション/目的選択" },
   { id: 5, title: "コンテンツ生成" },
 ];
 
-const productSchema = z.object({
-  productName: z.string().min(1, "Product Name is required"),
-  productGenre: z.string().min(1, "Product Genre is required"),
-  productImage: z
-    .any()
-    .refine((file) => file instanceof File || file === null, {
-      message: "Product Image is required",
-    }),
-  sellingPoints: z.string().min(1, "Selling Points are required"),
-  other: z.string().optional(),
-});
+// Mock data fallback
+const mockCommentListData = [
+  {
+    comments: {
+      label: true,
+      text: "イソトレチノイ飲んたら1発でニキビできなくなる",
+      like: 104,
+      name: "／10",
+    },
+    video_data: {
+      likes: 149600,
+      comments: 1610,
+      saves: 6829,
+      shares: 2981,
+      summary: "",
+      storage: "",
+    },
+  },
+  {
+    comments: {
+      label: true,
+      text: "どっちも使ったことあるけど白くなるのは伸び悪いし日焼け効果高いのはアリーだから間違えないで",
+      like: 3307,
+      name: "すいれん 柴石",
+    },
+    video_data: {
+      likes: 120000,
+      comments: 800,
+      saves: 3000,
+      shares: 1200,
+      summary: "",
+      storage: "",
+    },
+  },
+];
 
 export function MultiStepForm() {
   const { userId } = useAuth();
   const [currentStep, setCurrentStep] = useState(1);
   const [projectId, setProjectId] = useState<string | null>(null);
-
-  //DATA FOR PERSONA
   const [userInputData, setUserInputData] = useState<FormData>({
     searchword: "",
     product_name: "",
@@ -78,209 +89,75 @@ export function MultiStepForm() {
     gender: "",
     issue: "",
   });
-
-  const [videoListData, setVideoListData] = useState<any[]>([]);
-  const [structureResult, setStructureResult] = useState<any>(null);
-  const [selectedVideo, setSelectedVideo] = useState<any>(null);
+  const [commentListData, setCommentListData] = useState<any[]>([]);
   const [selectedComment, setSelectedComment] = useState<any>(null);
-  const [commentData, setCommentData] = useState<any>(null);
   const [selectedHook, setSelectedHook] = useState<any>(null);
-  const [generatedContent, setGeneratedContent] = useState<any>(null);
   const [isSaving, setIsSaving] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
+  const [modalVideo, setModalVideo] = useState<null | any>(null);
+  const [switchState, setSwitchState] = useState({
+    production: "Inside",
+    purpose: "Conversion",
+  });
 
-  const updateFormData = (section: keyof FormData, data: any) => {
-    setUserInputData((prev) => ({
-      ...prev,
-      ...data,
-    }));
-    console.log("Result: ", data);
-  };
-
-  const handlePersonaReady = (result: any) => {
-    setVideoListData(result);
-  };
-
-  const handleAnalyzeStructure = (video: any) => {
-    setStructureResult(video);
-    setCurrentStep(5);
-  };
-
-  const nextStep = () => {
-    if (currentStep < steps.length) {
-      setCurrentStep(currentStep + 1);
-    }
-    console.log(userInputData);
-  };
-
-  const prevStep = () => {
-    // Only allow going back from step 3 onwards (not from step 2 to step 1)
-    if (currentStep > 2) {
-      setCurrentStep(currentStep - 1);
-    }
-  };
-
-  const handleSubmit = () => {
-    console.log("Form submitted:", userInputData);
-    // Handle form submission here
-  };
-
-  const handleUserInputUpdate = (flatData: any) => {
-    setUserInputData((prev) => ({
-      ...prev,
-      product_name: flatData.product_name,
-      product_category: flatData.product_category,
-      functional_value: flatData.functional_value,
-      emotional_value: flatData.emotional_value,
-      cost: flatData.cost,
-      currency: flatData.currency,
-      marketing_campaign: flatData.marketing_campaign,
-      age: flatData.age,
-      gender: flatData.gender,
-      issue: flatData.issue,
-    }));
-  };
-
-  // Build the correct client_input structure for the API (flat structure)
-  const client_input = userInputData;
-
-  const handleSelectVideo = (video: any) => {
-    setSelectedVideo(video);
-    setCurrentStep(3);
-  };
-
-  const handleSelectHook = (hook: any) => {
-    setSelectedHook(hook);
-    setCurrentStep(5);
-  };
-
-  const handleContentGenerated = async (content: any) => {
-    console.log("🔄 handleContentGenerated called with:", content);
-    setGeneratedContent(content);
-    console.log("📝 About to save content to database...");
-    await updateProjectInDatabase("content", content);
-    console.log("✅ Content saved to database successfully");
-  };
-
-  const saveUserInputToDatabase = async (inputData?: any) => {
-    const dataToSave = inputData || userInputData;
-    console.log("🚩 userInputData before save:", dataToSave);
-    if (!userId) {
-      console.error("❌ No user ID available");
-      return;
-    }
-
-    console.log("📝 User ID:", userId);
-    setIsSaving(true);
-    try {
-      const projectData = {
-        userinput: JSON.stringify(dataToSave),
-      };
-      console.log("🚩 Sending to API (userinput):", projectData.userinput);
-
-      console.log("📤 Creating project with data:", projectData);
-
-      const response = await fetch("/api/project", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(projectData),
-      });
-
-      console.log("📥 Project creation response status:", response.status);
-
-      if (!response.ok) {
-        const errorText = await response.text();
-        console.error("❌ Project creation failed:", errorText);
-        throw new Error("Failed to save user input");
-      }
-
-      const result = await response.json();
-      console.log("✅ Project created successfully:", result);
-      console.log("📝 Setting project ID to:", result.project.id);
-      setProjectId(result.project.id);
-    } catch (error) {
-      console.error("❌ Error saving user input:", error);
-    } finally {
-      setIsSaving(false);
-    }
-  };
-
-  const updateProjectInDatabase = async (field: string, data: any) => {
-    console.log(
-      `🔄 updateProjectInDatabase called with field: ${field}, data:`,
-      data
-    );
-    console.log(`📝 Current projectId: ${projectId}`);
-    console.log(`📝 Field type: ${typeof field}`);
-    console.log(`📝 Data type: ${typeof data}`);
-    console.log(
-      `📝 Data length: ${Array.isArray(data) ? data.length : "not array"}`
-    );
-
-    if (!projectId) {
-      console.error("❌ No project ID available - cannot save to database");
-
-      return;
-    }
-
-    console.log(`📝 Project ID: ${projectId}`);
-    setIsSaving(true);
-    try {
-      const updateData: any = {
-        [field]: JSON.stringify(data),
-      };
-
-      console.log(`📤 Sending PATCH request to /api/project/${projectId}`);
-      console.log(`📤 Update data:`, updateData);
-      console.log(`📤 JSON.stringify(data):`, JSON.stringify(data));
-
-      const response = await fetch(`/api/project/${projectId}`, {
-        method: "PATCH",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(updateData),
-      });
-
-      console.log(`📥 Response status: ${response.status}`);
-
-      if (!response.ok) {
-        const errorText = await response.text();
-        console.error(`❌ Response not ok: ${errorText}`);
-        throw new Error(`Failed to update ${field}`);
-      }
-
-      const result = await response.json();
-      console.log(`✅ ${field} updated successfully:`, result);
-    } catch (error) {
-      console.error(`❌ Error updating ${field}:`, error);
-    } finally {
-      setIsSaving(false);
-    }
-  };
-
+  // ----------------------
+  // Step 1: User Input
+  // ----------------------
   const handleUserInputComplete = async (values: any) => {
     setUserInputData(values);
-    console.log("🚩 userInputData before save (from values):", values);
     await saveUserInputToDatabase(values);
+    await fetchCommentsForInput(values);
     setCurrentStep(2);
   };
 
-  const handleCommentSelected = async (comment: any, fullCommentData: any) => {
+  // ----------------------
+  // Step 2: Comment Selection
+  // ----------------------
+  const handleCommentSelected = async (comment: any) => {
     setSelectedComment(comment);
-    setCommentData(fullCommentData);
-    await updateProjectInDatabase("comment", fullCommentData.comments);
-    setCurrentStep(4);
+    await updateProjectInDatabase("comment", comment.comments);
+    setCurrentStep(3);
   };
 
+  // ----------------------
+  // Step 3: Hook Selection
+  // ----------------------
   const handleHookSelected = async (hook: any) => {
     setSelectedHook(hook);
     await updateProjectInDatabase("hook", hook);
-    setCurrentStep(5);
+    setCurrentStep(4);
   };
 
+  // ----------------------
+  // Step 4: Production/Purpose Switch
+  // ----------------------
+  const handleSwitchChange = (values: {
+    production: "Inside" | "Outside";
+    purpose: "Impression" | "Conversion";
+  }) => {
+    setSwitchState(values);
+  };
+
+  // ----------------------
+  // Step 2: Comment Selection (Play Video Modal)
+  // ----------------------
+  const handlePlayVideo = (row: any) => {
+    setModalVideo(row);
+  };
+  const handleCloseModal = () => setModalVideo(null);
+
+  // ----------------------
+  // Step Rendering
+  // ----------------------
   const renderStep = () => {
+    if (isLoading) {
+      return (
+        <div className="flex flex-col items-center justify-center min-h-[300px]">
+          <div className="animate-spin rounded-full h-16 w-16 border-t-4 border-b-4 border-[#fe2858] mb-6"></div>
+          <div className="text-lg font-semibold text-[#fe2858]">検索中...</div>
+        </div>
+      );
+    }
     switch (currentStep) {
       case 1:
         return (
@@ -292,36 +169,38 @@ export function MultiStepForm() {
         );
       case 2:
         return (
-          <VideoList
-            userInputData={userInputData}
-            setVideoListData={setVideoListData}
-            onSelectVideo={handleSelectVideo}
+          <SelectComment
+            data={commentListData}
+            onSelectComment={handleCommentSelected}
+            onPlayVideo={handlePlayVideo}
+            searchword={userInputData.searchword}
           />
         );
       case 3:
         return (
-          <SelectComment
-            videoListData={videoListData}
-            selectedVideo={selectedVideo}
-            onSelectComment={(comment, fullCommentData) => {
-              handleCommentSelected(comment, fullCommentData);
-            }}
+          <SelectHook
+            selectedRow={selectedComment}
+            onSelectHook={handleHookSelected}
           />
         );
       case 4:
         return (
-          <SelectHook
-            searchword={userInputData.searchword}
-            comment={selectedComment}
-            onSelectHook={handleHookSelected}
+          <ProductionSwitch
+            commentInfo={selectedComment}
+            value={{
+              production: switchState.production as "Inside" | "Outside",
+              purpose: switchState.purpose as "Impression" | "Conversion",
+            }}
+            onChange={handleSwitchChange}
           />
         );
       case 5:
         return (
           <StructureGenerator
-            video_url={videoListData[0].url}
-            client_input={client_input}
-            onContentGenerated={handleContentGenerated}
+            video_url={""}
+            client_input={userInputData}
+            selectedHook={selectedHook}
+            onContentGenerated={() => {}}
           />
         );
       default:
@@ -329,113 +208,281 @@ export function MultiStepForm() {
     }
   };
 
+  // ----------------------
+  // Utility/API/DB Functions
+  // ----------------------
+  // Fetch comments for input (Step 2)
+  const fetchCommentsForInput = async (input: FormData) => {
+    setIsLoading(true);
+    try {
+      console.log("[API 1] Calling /api/v1/scrape/list with:", {
+        searchword: input.searchword,
+        amount: 10,
+      });
+      // 1. Fetch video list
+      const response = await callApi.post("/api/v1/scrape/list", {
+        searchword: input.searchword,
+        amount: 10,
+      });
+      console.log("[API 1] Response:", response.data);
+      const videoList = response.data.videolist || [];
+
+      // 2. For each video, fetch comments in parallel from the new endpoint
+      const allArrays = await Promise.all(
+        videoList.map(async (video: any, idx: number) => {
+          console.log(
+            `[API 2] Calling /api/v1/scrape/indivisual for video #${idx + 1}:`,
+            video.url
+          );
+          const indivRes = await callApi.post("/api/v1/scrape/indivisual", {
+            url: video.url,
+          });
+          console.log(`[API 2] Response for video #${idx + 1}:`, indivRes.data);
+          // Each call returns an array of { comments, video_data }
+          // If indivRes.data.data is an array, return it, else return []
+          return indivRes.data.data || [];
+        })
+      );
+
+      // 3. Flatten all arrays into one
+      const flatResults = allArrays.flat();
+      setCommentListData(
+        flatResults.length > 0 ? flatResults : mockCommentListData
+      );
+    } catch (error) {
+      setCommentListData(mockCommentListData);
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
+  // Save user input to DB (Step 1)
+  const saveUserInputToDatabase = async (inputData?: any) => {
+    const dataToSave = inputData || userInputData;
+    if (!userId) return;
+    setIsSaving(true);
+    try {
+      const projectData = {
+        userinput: JSON.stringify(dataToSave),
+      };
+      const response = await fetch("/api/project", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(projectData),
+      });
+      if (!response.ok) throw new Error("Failed to save user input");
+      const result = await response.json();
+      setProjectId(result.project.id);
+    } catch (error) {
+      // handle error
+    } finally {
+      setIsSaving(false);
+    }
+  };
+
+  // Update project in DB (Step 2/3)
+  const updateProjectInDatabase = async (field: string, data: any) => {
+    if (!projectId) return;
+    setIsSaving(true);
+    try {
+      const updateData: any = {
+        [field]: JSON.stringify(data),
+      };
+      const response = await fetch(`/api/project/${projectId}`, {
+        method: "PATCH",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(updateData),
+      });
+      if (!response.ok) throw new Error(`Failed to update ${field}`);
+    } catch (error) {
+      // handle error
+    } finally {
+      setIsSaving(false);
+    }
+  };
+
   return (
-    <motion.div
-      initial={{ opacity: 0, y: 20 }}
-      animate={{ opacity: 1, y: 0 }}
-      transition={{ duration: 0.5 }}
-      className="w-full min-h-screen flex flex-col justify-center "
-    >
-      {/* Stepper Header OUTSIDE Card */}
-      <div className="p-8 text-black">
-        {/* Stepper */}
-        <div className="flex items-center justify-center mb-6">
-          {steps.map((step, idx) => (
-            <div key={step.id} className="flex items-center relative">
-              <div className="flex flex-col items-center min-w-[80px]">
-                <div
-                  className={`flex items-center justify-center w-8 h-8 rounded-full text-md font-bold transition-all duration-200
-                    ${
-                      currentStep === step.id
-                        ? "bg-[#fe2858] text-white shadow-lg"
-                        : currentStep > step.id
-                          ? "bg-[#b72645] text-white"
-                          : "bg-[#f8d3db] text-[#b72645]"
-                    }
-                  `}
-                >
-                  {step.id}
+    <>
+      <motion.div
+        initial={{ opacity: 0, y: 20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.5 }}
+        className="w-full min-h-screen flex flex-col justify-center "
+      >
+        {/* Stepper Header OUTSIDE Card */}
+        <div className="p-8 text-black">
+          {/* Stepper */}
+          <div className="flex items-center justify-center mb-6">
+            {steps.map((step, idx) => (
+              <div key={step.id} className="flex items-center relative">
+                <div className="flex flex-col items-center min-w-[80px]">
+                  <div
+                    className={`flex items-center justify-center w-8 h-8 rounded-full text-md font-bold transition-all duration-200
+                      ${
+                        currentStep === step.id
+                          ? "bg-[#fe2858] text-white shadow-lg"
+                          : currentStep > step.id
+                            ? "bg-[#b72645] text-white"
+                            : "bg-[#f8d3db] text-[#b72645]"
+                      }
+                    `}
+                  >
+                    {step.id}
+                  </div>
+                  <span className="text-xs mt-2 text-[#fe2858] font-medium whitespace-nowrap mx-3">
+                    {step.title}
+                  </span>
                 </div>
-                <span className="text-xs mt-2 text-[#fe2858] font-medium whitespace-nowrap mx-3">
-                  {step.title}
-                </span>
+                {/* Draw the line except after the last step */}
+                {idx < steps.length - 1 && (
+                  <div
+                    className={`h-[2px] -mt-5 w-12 mx-2 transition-colors duration-200 ${
+                      currentStep > step.id ? "bg-[#fe2858]" : "bg-[#ffa3a3]"
+                    }`}
+                  />
+                )}
               </div>
-              {/* Draw the line except after the last step */}
-              {idx < steps.length - 1 && (
-                <div
-                  className={`h-[2px] -mt-5 w-12 mx-2 transition-colors duration-200 ${
-                    currentStep > step.id ? "bg-[#fe2858]" : "bg-[#ffa3a3]"
-                  }`}
-                />
+            ))}
+          </div>
+        </div>
+        {/* Navigation Buttons OUTSIDE Card */}
+        <div className="flex justify-between items-start w-full px-8 mt-4">
+          <div>
+            {currentStep > 1 && (
+              <Button
+                variant="outline"
+                onClick={() => setCurrentStep(currentStep - 1)}
+                disabled={isSaving}
+                className="flex items-center gap-2 bg-[#2af0ea] text-black hover:bg-[#288784] hover:text-white transition-all duration-300 "
+              >
+                <ChevronLeft className="w-4 h-4" />
+                前に戻る
+              </Button>
+            )}
+          </div>
+          <div>
+            {currentStep === 1 && (
+              <Button
+                type="submit"
+                form="user-input-form"
+                disabled={isSaving}
+                className="bg-[#2af0ea] text-black hover:bg-[#288784] hover:text-white transition-all duration-300 "
+              >
+                {isSaving ? "保存中..." : "次のステップへ"}
+                <ChevronRight className="w-4 h-4" />
+              </Button>
+            )}
+            {currentStep === 4 && (
+              <Button
+                onClick={() => setCurrentStep(5)}
+                className="bg-[#2af0ea] text-black hover:bg-[#288784] hover:text-white transition-all duration-300 "
+              >
+                次のステップへ
+                <ChevronRight className="w-4 h-4" />
+              </Button>
+            )}
+          </div>
+        </div>
+        {/* Only wrap steps 1-4 in Card, render StructureGenerator directly for step 5 */}
+        {currentStep === 5 ? (
+          <StructureGenerator
+            video_url={""}
+            client_input={userInputData}
+            selectedHook={selectedHook}
+            onContentGenerated={() => {}}
+          />
+        ) : (
+          <Card className="shadow-2xl border-0 bg-white/90 backdrop-blur-sm rounded-2xl overflow-hidden p-10 mt-8">
+            {/* Form Content */}
+            <div className="p-8">
+              <AnimatePresence mode="wait">
+                <motion.div
+                  key={currentStep}
+                  initial={{ opacity: 0, x: 20 }}
+                  animate={{ opacity: 1, x: 0 }}
+                  exit={{ opacity: 0, x: -20 }}
+                  transition={{ duration: 0.3 }}
+                >
+                  {renderStep()}
+                </motion.div>
+              </AnimatePresence>
+            </div>
+          </Card>
+        )}
+      </motion.div>
+      {typeof window !== "undefined" &&
+        modalVideo &&
+        ReactDOM.createPortal(
+          <div
+            className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50"
+            onClick={handleCloseModal}
+          >
+            <div
+              className="bg-white rounded-lg shadow-lg py-5 px-10 relative flex flex-col items-center"
+              onClick={(e) => e.stopPropagation()}
+            >
+              <button
+                className="absolute top-2 right-2 text-gray-500 hover:text-gray-700 text-xl"
+                onClick={handleCloseModal}
+              >
+                ×
+              </button>
+              {modalVideo.video_data.storage ? (
+                <div className="aspect-[9/16] w-72 mt-6">
+                  <video
+                    src={modalVideo.video_data.storage}
+                    controls
+                    autoPlay
+                    className="w-full h-full object-contain rounded"
+                  />
+                </div>
+              ) : (
+                <div className="aspect-[9/16] w-72 flex items-center justify-center bg-gray-200 rounded mt-6 mb-4 text-gray-500">
+                  No video available
+                </div>
+              )}
+              <div className="mb-2 w-full px-4">
+                <div className="grid grid-cols-2 gap-2 text-sm">
+                  <div className="flex flex-col items-center">
+                    <span className="text-gray-500">いいね数</span>
+                    <span className="font-semibold">
+                      {modalVideo.video_data.likes?.toLocaleString() ?? "-"}
+                    </span>
+                  </div>
+                  <div className="flex flex-col items-center">
+                    <span className="text-gray-500">コメント数</span>
+                    <span className="font-semibold">
+                      {modalVideo.video_data.comments?.toLocaleString() ?? "-"}
+                    </span>
+                  </div>
+                  <div className="flex flex-col items-center">
+                    <span className="text-gray-500">シェア数</span>
+                    <span className="font-semibold">
+                      {modalVideo.video_data.shares?.toLocaleString() ?? "-"}
+                    </span>
+                  </div>
+                  <div className="flex flex-col items-center">
+                    <span className="text-gray-500">セーブ数</span>
+                    <span className="font-semibold">
+                      {modalVideo.video_data.saves?.toLocaleString() ?? "-"}
+                    </span>
+                  </div>
+                </div>
+              </div>
+              {modalVideo.video_data.summary && (
+                <div className="bg-gray-100 rounded p-3 text-xs text-gray-700 mt-2 w-full px-4">
+                  <h2 className="font-semibold mb-2">サマリー</h2>
+                  <div>{modalVideo.video_data.summary}</div>
+                </div>
               )}
             </div>
-          ))}
-        </div>
-      </div>
-      {/* Navigation Buttons OUTSIDE Card */}
-      <div className="flex justify-between items-start w-full px-8 mt-4">
-        <div>
-          {currentStep === 3 || currentStep === 4 || currentStep === 5 ? (
-            <Button
-              variant="outline"
-              onClick={prevStep}
-              disabled={isSaving}
-              className="flex items-center gap-2 bg-[#2af0ea] text-black hover:bg-[#288784] hover:text-white transition-all duration-300 "
-            >
-              <ChevronLeft className="w-4 h-4" />
-              前に戻る
-            </Button>
-          ) : null}
-        </div>
-        <div>
-          {currentStep === 1 && (
-            <Button
-              type="submit"
-              form="user-input-form"
-              disabled={isSaving}
-              className="bg-[#2af0ea] text-black hover:bg-[#288784] hover:text-white transition-all duration-300 "
-            >
-              {isSaving ? "保存中..." : "次のステップへ"}
-              <ChevronRight className="w-4 h-4" />
-            </Button>
-          )}
-          {currentStep === 2 && (
-            <Button
-              disabled
-              onClick={nextStep}
-              className="bg-[#2af0ea] text-black hover:bg-[#288784] hover:text-white transition-all duration-300 "
-            >
-              シーンを生成！
-              <ChevronRight className="w-4 h-4" />
-            </Button>
-          )}
-        </div>
-      </div>
-      {/* Only wrap steps 1-4 in Card, render StructureGenerator directly for step 5 */}
-      {currentStep === 5 ? (
-        <StructureGenerator
-          video_url={structureResult?.video_url || ""}
-          client_input={client_input}
-          onContentGenerated={handleContentGenerated}
-        />
-      ) : (
-        <Card className="shadow-2xl border-0 bg-white/90 backdrop-blur-sm rounded-2xl overflow-hidden p-10 mt-8">
-          {/* Form Content */}
-          <div className="p-8">
-            <AnimatePresence mode="wait">
-              <motion.div
-                key={currentStep}
-                initial={{ opacity: 0, x: 20 }}
-                animate={{ opacity: 1, x: 0 }}
-                exit={{ opacity: 0, x: -20 }}
-                transition={{ duration: 0.3 }}
-              >
-                {renderStep()}
-              </motion.div>
-            </AnimatePresence>
-          </div>
-        </Card>
-      )}
-    </motion.div>
+          </div>,
+          document.body
+        )}
+    </>
   );
 }

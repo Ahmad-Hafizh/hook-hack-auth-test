@@ -5,6 +5,7 @@ import { getAuth } from "@clerk/nextjs/server";
 function serializeBigInt(obj: any): any {
   if (obj === null || obj === undefined) return obj;
   if (typeof obj === "bigint") return obj.toString();
+  if (obj instanceof Date) return obj.toISOString();
   if (Array.isArray(obj)) return obj.map(serializeBigInt);
   if (typeof obj === "object") {
     const newObj: any = {};
@@ -113,7 +114,11 @@ export async function GET(req: NextRequest) {
 
     console.log(
       "[GET /api/project] returned projects:",
-      projects.map((p) => ({ id: p.id, userinput: p.userinput }))
+      projects.map((p) => ({
+        id: p.id,
+        userinput: p.userinput,
+        system_createdAt: p.system_createdAt,
+      }))
     );
 
     return NextResponse.json({

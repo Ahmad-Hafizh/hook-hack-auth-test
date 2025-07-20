@@ -322,14 +322,14 @@ export function MultiStepForm() {
                 <div className="flex flex-col items-center min-w-[80px]">
                   <div
                     className={`flex items-center justify-center w-8 h-8 rounded-full text-md font-bold transition-all duration-200
-                      ${
-                        currentStep === step.id
-                          ? "bg-[#fe2858] text-white shadow-lg"
-                          : currentStep > step.id
-                            ? "bg-[#b72645] text-white"
-                            : "bg-[#f8d3db] text-[#b72645]"
-                      }
-                    `}
+                    ${
+                      currentStep === step.id
+                        ? "bg-[#fe2858] text-white shadow-lg"
+                        : currentStep > step.id
+                          ? "bg-[#b72645] text-white"
+                          : "bg-[#f8d3db] text-[#b72645]"
+                    }
+                  `}
                   >
                     {step.id}
                   </div>

@@ -83,6 +83,7 @@ export function PaginatedProjectsTable({
     React.useState<PaginationData>(initialPagination);
   const [isLoading, setIsLoading] = React.useState(false);
   const [currentPage, setCurrentPage] = React.useState(1);
+  const [error, setError] = React.useState<string | null>(null);
 
   // Call API on component mount
   React.useEffect(() => {
@@ -110,6 +111,7 @@ export function PaginatedProjectsTable({
   const fetchProjects = async (page: number, limit: number = 10) => {
     try {
       setIsLoading(true);
+      setError(null);
       console.log(`🔄 Fetching projects - Page ${page}, Limit ${limit}`);
       console.log(`🔄 API URL: /api/projects`);
       console.log(`🔄 Request body:`, { page, limit });
@@ -149,24 +151,13 @@ export function PaginatedProjectsTable({
       setCurrentPage(page);
     } catch (err: any) {
       console.error("❌ Error fetching projects data:", err);
-      console.error("❌ Error details:", {
-        message: err instanceof Error ? err.message : "Unknown error",
-        stack: err instanceof Error ? err.stack : undefined,
-        response: err.response?.data,
-        status: err.response?.status,
-        statusText: err.response?.statusText,
-        url: err.config?.url,
-        method: err.config?.method,
-      });
-
-      // Check if it's a network error
-      if (err.code === "ECONNREFUSED" || err.code === "ERR_NETWORK") {
-        console.error(
-          "❌ Network error - Check if the server is running on localhost:3000"
-        );
-      }
-
-      // Keep existing data on error
+      setError(
+        err.response
+          ? `Error ${err.response.status}: ${err.response.data?.error || err.message}`
+          : err.message || "An error occurred"
+      );
+      // Do not keep existing data on error
+      setProjects([]);
     } finally {
       setIsLoading(false);
     }
@@ -269,6 +260,14 @@ export function PaginatedProjectsTable({
       sorting,
     },
   });
+
+  if (error) {
+    return (
+      <div className="rounded-md border-2 border-[#361a20] py-10 px-10 bg-[#0f0f0f] text-center text-amber-400">
+        {error}
+      </div>
+    );
+  }
 
   if (isLoading) {
     return (

@@ -163,10 +163,12 @@ export default function OverviewPage({
           return;
         }
         console.error("❌ Error fetching dashboard data:", err);
-        setError(err instanceof Error ? err.message : "An error occurred");
-        // Use mock data when there's an error
-        console.log("🔄 Using mock data due to error");
-        setDashboardData(mockDashboardData);
+        setError(
+          err.response
+            ? `Error ${err.response.status}: ${err.response.data?.error || err.message}`
+            : err.message || "An error occurred"
+        );
+        // Do not set mockDashboardData
       } finally {
         setIsLoading(false);
       }
@@ -195,7 +197,7 @@ export default function OverviewPage({
           <p className="text-gray-300 mb-2">{description}</p>
           {error && (
             <div className="text-sm mb-2 text-amber-400 bg-amber-900/20 border border-amber-700 rounded-md px-3 py-2">
-              ⚠️ Using demo data - {error}
+              {error}
             </div>
           )}
         </div>

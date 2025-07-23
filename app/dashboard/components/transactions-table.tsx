@@ -38,44 +38,7 @@ interface TransactionData {
   dateCreated: string;
 }
 
-// Sample data
-const sampleData: TransactionData[] = [
-  {
-    id: 1,
-    invoiceId: "INV-2024-001",
-    status: "completed",
-    amount: 150.0,
-    dateCreated: "2024-01-15",
-  },
-  {
-    id: 2,
-    invoiceId: "INV-2024-002",
-    status: "pending",
-    amount: 75.5,
-    dateCreated: "2024-01-14",
-  },
-  {
-    id: 3,
-    invoiceId: "INV-2024-003",
-    status: "completed",
-    amount: 200.0,
-    dateCreated: "2024-01-13",
-  },
-  {
-    id: 4,
-    invoiceId: "INV-2024-004",
-    status: "failed",
-    amount: 120.0,
-    dateCreated: "2024-01-12",
-  },
-  {
-    id: 5,
-    invoiceId: "INV-2024-005",
-    status: "completed",
-    amount: 90.25,
-    dateCreated: "2024-01-11",
-  },
-];
+// Remove sampleData
 
 const columns: ColumnDef<TransactionData>[] = [
   {
@@ -153,9 +116,43 @@ const columns: ColumnDef<TransactionData>[] = [
 
 export function TransactionsTable() {
   const [sorting, setSorting] = React.useState<SortingState>([]);
+  const [transactions, setTransactions] = React.useState<TransactionData[]>([]);
+  const [isLoading, setIsLoading] = React.useState(true);
+  const [error, setError] = React.useState<string | null>(null);
+
+  React.useEffect(() => {
+    const fetchTransactions = async () => {
+      try {
+        setIsLoading(true);
+        setError(null);
+        const response = await fetch("/api/transactions");
+        if (!response.ok) {
+          const data = await response.json();
+          setError(
+            `Error ${response.status}: ${data.error || response.statusText}`
+          );
+          setTransactions([]);
+          console.error(
+            "❌ Error fetching transactions:",
+            data.error || response.statusText
+          );
+          return;
+        }
+        const data = await response.json();
+        setTransactions(data.data || []);
+      } catch (err: any) {
+        setError(err.message || "An error occurred");
+        setTransactions([]);
+        console.error("❌ Error fetching transactions:", err);
+      } finally {
+        setIsLoading(false);
+      }
+    };
+    fetchTransactions();
+  }, []);
 
   const table = useReactTable({
-    data: sampleData,
+    data: transactions,
     columns,
     getCoreRowModel: getCoreRowModel(),
     getSortedRowModel: getSortedRowModel(),
@@ -164,6 +161,22 @@ export function TransactionsTable() {
       sorting,
     },
   });
+
+  if (error) {
+    return (
+      <div className="rounded-md border-2 border-[#361a20] py-10 px-10 bg-[#0f0f0f] text-center text-amber-400">
+        {error}
+      </div>
+    );
+  }
+
+  if (isLoading) {
+    return (
+      <div className="rounded-md border-2 border-[#361a20] py-10 px-10 bg-[#0f0f0f] text-center text-white">
+        Loading transactions...
+      </div>
+    );
+  }
 
   return (
     <div className="rounded-md border border-[#361a20] px-5">

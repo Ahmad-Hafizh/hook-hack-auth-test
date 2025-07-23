@@ -8,7 +8,7 @@ const navMain = [
     title: "Overview",
     url: "/dashboard",
     icon: Home,
-    isActive: true,
+    isActive: false,
   },
   {
     title: "Projects",
@@ -20,7 +20,7 @@ const navMain = [
     title: "Buy Credit",
     url: "/dashboard/credits",
     icon: CreditCard,
-    isActive: false,
+    isActive: true,
   },
   {
     title: "Transaction",

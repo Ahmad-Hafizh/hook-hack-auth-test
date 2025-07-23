@@ -8,13 +8,13 @@ const navMain = [
     title: "Overview",
     url: "/dashboard",
     icon: Home,
-    isActive: true,
+    isActive: false,
   },
   {
     title: "Projects",
     url: "/dashboard/projects",
     icon: Folder,
-    isActive: false,
+    isActive: true,
   },
   {
     title: "Buy Credit",

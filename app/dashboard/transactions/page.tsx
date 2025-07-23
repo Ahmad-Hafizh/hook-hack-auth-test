@@ -8,7 +8,7 @@ const navMain = [
     title: "Overview",
     url: "/dashboard",
     icon: Home,
-    isActive: true,
+    isActive: false,
   },
   {
     title: "Projects",
@@ -26,7 +26,7 @@ const navMain = [
     title: "Transaction",
     url: "/dashboard/transactions",
     icon: List,
-    isActive: false,
+    isActive: true,
   },
 ];
 

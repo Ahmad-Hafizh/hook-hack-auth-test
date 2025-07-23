@@ -24,17 +24,16 @@ import {
   SidebarMenuItem,
   useSidebar,
 } from "@/components/ui/sidebar";
+import { useUser, SignOutButton } from "@clerk/nextjs";
+import Link from "next/link";
 
-export function NavUser({
-  user,
-}: {
-  user: {
-    name: string;
-    email: string;
-    avatar: string;
-  };
-}) {
+export function NavUser() {
+  const { user, isLoaded } = useUser();
   const { isMobile } = useSidebar();
+
+  if (!isLoaded || !user) {
+    return null; // or a loading spinner
+  }
 
   return (
     <SidebarMenu>
@@ -46,17 +45,20 @@ export function NavUser({
               className="data-[state=open]:bg-[#361a20] data-[state=open]:text-white px-3 py-2 text-white hover:bg-[#361a20] hover:text-[#fe2858] transition-colors"
             >
               <Avatar className="h-6 w-6 rounded-lg grayscale">
-                <AvatarImage src={user.avatar} alt={user.name} />
+                <AvatarImage
+                  src={user.imageUrl}
+                  alt={user.fullName || user.username || "User"}
+                />
                 <AvatarFallback className="rounded-lg text-xs bg-[#fe2858] text-white">
-                  CN
+                  {user.fullName ? user.fullName[0] : "U"}
                 </AvatarFallback>
               </Avatar>
               <div className="grid flex-1 text-left text-xs leading-tight">
                 <span className="truncate font-medium text-xs text-white">
-                  {user.name}
+                  {user.fullName || user.username}
                 </span>
                 <span className="truncate text-xs text-gray-400">
-                  {user.email}
+                  {user.primaryEmailAddress?.emailAddress}
                 </span>
               </div>
               <MoreVerticalIcon className="ml-auto size-3 text-gray-400" />
@@ -71,40 +73,44 @@ export function NavUser({
             <DropdownMenuLabel className="p-0 font-normal">
               <div className="flex items-center gap-2 px-1 py-1.5 text-left text-sm">
                 <Avatar className="h-8 w-8 rounded-lg">
-                  <AvatarImage src={user.avatar} alt={user.name} />
+                  <AvatarImage
+                    src={user.imageUrl}
+                    alt={user.fullName || user.username || "User"}
+                  />
                   <AvatarFallback className="rounded-lg bg-[#fe2858] text-white">
-                    CN
+                    {user.fullName ? user.fullName[0] : "U"}
                   </AvatarFallback>
                 </Avatar>
                 <div className="grid flex-1 text-left text-sm leading-tight">
                   <span className="truncate font-medium text-white">
-                    {user.name}
+                    {user.fullName || user.username}
                   </span>
                   <span className="truncate text-xs text-gray-400">
-                    {user.email}
+                    {user.primaryEmailAddress?.emailAddress}
                   </span>
                 </div>
               </div>
             </DropdownMenuLabel>
             <DropdownMenuSeparator className="bg-[#361a20]" />
             <DropdownMenuGroup>
-              <DropdownMenuItem className="text-xs text-white hover:bg-[#361a20] hover:text-[#fe2858]">
-                <UserCircleIcon className="h-3 w-3" />
-                Account
-              </DropdownMenuItem>
-              <DropdownMenuItem className="text-xs text-white hover:bg-[#361a20] hover:text-[#fe2858]">
-                <CreditCardIcon className="h-3 w-3" />
-                Billing
-              </DropdownMenuItem>
-              <DropdownMenuItem className="text-xs text-white hover:bg-[#361a20] hover:text-[#fe2858]">
-                <BellIcon className="h-3 w-3" />
-                Notifications
+              <DropdownMenuItem
+                asChild
+                className="text-xs text-white hover:bg-[#361a20] hover:text-[#fe2858]"
+              >
+                <Link href="/dashboard/settings">
+                  <UserCircleIcon className="h-3 w-3" />
+                  Account
+                </Link>
               </DropdownMenuItem>
             </DropdownMenuGroup>
             <DropdownMenuSeparator className="bg-[#361a20]" />
             <DropdownMenuItem className="text-xs text-white hover:bg-[#361a20] hover:text-[#fe2858]">
-              <LogOutIcon className="h-3 w-3" />
-              Log out
+              <SignOutButton>
+                <span className="flex items-center gap-2">
+                  <LogOutIcon className="h-3 w-3" />
+                  Log out
+                </span>
+              </SignOutButton>
             </DropdownMenuItem>
           </DropdownMenuContent>
         </DropdownMenu>

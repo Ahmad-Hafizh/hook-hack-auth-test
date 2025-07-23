@@ -21,28 +21,23 @@ interface TestboardLayoutProps {
 const defaultNavMain = [
   {
     title: "Overview",
-    url: "/testboard",
+    url: "/dashboard",
     icon: Home,
   },
   {
     title: "Projects",
-    url: "/testboard/projects",
+    url: "/dashboard/projects",
     icon: Folder,
   },
   {
     title: "Buy Credit",
-    url: "#",
+    url: "/dashboard/credits",
     icon: CreditCard,
   },
   {
     title: "Transaction",
-    url: "#",
+    url: "/dashboard/transactions",
     icon: List,
-  },
-  {
-    title: "User Setting",
-    url: "#",
-    icon: Settings,
   },
 ];
 

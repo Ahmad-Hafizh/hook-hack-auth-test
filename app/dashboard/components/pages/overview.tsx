@@ -32,12 +32,6 @@ const navMain = [
     icon: List,
     isActive: false,
   },
-  {
-    title: "User Setting",
-    url: "/testboard/settings",
-    icon: Settings,
-    isActive: false,
-  },
 ];
 
 interface ProjectData {
@@ -129,6 +123,7 @@ export default function OverviewPage({
         console.log("🔄 Fetching dashboard data...");
 
         const response = await callHomeApi.post("/api/dashboard", { limit: 5 });
+        console.log("🔄 Dashboard API Response:", response);
         const result = response.data;
 
         console.log("✅ Dashboard API Response:", result);
@@ -161,7 +156,12 @@ export default function OverviewPage({
           ...result.data,
           projects: transformedProjects,
         });
-      } catch (err) {
+      } catch (err: any) {
+        // Axios puts the response on err.response
+        if (err.response && err.response.status === 401) {
+          window.location.href = "/sign-in";
+          return;
+        }
         console.error("❌ Error fetching dashboard data:", err);
         setError(err instanceof Error ? err.message : "An error occurred");
         // Use mock data when there's an error

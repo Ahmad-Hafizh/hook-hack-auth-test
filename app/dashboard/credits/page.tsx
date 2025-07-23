@@ -6,32 +6,26 @@ import { useState } from "react";
 const navMain = [
   {
     title: "Overview",
-    url: "/testboard",
+    url: "/dashboard",
     icon: Home,
-    isActive: false,
+    isActive: true,
   },
   {
     title: "Projects",
-    url: "/testboard/projects",
+    url: "/dashboard/projects",
     icon: Folder,
     isActive: false,
   },
   {
     title: "Buy Credit",
-    url: "/testboard/credits",
+    url: "/dashboard/credits",
     icon: CreditCard,
-    isActive: true,
-  },
-  {
-    title: "Transaction",
-    url: "/testboard/transactions",
-    icon: List,
     isActive: false,
   },
   {
-    title: "User Setting",
-    url: "/testboard/settings",
-    icon: Settings,
+    title: "Transaction",
+    url: "/dashboard/transactions",
+    icon: List,
     isActive: false,
   },
 ];

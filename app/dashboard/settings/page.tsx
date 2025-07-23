@@ -5,33 +5,27 @@ import { TestboardLayout } from "../components/layout";
 const navMain = [
   {
     title: "Overview",
-    url: "/testboard",
+    url: "/dashboard",
     icon: Home,
-    isActive: false,
+    isActive: true,
   },
   {
     title: "Projects",
-    url: "/testboard/projects",
+    url: "/dashboard/projects",
     icon: Folder,
     isActive: false,
   },
   {
     title: "Buy Credit",
-    url: "/testboard/credits",
+    url: "/dashboard/credits",
     icon: CreditCard,
     isActive: false,
   },
   {
     title: "Transaction",
-    url: "/testboard/transactions",
+    url: "/dashboard/transactions",
     icon: List,
     isActive: false,
-  },
-  {
-    title: "User Setting",
-    url: "/testboard/settings",
-    icon: Settings,
-    isActive: true,
   },
 ];
 

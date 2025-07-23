@@ -21,14 +21,18 @@ export async function POST(req: NextRequest) {
     const body = await req.json();
     const { limit = 5 } = body; // Default to 5 for overview page
 
-    // Get Clerk user ID from request (keeping for future use)
+    // Get Clerk user ID from request
     const authData = getAuth(req);
     const userId = authData?.userId;
 
-    // For temporary purposes, find user by specific email
-    const user = await prisma.user.findUnique({
+    if (!userId) {
+      return NextResponse.json({ error: "Not authenticated" }, { status: 401 });
+    }
+
+    // Find user by Clerk userId
+    let user = await prisma.user.findUnique({
       where: {
-        email: "satrio@samurai-style.tokyo",
+        userId: userId,
       },
       include: {
         _count: {
@@ -38,6 +42,37 @@ export async function POST(req: NextRequest) {
         },
       },
     });
+
+    // If user not found, create a new user with Clerk data
+    if (!user) {
+      // Fetch Clerk user data from Clerk REST API
+      const clerkApiKey = process.env.CLERK_SECRET_KEY;
+      const clerkUserRes = await fetch(
+        `https://api.clerk.dev/v1/users/${userId}`,
+        {
+          headers: {
+            Authorization: `Bearer ${clerkApiKey}`,
+          },
+        }
+      );
+      const clerkUser = await clerkUserRes.json();
+      user = await prisma.user.create({
+        data: {
+          userId: userId,
+          email: clerkUser?.email_addresses?.[0]?.email_address || "",
+          firstName: clerkUser?.first_name || "",
+          lastName: clerkUser?.last_name || "",
+          credit: 0,
+        },
+        include: {
+          _count: {
+            select: {
+              project: true,
+            },
+          },
+        },
+      });
+    }
 
     if (!user) {
       return NextResponse.json({ error: "User not found" }, { status: 404 });

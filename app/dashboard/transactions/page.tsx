@@ -6,32 +6,26 @@ import { TransactionsTable } from "../components/transactions-table";
 const navMain = [
   {
     title: "Overview",
-    url: "/testboard",
+    url: "/dashboard",
     icon: Home,
-    isActive: false,
+    isActive: true,
   },
   {
     title: "Projects",
-    url: "/testboard/projects",
+    url: "/dashboard/projects",
     icon: Folder,
     isActive: false,
   },
   {
     title: "Buy Credit",
-    url: "/testboard/credits",
+    url: "/dashboard/credits",
     icon: CreditCard,
     isActive: false,
   },
   {
-    title: "Transactions",
-    url: "/testboard/transactions",
+    title: "Transaction",
+    url: "/dashboard/transactions",
     icon: List,
-    isActive: true,
-  },
-  {
-    title: "User Setting",
-    url: "/testboard/settings",
-    icon: Settings,
     isActive: false,
   },
 ];

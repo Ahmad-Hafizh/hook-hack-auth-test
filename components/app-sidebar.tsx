@@ -155,7 +155,7 @@ export function AppSidebar({
         )}
       </div>
       <div className="px-4 py-4 mt-auto">
-        <NavUser user={data.user} />
+        <NavUser />
       </div>
     </div>
   );

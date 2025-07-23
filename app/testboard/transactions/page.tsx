@@ -23,7 +23,7 @@ const navMain = [
     isActive: false,
   },
   {
-    title: "Transaction",
+    title: "Transactions",
     url: "/testboard/transactions",
     icon: List,
     isActive: true,

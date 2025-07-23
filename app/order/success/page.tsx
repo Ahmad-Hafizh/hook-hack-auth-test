@@ -1,10 +1,11 @@
 "use client";
+import { Suspense } from "react";
 import { useSearchParams } from "next/navigation";
 import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import stripe from "@/lib/stripe/stripe";
 
-export default function StripeSuccessPage() {
+function StripeSuccessPageContent() {
   const searchParams = useSearchParams();
   const router = useRouter();
   const [sessionData, setSessionData] = useState<any>(null);
@@ -160,5 +161,19 @@ export default function StripeSuccessPage() {
         </p>
       </div>
     </div>
+  );
+}
+
+export default function StripeSuccessPage() {
+  return (
+    <Suspense
+      fallback={
+        <div className="min-h-screen flex items-center justify-center text-white">
+          Loading...
+        </div>
+      }
+    >
+      <StripeSuccessPageContent />
+    </Suspense>
   );
 }

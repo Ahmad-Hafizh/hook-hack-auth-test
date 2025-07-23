@@ -1,16 +1,15 @@
 "use client";
+import { Suspense } from "react";
 import { useSearchParams } from "next/navigation";
 import { useRouter } from "next/navigation";
 
-export default function StripeCancelPage() {
+function StripeCancelPageContent() {
   const searchParams = useSearchParams();
   const router = useRouter();
 
   const sessionId = searchParams.get("session_id");
 
   const handleRetryPayment = () => {
-    // You can implement retry logic here
-    // For now, redirect to dashboard where user can try again
     router.push("/dashboard");
   };
 
@@ -92,5 +91,19 @@ export default function StripeCancelPage() {
         </div>
       </div>
     </div>
+  );
+}
+
+export default function StripeCancelPage() {
+  return (
+    <Suspense
+      fallback={
+        <div className="min-h-screen flex items-center justify-center text-white">
+          Loading...
+        </div>
+      }
+    >
+      <StripeCancelPageContent />
+    </Suspense>
   );
 }

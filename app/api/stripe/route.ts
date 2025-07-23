@@ -13,8 +13,8 @@ export async function POST(req: NextRequest) {
       payment_method_types: ["card"],
       line_items: [{ price: priceId, quantity: 1 }],
       mode: "payment",
-      success_url: `${origin}/dashboard`,
-      cancel_url: `${origin}/dashboard`,
+      success_url: `${origin}/order/success`,
+      cancel_url: `${origin}/order/cancel`,
     });
 
     return NextResponse.json({ url: session.url });

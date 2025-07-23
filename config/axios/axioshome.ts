@@ -1,7 +1,7 @@
 import axios from "axios";
 
 const callHomeApi = axios.create({
-  baseURL: "http://localhost:3000",
+  baseURL: "http://hook-hack.com",
 });
 
 export default callHomeApi;

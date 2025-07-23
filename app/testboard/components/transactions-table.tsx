@@ -99,7 +99,7 @@ const columns: ColumnDef<TransactionData>[] = [
                 ? "secondary"
                 : "destructive"
           }
-          className="flex items-center gap-1"
+          className={`flex items-center gap-1 ${status === "completed" ? "bg-green-600 text-white" : ""}`}
         >
           {status === "completed" && <CheckCircle className="h-3 w-3" />}
           {status === "pending" && <Clock className="h-3 w-3" />}
@@ -139,7 +139,7 @@ const columns: ColumnDef<TransactionData>[] = [
       <Button
         variant="outline"
         size="sm"
-        className="flex items-center gap-2"
+        className="flex items-center gap-2 bg-white text-black hover:bg-gray-200"
         onClick={() =>
           console.log(`View transaction ${row.original.invoiceId}`)
         }
@@ -166,14 +166,17 @@ export function TransactionsTable() {
   });
 
   return (
-    <div className="rounded-md border px-5">
+    <div className="rounded-md border border-[#361a20] px-5">
       <Table>
         <TableHeader>
           {table.getHeaderGroups().map((headerGroup) => (
-            <TableRow key={headerGroup.id}>
+            <TableRow key={headerGroup.id} className="border-[#361a20]">
               {headerGroup.headers.map((header) => {
                 return (
-                  <TableHead key={header.id} className="h-12">
+                  <TableHead
+                    key={header.id}
+                    className="h-12 border-[#361a20] text-white"
+                  >
                     {header.isPlaceholder ? null : (
                       <div
                         className={
@@ -205,9 +208,10 @@ export function TransactionsTable() {
               <TableRow
                 key={row.id}
                 data-state={row.getIsSelected() && "selected"}
+                className="border-[#361a20]"
               >
                 {row.getVisibleCells().map((cell) => (
-                  <TableCell key={cell.id}>
+                  <TableCell key={cell.id} className="border-[#361a20]">
                     {flexRender(cell.column.columnDef.cell, cell.getContext())}
                   </TableCell>
                 ))}
@@ -215,7 +219,10 @@ export function TransactionsTable() {
             ))
           ) : (
             <TableRow>
-              <TableCell colSpan={columns.length} className="h-24 text-center">
+              <TableCell
+                colSpan={columns.length}
+                className="h-24 text-center border-[#361a20]"
+              >
                 No results.
               </TableCell>
             </TableRow>

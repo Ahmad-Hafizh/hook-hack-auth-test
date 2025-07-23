@@ -43,12 +43,18 @@ async function handleCheckoutSessionCompleted(session: any) {
 
     // Get customer email
     const customerEmail = session.customer_details?.email;
-    if (!customerEmail) return;
-
-    // Find user
-    const user = await prisma.user.findFirst({
-      where: { email: customerEmail },
-    });
+    // Try to find user by session email, fallback to satrio@samurai-style.tokyo
+    let user = null;
+    if (customerEmail) {
+      user = await prisma.user.findFirst({
+        where: { email: customerEmail },
+      });
+    }
+    if (!user) {
+      user = await prisma.user.findFirst({
+        where: { email: "satrio@samurai-style.tokyo" },
+      });
+    }
     if (!user) return;
 
     // Fetch line items to get quantity

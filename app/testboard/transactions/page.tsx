@@ -39,12 +39,14 @@ const navMain = [
 export default function TransactionsPage() {
   return (
     <TestboardLayout navMain={navMain} documentsTitle="Transactions">
-      <div className="flex flex-col gap-4 py-8 md:gap-6 md:py-10 px-10">
+      <div className="flex flex-col gap-4 py-8 md:gap-6 md:py-10 px-10 bg-[#0f0f0f] min-h-screen text-white">
         {/* Header */}
         <div className="px-4 lg:px-6">
           <div className="flex flex-col gap-2">
-            <h1 className="text-3xl font-bold tracking-tight">Transactions</h1>
-            <p className="text-muted-foreground">
+            <h1 className="text-3xl font-bold tracking-tight text-white">
+              Transactions
+            </h1>
+            <p className="text-muted-foreground text-gray-400">
               View your transaction history
             </p>
           </div>

@@ -107,40 +107,8 @@ const defaultData = {
       ],
     },
   ],
-  navSecondary: [
-    {
-      title: "Settings",
-      url: "#",
-      icon: SettingsIcon,
-    },
-    {
-      title: "Get Help",
-      url: "#",
-      icon: HelpCircleIcon,
-    },
-    {
-      title: "Search",
-      url: "#",
-      icon: SearchIcon,
-    },
-  ],
-  documents: [
-    {
-      name: "Data Library",
-      url: "#",
-      icon: DatabaseIcon,
-    },
-    {
-      name: "Reports",
-      url: "#",
-      icon: ClipboardListIcon,
-    },
-    {
-      name: "Word Assistant",
-      url: "#",
-      icon: FileIcon,
-    },
-  ],
+  navSecondary: [], // Removed Settings, Get Help, Search
+  documents: [], // Removed Data Library, Reports, Word Assistant
 };
 
 interface AppSidebarProps {
@@ -179,8 +147,12 @@ export function AppSidebar({
       </div>
       <div className="px-1 py-2 flex-1">
         <NavMain items={data.navMain} />
-        <NavDocuments items={data.documents} title={documentsTitle} />
-        <NavSecondary items={data.navSecondary} />
+        {data.documents.length > 0 && (
+          <NavDocuments items={data.documents} title={documentsTitle} />
+        )}
+        {data.navSecondary.length > 0 && (
+          <NavSecondary items={data.navSecondary} />
+        )}
       </div>
       <div className="px-4 py-4 mt-auto">
         <NavUser user={data.user} />

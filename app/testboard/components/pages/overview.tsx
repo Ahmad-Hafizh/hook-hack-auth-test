@@ -137,12 +137,30 @@ export default function OverviewPage({
           throw new Error(result.error || "Failed to fetch dashboard data");
         }
 
-        console.log("📊 Dashboard Data:", result.data);
-        console.log("👤 User Info:", result.data.user);
-        console.log("📈 Stats:", result.data.stats);
-        console.log("📋 Projects:", result.data.projects);
+        // Log the full API result for debugging
+        console.log("📊 Dashboard Data (raw):", result.data);
 
-        setDashboardData(result.data);
+        // Transform projects: creditsLeft = hook_count + content_count
+        const transformedProjects = (result.data.projects || []).map(
+          (project: any) => ({
+            ...project,
+            creditsLeft:
+              (typeof project.hook_count === "number"
+                ? project.hook_count
+                : 0) +
+              (typeof project.content_count === "number"
+                ? project.content_count
+                : 0),
+          })
+        );
+
+        // Log transformed projects for verification
+        console.log("📋 Transformed Projects:", transformedProjects);
+
+        setDashboardData({
+          ...result.data,
+          projects: transformedProjects,
+        });
       } catch (err) {
         console.error("❌ Error fetching dashboard data:", err);
         setError(err instanceof Error ? err.message : "An error occurred");

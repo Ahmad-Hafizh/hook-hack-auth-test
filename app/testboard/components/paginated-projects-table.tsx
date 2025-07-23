@@ -126,11 +126,25 @@ export function PaginatedProjectsTable({
         throw new Error(result.error || "Failed to fetch projects data");
       }
 
-      console.log("📊 Projects Data:", result.data.projects);
-      console.log("📊 Pagination Data:", result.data.pagination);
-      console.log("📊 Projects count:", result.data.projects?.length || 0);
+      // Log the full API result for debugging
+      console.log("📊 Projects Data (raw):", result.data.projects);
 
-      setProjects(result.data.projects);
+      // Transform projects: creditsLeft = hook_count + content_count
+      const transformedProjects = (result.data.projects || []).map(
+        (project: any) => ({
+          ...project,
+          creditsLeft:
+            (typeof project.hook_count === "number" ? project.hook_count : 0) +
+            (typeof project.content_count === "number"
+              ? project.content_count
+              : 0),
+        })
+      );
+
+      // Log transformed projects for verification
+      console.log("📋 Transformed Projects:", transformedProjects);
+
+      setProjects(transformedProjects);
       setPagination(result.data.pagination);
       setCurrentPage(page);
     } catch (err: any) {

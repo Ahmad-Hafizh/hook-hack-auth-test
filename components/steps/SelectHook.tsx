@@ -9,14 +9,14 @@ interface HookData {
 
 interface SelectHookProps {
   selectedRow: {
-    comments: {
+    comments?: {
       label: boolean;
       text: string;
       like: number;
       name: string;
       value?: string;
     };
-    video_data: {
+    video_data?: {
       likes: number;
       comments: number;
       saves: number;
@@ -24,6 +24,10 @@ interface SelectHookProps {
       summary: string;
       storage: string;
     };
+    // Allow for flat structure as well
+    text?: string;
+    like?: number;
+    value?: string;
   } | null;
   onSelectHook?: (hook: any) => void;
 }
@@ -72,9 +76,12 @@ export const SelectHook: React.FC<SelectHookProps> = ({
 
   useEffect(() => {
     const getHooks = async () => {
-      if (!selectedRow || !selectedRow.comments) {
+      // Robustly get comment text regardless of object structure
+      const commentText = selectedRow?.comments?.text || selectedRow?.text;
+
+      if (!commentText) {
         console.log(
-          "⚠️ SelectHook - No selectedRow or comments, skipping hook generation"
+          "⚠️ SelectHook - No comment text found, skipping hook generation"
         );
         setLoading(false); // Stop loading if no data
         return;
@@ -84,8 +91,9 @@ export const SelectHook: React.FC<SelectHookProps> = ({
 
       try {
         const payload = {
-          comment: selectedRow.comments.text,
-          video_summary: selectedRow.video_data.summary,
+          comment: commentText,
+          // Safely access video summary
+          video_summary: selectedRow?.video_data?.summary || "",
         };
 
         console.log("🔄 SelectHook - API payload:", payload);
@@ -164,18 +172,24 @@ export const SelectHook: React.FC<SelectHookProps> = ({
                 コメント
               </div>
               <div className="text-base text-gray-700 text-center">
-                {selectedRow?.comments.text || "No comment selected."}
+                {selectedRow?.comments?.text ||
+                  selectedRow?.text ||
+                  "No comment selected."}
               </div>
             </div>
           </div>
           <div className="w-full flex gap-5 mb-4">
             <div className="font-semibold text-base border border-gray-400 rounded-md py-4 px-4 flex flex-col items-start justify-center w-full text-left">
               <h2 className="text-xs font-normal">いいね数</h2>
-              <h2 className="text-sm">{selectedRow?.comments.like ?? "-"}</h2>
+              <h2 className="text-sm">
+                {selectedRow?.comments?.like ?? selectedRow?.like ?? "-"}
+              </h2>
             </div>
             <div className="font-semibold text-base border border-gray-400 rounded-md py-4 px-4 flex flex-col items-start justify-center w-full text-left">
               <h2 className="text-xs font-normal">価値</h2>
-              <h2 className="text-sm">{selectedRow?.comments.value ?? "-"}</h2>
+              <h2 className="text-sm">
+                {selectedRow?.comments?.value ?? selectedRow?.value ?? "-"}
+              </h2>
             </div>
           </div>
           <h2 className="text-2xl text-center font-semibold mt-12 mb-4">

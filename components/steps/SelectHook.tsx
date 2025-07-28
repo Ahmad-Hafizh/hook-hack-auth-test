@@ -182,13 +182,13 @@ export const SelectHook: React.FC<SelectHookProps> = ({
             <div className="font-semibold text-base border border-gray-400 rounded-md py-4 px-4 flex flex-col items-start justify-center w-full text-left">
               <h2 className="text-xs font-normal">いいね数</h2>
               <h2 className="text-sm">
-                {selectedRow?.comments?.like ?? selectedRow?.like ?? "-"}
+                {selectedRow?.comments?.like ?? selectedRow?.like ?? "N/A"}
               </h2>
             </div>
             <div className="font-semibold text-base border border-gray-400 rounded-md py-4 px-4 flex flex-col items-start justify-center w-full text-left">
               <h2 className="text-xs font-normal">価値</h2>
               <h2 className="text-sm">
-                {selectedRow?.comments?.value ?? selectedRow?.value ?? "-"}
+                {selectedRow?.comments?.value ?? selectedRow?.value ?? "N/A"}
               </h2>
             </div>
           </div>

@@ -175,7 +175,7 @@ export function StructureGenerator({
     return () => {
       clearInterval(dotInterval);
     };
-  }, [video_url, client_input, selectedHook]); // Add selectedHook to dependencies
+  }, [video_url, JSON.stringify(client_input), selectedHook]);
 
   const handleEdit = () => {
     setIsEditing(true);

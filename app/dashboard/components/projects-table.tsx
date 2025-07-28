@@ -154,7 +154,11 @@ export function ProjectsTable({
         <Button
           size="sm"
           className="flex items-center gap-2 bg-[#fe2858] hover:bg-[#fe2858]/90 text-white transition-colors"
-          onClick={() => console.log(`Continue project ${row.original.id}`)}
+          onClick={() => {
+            console.log(`🚀 Continue project ${row.original.id}`);
+            // Navigate to app page with resume parameters
+            window.location.href = `/app?resume=true&projectId=${row.original.id}`;
+          }}
         >
           <Play className="h-4 w-4" />
           Continue

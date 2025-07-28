@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Card } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
@@ -26,6 +26,23 @@ export interface FormData {
   age: string;
   gender: string;
   issue: string;
+}
+
+// Resume data interface
+export interface ResumeData {
+  id: string;
+  userinput: any;
+  comment: any;
+  hook: any;
+  content: any;
+  resumeStep: number;
+  resumeMetadata?: {
+    hasUserinput: boolean;
+    hasComment: boolean;
+    hasHook: boolean;
+    hasContent: boolean;
+    lastModified: string;
+  };
 }
 
 const steps = [
@@ -72,9 +89,18 @@ const mockCommentListData = [
   },
 ];
 
-export function MultiStepForm() {
+// Props interface for MultiStepForm
+interface MultiStepFormProps {
+  resumeData?: ResumeData | null;
+  initialStep?: number;
+}
+
+export function MultiStepForm({
+  resumeData = null,
+  initialStep = 1,
+}: MultiStepFormProps) {
   const { userId } = useAuth();
-  const [currentStep, setCurrentStep] = useState(1);
+  const [currentStep, setCurrentStep] = useState(initialStep);
   const [projectId, setProjectId] = useState<string | null>(null);
   const [userInputData, setUserInputData] = useState<FormData>({
     searchword: "",
@@ -99,6 +125,76 @@ export function MultiStepForm() {
     production: "Inside",
     purpose: "Conversion",
   });
+
+  // ----------------------
+  // Resume Logic: Hydrate form state with existing data
+  // ----------------------
+  useEffect(() => {
+    if (resumeData) {
+      console.log("🔄 MultiStepForm - Hydrating with resume data:", resumeData);
+
+      // Set project ID for existing project
+      if (resumeData.id) {
+        setProjectId(resumeData.id);
+        console.log("✅ MultiStepForm - Project ID set:", resumeData.id);
+      }
+
+      // Hydrate user input data (Step 1)
+      if (resumeData.userinput) {
+        setUserInputData(resumeData.userinput);
+        console.log(
+          "✅ MultiStepForm - User input data hydrated:",
+          resumeData.userinput
+        );
+      }
+
+      // Hydrate selected comment (Step 2)
+      if (resumeData.comment) {
+        setSelectedComment(resumeData.comment);
+        console.log(
+          "✅ MultiStepForm - Selected comment hydrated:",
+          resumeData.comment
+        );
+      }
+
+      // Hydrate selected hook (Step 3)
+      if (resumeData.hook) {
+        setSelectedHook(resumeData.hook);
+        console.log(
+          "✅ MultiStepForm - Selected hook hydrated:",
+          resumeData.hook
+        );
+      }
+
+      // Set current step to resume step
+      setCurrentStep(resumeData.resumeStep);
+      console.log(
+        "✅ MultiStepForm - Current step set to:",
+        resumeData.resumeStep
+      );
+
+      // If we have userinput, we need comment data for Step 2
+      // Pre-fetch comments if resuming from step 2 or later and no comments loaded
+      if (
+        resumeData.resumeStep >= 2 &&
+        resumeData.userinput &&
+        commentListData.length === 0
+      ) {
+        console.log("🔄 MultiStepForm - Pre-fetching comments for resume...");
+        fetchCommentsForInput(resumeData.userinput);
+      }
+    }
+  }, [resumeData]); // Only run when resumeData changes
+
+  // ----------------------
+  // Update currentStep when initialStep prop changes
+  // ----------------------
+  useEffect(() => {
+    if (!resumeData) {
+      // Only update if not resuming (resumeData takes precedence)
+      setCurrentStep(initialStep);
+    }
+  }, [initialStep, resumeData]);
 
   // ----------------------
   // Step 1: User Input
@@ -138,6 +234,56 @@ export function MultiStepForm() {
     setSwitchState(values);
   };
 
+  const handleSwitchComplete = async () => {
+    console.log(
+      "🔄 MultiStepForm - Saving switch state and advancing to Step 5"
+    );
+
+    // Store switch state as metadata that will be used in content generation
+    const switchMetadata = {
+      switchState: switchState,
+      stepCompleted: 4,
+      timestamp: new Date().toISOString(),
+    };
+
+    // We'll store this in the hook field as metadata, or wait until content generation
+    // For now, just advance to step 5 - the switchState is already in component state
+    console.log(
+      "🔄 MultiStepForm - Switch state ready for content generation:",
+      switchState
+    );
+    setCurrentStep(5);
+  };
+
+  // ----------------------
+  // Step 5: Content Generation Complete
+  // ----------------------
+  const handleContentGenerated = async (content: any) => {
+    console.log(
+      "🔄 MultiStepForm - Content generated, saving to database:",
+      content
+    );
+    await updateProjectInDatabase("content", content);
+    console.log("✅ MultiStepForm - Content saved to database");
+  };
+
+  // ----------------------
+  // Skip/Next functions for resumed projects
+  // ----------------------
+  const handleSkipToNextStep = async () => {
+    console.log(
+      `🔄 MultiStepForm - Skipping from step ${currentStep} to ${currentStep + 1}`
+    );
+    setCurrentStep(currentStep + 1);
+  };
+
+  const handleReselect = () => {
+    console.log(
+      `🔄 MultiStepForm - User wants to re-select in step ${currentStep}`
+    );
+    // The existing selection handlers will be used when user makes new selection
+  };
+
   // ----------------------
   // Step 2: Comment Selection (Play Video Modal)
   // ----------------------
@@ -169,38 +315,104 @@ export function MultiStepForm() {
         );
       case 2:
         return (
-          <SelectComment
-            data={commentListData}
-            onSelectComment={handleCommentSelected}
-            onPlayVideo={handlePlayVideo}
-            searchword={userInputData.searchword}
-          />
+          <div>
+            <SelectComment
+              data={commentListData}
+              onSelectComment={handleCommentSelected}
+              onPlayVideo={handlePlayVideo}
+              searchword={userInputData.searchword}
+            />
+            {/* Show skip button if we're resuming and already have a comment */}
+            {resumeData && selectedComment && (
+              <div className="mt-6 p-4 bg-blue-50 border border-blue-200 rounded-lg">
+                <div className="flex items-center justify-between">
+                  <div>
+                    <p className="text-sm text-blue-700 font-medium">
+                      You already selected a comment. Continue with your
+                      previous selection or choose a new one.
+                    </p>
+                    <p className="text-xs text-blue-600 mt-1">
+                      Previous: "{selectedComment.text?.substring(0, 50)}..."
+                    </p>
+                  </div>
+                  <button
+                    onClick={handleSkipToNextStep}
+                    className="bg-blue-600 text-white px-4 py-2 rounded-md text-sm font-medium hover:bg-blue-700 transition-colors"
+                  >
+                    Continue with Previous →
+                  </button>
+                </div>
+              </div>
+            )}
+          </div>
         );
       case 3:
         return (
-          <SelectHook
-            selectedRow={selectedComment}
-            onSelectHook={handleHookSelected}
-          />
+          <div>
+            <SelectHook
+              selectedRow={selectedComment}
+              onSelectHook={handleHookSelected}
+            />
+            {/* Show skip button if we're resuming and already have a hook */}
+            {resumeData && selectedHook && (
+              <div className="mt-6 p-4 bg-blue-50 border border-blue-200 rounded-lg">
+                <div className="flex items-center justify-between">
+                  <div>
+                    <p className="text-sm text-blue-700 font-medium">
+                      You already selected a hook. Continue with your previous
+                      selection or choose a new one.
+                    </p>
+                    <p className="text-xs text-blue-600 mt-1">
+                      Previous: "
+                      {selectedHook.text?.substring(0, 50) ||
+                        selectedHook.label ||
+                        "Hook selected"}
+                      ..."
+                    </p>
+                  </div>
+                  <button
+                    onClick={handleSkipToNextStep}
+                    className="bg-blue-600 text-white px-4 py-2 rounded-md text-sm font-medium hover:bg-blue-700 transition-colors"
+                  >
+                    Continue with Previous →
+                  </button>
+                </div>
+              </div>
+            )}
+          </div>
         );
       case 4:
         return (
-          <ProductionSwitch
-            commentInfo={selectedComment}
-            value={{
-              production: switchState.production as "Inside" | "Outside",
-              purpose: switchState.purpose as "Impression" | "Conversion",
-            }}
-            onChange={handleSwitchChange}
-          />
+          <div>
+            <ProductionSwitch
+              commentInfo={selectedComment}
+              value={{
+                production: switchState.production as "Inside" | "Outside",
+                purpose: switchState.purpose as "Impression" | "Conversion",
+              }}
+              onChange={handleSwitchChange}
+            />
+            {/* Always show continue button for Step 4 */}
+            <div className="mt-6 flex justify-center">
+              <button
+                onClick={handleSwitchComplete}
+                className="bg-[#fe2858] text-white px-6 py-3 rounded-lg font-semibold hover:bg-[#d91f4a] transition-colors"
+              >
+                Continue to Content Generation →
+              </button>
+            </div>
+          </div>
         );
       case 5:
         return (
           <StructureGenerator
             video_url={""}
-            client_input={userInputData}
+            client_input={{
+              ...userInputData,
+              switchState: switchState, // Include switch state in client input
+            }}
             selectedHook={selectedHook}
-            onContentGenerated={() => {}}
+            onContentGenerated={handleContentGenerated}
           />
         );
       default:
@@ -262,20 +474,46 @@ export function MultiStepForm() {
     if (!userId) return;
     setIsSaving(true);
     try {
-      const projectData = {
-        userinput: JSON.stringify(dataToSave),
-      };
-      const response = await fetch("/api/project", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(projectData),
-      });
-      if (!response.ok) throw new Error("Failed to save user input");
-      const result = await response.json();
-      setProjectId(result.project.id);
+      if (projectId) {
+        // Resume case: Update existing project
+        console.log("🔄 MultiStepForm - Updating existing project:", projectId);
+        const updateData = {
+          userinput: JSON.stringify(dataToSave),
+        };
+        const response = await fetch(`/api/project/${projectId}`, {
+          method: "PATCH",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(updateData),
+        });
+        if (!response.ok) throw new Error("Failed to update user input");
+        console.log(
+          "✅ MultiStepForm - User input updated for existing project"
+        );
+      } else {
+        // Fresh case: Create new project
+        console.log("🔄 MultiStepForm - Creating new project");
+        const projectData = {
+          userinput: JSON.stringify(dataToSave),
+        };
+        const response = await fetch("/api/project", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(projectData),
+        });
+        if (!response.ok) throw new Error("Failed to save user input");
+        const result = await response.json();
+        setProjectId(result.project.id);
+        console.log(
+          "✅ MultiStepForm - New project created with ID:",
+          result.project.id
+        );
+      }
     } catch (error) {
+      console.error("❌ MultiStepForm - Error saving user input:", error);
       // handle error
     } finally {
       setIsSaving(false);
@@ -284,7 +522,14 @@ export function MultiStepForm() {
 
   // Update project in DB (Step 2/3)
   const updateProjectInDatabase = async (field: string, data: any) => {
-    if (!projectId) return;
+    if (!projectId) {
+      console.warn("⚠️ MultiStepForm - No project ID available for update");
+      return;
+    }
+
+    console.log(
+      `🔄 MultiStepForm - Updating project ${projectId} field: ${field}`
+    );
     setIsSaving(true);
     try {
       const updateData: any = {
@@ -298,7 +543,11 @@ export function MultiStepForm() {
         body: JSON.stringify(updateData),
       });
       if (!response.ok) throw new Error(`Failed to update ${field}`);
+      console.log(
+        `✅ MultiStepForm - Successfully updated ${field} for project ${projectId}`
+      );
     } catch (error) {
+      console.error(`❌ MultiStepForm - Error updating ${field}:`, error);
       // handle error
     } finally {
       setIsSaving(false);
@@ -391,9 +640,12 @@ export function MultiStepForm() {
         {currentStep === 5 ? (
           <StructureGenerator
             video_url={""}
-            client_input={userInputData}
+            client_input={{
+              ...userInputData,
+              switchState: switchState, // Include switch state in client input
+            }}
             selectedHook={selectedHook}
-            onContentGenerated={() => {}}
+            onContentGenerated={handleContentGenerated}
           />
         ) : (
           <Card className="shadow-2xl border-0 bg-white/90 backdrop-blur-sm rounded-2xl overflow-hidden p-10 mt-8">

@@ -175,14 +175,15 @@ export function MultiStepForm({
 
       // If we have userinput, we need comment data for Step 2
       // Pre-fetch comments if resuming from step 2 or later and no comments loaded
-      if (
-        resumeData.resumeStep >= 2 &&
-        resumeData.userinput &&
-        commentListData.length === 0
-      ) {
-        console.log("🔄 MultiStepForm - Pre-fetching comments for resume...");
-        fetchCommentsForInput(resumeData.userinput);
-      }
+      // DISABLED: Auto-fetching causes CORS issues, let user manually fetch if needed
+      // if (resumeData.resumeStep >= 2 && resumeData.userinput && commentListData.length === 0) {
+      //   console.log("🔄 MultiStepForm - Pre-fetching comments for resume...");
+      //   fetchCommentsForInput(resumeData.userinput);
+      // }
+
+      console.log(
+        "🔄 MultiStepForm - Resume data loaded, skipping auto-fetch to avoid CORS issues"
+      );
     }
   }, [resumeData]); // Only run when resumeData changes
 
@@ -322,6 +323,34 @@ export function MultiStepForm({
               onPlayVideo={handlePlayVideo}
               searchword={userInputData.searchword}
             />
+
+            {/* Show manual fetch button if we're resuming and have no comments */}
+            {resumeData && commentListData.length === 0 && (
+              <div className="mt-6 p-4 bg-amber-50 border border-amber-200 rounded-lg">
+                <div className="flex items-center justify-between">
+                  <div>
+                    <p className="text-sm text-amber-700 font-medium">
+                      Comments not loaded. You can fetch new comments if you
+                      want to change your selection.
+                    </p>
+                    <p className="text-xs text-amber-600 mt-1">
+                      Previous comment: "
+                      {selectedComment?.text?.substring(0, 50) ||
+                        "Comment selected"}
+                      ..."
+                    </p>
+                  </div>
+                  <button
+                    onClick={() => fetchCommentsForInput(userInputData)}
+                    className="bg-amber-600 text-white px-4 py-2 rounded-md text-sm font-medium hover:bg-amber-700 transition-colors"
+                    disabled={isLoading}
+                  >
+                    {isLoading ? "Fetching..." : "Fetch Comments"}
+                  </button>
+                </div>
+              </div>
+            )}
+
             {/* Show skip button if we're resuming and already have a comment */}
             {resumeData && selectedComment && (
               <div className="mt-6 p-4 bg-blue-50 border border-blue-200 rounded-lg">

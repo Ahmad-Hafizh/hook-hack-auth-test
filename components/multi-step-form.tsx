@@ -155,6 +155,10 @@ export function MultiStepForm({
           "✅ MultiStepForm - Selected comment hydrated:",
           resumeData.comment
         );
+        console.log(
+          "🔍 Comment structure:",
+          Object.keys(resumeData.comment || {})
+        );
       }
 
       // Hydrate selected hook (Step 3)
@@ -164,6 +168,7 @@ export function MultiStepForm({
           "✅ MultiStepForm - Selected hook hydrated:",
           resumeData.hook
         );
+        console.log("🔍 Hook structure:", Object.keys(resumeData.hook || {}));
       }
 
       // Set current step to resume step
@@ -361,7 +366,10 @@ export function MultiStepForm({
                       previous selection or choose a new one.
                     </p>
                     <p className="text-xs text-blue-600 mt-1">
-                      Previous: "{selectedComment.text?.substring(0, 50)}..."
+                      Previous: "
+                      {selectedComment?.text?.substring(0, 50) ||
+                        "Comment selected"}
+                      ..."
                     </p>
                   </div>
                   <button
@@ -393,8 +401,11 @@ export function MultiStepForm({
                     </p>
                     <p className="text-xs text-blue-600 mt-1">
                       Previous: "
-                      {selectedHook.text?.substring(0, 50) ||
-                        selectedHook.label ||
+                      {selectedHook?.text?.substring(0, 50) ||
+                        selectedHook?.label ||
+                        Object.values(selectedHook || {})?.[0]
+                          ?.toString()
+                          ?.substring(0, 50) ||
                         "Hook selected"}
                       ..."
                     </p>

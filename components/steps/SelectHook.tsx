@@ -59,6 +59,9 @@ export const SelectHook: React.FC<SelectHookProps> = ({
   selectedRow,
   onSelectHook,
 }) => {
+  // DEBUG: Log the received selectedRow prop
+  console.log("🐞 DEBUG: SelectHook received selectedRow:", selectedRow);
+
   const [hooks, setHooks] = useState<HookData[]>(mockHooks); // ✅ Initialize with mock data
   const [loading, setLoading] = useState(false);
   const [editingIdx, setEditingIdx] = useState<number | null>(null);
@@ -69,13 +72,20 @@ export const SelectHook: React.FC<SelectHookProps> = ({
 
   useEffect(() => {
     const getHooks = async () => {
+      if (!selectedRow || !selectedRow.comments) {
+        console.log(
+          "⚠️ SelectHook - No selectedRow or comments, skipping hook generation"
+        );
+        setLoading(false); // Stop loading if no data
+        return;
+      }
       setLoading(true);
       console.log("🔄 SelectHook - Starting hook generation...");
 
       try {
         const payload = {
-          comment: selectedRow?.comments.text || "",
-          video_summary: selectedRow?.video_data.summary || "",
+          comment: selectedRow.comments.text,
+          video_summary: selectedRow.video_data.summary,
         };
 
         console.log("🔄 SelectHook - API payload:", payload);
@@ -118,6 +128,16 @@ export const SelectHook: React.FC<SelectHookProps> = ({
       console.log("⚠️ SelectHook - No selectedRow, skipping hook generation");
     }
   }, [selectedRow]);
+
+  if (!selectedRow) {
+    return (
+      <div className="w-full flex flex-col items-center justify-center min-h-[200px]">
+        <div className="text-lg text-gray-500">
+          Please select a comment first to generate hooks.
+        </div>
+      </div>
+    );
+  }
 
   if (loading) {
     return (

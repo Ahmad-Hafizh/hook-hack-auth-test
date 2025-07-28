@@ -159,6 +159,14 @@ export function MultiStepForm({
           "🔍 Comment structure:",
           Object.keys(resumeData.comment || {})
         );
+
+        // DEBUG: Log the comment object being passed to SelectHook
+        if (resumeData.resumeStep === 3) {
+          console.log(
+            "🐞 DEBUG: Data passed to SelectHook for resume:",
+            resumeData.comment
+          );
+        }
       }
 
       // Hydrate selected hook (Step 3)
@@ -384,66 +392,72 @@ export function MultiStepForm({
           </div>
         );
       case 3:
+        // DEBUG: Log the props being passed to SelectHook
+        console.log("🐞 DEBUG: Props for SelectHook:", {
+          selectedRow: selectedComment,
+        });
         return (
-          <div>
-            <SelectHook
-              selectedRow={selectedComment}
-              onSelectHook={handleHookSelected}
-            />
-
-            {/* Show skip option if we're resuming at Step 3 without a hook */}
-            {resumeData && !selectedHook && (
-              <div className="mt-6 p-4 bg-gray-50 border border-gray-200 rounded-lg">
-                <div className="flex items-center justify-between">
-                  <div>
-                    <p className="text-sm text-gray-700 font-medium">
-                      You can skip hook selection and continue to the next step.
-                    </p>
-                    <p className="text-xs text-gray-600 mt-1">
-                      You can always come back and select a hook later.
-                    </p>
-                  </div>
-                  <button
-                    onClick={handleSkipToNextStep}
-                    className="bg-gray-600 text-white px-4 py-2 rounded-md text-sm font-medium hover:bg-gray-700 transition-colors"
-                  >
-                    Skip Hook Selection →
-                  </button>
-                </div>
-              </div>
-            )}
-
-            {/* Show skip button if we're resuming and already have a hook */}
-            {resumeData && selectedHook && (
-              <div className="mt-6 p-4 bg-blue-50 border border-blue-200 rounded-lg">
-                <div className="flex items-center justify-between">
-                  <div>
-                    <p className="text-sm text-blue-700 font-medium">
-                      You already selected a hook. Continue with your previous
-                      selection or choose a new one.
-                    </p>
-                    <p className="text-xs text-blue-600 mt-1">
-                      Previous: "
-                      {selectedHook?.text?.substring(0, 50) ||
-                        selectedHook?.label ||
-                        Object.values(selectedHook || {})?.[0]
-                          ?.toString()
-                          ?.substring(0, 50) ||
-                        "Hook selected"}
-                      ..."
-                    </p>
-                  </div>
-                  <button
-                    onClick={handleSkipToNextStep}
-                    className="bg-blue-600 text-white px-4 py-2 rounded-md text-sm font-medium hover:bg-blue-700 transition-colors"
-                  >
-                    Continue with Previous →
-                  </button>
-                </div>
-              </div>
-            )}
-          </div>
+          <SelectHook
+            selectedRow={selectedComment}
+            onSelectHook={handleHookSelected}
+          />
         );
+
+        // Show skip option if we're resuming at Step 3 without a hook
+        {
+          resumeData && !selectedHook && (
+            <div className="mt-6 p-4 bg-gray-50 border border-gray-200 rounded-lg">
+              <div className="flex items-center justify-between">
+                <div>
+                  <p className="text-sm text-gray-700 font-medium">
+                    You can skip hook selection and continue to the next step.
+                  </p>
+                  <p className="text-xs text-gray-600 mt-1">
+                    You can always come back and select a hook later.
+                  </p>
+                </div>
+                <button
+                  onClick={handleSkipToNextStep}
+                  className="bg-gray-600 text-white px-4 py-2 rounded-md text-sm font-medium hover:bg-gray-700 transition-colors"
+                >
+                  Skip Hook Selection →
+                </button>
+              </div>
+            </div>
+          );
+        }
+
+        // Show skip button if we're resuming and already have a hook
+        {
+          resumeData && selectedHook && (
+            <div className="mt-6 p-4 bg-blue-50 border border-blue-200 rounded-lg">
+              <div className="flex items-center justify-between">
+                <div>
+                  <p className="text-sm text-blue-700 font-medium">
+                    You already selected a hook. Continue with your previous
+                    selection or choose a new one.
+                  </p>
+                  <p className="text-xs text-blue-600 mt-1">
+                    Previous: "
+                    {selectedHook?.text?.substring(0, 50) ||
+                      selectedHook?.label ||
+                      Object.values(selectedHook || {})?.[0]
+                        ?.toString()
+                        ?.substring(0, 50) ||
+                      "Hook selected"}
+                    ..."
+                  </p>
+                </div>
+                <button
+                  onClick={handleSkipToNextStep}
+                  className="bg-blue-600 text-white px-4 py-2 rounded-md text-sm font-medium hover:bg-blue-700 transition-colors"
+                >
+                  Continue with Previous →
+                </button>
+              </div>
+            </div>
+          );
+        }
       case 4:
         return (
           <div>

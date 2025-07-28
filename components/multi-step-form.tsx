@@ -390,6 +390,29 @@ export function MultiStepForm({
               selectedRow={selectedComment}
               onSelectHook={handleHookSelected}
             />
+
+            {/* Show skip option if we're resuming at Step 3 without a hook */}
+            {resumeData && !selectedHook && (
+              <div className="mt-6 p-4 bg-gray-50 border border-gray-200 rounded-lg">
+                <div className="flex items-center justify-between">
+                  <div>
+                    <p className="text-sm text-gray-700 font-medium">
+                      You can skip hook selection and continue to the next step.
+                    </p>
+                    <p className="text-xs text-gray-600 mt-1">
+                      You can always come back and select a hook later.
+                    </p>
+                  </div>
+                  <button
+                    onClick={handleSkipToNextStep}
+                    className="bg-gray-600 text-white px-4 py-2 rounded-md text-sm font-medium hover:bg-gray-700 transition-colors"
+                  >
+                    Skip Hook Selection →
+                  </button>
+                </div>
+              </div>
+            )}
+
             {/* Show skip button if we're resuming and already have a hook */}
             {resumeData && selectedHook && (
               <div className="mt-6 p-4 bg-blue-50 border border-blue-200 rounded-lg">

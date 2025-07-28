@@ -60,7 +60,7 @@ export const SelectComment: React.FC<SelectCommentProps> = ({
             <tr key={idx}>
               <td className="px-2 py-1 border align-top">
                 <div className="whitespace-pre-line text-sm">
-                  {row.comments.text}
+                  {row?.comments?.text || "No text available"}
                 </div>
                 <div className="text-xs text-gray-500 mt-1">
                   {row.comments.name} / {row.comments.like} いいね

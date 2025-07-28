@@ -59,31 +59,64 @@ export const SelectHook: React.FC<SelectHookProps> = ({
   selectedRow,
   onSelectHook,
 }) => {
-  const [hooks, setHooks] = useState<HookData[]>([]);
+  const [hooks, setHooks] = useState<HookData[]>(mockHooks); // ✅ Initialize with mock data
   const [loading, setLoading] = useState(false);
   const [editingIdx, setEditingIdx] = useState<number | null>(null);
   const [editedHook, setEditedHook] = useState<string>("");
 
+  // ✅ Safety check: Ensure we always have hooks
+  const safeHooks = hooks.length > 0 ? hooks : mockHooks;
+
   useEffect(() => {
     const getHooks = async () => {
       setLoading(true);
+      console.log("🔄 SelectHook - Starting hook generation...");
+
       try {
         const payload = {
           comment: selectedRow?.comments.text || "",
           video_summary: selectedRow?.video_data.summary || "",
         };
+
+        console.log("🔄 SelectHook - API payload:", payload);
+        console.log("🔄 SelectHook - Calling api/v1/generate/hook...");
+
         const res = await callApi.post("api/v1/generate/hook", payload);
-        if (res.data && Array.isArray(res.data.data)) {
+        console.log("📡 SelectHook - API response:", res);
+
+        if (
+          res.data &&
+          Array.isArray(res.data.data) &&
+          res.data.data.length > 0
+        ) {
+          console.log("✅ SelectHook - Using API data:", res.data.data);
           setHooks(res.data.data);
         } else {
+          console.log(
+            "⚠️ SelectHook - API returned no valid data, using mock data"
+          );
+          console.log("📋 SelectHook - Mock data:", mockHooks);
           setHooks(mockHooks);
         }
       } catch (err) {
+        console.error(
+          "❌ SelectHook - API error, falling back to mock data:",
+          err
+        );
+        console.log("📋 SelectHook - Using mock data:", mockHooks);
         setHooks(mockHooks);
       }
       setLoading(false);
+
+      console.log("🏁 SelectHook - Hook generation complete");
     };
-    if (selectedRow) getHooks();
+
+    if (selectedRow) {
+      console.log("🚀 SelectHook - selectedRow available, getting hooks...");
+      getHooks();
+    } else {
+      console.log("⚠️ SelectHook - No selectedRow, skipping hook generation");
+    }
   }, [selectedRow]);
 
   if (loading) {
@@ -129,69 +162,86 @@ export const SelectHook: React.FC<SelectHookProps> = ({
             参考にしたいフックを選択してください。
           </h2>
           <div className="w-full flex flex-col items-center">
-            <table className="min-w-full border-separate border-spacing-y-3 mb-4">
-              <thead>
-                <tr>
-                  <th className="px-2 py-1 border">No</th>
-                  <th className="px-2 py-1 border">ラベル</th>
-                  <th className="px-2 py-1 border">フック</th>
-                  <th className="px-2 py-1 border">選択・編集</th>
-                </tr>
-              </thead>
-              <tbody>
-                {hooks.map((hook, idx) => (
-                  <tr key={idx}>
-                    <td className="px-2 py-1 border">{idx + 1}</td>
-                    <td className="px-2 py-1 border">{hook.label || "N/A"}</td>
-                    <td className="px-2 py-1 border">
-                      {editingIdx === idx ? (
-                        <textarea
-                          className="w-full border rounded p-1 text-sm"
-                          value={editedHook}
-                          onChange={(e) => setEditedHook(e.target.value)}
-                        />
-                      ) : (
-                        hook.text || "N/A"
-                      )}
-                    </td>
-                    <td className="px-2 py-1 border flex gap-2">
-                      <Button
-                        className="bg-[#E6E6FA] text-[#433D8B] px-4 py-1 rounded-full"
-                        onClick={() => onSelectHook && onSelectHook(hook)}
-                      >
-                        選択
-                      </Button>
-                      {editingIdx === idx ? (
-                        <Button
-                          className="bg-green-200 text-green-900 px-4 py-1 rounded-full"
-                          onClick={() => {
-                            const newHooks = [...hooks];
-                            newHooks[idx] = {
-                              ...newHooks[idx],
-                              text: editedHook,
-                            };
-                            setHooks(newHooks);
-                            setEditingIdx(null);
-                          }}
-                        >
-                          保存
-                        </Button>
-                      ) : (
-                        <Button
-                          className="bg-yellow-100 text-yellow-900 px-4 py-1 rounded-full"
-                          onClick={() => {
-                            setEditingIdx(idx);
-                            setEditedHook(hook.text);
-                          }}
-                        >
-                          編集
-                        </Button>
-                      )}
-                    </td>
+            {safeHooks.filter((hook) => hook && typeof hook === "object")
+              .length === 0 ? (
+              <div className="w-full p-8 text-center bg-gray-50 border border-gray-200 rounded-lg">
+                <div className="text-gray-600 mb-4">
+                  <p className="text-lg font-medium">No hooks available</p>
+                  <p className="text-sm">
+                    Hook generation is not available right now. You can skip
+                    this step and continue.
+                  </p>
+                </div>
+              </div>
+            ) : (
+              <table className="min-w-full border-separate border-spacing-y-3 mb-4">
+                <thead>
+                  <tr>
+                    <th className="px-2 py-1 border">No</th>
+                    <th className="px-2 py-1 border">ラベル</th>
+                    <th className="px-2 py-1 border">フック</th>
+                    <th className="px-2 py-1 border">選択・編集</th>
                   </tr>
-                ))}
-              </tbody>
-            </table>
+                </thead>
+                <tbody>
+                  {safeHooks
+                    .filter((hook) => hook && typeof hook === "object")
+                    .map((hook, idx) => (
+                      <tr key={idx}>
+                        <td className="px-2 py-1 border">{idx + 1}</td>
+                        <td className="px-2 py-1 border">
+                          {hook?.label || "N/A"}
+                        </td>
+                        <td className="px-2 py-1 border">
+                          {editingIdx === idx ? (
+                            <textarea
+                              className="w-full border rounded p-1 text-sm"
+                              value={editedHook}
+                              onChange={(e) => setEditedHook(e.target.value)}
+                            />
+                          ) : (
+                            hook?.text || "N/A"
+                          )}
+                        </td>
+                        <td className="px-2 py-1 border flex gap-2">
+                          <Button
+                            className="bg-[#E6E6FA] text-[#433D8B] px-4 py-1 rounded-full"
+                            onClick={() => onSelectHook && onSelectHook(hook)}
+                          >
+                            選択
+                          </Button>
+                          {editingIdx === idx ? (
+                            <Button
+                              className="bg-green-200 text-green-900 px-4 py-1 rounded-full"
+                              onClick={() => {
+                                const newHooks = [...safeHooks];
+                                newHooks[idx] = {
+                                  ...newHooks[idx],
+                                  text: editedHook,
+                                };
+                                setHooks(newHooks);
+                                setEditingIdx(null);
+                              }}
+                            >
+                              保存
+                            </Button>
+                          ) : (
+                            <Button
+                              className="bg-yellow-100 text-yellow-900 px-4 py-1 rounded-full"
+                              onClick={() => {
+                                setEditingIdx(idx);
+                                setEditedHook(hook?.text || "");
+                              }}
+                            >
+                              編集
+                            </Button>
+                          )}
+                        </td>
+                      </tr>
+                    ))}
+                </tbody>
+              </table>
+            )}
           </div>
         </div>
       </div>

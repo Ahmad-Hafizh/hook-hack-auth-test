@@ -203,25 +203,28 @@ export function ProjectPreviewModal({
               <div className="p-4 bg-[#1a1a1a] border border-[#361a20] rounded-lg space-y-3">
                 <div className="flex items-center gap-2">
                   <Badge
-                    variant={commentData.label ? "default" : "secondary"}
+                    variant={commentData?.label ? "default" : "secondary"}
                     className={
-                      commentData.label
-                        ? "bg-[#fe2858] text-white"
+                      commentData?.label
+                        ? "bg-green-600 text-white"
                         : "bg-gray-600 text-white"
                     }
                   >
-                    {commentData.label ? "Verified" : "Unverified"}
+                    {commentData?.label ? "Verified" : "Unverified"}
                   </Badge>
-                  <span className="text-sm text-gray-300">
-                    Likes: {commentData.like || 0}
-                  </span>
+                  <Badge
+                    variant="outline"
+                    className="text-gray-300 border-gray-600"
+                  >
+                    Likes: {commentData?.like || 0}
+                  </Badge>
                 </div>
                 <div>
                   <span className="text-sm font-medium text-gray-300">
                     Comment:
                   </span>
                   <p className="text-sm mt-1 text-white">
-                    {commentData.text || "N/A"}
+                    {commentData?.text || "N/A"}
                   </p>
                 </div>
                 <div>
@@ -229,7 +232,7 @@ export function ProjectPreviewModal({
                     Author:
                   </span>
                   <p className="text-sm text-white">
-                    {commentData.name || "N/A"}
+                    {commentData?.name || "N/A"}
                   </p>
                 </div>
               </div>
@@ -253,7 +256,7 @@ export function ProjectPreviewModal({
                     Label:
                   </span>
                   <p className="text-sm text-white">
-                    {hookData.label || "N/A"}
+                    {hookData?.label || "N/A"}
                   </p>
                 </div>
                 <div>
@@ -261,7 +264,7 @@ export function ProjectPreviewModal({
                     Hook Text:
                   </span>
                   <p className="text-sm font-semibold mt-1 text-[#fe2858]">
-                    {hookData.text || "N/A"}
+                    {hookData?.text || "N/A"}
                   </p>
                 </div>
               </div>

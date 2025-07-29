@@ -78,7 +78,8 @@ export async function POST(req: NextRequest) {
       console.log(`[POST /api/project] Creating project for user ${userId}.`);
       const projectData: any = {
         system_userid: userId,
-        userinput: userinput || null,
+        // If userinput is not provided (e.g., from 'Quick Create'), default to an empty object
+        userinput: userinput || {},
         comment: comment || null,
         hook: hook || null,
         content: content || null,

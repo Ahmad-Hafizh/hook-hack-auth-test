@@ -1,7 +1,8 @@
 "use client";
 
 import { MailIcon, PlusCircleIcon, type LucideIcon } from "lucide-react";
-
+import { useRouter } from "next/navigation";
+import { toast } from "sonner";
 import { Button } from "@/components/ui/button";
 import {
   SidebarGroup,
@@ -21,20 +22,45 @@ export function NavMain({
     isActive?: boolean;
   }[];
 }) {
+  const router = useRouter();
+
+  const handleCreateNewProject = async () => {
+    try {
+      // Call the existing API route with an empty body.
+      const response = await fetch("/api/project/create-new", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({}),
+      });
+
+      const data = await response.json();
+
+      if (!response.ok) {
+        throw new Error(data.error || "Failed to create project.");
+      }
+
+      // On success, redirect to the app with the new project ID
+      router.push(`/app?projectId=${data.project.id}`);
+    } catch (error: any) {
+      console.error("Error creating new project:", error);
+      toast.error(error.message);
+    }
+  };
+
   return (
     <SidebarGroup>
       <SidebarGroupContent className="flex flex-col gap-3 px-2 py-3">
         <SidebarMenu>
           <SidebarMenuItem className="flex items-center gap-2">
             <SidebarMenuButton
-              asChild
+              onClick={handleCreateNewProject}
               tooltip="Quick Create"
               className="min-w-8 bg-[#fe2858] text-white duration-200 ease-linear hover:bg-[#fe2858]/90 hover:text-white active:bg-[#fe2858]/90 active:text-white text-xs px-3 py-2"
             >
-              <a href="/app">
-                <PlusCircleIcon className="h-3 w-3" />
-                <span className="text-xs">Quick Create</span>
-              </a>
+              <PlusCircleIcon className="h-3 w-3" />
+              <span className="text-xs">Quick Create</span>
             </SidebarMenuButton>
             <Button
               size="icon"

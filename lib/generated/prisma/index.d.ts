@@ -7815,19 +7815,19 @@ export namespace Prisma {
 
   export type TransactionWhereUniqueInput = Prisma.AtLeast<{
     id?: bigint | number
+    stripeSessionId?: string
     AND?: TransactionWhereInput | TransactionWhereInput[]
     OR?: TransactionWhereInput[]
     NOT?: TransactionWhereInput | TransactionWhereInput[]
     userId?: StringFilter<"Transaction"> | string
     amount?: IntFilter<"Transaction"> | number
     quantity?: IntFilter<"Transaction"> | number
-    stripeSessionId?: StringFilter<"Transaction"> | string
     status?: StringFilter<"Transaction"> | string
     type?: StringFilter<"Transaction"> | string
     createdAt?: DateTimeFilter<"Transaction"> | Date | string
     updatedAt?: DateTimeFilter<"Transaction"> | Date | string
     user?: XOR<UserScalarRelationFilter, UserWhereInput>
-  }, "id">
+  }, "id" | "stripeSessionId">
 
   export type TransactionOrderByWithAggregationInput = {
     id?: SortOrder

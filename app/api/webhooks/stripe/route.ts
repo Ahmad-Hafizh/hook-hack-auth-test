@@ -103,7 +103,7 @@ async function handleCheckoutSessionCompleted(session: any) {
     // Add transaction record, linking via the Clerk ID
     await prisma.transaction.create({
       data: {
-        userId: user.userId,
+        userId: user.userId, // Use the string userId from Clerk
         amount: session.amount_total || 0,
         quantity,
         stripeSessionId: session.id,

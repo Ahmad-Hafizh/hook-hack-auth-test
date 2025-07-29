@@ -26,25 +26,28 @@ export function NavMain({
 
   const handleCreateNewProject = async () => {
     try {
-      // Call the existing API route with an empty body.
-      const response = await fetch("/api/project/create-new", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({}),
-      });
-
+      const response = await fetch("/api/user/check-credit");
       const data = await response.json();
 
       if (!response.ok) {
-        throw new Error(data.error || "Failed to create project.");
+        throw new Error(data.error || "Failed to check credit.");
       }
 
-      // On success, redirect to the app with the new project ID
-      router.push(`/app?projectId=${data.project.id}`);
+      if (data.hasSufficientCredit) {
+        // If user has credit, redirect to the app to start the form.
+        // Credit will be deducted when they save their work.
+        router.push("/app");
+      } else {
+        // If user has no credit, show a notification with a link to buy more.
+        toast.error("Not enough credits to create a new project.", {
+          action: {
+            label: "Buy Credits",
+            onClick: () => router.push("/dashboard/credits"),
+          },
+        });
+      }
     } catch (error: any) {
-      console.error("Error creating new project:", error);
+      console.error("Error in create project flow:", error);
       toast.error(error.message);
     }
   };

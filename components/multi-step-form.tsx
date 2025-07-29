@@ -60,7 +60,7 @@ const mockCommentListData = [
       label: true,
       text: "イソトレチノイ飲んたら1発でニキビできなくなる",
       like: 104,
-      name: "／10",
+      name: "Sarutobi",
     },
     video_data: {
       likes: 149600,
@@ -76,7 +76,7 @@ const mockCommentListData = [
       label: true,
       text: "どっちも使ったことあるけど白くなるのは伸び悪いし日焼け効果高いのはアリーだから間違えないで",
       like: 3307,
-      name: "すいれん 柴石",
+      name: "Danzo",
     },
     video_data: {
       likes: 120000,

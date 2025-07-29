@@ -570,7 +570,7 @@ export function MultiStepForm({
         );
       } else {
         // Fresh case: Create new project
-        console.log("🔄 MultiStepForm - Creating new project");
+        console.log("🔄 MultiStepForm - Creating new project via API");
         const projectData = {
           userinput: JSON.stringify(dataToSave),
         };
@@ -581,7 +581,10 @@ export function MultiStepForm({
           },
           body: JSON.stringify(projectData),
         });
-        if (!response.ok) throw new Error("Failed to save user input");
+        if (!response.ok) {
+          const errorData = await response.json();
+          throw new Error(errorData.error || "Failed to save user input");
+        }
         const result = await response.json();
         setProjectId(result.project.id);
         console.log(

@@ -25,18 +25,27 @@ export async function POST(req: NextRequest) {
     console.log("📥 Projects API - Request body:", body);
     console.log("📥 Projects API - Parsed params:", { page, limit });
 
-    // Get Clerk user ID from request (keeping for future use)
+    // Get Clerk user ID from request
     const authData = getAuth(req);
     const userId = authData?.userId;
     console.log("🔐 Projects API - Auth data:", { userId });
 
-    // For temporary purposes, find user by specific email (same as dashboard API)
+    if (!userId) {
+      console.log("❌ Projects API - No authenticated user found");
+      return NextResponse.json(
+        { error: "User not authenticated" },
+        { status: 401 }
+      );
+    }
+
+    // Find user by Clerk userId
     console.log(
-      "🔍 Projects API - Searching for user with email: satrio@samurai-style.tokyo"
+      "🔍 Projects API - Searching for user with Clerk userId:",
+      userId
     );
     const user = await prisma.user.findFirst({
       where: {
-        email: "satrio@samurai-style.tokyo",
+        userId: userId, // Use actual authenticated user's Clerk ID
       },
       include: {
         _count: {
@@ -60,8 +69,11 @@ export async function POST(req: NextRequest) {
     }
 
     if (!user) {
-      console.log("❌ Projects API - User not found");
-      return NextResponse.json({ error: "User not found" }, { status: 404 });
+      console.log("❌ Projects API - User not found in database");
+      return NextResponse.json(
+        { error: "User not found in database" },
+        { status: 404 }
+      );
     }
 
     // Calculate pagination
@@ -75,7 +87,7 @@ export async function POST(req: NextRequest) {
       limit,
     });
 
-    // Fetch projects with pagination using the user's userId (same as dashboard API)
+    // Fetch projects with pagination using the user's userId
     console.log("🔍 Projects API - Fetching projects for userId:", user.userId);
     const [projects, totalCount] = await Promise.all([
       prisma.project.findMany({

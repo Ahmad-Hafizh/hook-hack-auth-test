@@ -94,11 +94,13 @@ export function ProjectsTable({
 
   const columns: ColumnDef<ProjectData>[] = [
     {
-      accessorKey: "id",
+      id: "number",
       header: "No",
-      cell: ({ row }) => (
-        <div className="font-medium text-white">{row.original.id}</div>
-      ),
+      cell: ({ row }) => {
+        // Calculate sequential number based on row index
+        const sequentialNumber = row.index + 1;
+        return <div className="font-medium text-white">{sequentialNumber}</div>;
+      },
     },
     {
       accessorKey: "productName",

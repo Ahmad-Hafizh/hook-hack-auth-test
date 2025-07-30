@@ -50,6 +50,7 @@ export function ProjectPreviewModal({
   const userInputData = formatJsonData(project.userinput);
   const commentData = formatJsonData(project.comment);
   const hookData = formatJsonData(project.hook);
+  const contentData = formatJsonData(project.content);
 
   // Debug logging
   console.log("🎯 Modal opened for project:", {
@@ -74,6 +75,9 @@ export function ProjectPreviewModal({
   }
   if (hookData) {
     console.log("✨ Hook data for project", project.id, ":", hookData);
+  }
+  if (contentData) {
+    console.log("🎬 Content data for project", project.id, ":", contentData);
   }
 
   return (
@@ -281,15 +285,164 @@ export function ProjectPreviewModal({
               <Video className="h-4 w-4 text-[#fe2858]" />
               <h3 className="font-semibold text-lg text-white">Content</h3>
             </div>
-            <div className="p-4 bg-[#1a1a1a] border border-[#361a20] rounded-lg">
-              <p className="text-sm text-gray-300">
-                Content preview will be displayed here. This is a placeholder
-                for the actual content.
-              </p>
-              <div className="mt-3 p-3 bg-[#0f0f0f] border border-[#361a20] rounded">
-                <p className="text-xs text-gray-400">Content placeholder</p>
+            {contentData ? (
+              <div className="p-4 bg-[#1a1a1a] border border-[#361a20] rounded-lg space-y-4">
+                {/* Video Content Overview */}
+                <div className="mb-4">
+                  <span className="text-sm font-medium text-gray-300">
+                    Video Content:
+                  </span>
+                  <p className="text-sm text-white">
+                    {Array.isArray(contentData)
+                      ? `${contentData.length} scenes`
+                      : "Single content item"}
+                  </p>
+                </div>
+
+                {/* Display Scenes */}
+                {Array.isArray(contentData) ? (
+                  <div className="space-y-4">
+                    {contentData.map((scene, index) => (
+                      <div
+                        key={index}
+                        className="p-4 bg-[#0f0f0f] border border-[#361a20] rounded-lg"
+                      >
+                        {/* Scene Header */}
+                        <div className="flex items-center justify-between mb-3">
+                          <div className="flex items-center gap-2">
+                            <Badge
+                              variant="outline"
+                              className="text-[#fe2858] border-[#fe2858]"
+                            >
+                              Scene {scene.scene}
+                            </Badge>
+                            <Badge
+                              variant="secondary"
+                              className="bg-gray-600 text-white"
+                            >
+                              {scene.sec}s
+                            </Badge>
+                            <Badge
+                              variant="default"
+                              className={
+                                scene.structure === "hook"
+                                  ? "bg-blue-600"
+                                  : scene.structure === "problem"
+                                    ? "bg-red-600"
+                                    : scene.structure === "solve"
+                                      ? "bg-green-600"
+                                      : scene.structure === "cta"
+                                        ? "bg-[#fe2858]"
+                                        : "bg-gray-600"
+                              }
+                            >
+                              {scene.structure}
+                            </Badge>
+                          </div>
+                        </div>
+
+                        {/* Scene Content */}
+                        <div className="space-y-3">
+                          {/* Caption */}
+                          <div>
+                            <span className="text-sm font-medium text-gray-300">
+                              Caption:
+                            </span>
+                            <p className="text-sm font-semibold text-[#fe2858] mt-1">
+                              "{scene.caption}"
+                            </p>
+                          </div>
+
+                          {/* Visual Info */}
+                          <div>
+                            <span className="text-sm font-medium text-gray-300">
+                              Visual Info:
+                            </span>
+                            <p className="text-sm text-white mt-1">
+                              {scene.visual_info}
+                            </p>
+                          </div>
+
+                          {/* Visual Movement */}
+                          <div>
+                            <span className="text-sm font-medium text-gray-300">
+                              Camera Movement:
+                            </span>
+                            <p className="text-sm text-white mt-1">
+                              {scene.visual_movement}
+                            </p>
+                          </div>
+
+                          {/* Visual Method */}
+                          <div>
+                            <span className="text-sm font-medium text-gray-300">
+                              Visual Method:
+                            </span>
+                            <p className="text-sm text-white mt-1">
+                              {scene.visual_method}
+                            </p>
+                          </div>
+
+                          {/* Visual Prompt */}
+                          <div>
+                            <span className="text-sm font-medium text-gray-300">
+                              Visual Prompt:
+                            </span>
+                            <p className="text-sm text-white mt-1">
+                              {scene.visual_prompt}
+                            </p>
+                          </div>
+
+                          {/* Proof */}
+                          <div>
+                            <span className="text-sm font-medium text-gray-300">
+                              Proof:
+                            </span>
+                            <p className="text-sm text-gray-400 mt-1 italic">
+                              {scene.proof}
+                            </p>
+                          </div>
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+                ) : (
+                  /* Fallback for non-array content */
+                  <div className="space-y-3">
+                    <div>
+                      <span className="text-sm font-medium text-gray-300">
+                        Title:
+                      </span>
+                      <p className="text-sm font-semibold text-[#fe2858]">
+                        {contentData?.title || "N/A"}
+                      </p>
+                    </div>
+                    <div>
+                      <span className="text-sm font-medium text-gray-300">
+                        Description:
+                      </span>
+                      <p className="text-sm text-white">
+                        {contentData?.description || "N/A"}
+                      </p>
+                    </div>
+                    {contentData?.content && (
+                      <div>
+                        <span className="text-sm font-medium text-gray-300">
+                          Content:
+                        </span>
+                        <div className="mt-2 p-3 bg-[#0f0f0f] border border-[#361a20] rounded text-sm text-white max-h-40 overflow-y-auto">
+                          <pre className="whitespace-pre-wrap font-sans text-sm">
+                            {contentData.content}
+                          </pre>
+                        </div>
+                      </div>
+                    )}
+                  </div>
+                )}
               </div>
-            </div>
+            ) : (
+              <p className="text-gray-400 text-sm">No content data available</p>
+            )}
           </div>
         </div>
       </DialogContent>

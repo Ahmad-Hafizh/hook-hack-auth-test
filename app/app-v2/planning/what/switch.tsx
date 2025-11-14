@@ -14,7 +14,10 @@ const SwitchPage = ({ onScratch, onSkip }: { onScratch: () => void; onSkip: () =
         <div className=" p-10 rounded-xl text-center cursor-pointer flex flex-col justify-center items-center w-[250px] hover:border-black hover:shadow hover:font-bold transition-all border-gray-300 border-2" onClick={onScratch}>
           <p>Start from scratch</p>
         </div>
-        <div className=" p-10 rounded-xl text-center cursor-pointer flex flex-col justify-center items-center w-[250px] hover:border-black hover:shadow hover:font-bold transition-all border-gray-300 border-2" onClick={onSkip}>
+        <div
+          className=" p-10 rounded-xl text-center cursor-pointer flex flex-col justify-center items-center w-[250px] hover:border-black hover:shadow hover:font-bold transition-all border-gray-300 border-2 leading-normal"
+          onClick={onSkip}
+        >
           <p>
             Already know your competitor's URL? <br />
             You need three URLs.

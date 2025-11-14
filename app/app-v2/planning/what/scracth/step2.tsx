@@ -1,36 +1,47 @@
-import Link from 'next/link';
+import { Button } from '@/components/ui/button';
+import { Spinner } from '@/components/ui/spinner';
+import { ToggleGroup, ToggleGroupItem } from '@/components/ui/toggle-group';
 import React from 'react';
 
-const Step2Scratch = ({ onNext }: { onNext: () => void }) => {
+const Step2Scratch = ({ onNext, keywords }: { onNext: () => void; keywords: any[] }) => {
+  const [loading, setLoading] = React.useState(false);
+  const submitStep2 = async () => {
+    setLoading(true);
+    try {
+      await new Promise((resolve) => setTimeout(resolve, 1000)); // Simulate async operation
+      console.log('Step 2 submitted');
+      return true;
+    } catch (error) {
+      console.error('Error submitting Step 2:', error);
+    } finally {
+      setLoading(false);
+      onNext();
+    }
+  };
+
   return (
-    <div className="p-10 h-full flex flex-col gap-5 container justify-between">
+    <div className="px-10 h-full flex flex-col gap-5 container justify-between">
       <div className=" flex flex-col gap-20">
         <div className="flex flex-col gap-2">
           <p className="text-lg">Step 2</p>
           <h1 className="text-3xl font-bold leading-none"> Choose Keyword</h1>
         </div>
-        <div className="flex gap-2">
-          <div className="p-4 border border-black cursor-pointer">
-            <p>KEYWORD</p>
-          </div>
-          <div className="p-4 border border-black cursor-pointer">
-            <p>KEYWORD</p>
-          </div>
-          <div className="p-4 border border-black cursor-pointer">
-            <p>KEYWORD</p>
-          </div>
-          <div className="p-4 border border-black cursor-pointer">
-            <p>KEYWORD</p>
-          </div>
-          <div className="p-4 border border-black cursor-pointer">
-            <p>KEYWORD</p>
-          </div>
-        </div>
+        <ToggleGroup type="multiple" variant={'outline'} className="justify-start flex-wrap gap-4 w-1/2">
+          {keywords.map((keyword, index) => (
+            <ToggleGroupItem
+              key={index}
+              value={`keyword-${index}`}
+              className="data-[state=on]:font-bold data-[state=on]:border-rose-600 rounded-full px-4 py-2 border-2 border-gray-300 data-[state=on]:text-white data-[state=on]:bg-rose-500 hover:bg-cyan-100 hover:font-semibold hover:border-cyan-300"
+            >
+              {keyword.term}
+            </ToggleGroupItem>
+          ))}
+        </ToggleGroup>
       </div>
       <div className="flex justify-end">
-        <button className="border border-black bg-black text-white px-4 py-2" onClick={onNext}>
-          Next
-        </button>
+        <Button className="border border-black bg-black text-white px-4 py-2" onClick={submitStep2} disabled={loading}>
+          {loading && <Spinner className="w-3 h-3" />} Next
+        </Button>
       </div>
     </div>
   );

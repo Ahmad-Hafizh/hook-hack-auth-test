@@ -20,7 +20,7 @@ const PlanningPage = ({ children }: { children: React.ReactNode }) => {
                   <div className={` w-6 h-6  border-2 rounded-full flex items-center justify-center z-10 ${progressValue == 0 ? 'bg-cyan-500 border-cyan-500' : 'bg-rose-500 border-rose-600'} `}>
                     <p className=" text-white leading-[0] text-xs font-bold">1</p>
                   </div>
-                  <div className={`contents-[''] w-[3px] h-8 rounded-full top-6 z-0 ${progressValue == 0 ? 'bg-gray-400' : 'bg-rose-500'}`}></div>
+                  <div className={`contents-[''] w-[3px] h-8 rounded-full top-6 z-0 ${progressValue == 0 ? 'bg-gray-300' : 'bg-rose-500'}`}></div>
                 </div>
                 <div className={`leading-none  flex items-start pt-1 ${currentPath == 'what' ? 'text-black font-bold' : 'text-gray-500 font-medium'}`}>
                   <p>Planning (WHAT)</p>
@@ -33,7 +33,7 @@ const PlanningPage = ({ children }: { children: React.ReactNode }) => {
                   >
                     <p className=" leading-[0] text-xs font-bold">2</p>
                   </div>
-                  <div className={`contents-[''] w-[3px] h-8 rounded-full top-6 z-0 ${progressValue > 50 ? 'bg-rose-500' : 'bg-gray-400'}`}></div>
+                  <div className={`contents-[''] w-[3px] h-8 rounded-full top-6 z-0 ${progressValue > 50 ? 'bg-rose-500' : 'bg-gray-300'}`}></div>
                 </div>
                 <div className={`leading-none  flex items-start pt-1 ${currentPath == 'how' ? 'text-black font-bold' : 'text-gray-500 font-medium'}`}>
                   <p>Planning (HOW)</p>

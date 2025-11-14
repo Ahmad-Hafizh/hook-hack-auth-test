@@ -13,7 +13,7 @@ import { useStepDataScracth } from './useStepDataScracth';
 
 const AppPage = () => {
   const { page, step, onStep, onChangePage, maxSteps } = usePlanningWhat();
-  const { onSetKeywords, keywords } = useStepDataScracth();
+  const { onSetKeywords, keywords, websites, onSetWebsites } = useStepDataScracth();
 
   const pages = {
     switch: {
@@ -29,11 +29,11 @@ const AppPage = () => {
         },
         {
           id: 2,
-          page: <Step2Scratch onNext={() => onStep(3)} keywords={keywords} />,
+          page: <Step2Scratch onNext={() => onStep(3)} keywords={keywords} onSetWebsites={onSetWebsites} />,
         },
         {
           id: 3,
-          page: <Step3 onNext={() => onStep(4)} onPrev={() => onStep(2)} />,
+          page: <Step3 onNext={() => onStep(4)} onPrev={() => onStep(2)} websites={websites} />,
         },
         {
           id: 4,

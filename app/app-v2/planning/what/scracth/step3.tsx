@@ -6,7 +6,7 @@ import Image from 'next/image';
 import Link from 'next/link';
 import React from 'react';
 
-const Step3 = ({ onNext, onPrev }: { onNext: () => void; onPrev: () => void }) => {
+const Step3 = ({ onNext, onPrev, websites }: { onNext: () => void; onPrev: () => void; websites: any[] }) => {
   const [selectedVisuals, setSelectedVisuals] = React.useState<boolean>(false);
   return (
     <div className="px-10 h-full flex flex-col gap-5 container justify-between">
@@ -20,11 +20,12 @@ const Step3 = ({ onNext, onPrev }: { onNext: () => void; onPrev: () => void }) =
         </div>
         <div className="overflow-x-scroll w-full">
           <ToggleGroup type="multiple" className="gap-4 w-fit pb-4">
-            {Array.from({ length: 5 }).map((_, index) => (
+            {websites.map((website, index) => (
               <ToggleGroupItem value={`competitor-${index}`} className="border-2 p-4 h-fit w-fit flex-col gap-2 rounded-xl data-[state=on]:bg-rose-50 data-[state=on]:border-rose-200" variant="outline" key={index}>
                 <div className="flex flex-col items-start w-full gap-2 ">
-                  <p className="text-lg font-semibold leading-none">Key Visuals of Competitor</p>
-                  <p className="text-sm font-semibold text-gray-500 leading-none">https://competitor.com</p>
+                  <h2 className="text-lg font-semibold leading-none">{website.title}</h2>
+                  <p className="text-sm font-medium">{website.reason}</p>
+                  <p className="text-sm font-medium text-gray-500 leading-none">{website.url}</p>
                 </div>
                 <div className="w-[600px] h-[400px] relative">
                   {/* <Skeleton className="w-full h-full" /> */}

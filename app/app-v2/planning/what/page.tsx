@@ -8,18 +8,10 @@ import Step1Scratch from './scracth/step1';
 import Step2Scratch from './scracth/step2';
 import Step1Skip from './skip/step1';
 import Step2Skip from './skip/step2';
+import { usePlanningWhat } from './usePlanningWhat';
 
 const AppPage = () => {
-  const [page, setPage] = useState('switch');
-  const [step, setStep] = React.useState(1);
-
-  const onStep = (step: number) => {
-    setStep(step);
-  };
-
-  const onChangePage = (page: string) => {
-    setPage(page);
-  };
+  const { page, step, onStep, onChangePage } = usePlanningWhat();
 
   const pages = {
     switch: {

@@ -1,9 +1,7 @@
 'use client';
 import { Button } from '@/components/ui/button';
-import { Skeleton } from '@/components/ui/skeleton';
 import { ToggleGroup, ToggleGroupItem } from '@/components/ui/toggle-group';
 import Image from 'next/image';
-import Link from 'next/link';
 import React from 'react';
 
 const Step3 = ({ onNext, onPrev }: { onNext: () => void; onPrev: () => void }) => {
@@ -20,7 +18,7 @@ const Step3 = ({ onNext, onPrev }: { onNext: () => void; onPrev: () => void }) =
         </div>
         <div className="overflow-x-scroll w-full">
           <ToggleGroup type="multiple" className="gap-4 w-fit pb-4">
-            {Array.from({ length: 5 }).map((_, index) => (
+            {Array.from({ length: selectedVisuals ? 10 : 5 }).map((_, index) => (
               <ToggleGroupItem value={`competitor-${index}`} className="border-2 p-4 h-fit w-fit flex-col gap-2 rounded-xl data-[state=on]:bg-rose-50 data-[state=on]:border-rose-200" variant="outline" key={index}>
                 <div className="flex flex-col items-start w-full gap-2 ">
                   <p className="text-lg font-semibold leading-none">Key Visuals of Competitor</p>

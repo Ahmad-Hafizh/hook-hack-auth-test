@@ -1,10 +1,8 @@
 'use client';
 import { Button } from '@/components/ui/button';
-import Link from 'next/link';
 import React from 'react';
 
 const Step4 = ({ onNext }: { onNext: () => void }) => {
-  // const [selectedVisuals, setSelectedVisuals] = React.useState<boolean>(false);
   return (
     <div className="px-10 h-full flex flex-col gap-5 container justify-between">
       <div className=" flex flex-col gap-20">

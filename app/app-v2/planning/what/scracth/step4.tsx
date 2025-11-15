@@ -6,7 +6,7 @@ import React from 'react';
 const Step4 = ({ onNext }: { onNext: () => void }) => {
   // const [selectedVisuals, setSelectedVisuals] = React.useState<boolean>(false);
   return (
-    <div className="p-10 h-full flex flex-col gap-5 container justify-between">
+    <div className="px-10 h-full flex flex-col gap-5 container justify-between">
       <div className=" flex flex-col gap-20">
         <div className="flex flex-col gap-4">
           <p className="text-lg">Step 4</p>

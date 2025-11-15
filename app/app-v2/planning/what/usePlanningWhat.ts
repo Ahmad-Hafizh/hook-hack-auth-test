@@ -4,14 +4,28 @@ export const usePlanningWhat = () => {
   const [page, setPage] = useState<'switch' | 'scratch' | 'skip'>('switch');
   const [step, setStep] = useState(1);
 
-  // onStep / onChangePage etc.
-  const onStep = (step: number) => {
-    setStep(step);
+  const maxSteps = {
+    scratch: 4,
+    skip: 2,
+    switch: 0
   };
 
-  const onChangePage = (page: string) => {
-    setPage(page as 'switch' | 'scratch' | 'skip');
+  // onStep with bounds checking
+  const onStep = (newStep: number) => {
+    const currentMaxSteps = maxSteps[page];
+    if (newStep >= 1 && newStep <= currentMaxSteps) {
+      setStep(newStep);
+    }
   };
 
-  return { page, step, onStep, onChangePage };
+  const onChangePage = (newPage: string) => {
+    const typedPage = newPage as 'switch' | 'scratch' | 'skip';
+    setPage(typedPage);
+    // Reset step to 1 when changing pages
+    if (typedPage !== 'switch') {
+      setStep(1);
+    }
+  };
+
+  return { page, step, onStep, onChangePage, maxSteps };
 };

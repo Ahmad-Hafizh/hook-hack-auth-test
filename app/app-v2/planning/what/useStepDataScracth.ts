@@ -8,6 +8,7 @@ interface IKeywords {
 interface IWebsites {
   url: String;
   title: String;
+  reason: String;
 }
 
 interface IStep3Form {

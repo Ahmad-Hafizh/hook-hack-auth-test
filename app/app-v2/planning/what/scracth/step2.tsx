@@ -18,11 +18,11 @@ const Step2Scratch = ({ onNext, keywords, onSetWebsites }: { onNext: () => void;
 
       console.log('Step 2 submitted successfully:', data);
       onSetWebsites(data.websites);
+      onNext();
     } catch (error) {
       console.error('Error submitting Step 2:', error);
     } finally {
       setLoading(false);
-      onNext();
     }
   };
 

@@ -1,12 +1,10 @@
 'use client';
 import { Button } from '@/components/ui/button';
-import { Skeleton } from '@/components/ui/skeleton';
 import { ToggleGroup, ToggleGroupItem } from '@/components/ui/toggle-group';
 import callAppV2Api from '@/config/axios/axiosAppV2';
-import Image from 'next/image';
-import Link from 'next/link';
 import React, { useEffect } from 'react';
 import KeyVisualsCard from '../components/keyVisualsCard';
+import { Skeleton } from '@/components/ui/skeleton';
 
 const Step3 = ({
   onNext,

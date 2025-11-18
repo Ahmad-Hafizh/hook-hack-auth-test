@@ -10,9 +10,11 @@ import Step2Skip from './skip/step2';
 import { usePlanningWhat } from './hooks/usePlanningWhat';
 import { useStepDataScracth } from './hooks/useStepDataScracth';
 import TopHorizontalProgress from './components/topHorizontalProgress';
+import { useStep } from '../hooks/useStep';
 
 const AppPage = () => {
-  const { page, step, onStep, onChangePage } = usePlanningWhat();
+  const { page, onChangePage } = usePlanningWhat();
+  const { step, onStep } = useStep(page == 'scratch' ? 4 : page == 'skip' ? 2 : 0, page);
   const { onSetKeywords, keywords, websites, onSetWebsites, onSetSuggestions, onSetCompetitorStrategy, suggestions, competitorStrategy } = useStepDataScracth();
 
   const pages = {

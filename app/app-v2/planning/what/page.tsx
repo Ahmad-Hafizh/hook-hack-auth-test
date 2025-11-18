@@ -1,9 +1,8 @@
 'use client';
-import React, { useState } from 'react';
+import React from 'react';
 import Step3 from './scracth/step3';
 import Step4 from './scracth/step4';
 import SwitchPage from './switch';
-import { Progress } from '@/components/ui/progress';
 import Step1Scratch from './scracth/step1';
 import Step2Scratch from './scracth/step2';
 import Step1Skip from './skip/step1';

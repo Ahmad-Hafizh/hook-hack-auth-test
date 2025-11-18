@@ -1,9 +1,7 @@
 'use client';
 import { Button } from '@/components/ui/button';
-import { Skeleton } from '@/components/ui/skeleton';
 import { ToggleGroup, ToggleGroupItem } from '@/components/ui/toggle-group';
 import Image from 'next/image';
-import Link from 'next/link';
 import React from 'react';
 
 const Step3 = ({ onNext, onPrev, websites }: { onNext: () => void; onPrev: () => void; websites: any[] }) => {

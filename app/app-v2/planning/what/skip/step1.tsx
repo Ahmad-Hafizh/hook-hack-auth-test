@@ -1,4 +1,6 @@
+import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
+import { Spinner } from '@/components/ui/spinner';
 import callAppV2Api from '@/config/axios/axiosAppV2';
 import React from 'react';
 
@@ -12,8 +14,8 @@ const Step1Skip = ({ onNext, onSetSuggestions, onSetCompetitorStrategy }: { onNe
       const { data } = await callAppV2Api.post('/v1/key-message', {
         competitors: {
           url: competitorUrls,
-          title: '',
-          meta_description: '',
+          title: 'string',
+          meta_description: 'string',
           hero_text: {
             headline: 'string',
             subhead: 'string',
@@ -45,10 +47,10 @@ const Step1Skip = ({ onNext, onSetSuggestions, onSetCompetitorStrategy }: { onNe
           <h1 className="text-3xl font-bold leading-none">ANALYZE COMPETITORS APPPEAL POINT</h1>
         </div>
         <div className="flex flex-col gap-6">
-          {/* <div className="flex flex-col gap-2">
+          <div className="flex flex-col gap-2">
             <p>ENTER YOUR PRODUCT/SERVICE URL</p>
-            <input type="text" placeholder="https://url/" className="border border-black px-4 py-2 w-[500px]" />
-          </div> */}
+            <Input type="text" placeholder="https://url/" className="border border-black px-4 py-2 w-[500px]" />
+          </div>
           <div className="flex flex-col gap-2">
             <p>ENTER YOUR COMPETITOR PRODUCT/SERVICE URL</p>
             <Input
@@ -91,9 +93,10 @@ const Step1Skip = ({ onNext, onSetSuggestions, onSetCompetitorStrategy }: { onNe
         </div>
       </div>
       <div className="flex justify-end">
-        <button className="border border-black bg-black text-white px-4 py-2" onClick={submitStep1} disabled={loadingSubmit}>
+        <Button onClick={submitStep1} disabled={loadingSubmit}>
+          {loadingSubmit && <Spinner className="w-4 h-4" />}
           Next
-        </button>
+        </Button>
       </div>
     </div>
   );

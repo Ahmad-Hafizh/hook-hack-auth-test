@@ -16,7 +16,6 @@ const Step2Scratch = ({ onNext, keywords, onSetWebsites }: { onNext: () => void;
         limit: 5,
       });
 
-      console.log('Step 2 submitted successfully:', data);
       onSetWebsites(data.websites);
       onNext();
     } catch (error) {

@@ -3,22 +3,11 @@ import { Label } from '@/components/ui/label';
 import { RadioGroup, RadioGroupItem } from '@/components/ui/radio-group';
 import Image from 'next/image';
 import { Button } from '@/components/ui/button';
+import { submitStep3 } from '../hooks/useFetchApi';
 
 const Step3 = ({ onNext }: { onNext: () => void }) => {
   const [loading, setLoading] = React.useState(false);
 
-  const submitStep3 = async () => {
-    setLoading(true);
-    try {
-      setTimeout(() => {}, 1000);
-      console.log('called');
-      onNext();
-    } catch (error) {
-      console.error('Error submitting Step 3:', error);
-    } finally {
-      setLoading(false);
-    }
-  };
   return (
     <div className="px-10 h-full flex flex-col gap-5 container justify-between">
       <div className="flex flex-col gap-5">
@@ -139,7 +128,7 @@ const Step3 = ({ onNext }: { onNext: () => void }) => {
       </div>
 
       <div className="flex justify-end">
-        <button onClick={submitStep3} disabled={loading} className="border border-black bg-black text-white px-4 py-2">
+        <button onClick={() => submitStep3({ setLoading, onNext })} disabled={loading} className="border border-black bg-black text-white px-4 py-2">
           {loading && <span className="loader mr-2"></span>}
           Next
         </button>

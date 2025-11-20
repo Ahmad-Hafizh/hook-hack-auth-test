@@ -1,22 +1,11 @@
 import { Button } from '@/components/ui/button';
 import { Spinner } from '@/components/ui/spinner';
 import React from 'react';
+import { submitStep2 } from '../hooks/useFetchApi';
 
 const Step2 = ({ onNext }: { onNext: () => void }) => {
   const [loading, setLoading] = React.useState(false);
 
-  const submitStep2 = async () => {
-    setLoading(true);
-    try {
-      setTimeout(() => {}, 1000);
-      console.log('called');
-      onNext();
-    } catch (error) {
-      console.error('Error submitting Step 2:', error);
-    } finally {
-      setLoading(false);
-    }
-  };
   return (
     <div className="px-10 h-full flex flex-col gap-5 container justify-between">
       <div className="flex flex-col gap-5">
@@ -34,7 +23,7 @@ const Step2 = ({ onNext }: { onNext: () => void }) => {
         ))}
       </div>
       <div className="flex justify-end">
-        <Button onClick={submitStep2} disabled={loading}>
+        <Button onClick={() => submitStep2({ setLoading, onNext })} disabled={loading}>
           {loading && <Spinner />}
           Next
         </Button>

@@ -1,6 +1,6 @@
 import { useState } from 'react';
 
-export const usePlanningWhat = () => {
+export const usePage = () => {
   const [page, setPage] = useState<'switch' | 'scratch' | 'skip'>('switch');
 
   const onChangePage = (newPage: string) => {

@@ -4,7 +4,7 @@ import { Textarea } from '@/components/ui/textarea';
 import React from 'react';
 import KeyMessageCard from '../components/keyMessageCard';
 
-const Step4 = ({ onNext, suggestions, competitorStrategy }: { onNext: () => void; suggestions: any; competitorStrategy: any }) => {
+const Step4 = ({ suggestions, competitorStrategy }: { suggestions: any; competitorStrategy: any }) => {
   return (
     <div className="px-10 h-full flex flex-col gap-5 container justify-between">
       <div className=" flex flex-col gap-20">

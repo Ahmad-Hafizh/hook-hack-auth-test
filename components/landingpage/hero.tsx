@@ -68,7 +68,7 @@ export default function Hero() {
           {/* Overlayed Text */}
           <div className="absolute inset-0 flex flex-col items-center justify-center z-10 px-2 sm:px-6">
             <h1 className="text-2xl sm:text-3xl md:text-3xl lg:text-5xl font-bold text-center text-white tracking-tight drop-shadow-lg md:mb-12 mb-6">
-              「ユーザーが反応する」TikTok広告分析/企画ツール
+              売れる​動画​広告　LPから​5分で​制作｜HookHack
             </h1>
             {/* <span className="inline-block text-white px-4 py-1 font-semibold text-4xl sm:text-6xl my-6 md:my-10 md:mb-10 drop-shadow-lg">
               『Hook Hack』

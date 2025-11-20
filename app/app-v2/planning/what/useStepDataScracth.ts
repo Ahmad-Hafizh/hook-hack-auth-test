@@ -36,6 +36,10 @@ interface ISuggestion {
   key_message: string;
   strong_points: string[];
 }
+interface ICompetitorStrategy {
+  key_message: string;
+  strong_points: string[];
+}
 
 export const useStepDataScracth = () => {
   // step 1
@@ -76,6 +80,11 @@ export const useStepDataScracth = () => {
     setSuggestions(suggestions);
   };
 
+  const [competitorStrategy, setCompetitorStrategy] = useState<ICompetitorStrategy[]>();
+  const onSetCompetitorStrategy = (competitorStrategy: ICompetitorStrategy[]) => {
+    setCompetitorStrategy(competitorStrategy);
+  };
+
   return {
     // step 1
     step1Form,
@@ -94,5 +103,7 @@ export const useStepDataScracth = () => {
     onChangeStep3Form,
     suggestions,
     onSetSuggestions,
+    competitorStrategy,
+    onSetCompetitorStrategy,
   };
 };

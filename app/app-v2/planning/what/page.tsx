@@ -12,7 +12,7 @@ import { useStepDataScracth } from './useStepDataScracth';
 
 const AppPage = () => {
   const { page, step, onStep, onChangePage, maxSteps } = usePlanningWhat();
-  const { onSetKeywords, keywords, websites, onSetWebsites } = useStepDataScracth();
+  const { onSetKeywords, keywords, websites, onSetWebsites, onSetSuggestions, onSetCompetitorStrategy, suggestions, competitorStrategy } = useStepDataScracth();
 
   const pages = {
     switch: {
@@ -32,11 +32,11 @@ const AppPage = () => {
         },
         {
           id: 3,
-          page: <Step3 onNext={() => onStep(4)} onPrev={() => onStep(2)} websites={websites} />,
+          page: <Step3 onNext={() => onStep(4)} onPrev={() => onStep(2)} websites={websites} onSetWebsites={onSetWebsites} onSetSuggestions={onSetSuggestions} onSetCompetitorStrategy={onSetCompetitorStrategy} keywords={keywords} />,
         },
         {
           id: 4,
-          page: <Step4 onNext={() => onStep(5)} />,
+          page: <Step4 onNext={() => onStep(5)} suggestions={suggestions} competitorStrategy={competitorStrategy} />,
         },
       ],
     },
@@ -45,11 +45,11 @@ const AppPage = () => {
       steps: [
         {
           id: 1,
-          page: <Step1Skip onNext={() => onStep(2)} />,
+          page: <Step1Skip onNext={() => onStep(2)} onSetSuggestions={onSetSuggestions} onSetCompetitorStrategy={onSetCompetitorStrategy} />,
         },
         {
           id: 2,
-          page: <Step2Skip onNext={() => onStep(1)} />,
+          page: <Step2Skip onNext={() => onStep(1)} suggestions={suggestions} competitorStrategy={competitorStrategy} />,
         },
       ],
     },

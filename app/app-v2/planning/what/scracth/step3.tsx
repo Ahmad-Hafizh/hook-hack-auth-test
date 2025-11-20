@@ -1,6 +1,6 @@
 'use client';
 import { Button } from '@/components/ui/button';
-import { ToggleGroup, ToggleGroupItem } from '@/components/ui/toggle-group';
+import { ToggleGroup } from '@/components/ui/toggle-group';
 import callAppV2Api from '@/config/axios/axiosAppV2';
 import React, { useEffect } from 'react';
 import KeyVisualsCard from '../components/keyVisualsCard';

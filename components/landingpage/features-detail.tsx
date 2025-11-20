@@ -121,13 +121,13 @@ export default function FeaturesDetail() {
                 : " opacity-0 translate-x-10"
             } w-full max-w-lg h-[220px] md:h-[400px] flex items-center justify-center mx-auto`}
           >
-            <Image
+            {/* <Image
               src="/feature1.png"
               alt="Real-time Analytics"
               width={320}
               height={320}
               className="rounded-lg object-contain w-full h-full"
-            />
+            /> */}
           </div>
         </div>
 
@@ -160,13 +160,13 @@ export default function FeaturesDetail() {
                 : " opacity-0 translate-x-10"
             } w-full max-w-lg h-[220px] md:h-[400px] flex items-center justify-center mx-auto`}
           >
-            <Image
+            {/* <Image
               src="/feature2.png"
               alt="Competitor Analysis"
               width={320}
               height={320}
               className="rounded-lg object-contain w-full h-full"
-            />
+            /> */}
           </div>
         </div>
 
@@ -216,13 +216,13 @@ export default function FeaturesDetail() {
                 : " opacity-0 translate-x-10"
             } w-full max-w-lg h-[220px] md:h-[400px] flex items-center justify-center mx-auto`}
           >
-            <Image
+            {/* <Image
               src="/feature3new.png"
               alt="Real-time Analytics"
               width={320}
               height={320}
               className="rounded-lg object-contain w-full h-full"
-            />
+            /> */}
           </div>
         </div>
 

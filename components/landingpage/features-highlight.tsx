@@ -20,7 +20,10 @@ export default function FeaturesHighlight() {
   ];
 
   return (
-    <section className="w-full py-16 md:py-24 px-10 md:px-24 bg-black">
+    <section
+      className="w-full py-16 md:py-24 px-10 md:px-24 bg-black"
+      id="features-highlight"
+    >
       <div className="max-w-4xl mx-auto">
         <h2 className="text-3xl md:text-4xl font-bold text-white text-center mb-12 md:mb-16">
           特徴
@@ -32,11 +35,11 @@ export default function FeaturesHighlight() {
             return (
               <div key={index} className="flex items-start gap-6 md:gap-8">
                 {/* Icon */}
-                <div className="flex-shrink-0 w-16 h-16 md:w-20 md:h-20 rounded-full bg-black flex items-center justify-center">
+                <div className="flex-shrink-0 w-16 h-16 md:w-20 md:h-20 rounded-full bg-black flex items-center justify-center -mt-1">
                   <IconComponent className="w-8 h-8 md:w-10 md:h-10 text-white" />
                 </div>
                 {/* Text */}
-                <p className="text-lg md:text-xl text-white flex-1 pt-2">
+                <p className="text-lg md:text-xl text-white flex-1">
                   {feature.text}
                 </p>
               </div>

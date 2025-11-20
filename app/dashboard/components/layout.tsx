@@ -69,3 +69,5 @@ export function TestboardLayout({
     </ThemeProvider>
   );
 }
+
+export default TestboardLayout;

@@ -46,7 +46,7 @@ export default function LandingPage() {
         <TrialDialog
           trigger={
             <button className="bg-[#2af0ea] text-black hover:bg-[#288784] hover:text-white transition-all duration-300 border-2 border-[#2af0ea] rounded-lg px-8 py-3 font-bold text-lg">
-              無料トライアルを申し込む
+              1週間​無料トライアルで​今すぐ​制作
             </button>
           }
         />

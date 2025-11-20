@@ -21,7 +21,10 @@ export default function IndustrySamples() {
   ];
 
   return (
-    <section className="w-full py-16 md:py-24 px-10 md:px-24 bg-black">
+    <section
+      className="w-full py-16 md:py-24 px-10 md:px-24 bg-black"
+      id="videos"
+    >
       <h2 className="text-3xl md:text-4xl font-bold text-white text-center mb-12">
         業界別サンプル動画
       </h2>

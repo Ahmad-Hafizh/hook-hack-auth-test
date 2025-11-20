@@ -55,6 +55,7 @@ export default function Hero() {
 
   return (
     <section
+      id="hero"
       ref={ref}
       className=" py-40 bg-gradient-to-b from-black via-[#272727] to-black min-h-screen h-screen flex flex-col items-center justify-center"
     >
@@ -80,14 +81,14 @@ export default function Hero() {
                   size="lg"
                   className="bg-gradient-to-r from-[#fe2858] to-[#ff5e81] hover:from-[#c55064] hover:to-[rgb(215,73,97)] text-white px-6 sm:px-10 py-4 sm:py-6 text-base sm:text-lg font-bold rounded-md shadow-lg transition-all  "
                 >
-                  無料トライアルを申し込む
+                  1週間​無料トライアルで​今すぐ​制作
                 </Button>
               }
             />
           </div>
           {/* Video */}
           <div className=" shadow-2xl flex justify-center items-center w-full h-[40vh] sm:h-[65vh] my-3">
-            <img src="/hero.gif" className="w-full h-full object-cover" />
+            {/* <img src="/hero.gif" className="w-full h-full object-cover" /> */}
           </div>
         </div>
         {/* Main Headline */}

@@ -16,15 +16,11 @@ export default function Footer() {
             {/* <span className="text-3xl font-bold text-white my-3 block">
               Hook Hack
             </span> */}
-            <img
-              src="/newlogo.svg"
-              alt="Hook-Hack"
-              className="w-32 md:w-40 py-2"
-            />
+            <img src="/H.svg" alt="Hook-Hack" className="w-32 md:w-40 py-2" />
 
-            <p className="text-gray-100 text-center md:text-center text-sm md:text-base">
-              The ultimate TikTok analytics platform for creators and brands.
-            </p>
+            {/* <p className="text-gray-100 text-center md:text-center text-sm md:text-base">
+              what should we write here?
+            </p> */}
           </div>
           {/* <div className="hidden">
             <h4 className="font-semibold mb-4 text-center md:text-left">

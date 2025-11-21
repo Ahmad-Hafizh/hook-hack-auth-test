@@ -55,6 +55,7 @@ export default function Hero() {
 
   return (
     <section
+      id="hero"
       ref={ref}
       className=" py-40 bg-gradient-to-b from-black via-[#272727] to-black min-h-screen h-screen flex flex-col items-center justify-center"
     >
@@ -68,7 +69,7 @@ export default function Hero() {
           {/* Overlayed Text */}
           <div className="absolute inset-0 flex flex-col items-center justify-center z-10 px-2 sm:px-6">
             <h1 className="text-2xl sm:text-3xl md:text-3xl lg:text-5xl font-bold text-center text-white tracking-tight drop-shadow-lg md:mb-12 mb-6">
-              「ユーザーが反応する」TikTok広告分析/企画ツール
+              売れる​動画​広告　LPから​5分で​制作｜HookHack
             </h1>
             {/* <span className="inline-block text-white px-4 py-1 font-semibold text-4xl sm:text-6xl my-6 md:my-10 md:mb-10 drop-shadow-lg">
               『Hook Hack』
@@ -80,14 +81,14 @@ export default function Hero() {
                   size="lg"
                   className="bg-gradient-to-r from-[#fe2858] to-[#ff5e81] hover:from-[#c55064] hover:to-[rgb(215,73,97)] text-white px-6 sm:px-10 py-4 sm:py-6 text-base sm:text-lg font-bold rounded-md shadow-lg transition-all  "
                 >
-                  無料トライアルを申し込む
+                  1週間​無料トライアルで​今すぐ​制作
                 </Button>
               }
             />
           </div>
           {/* Video */}
           <div className=" shadow-2xl flex justify-center items-center w-full h-[40vh] sm:h-[65vh] my-3">
-            <img src="/hero.gif" className="w-full h-full object-cover" />
+            {/* <img src="/hero.gif" className="w-full h-full object-cover" /> */}
           </div>
         </div>
         {/* Main Headline */}

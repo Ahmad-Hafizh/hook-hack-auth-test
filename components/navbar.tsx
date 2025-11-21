@@ -44,12 +44,13 @@ export default function Navbar() {
     >
       <div className="max-w-7xl mx-auto flex items-center justify-between">
         <div className="flex items-center space-x-2">
-          {/* <span className="text-2xl font-bold text-white">Hook-Hack</span> */}
-          <img
-            src="/newlogo.svg"
-            alt="Hook-Hack"
-            className="w-32 md:w-40 py-3"
-          />
+          <a
+            href="#hero"
+            onClick={handleSmoothScroll}
+            className="cursor-pointer"
+          >
+            <img src="/H.svg" alt="Hook-Hack" className="w-32 md:w-40 py-3" />
+          </a>
         </div>
 
         {/* Mobile menu button */}
@@ -72,26 +73,20 @@ export default function Navbar() {
             主な機能
           </a>
           <a
-            href="#features"
+            href="#videos"
             className="text-white hover:text-[#fe2858]"
             onClick={handleSmoothScroll}
           >
-            市場構造
+            業界別サンプル動画
           </a>
           <a
-            href="#schedule"
+            href="#features-highlight"
             className="text-white hover:text-[#fe2858]"
             onClick={handleSmoothScroll}
           >
-            スケジュール
+            特徴
           </a>
-          <a
-            href="#price"
-            className="text-white hover:text-[#fe2858]"
-            onClick={handleSmoothScroll}
-          >
-            料金体制
-          </a>
+
           <a
             href="#about"
             className="text-white hover:text-[#fe2858]"
@@ -103,7 +98,7 @@ export default function Navbar() {
             <TrialDialog
               trigger={
                 <Button className="bg-[#2af0ea] text-black hover:bg-[#288784] hover:text-white transition-all duration-300 border-2 border-[#2af0ea]">
-                  無料トライアルを申し込む
+                  1週間​無料トライアルで​今すぐ​制作
                 </Button>
               }
             />
@@ -122,26 +117,20 @@ export default function Navbar() {
             主な機能
           </a>
           <a
-            href="#features"
+            href="#videos"
             className="text-white hover:text-[#fe2858] py-2"
             onClick={handleSmoothScroll}
           >
-            市場構造
+            業界別サンプル動画
           </a>
           <a
-            href="#schedule"
+            href="#features-highlight"
             className="text-white hover:text-[#fe2858]"
             onClick={handleSmoothScroll}
           >
-            スケジュール
+            特徴
           </a>
-          <a
-            href="#price"
-            className="text-white hover:text-[#fe2858]"
-            onClick={handleSmoothScroll}
-          >
-            料金体制
-          </a>
+
           <a
             href="#about"
             className="text-white hover:text-[#fe2858] py-2"
@@ -153,7 +142,7 @@ export default function Navbar() {
             <TrialDialog
               trigger={
                 <Button className="bg-[#2af0ea] text-black hover:bg-[#288784] hover:text-white transition-all duration-300 w-full border-2 border-[#2af0ea]">
-                  無料トライアルを申し込む
+                  1週間​無料トライアルで​今すぐ​制作
                 </Button>
               }
             />

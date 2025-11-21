@@ -79,13 +79,13 @@ export default function Navbar() {
           >
             業界別サンプル動画
           </a>
-          <a
+          {/* <a
             href="#features-highlight"
             className="text-white hover:text-[#fe2858]"
             onClick={handleSmoothScroll}
           >
             特徴
-          </a>
+          </a> */}
 
           <a
             href="#about"
@@ -123,13 +123,13 @@ export default function Navbar() {
           >
             業界別サンプル動画
           </a>
-          <a
+          {/* <a
             href="#features-highlight"
             className="text-white hover:text-[#fe2858]"
             onClick={handleSmoothScroll}
           >
             特徴
-          </a>
+          </a> */}
 
           <a
             href="#about"

@@ -68,9 +68,10 @@ export default function Hero() {
         >
           {/* Overlayed Text */}
           <div className="absolute inset-0 flex flex-col items-center justify-center z-10 px-2 sm:px-6">
-            <h1 className="text-2xl sm:text-3xl md:text-3xl lg:text-5xl font-bold text-center text-white tracking-tight drop-shadow-lg md:mb-12 mb-6">
-              売れる​動画​広告　LPから​5分で​制作｜HookHack
+            <h1 className="text-2xl sm:text-3xl md:text-3xl lg:text-5xl font-bold text-center p-1 rounded-lg bg-black text-white tracking-tight drop-shadow-lg md:mb-12 mb-6">
+              ​動画​広告「を」LPら​5分で​制作｜HookHack
             </h1>
+
             {/* <span className="inline-block text-white px-4 py-1 font-semibold text-4xl sm:text-6xl my-6 md:my-10 md:mb-10 drop-shadow-lg">
               『Hook Hack』
             </span> */}
@@ -88,7 +89,7 @@ export default function Hero() {
           </div>
           {/* Video */}
           <div className=" shadow-2xl flex justify-center items-center w-full h-[40vh] sm:h-[65vh] my-3">
-            {/* <img src="/hero.gif" className="w-full h-full object-cover" /> */}
+            <img src="/main-hero.gif" className="w-full h-full object-cover" />
           </div>
         </div>
         {/* Main Headline */}

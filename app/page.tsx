@@ -30,7 +30,7 @@ export default function LandingPage() {
       {/* <TrustedBy /> */}
       <FeaturesDetail />
       <IndustrySamples />
-      <FeaturesHighlight />
+      {/* <FeaturesHighlight /> */}
       {/* <Benefit />
       <Schedule />
       <Price /> */}

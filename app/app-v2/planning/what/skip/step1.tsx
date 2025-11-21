@@ -11,22 +11,14 @@ const Step1Skip = ({ onNext, onSetSuggestions, onSetCompetitorStrategy }: { onNe
   const submitStep1 = async () => {
     setLoadingSubmit(true);
     try {
+      const competitors = competitorUrls.map((url) => {
+        return {
+          url,
+        };
+      });
       const { data } = await callAppV2Api.post('/v1/key-message', {
-        competitors: {
-          url: competitorUrls,
-          title: 'string',
-          meta_description: 'string',
-          hero_text: {
-            headline: 'string',
-            subhead: 'string',
-            cta: 'string',
-          },
-        },
+        competitors,
         provider: 'openai',
-        language: 'en',
-        brand_hint: 'string',
-        audience: 'string',
-        tone: 'professional',
       });
 
       console.log('Step 1 submitted successfully:', data);

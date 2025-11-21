@@ -1,29 +1,12 @@
 import { Button } from '@/components/ui/button';
 import { Spinner } from '@/components/ui/spinner';
 import { ToggleGroup, ToggleGroupItem } from '@/components/ui/toggle-group';
-import callAppV2Api from '@/config/axios/axiosAppV2';
 import React from 'react';
+import { submitStep2Scratch } from '../hooks/useFetchApi';
 
 const Step2Scratch = ({ onNext, keywords, onSetWebsites }: { onNext: () => void; keywords: any[]; onSetWebsites: (websites: any[]) => void }) => {
   const [loading, setLoading] = React.useState(false);
   const [selectedKeywords, setSelectedKeywords] = React.useState<string[]>([]);
-
-  const submitStep2 = async () => {
-    setLoading(true);
-    try {
-      const { data } = await callAppV2Api.post('/v1/websites', {
-        keywords: selectedKeywords,
-        limit: 5,
-      });
-
-      onSetWebsites(data.websites);
-      onNext();
-    } catch (error) {
-      console.error('Error submitting Step 2:', error);
-    } finally {
-      setLoading(false);
-    }
-  };
 
   return (
     <div className="px-10 h-full flex flex-col gap-5 container justify-between">
@@ -45,7 +28,7 @@ const Step2Scratch = ({ onNext, keywords, onSetWebsites }: { onNext: () => void;
         </ToggleGroup>
       </div>
       <div className="flex justify-end">
-        <Button className="border border-black bg-black text-white px-4 py-2" onClick={submitStep2} disabled={loading}>
+        <Button className="border border-black bg-black text-white px-4 py-2" onClick={() => submitStep2Scratch({ selectedKeywords, onSetWebsites, onNext, setLoading })} disabled={loading}>
           {loading && <Spinner className="w-3 h-3" />} Next
         </Button>
       </div>

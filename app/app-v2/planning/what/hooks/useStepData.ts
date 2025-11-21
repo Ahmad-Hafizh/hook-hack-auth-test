@@ -41,7 +41,7 @@ interface ICompetitorStrategy {
   strong_points: string[];
 }
 
-export const useStepDataScracth = () => {
+export const useStepData = () => {
   // step 1
   const [step1Form, setStep1Form] = useState<string>('');
   const onChangeStep1Form = (value: string) => {

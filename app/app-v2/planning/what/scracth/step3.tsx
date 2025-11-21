@@ -1,10 +1,10 @@
 'use client';
 import { Button } from '@/components/ui/button';
 import { ToggleGroup } from '@/components/ui/toggle-group';
-import callAppV2Api from '@/config/axios/axiosAppV2';
 import React, { useEffect } from 'react';
 import KeyVisualsCard from '../components/keyVisualsCard';
 import { Skeleton } from '@/components/ui/skeleton';
+import { generateScreenshot, get5MoreVisuals, submitStep3 } from '../hooks/useFetchApi';
 
 const Step3 = ({
   onNext,
@@ -29,75 +29,9 @@ const Step3 = ({
   const [loadingGenerateVisual, setLoadingGenerateVisual] = React.useState(true);
   const [keyVisuals, setKeyVisuals] = React.useState<any[]>([]);
 
-  const get5MoreVisuals = async () => {
-    setLoadingGenerate(true);
-    try {
-      const { data } = await callAppV2Api.post('/v1/websites', {
-        keywords: keywords.map((k) => k.term),
-        limit: 5,
-      });
-
-      onSetWebsites([...websites, ...data.websites]);
-    } catch (error) {
-      console.error('Error submitting get additional key visuals:', error);
-    } finally {
-      setLoadingGenerate(false);
-    }
-  };
-
-  const generateScreenshot = async () => {
-    setLoadingGenerateVisual(true);
-    try {
-      const { data } = await callAppV2Api.post('/v1/websites/screenshot', {
-        urls: websites.map((website) => website.url),
-      });
-
-      setKeyVisuals(data.items);
-    } catch (error) {
-      console.error('Error generating screenshot:', error);
-    } finally {
-      setLoadingGenerateVisual(false);
-    }
-  };
-
   useEffect(() => {
-    generateScreenshot();
+    generateScreenshot({ websites, setKeyVisuals, setLoadingGenerateVisual });
   }, [websites]);
-
-  const submitStep3 = async () => {
-    setLoadingSubmit(true);
-    try {
-      const selectedVisualsData = keyVisuals.filter((keyVisual) => selectedVisuals.includes(keyVisual.url));
-      const competitors = selectedVisualsData.map((visual) => {
-        return {
-          url: visual.url,
-          title: visual.title,
-          meta_description: visual.meta_description,
-          hero_text: {
-            headline: 'string',
-            subhead: 'string',
-            cta: 'string',
-          },
-        };
-      });
-      const { data } = await callAppV2Api.post('/v1/key-message', {
-        competitors,
-        provider: 'openai',
-        language: 'en',
-        brand_hint: 'string',
-        audience: 'string',
-        tone: 'professional',
-      });
-
-      onSetSuggestions(data.suggestion);
-      onSetCompetitorStrategy(data.competitors);
-      onNext();
-    } catch (error) {
-      console.error('Error submitting Step 3:', error);
-    } finally {
-      setLoadingSubmit(false);
-    }
-  };
 
   return (
     <div className="px-10 h-full flex flex-col gap-5 container justify-between">
@@ -129,10 +63,10 @@ const Step3 = ({
         </div>
       </div>
       <div className="flex justify-center gap-4">
-        <Button variant="outline" className="w-fit" type="button" onClick={get5MoreVisuals} disabled={loadingGenerate}>
+        <Button variant="outline" className="w-fit" type="button" onClick={() => get5MoreVisuals({ keywords, websites, onSetWebsites, setLoadingGenerate })} disabled={loadingGenerate}>
           Show 5 More
         </Button>
-        <Button onClick={submitStep3} disabled={loadingSubmit}>
+        <Button onClick={() => submitStep3({ selectedVisuals, keyVisuals, onSetSuggestions, onSetCompetitorStrategy, onNext, setLoadingSubmit })} disabled={loadingSubmit}>
           Next
         </Button>
       </div>

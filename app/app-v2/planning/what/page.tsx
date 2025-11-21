@@ -7,13 +7,15 @@ import Step1Scratch from './scracth/step1';
 import Step2Scratch from './scracth/step2';
 import Step1Skip from './skip/step1';
 import Step2Skip from './skip/step2';
-import { usePlanningWhat } from './hooks/usePlanningWhat';
-import { useStepDataScracth } from './hooks/useStepDataScracth';
+import { usePage } from './hooks/usePage';
+import { useStepData } from './hooks/useStepData';
 import TopHorizontalProgress from './components/topHorizontalProgress';
+import { useStep } from '../hooks/useStep';
 
 const AppPage = () => {
-  const { page, step, onStep, onChangePage } = usePlanningWhat();
-  const { onSetKeywords, keywords, websites, onSetWebsites, onSetSuggestions, onSetCompetitorStrategy, suggestions, competitorStrategy } = useStepDataScracth();
+  const { page, onChangePage } = usePage();
+  const { step, onStep } = useStep(page == 'scratch' ? 4 : page == 'skip' ? 2 : 0, page);
+  const { onSetKeywords, keywords, websites, onSetWebsites, onSetSuggestions, onSetCompetitorStrategy, suggestions, competitorStrategy } = useStepData();
 
   const pages = {
     switch: {
@@ -37,7 +39,7 @@ const AppPage = () => {
         },
         {
           id: 4,
-          page: <Step4 onNext={() => onStep(5)} suggestions={suggestions} competitorStrategy={competitorStrategy} />,
+          page: <Step4 suggestions={suggestions} competitorStrategy={competitorStrategy} />,
         },
       ],
     },

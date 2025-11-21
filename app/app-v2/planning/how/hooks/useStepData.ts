@@ -1,6 +1,6 @@
 import { useState } from 'react';
 
-interface IStepData {
+interface IPlan {
   assumptions: {
     platform: string;
     targer_impressions_per_video: number;
@@ -22,9 +22,20 @@ interface IVariants {
   ctas: string[];
 }
 
+export interface IElements {
+  hooks: string[];
+  body1Images: string[];
+  body1Messages: string[];
+  body2Images: string[];
+  body2Messages: string[];
+  body3Images: string[];
+  body3Messages: string[];
+  ctas: string[];
+}
+
 export const useStepData = () => {
-  const [plan, setPlan] = useState<IStepData>();
-  const onSetPlan = (data: IStepData) => {
+  const [plan, setPlan] = useState<IPlan>();
+  const onSetPlan = (data: IPlan) => {
     setPlan(data);
   };
 
@@ -33,5 +44,19 @@ export const useStepData = () => {
     setVariants(data);
   };
 
-  return { plan, onSetPlan, variants, onSetVariants };
+  const [elements, setElements] = useState<IElements>({
+    hooks: [],
+    body1Images: [],
+    body1Messages: [],
+    body2Images: [],
+    body2Messages: [],
+    body3Images: [],
+    body3Messages: [],
+    ctas: [],
+  });
+  const onSetElements = (data: IElements) => {
+    setElements(data);
+  };
+
+  return { plan, onSetPlan, variants, onSetVariants, elements, onSetElements };
 };

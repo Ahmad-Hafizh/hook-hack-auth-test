@@ -1,6 +1,8 @@
 import React from 'react';
 
-const TopHorizontalProgress = ({ pageStep, step }: { pageStep: number; step: number }) => {
+const ElementProgress = ({ pageStep, step }: { pageStep: number; step: number }) => {
+  const elementList = ['hooks', 'body1Images', 'body1Messages', 'body2Images', 'body2Messages', 'body3Images', 'body3Messages', 'ctas'];
+
   return (
     <div className="flex justify-center items-center mb-10 gap-2">
       {Array.from({ length: pageStep }).map((_, i) => {
@@ -26,4 +28,4 @@ const TopHorizontalProgress = ({ pageStep, step }: { pageStep: number; step: num
   );
 };
 
-export default TopHorizontalProgress;
+export default ElementProgress;

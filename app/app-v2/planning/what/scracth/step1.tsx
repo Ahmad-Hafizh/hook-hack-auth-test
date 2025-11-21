@@ -17,11 +17,11 @@ const Step1Scratch = ({ onNext, onSetKeywords }: { onNext: () => void; onSetKeyw
       });
 
       onSetKeywords(data.keywords);
+      onNext();
     } catch (error) {
       console.error('Error submitting Step 1:', error);
     } finally {
       setLoading(false);
-      onNext();
     }
   };
   return (
@@ -34,12 +34,6 @@ const Step1Scratch = ({ onNext, onSetKeywords }: { onNext: () => void; onSetKeyw
         <div className="flex flex-col gap-2">
           <p>ENTER YOUR PRODUCT/SERVICE URL</p>
           <Input type="text" placeholder="https://url/" className="border  px-4 py-2 w-[500px]" value={url} onChange={(e) => setUrl(e.target.value)} />
-          {/* <p>
-            ※ALREADY KNOW UR COMPETITOR'S URL?? U NEED THREE URL. IF SO,{' '}
-            <a href="#" className=" underline">
-              CLICK HERE
-            </a>
-          </p> */}
         </div>
       </div>
       <div className="flex justify-end">

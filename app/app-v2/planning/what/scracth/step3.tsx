@@ -1,11 +1,10 @@
 'use client';
 import { Button } from '@/components/ui/button';
-import { Skeleton } from '@/components/ui/skeleton';
-import { ToggleGroup, ToggleGroupItem } from '@/components/ui/toggle-group';
+import { ToggleGroup } from '@/components/ui/toggle-group';
 import callAppV2Api from '@/config/axios/axiosAppV2';
-import Image from 'next/image';
-import Link from 'next/link';
 import React, { useEffect } from 'react';
+import KeyVisualsCard from '../components/keyVisualsCard';
+import { Skeleton } from '@/components/ui/skeleton';
 
 const Step3 = ({
   onNext,
@@ -38,7 +37,6 @@ const Step3 = ({
         limit: 5,
       });
 
-      console.log('Get more key visual success', data);
       onSetWebsites([...websites, ...data.websites]);
     } catch (error) {
       console.error('Error submitting get additional key visuals:', error);
@@ -54,7 +52,6 @@ const Step3 = ({
         urls: websites.map((website) => website.url),
       });
 
-      console.log('Screenshot generated successfully:', data);
       setKeyVisuals(data.items);
     } catch (error) {
       console.error('Error generating screenshot:', error);
@@ -92,7 +89,6 @@ const Step3 = ({
         tone: 'professional',
       });
 
-      console.log('Step 3 submitted successfully:', data);
       onSetSuggestions(data.suggestion);
       onSetCompetitorStrategy(data.competitors);
       onNext();
@@ -128,35 +124,7 @@ const Step3 = ({
               }
             }}
           >
-            {!loadingGenerateVisual ? (
-              keyVisuals.map((keyVisual: any, index) => {
-                return keyVisual.status == 'ok' ? (
-                  <ToggleGroupItem value={keyVisual.url} className="border-2 p-2 h-fit w-fit flex-col gap-2 rounded-xl data-[state=on]:bg-cyan-50 data-[state=on]:border-cyan-200" variant="outline" key={index}>
-                    <div className="w-[600px] h-[400px] relative rounded-lg overflow-hidden">
-                      {/* <Skeleton className="w-full h-full" /> */}
-                      {keyVisual.screenshot && keyVisual.screenshot.link ? <Image fill src={keyVisual.screenshot.link} alt={keyVisual.meta_description} className="absolute object-cover" /> : <Skeleton className="w-full h-full" />}
-                    </div>
-                    <div className="flex flex-col items-start w-full gap-2 p-2 text-start max-w-[600px]">
-                      {keyVisual.text ? <h2 className="text-lg font-semibold leading-tight">{keyVisual.texts.h1 || ''}</h2> : <h2 className="text-lg font-semibold leading-tight">Title not available</h2>}
-                      <div className="flex flex-col items-start">
-                        {keyVisual.title ? <p className="text-xs text-gray-500">{keyVisual.title || ''}</p> : <p className="text-xs text-gray-500">description not available</p>}
-                        <a className="text-xs  text-gray-500 leading-none" href={keyVisual.url || ''} target="blank">
-                          {keyVisual.url || ''}
-                        </a>
-                      </div>
-                    </div>
-                  </ToggleGroupItem>
-                ) : (
-                  <ToggleGroupItem value={keyVisual.url} className="border-2 p-2 h-fit w-fit flex-col gap-2 rounded-xl data-[state=on]:bg-cyan-50 data-[state=on]:border-cyan-200" variant="outline" key={index}>
-                    <p className="w-[600px] min-h-[500px] h-full flex flex-col justify-center items-center border-2 rounded-lg p-4 text-center ">
-                      {keyVisual.status} by {keyVisual.url}
-                    </p>
-                  </ToggleGroupItem>
-                );
-              })
-            ) : (
-              <Skeleton className="w-full h-[400px]" />
-            )}
+            {!loadingGenerateVisual ? keyVisuals.map((keyVisual: any, index) => <KeyVisualsCard keyVisual={keyVisual} index={index} key={index} />) : <Skeleton className="w-full h-[400px]" />}
           </ToggleGroup>
         </div>
       </div>

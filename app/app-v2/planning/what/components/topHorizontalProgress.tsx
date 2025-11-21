@@ -1,0 +1,29 @@
+import React from 'react';
+
+const TopHorizontalProgress = ({ pageStep, step }: { pageStep: any[]; step: number }) => {
+  return (
+    <div className="flex justify-center items-center mb-10 gap-2">
+      {pageStep.map((_, i) => {
+        const stepNumber = i + 1;
+        const isCurrentStep = step === stepNumber;
+        const isCompletedStep = step > stepNumber;
+        const isUpcomingStep = step < stepNumber;
+
+        return (
+          <div className="flex items-center justify-center gap-2" key={i}>
+            <div
+              className={`w-6 h-6 border-2 rounded-full flex items-center justify-center z-10 transition-all duration-200 ${
+                isCurrentStep ? 'bg-cyan-500 border-cyan-500 text-white' : isCompletedStep ? 'bg-rose-500 border-rose-600 text-white' : 'bg-gray-200 border-gray-300 text-gray-400'
+              }`}
+            >
+              <p className="text-xs font-bold">{stepNumber}</p>
+            </div>
+            {i < pageStep.length - 1 && <div className={`h-[3px] w-8 rounded-full transition-all duration-200 ${isCompletedStep ? 'bg-rose-500' : 'bg-gray-300'}`} />}
+          </div>
+        );
+      })}
+    </div>
+  );
+};
+
+export default TopHorizontalProgress;

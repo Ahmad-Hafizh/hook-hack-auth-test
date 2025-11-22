@@ -7,10 +7,12 @@ import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Spinner } from '@/components/ui/spinner';
 import { Music, PauseCircle, PlayCircle } from 'lucide-react';
 import { submitStep4 } from '../hooks/useFetchApi';
+import UploadImageButton from '../components/uploadImageButton';
 
-const Step4 = ({ onNext }: { onNext: () => void }) => {
+const Step4 = ({ onNext, patternCombinations, setPatternCombinations }: { onNext: () => void; patternCombinations: any[]; setPatternCombinations: React.Dispatch<React.SetStateAction<any[]>> }) => {
   const [loading, setLoading] = React.useState(false);
   const [audioPlaying, setAudioPlaying] = React.useState<string | null>(null);
+  const [brandLogoUrl, setBrandLogoUrl] = React.useState<string | null>(null);
 
   const playAudio = (audioId: string) => {
     if (audioPlaying === audioId) {
@@ -18,6 +20,17 @@ const Step4 = ({ onNext }: { onNext: () => void }) => {
     } else {
       setAudioPlaying(audioId); // Play the selected audio
     }
+  };
+
+  const onUploadImage = (url: string) => {
+    const newPatternCombinations = patternCombinations.map((combination) => ({
+      ...combination,
+      images: {
+        ...combination.images,
+        logo: url,
+      },
+    }));
+    setPatternCombinations(newPatternCombinations);
   };
 
   return (
@@ -31,13 +44,11 @@ const Step4 = ({ onNext }: { onNext: () => void }) => {
         <Card className="flex flex-col gap-4 ">
           <CardHeader className="p-4 justify-between flex flex-row items-center">
             <CardTitle className="font-bold text-lg">Brand Logo</CardTitle>
-            <Button variant={'outline'} className="!mt-0">
-              Upload
-            </Button>
+            <UploadImageButton onUploadImage={onUploadImage} />
           </CardHeader>
           <CardContent className="p-10 pt-0 h-full">
             <div className="relative flex items-center w-full h-full">
-              <Image src="/planning_test_image.jpg" alt={`brand logo image`} fill className="inline-block mr-2 rounded-lg absolute object-cover" />
+              <Image src={brandLogoUrl || '/planning_test_image.jpg'} alt={`brand logo image`} fill className="inline-block mr-2 rounded-lg absolute object-cover" />
             </div>
           </CardContent>
         </Card>
@@ -68,7 +79,7 @@ const Step4 = ({ onNext }: { onNext: () => void }) => {
               {Array.from({ length: 3 }).map((_, index) => (
                 <div className="flex items-center space-x-2 " key={index}>
                   <RadioGroupItem value={`hook-option-${index + 1}`} id={`hook-option-${index + 1}`} />
-                  <Label htmlFor={`hook-option-${index + 1}`} className="text-base flex flex-row items-center px-2 py-1 bg-gray-200 w-full rounded-md">
+                  <Label htmlFor={`hook-option-${index + 1}`} className="text-base flex flex-row items-center px-2 py-1 bg-gray-50 border w-full rounded-md">
                     <Button className="p-0 m-0 hover:bg-transparent" variant={'ghost'} onClick={() => playAudio(`bgm-option-${index + 1}`)}>
                       {audioPlaying === `bgm-option-${index + 1}` ? <PauseCircle className="inline-block mr-2 w-5 h-5 " /> : <PlayCircle className="inline-block mr-2 w-5 h-5" />}
                     </Button>

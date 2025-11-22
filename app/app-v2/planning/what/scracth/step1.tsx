@@ -12,7 +12,6 @@ const Step1Scratch = ({ onNext, onSetKeywords }: { onNext: () => void; onSetKeyw
     <div className="px-10 h-full flex flex-col gap-5 container justify-between">
       <div className=" flex flex-col gap-20">
         <div className="flex flex-col gap-2">
-          <p className="text-lg">Step 1</p>
           <h1 className="text-3xl font-bold leading-none">ANALYZE COMPETITORS APPPEAL POINT</h1>
         </div>
         <div className="flex flex-col gap-2">

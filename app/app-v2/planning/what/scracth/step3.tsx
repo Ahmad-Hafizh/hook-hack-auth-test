@@ -5,6 +5,7 @@ import React, { useEffect } from 'react';
 import KeyVisualsCard from '../components/keyVisualsCard';
 import { Skeleton } from '@/components/ui/skeleton';
 import { generateScreenshot, get5MoreVisuals, submitStep3 } from '../hooks/useFetchApi';
+import { Spinner } from '@/components/ui/spinner';
 
 const Step3 = ({
   onNext,
@@ -37,36 +38,46 @@ const Step3 = ({
     <div className="px-10 h-full flex flex-col gap-5 container justify-between">
       <div className=" flex flex-col gap-10">
         <div className="flex flex-col gap-4">
-          <p className="text-lg">Step 3</p>
           <h1 className="text-3xl font-bold leading-none">Select 3 key visuals that matches your product/ services</h1>
           <Button variant="outline" className="w-fit" onClick={onPrev}>
             Change Keyword
           </Button>
         </div>
         <div className="overflow-x-scroll w-full">
-          <ToggleGroup
-            type="multiple"
-            className="gap-4 w-fit pb-4 "
-            value={selectedVisuals}
-            onValueChange={(value: string[]) => {
-              if (selectedVisuals.length < 3) {
-                setSelectedVisuals(value);
-              } else {
-                if (selectedVisuals.includes(value[value.length - 1])) {
+          {loadingGenerateVisual ? (
+            <div className="flex gap-4 w-fit pb-4">
+              {[1, 2, 3, 4, 5].map((_, index) => (
+                <Skeleton key={index} className="w-[600px] h-[470px] rounded-md" />
+              ))}
+            </div>
+          ) : (
+            <ToggleGroup
+              type="multiple"
+              className="gap-4 w-fit pb-4 "
+              value={selectedVisuals}
+              onValueChange={(value: string[]) => {
+                if (selectedVisuals.length < 3) {
                   setSelectedVisuals(value);
+                } else {
+                  if (selectedVisuals.includes(value[value.length - 1])) {
+                    setSelectedVisuals(value);
+                  }
                 }
-              }
-            }}
-          >
-            {!loadingGenerateVisual ? keyVisuals.map((keyVisual: any, index) => <KeyVisualsCard keyVisual={keyVisual} index={index} key={index} />) : <Skeleton className="w-full h-[400px]" />}
-          </ToggleGroup>
+              }}
+            >
+              {keyVisuals.map((keyVisual: any, index) => (
+                <KeyVisualsCard keyVisual={keyVisual} index={index} key={index} />
+              ))}
+            </ToggleGroup>
+          )}
         </div>
       </div>
       <div className="flex justify-center gap-4">
         <Button variant="outline" className="w-fit" type="button" onClick={() => get5MoreVisuals({ keywords, websites, onSetWebsites, setLoadingGenerate })} disabled={loadingGenerate}>
           Show 5 More
         </Button>
-        <Button onClick={() => submitStep3({ selectedVisuals, keyVisuals, onSetSuggestions, onSetCompetitorStrategy, onNext, setLoadingSubmit })} disabled={loadingSubmit}>
+        <Button onClick={() => submitStep3({ selectedVisuals, keyVisuals, onSetSuggestions, onSetCompetitorStrategy, onNext, setLoadingSubmit })} disabled={loadingSubmit || selectedVisuals.length < 3}>
+          {loadingSubmit && <Spinner className="w-3 h-3" />}
           Next
         </Button>
       </div>

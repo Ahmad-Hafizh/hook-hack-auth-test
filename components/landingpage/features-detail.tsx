@@ -88,13 +88,15 @@ export default function FeaturesDetail() {
                 : "opacity-0 -translate-x-10"
             }`}
           >
-            <h3 className="text-xl md:text-3xl font-bold text-[#fe2858]">
-              1. 人気動画・コメントの一覧表示
+            <h3 className="text-xl md:text-3xl font-bold text-black">
+              1. 訴求軸に根拠を | 競合と比較して「売れる訴求」を提案
             </h3>
-            <p className="text-base md:text-lg text-black">
-              制作したい広告のジャンルを入力すると、対象ジャンルにおける人気動画を一覧で表示でき、
-              動画を選択すると、対象動画へのコメントを一覧で見ることができます。
-            </p>
+            <div className="text-base md:text-lg text-black space-y-2">
+              <p>今あるLP・画像素材を活かして手軽に動画を作りたい</p>
+              <p>バナーデザインのパターンを広げたい</p>
+              <p>今使ってる訴求が最適なのかテストしたい</p>
+              <p>バナーのテストを繰り返して最善の組み合わせを見つけたい</p>
+            </div>
             {/* <ul className="space-y-3">
               <li className="flex items-center space-x-3">
                 <div className="w-2 h-2 bg-[#25F4EE] rounded-full"></div>
@@ -119,13 +121,13 @@ export default function FeaturesDetail() {
                 : " opacity-0 translate-x-10"
             } w-full max-w-lg h-[220px] md:h-[400px] flex items-center justify-center mx-auto`}
           >
-            <Image
+            {/* <Image
               src="/feature1.png"
               alt="Real-time Analytics"
               width={320}
               height={320}
               className="rounded-lg object-contain w-full h-full"
-            />
+            /> */}
           </div>
         </div>
 
@@ -134,50 +136,37 @@ export default function FeaturesDetail() {
           className="grid grid-cols-1 lg:grid-cols-2 gap-8 md:gap-12 items-center"
         >
           <div
-            className={`bg-gray-100 rounded-2xl p-4 md:p-6 order-2 lg:order-1 transition-all duration-1000${
+            className={`space-y-4 md:space-y-6 transition-all duration-1000 max-w-2xl px-2 md:px-10 lg:px-20 w-full mx-auto flex flex-col items-start gap-3 ${
+              isVisibleSection2
+                ? "opacity-100 translate-x-0"
+                : "opacity-0 -translate-x-10"
+            }`}
+          >
+            <h3 className="text-xl md:text-3xl font-bold text-black">
+              2. LP入力から5分 | 成果に直結する要素で動画を複数パターン生成
+            </h3>
+            <div className="text-base md:text-lg text-black space-y-2">
+              <p>Hook (最初の3秒) ・3つのポイント・CTAなど、動画の</p>
+              <p>インタラクション率に直結する要素を</p>
+              <p>選択すると、15秒の動画を</p>
+              <p>複数パターン生成。仮説検証に必要な</p>
+              <p>複数の動画を一度に用意できます。</p>
+            </div>
+          </div>
+          <div
+            className={`bg-gray-100 rounded-2xl p-4 md:p-6 transition-all duration-1000${
               isVisibleSection2
                 ? " opacity-100 translate-x-0 delay-200"
-                : " opacity-0 -translate-x-10"
+                : " opacity-0 translate-x-10"
             } w-full max-w-lg h-[220px] md:h-[400px] flex items-center justify-center mx-auto`}
           >
-            <Image
+            {/* <Image
               src="/feature2.png"
               alt="Competitor Analysis"
               width={320}
               height={320}
               className="rounded-lg object-contain w-full h-full"
-            />
-          </div>
-          <div
-            className={`space-y-4 md:space-y-6 order-1 lg:order-2 transition-all duration-1000 max-w-2xl px-2 md:px-10 lg:px-20 w-full mx-auto flex flex-col items-start gap-3 ${
-              isVisibleSection2
-                ? "opacity-100 translate-x-0"
-                : "opacity-0 translate-x-10"
-            }`}
-          >
-            <h3 className="text-xl md:text-3xl font-bold text-[#fe2858]">
-              2. コメント分析
-            </h3>
-            <p className="text-base md:text-lg text-black">
-              人気コメントについて、ポジティブ・ネガティブ・クエスチョンの3分類に分けて表示できます。実際に多くのユーザーが反応しているコメントの中から、悩み（ネガティブ）や願い（ポジティ
-              ブ）に絞り込み、Hookに活用することができます。
-            </p>
-            {/* <ul className="space-y-3">
-              <li className="flex items-center space-x-3">
-                <div className="w-2 h-2 bg-[#FE2C55] rounded-full"></div>
-                <span className="text-gray-700">Content strategy insights</span>
-              </li>
-              <li className="flex items-center space-x-3">
-                <div className="w-2 h-2 bg-[#FE2C55] rounded-full"></div>
-                <span className="text-gray-700">
-                  Hashtag performance comparison
-                </span>
-              </li>
-              <li className="flex items-center space-x-3">
-                <div className="w-2 h-2 bg-[#FE2C55] rounded-full"></div>
-                <span className="text-gray-700">Trending content alerts</span>
-              </li>
-            </ul> */}
+            /> */}
           </div>
         </div>
 
@@ -189,17 +178,20 @@ export default function FeaturesDetail() {
             className={`space-y-4 md:space-y-6 transition-all duration-1000 flex flex-col items-start gap-3 max-w-2xl px-2 md:px-10 lg:px-20 w-full mx-auto ${
               isVisibleSection3
                 ? "opacity-100 translate-x-0"
-                : "opacity-0 translate-x-10"
+                : "opacity-0 -translate-x-10"
             }`}
           >
-            <h3 className="text-xl md:text-3xl font-bold text-[#fe2858]">
-              3. 動画企画
+            <h3 className="text-xl md:text-3xl font-bold text-black">
+              3. PDCAを1ツールで | 自動で成果を分析、改善案まで提案
             </h3>
-            <p className="text-base md:text-lg text-black">
-              選定したHookコメント（機能的価値・情緒的価値など）と、入力された広告用の商品・サービス情報をもとに、自動で動画の企画案を生成します。各コマのテキストや画像イメージまで出力できるため、企画案の作成を効率化できます。
-              <br />{" "}
-              ※「絵コンテ生成」は今後追加予定の機能です。リリース時に仕様が変更となる可能性がありますので、あらかじめご了承ください。
-            </p>
+            <div className="text-base md:text-lg text-black space-y-2">
+              <p>出稿後、各パターンの</p>
+              <p>視聴維持率・クリック・CVRなどを</p>
+              <p>自動で解析し、次の改善案を提示。</p>
+              <p>そのまま再生成も可能です。チームに</p>
+              <p>運用ノウハウが少なくても、高速に</p>
+              <p>成果を改善できます。</p>
+            </div>
             {/* <ul className="space-y-3">
               <li className="flex items-center space-x-3">
                 <div className="w-2 h-2 bg-[#25F4EE] rounded-full"></div>
@@ -224,13 +216,13 @@ export default function FeaturesDetail() {
                 : " opacity-0 translate-x-10"
             } w-full max-w-lg h-[220px] md:h-[400px] flex items-center justify-center mx-auto`}
           >
-            <Image
+            {/* <Image
               src="/feature3new.png"
               alt="Real-time Analytics"
               width={320}
               height={320}
               className="rounded-lg object-contain w-full h-full"
-            />
+            /> */}
           </div>
         </div>
 

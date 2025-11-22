@@ -10,12 +10,12 @@ import { useStepData } from './hooks/useStepData';
 
 const PlanningHowPage = () => {
   const { step, onStep } = useStep(4);
-  const { plan, elements, onSetElements } = useStepData();
+  const { plan, elements, onSetElements, onSetPlan, onSetVariants, variants, patternCount, setPatternCount, patternCombinations, setPatternCombinations } = useStepData();
 
   const stepList = [
     {
       id: 1,
-      page: <Step1 onNext={() => onStep(2)} />,
+      page: <Step1 onNext={() => onStep(2)} onSetPlan={onSetPlan} />,
     },
     {
       id: 2,
@@ -23,11 +23,24 @@ const PlanningHowPage = () => {
     },
     {
       id: 3,
-      page: <Step3 onNext={() => onStep(4)} plan={plan} elements={elements} onSetElements={onSetElements} />,
+      page: (
+        <Step3
+          onNext={() => onStep(4)}
+          plan={plan}
+          elements={elements}
+          onSetElements={onSetElements}
+          onSetVariants={onSetVariants}
+          variants={variants}
+          patternCount={patternCount}
+          setPatternCount={setPatternCount}
+          patternCombinations={patternCombinations}
+          setPatternCombinations={setPatternCombinations}
+        />
+      ),
     },
     {
       id: 4,
-      page: <Step4 onNext={() => onStep(5)} />,
+      page: <Step4 onNext={() => onStep(5)} patternCombinations={patternCombinations} setPatternCombinations={setPatternCombinations} />,
     },
   ];
 

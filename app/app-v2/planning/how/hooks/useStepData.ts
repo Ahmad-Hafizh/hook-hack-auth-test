@@ -14,11 +14,11 @@ interface IPlan {
   explanation: string;
 }
 
-interface IVariants {
+export interface IVariants {
   hooks: string[];
-  strong_points_1_messages: string[];
-  strong_points_2_messages: string[];
-  strong_points_3_messages: string[];
+  strong_point_1_messages: string[];
+  strong_point_2_messages: string[];
+  strong_point_3_messages: string[];
   ctas: string[];
 }
 
@@ -31,6 +31,20 @@ export interface IElements {
   body3Images: string[];
   body3Messages: string[];
   ctas: string[];
+}
+
+export interface IPattern {
+  hook: string;
+  strong_point_1: string;
+  strong_point_2: string;
+  strong_point_3: string;
+  cta: string;
+  images: {
+    strong_point_1: string;
+    strong_point_2: string;
+    strong_point_3: string;
+    logo: string;
+  };
 }
 
 export const useStepData = () => {
@@ -58,5 +72,8 @@ export const useStepData = () => {
     setElements(data);
   };
 
-  return { plan, onSetPlan, variants, onSetVariants, elements, onSetElements };
+  const [patternCount, setPatternCount] = useState<number>(0);
+  const [patternCombinations, setPatternCombinations] = useState<IPattern[]>([]);
+
+  return { plan, onSetPlan, variants, onSetVariants, elements, onSetElements, patternCount, setPatternCount, patternCombinations, setPatternCombinations };
 };

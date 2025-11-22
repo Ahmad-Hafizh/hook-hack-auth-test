@@ -12,7 +12,6 @@ const Step2Scratch = ({ onNext, keywords, onSetWebsites }: { onNext: () => void;
     <div className="px-10 h-full flex flex-col gap-5 container justify-between">
       <div className=" flex flex-col gap-20">
         <div className="flex flex-col gap-2">
-          <p className="text-lg">Step 2</p>
           <h1 className="text-3xl font-bold leading-none"> Choose Keyword</h1>
         </div>
         <ToggleGroup type="multiple" variant={'outline'} className="justify-start flex-wrap gap-4 w-1/2" onValueChange={(value) => setSelectedKeywords(value)}>

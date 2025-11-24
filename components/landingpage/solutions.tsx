@@ -1,8 +1,16 @@
 export default function Solutions() {
-  const solutions = [
+  const businessCompanySolutions = [
     "今あるLP・画像素材を活かして手軽に動画を作りたい",
     "バナーデザインのパターンを広げたい",
-    "今使ってる訴求が最適なのかデータを元に検証・改善したい",
+    "リスティング・ディスプレイが頭打ちで、動画広告を試したい",
+    "P-MAXを運用しているが動画を作っていない",
+  ];
+
+  const agencySolutions = [
+    "少額案件でも動画改善提案を可能にし、利益率を維持したい",
+    "動画制作を外注しているが、内製化したい",
+    "競合分析や訴求抽出を効率化し、提案の質を高めたい",
+    "P-MAXの自動生成動画ではブランドイメージが合わない",
   ];
 
   return (
@@ -10,17 +18,44 @@ export default function Solutions() {
       <h2 className="text-3xl md:text-4xl font-bold text-black mb-12 text-center">
         このような課題を解決します
       </h2>
-      <div className="w-full max-w-4xl flex flex-col gap-6">
-        {solutions.map((solution, index) => (
-          <div
-            key={index}
-            className="w-full bg-white rounded-lg px-8 py-6 shadow-sm"
-          >
-            <p className="text-lg md:text-xl text-black text-center">
-              {solution}
-            </p>
+      <div className="w-full max-w-7xl grid grid-cols-1 md:grid-cols-2 gap-8">
+        {/* Business Companies Column */}
+        <div className="flex flex-col gap-6">
+          <div className="bg-gray-800 rounded-lg px-6 py-4">
+            <h3 className="text-2xl md:text-3xl font-bold text-white text-center">
+              事業会社様
+            </h3>
           </div>
-        ))}
+          {businessCompanySolutions.map((solution, index) => (
+            <div
+              key={index}
+              className="w-full bg-white rounded-lg px-8 py-6 shadow-sm"
+            >
+              <p className="text-lg md:text-xl text-black text-center">
+                {solution}
+              </p>
+            </div>
+          ))}
+        </div>
+
+        {/* Advertising Agencies Column */}
+        <div className="flex flex-col gap-6">
+          <div className="bg-gray-800 rounded-lg px-6 py-4">
+            <h3 className="text-2xl md:text-3xl font-bold text-white text-center">
+              広告代理店様
+            </h3>
+          </div>
+          {agencySolutions.map((solution, index) => (
+            <div
+              key={index}
+              className="w-full bg-white rounded-lg px-8 py-6 shadow-sm"
+            >
+              <p className="text-lg md:text-xl text-black text-center">
+                {solution}
+              </p>
+            </div>
+          ))}
+        </div>
       </div>
     </div>
   );

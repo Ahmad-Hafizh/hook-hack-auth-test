@@ -73,7 +73,7 @@ export default function FeaturesDetail() {
 
   return (
     <section className="px-10 py-[70px] md:py-[128px] bg-white" id="benefit">
-      <h2 className="text-3xl font-bold text-[#fe2858] text-center mb-20">
+      <h2 className="text-3xl md:text-4xl font-bold text-[#fe2858] text-center mb-20">
         主な機能
       </h2>
       <div className="max-w-7xl mx-auto space-y-16 md:space-y-24">
@@ -138,7 +138,7 @@ export default function FeaturesDetail() {
           className="grid grid-cols-1 lg:grid-cols-2 gap-8 md:gap-12 items-center"
         >
           <div
-            className={`space-y-4 md:space-y-6 transition-all duration-1000 max-w-2xl px-2 md:px-10 lg:px-20 w-full mx-auto flex flex-col items-start gap-3 ${
+            className={`space-y-4 md:space-y-6 transition-all duration-1000 max-w-2xl px-2 md:px-10 lg:px-14 w-full mx-auto flex flex-col items-start gap-3 ${
               isVisibleSection2
                 ? "opacity-100 translate-x-0"
                 : "opacity-0 -translate-x-10"
@@ -178,7 +178,7 @@ export default function FeaturesDetail() {
           className="grid grid-cols-1 lg:grid-cols-2 gap-8 md:gap-12 items-center"
         >
           <div
-            className={`space-y-4 md:space-y-6 transition-all duration-1000 flex flex-col items-start gap-3 max-w-2xl px-2 md:px-10 lg:px-20 w-full mx-auto ${
+            className={`space-y-4 md:space-y-6 transition-all duration-1000 flex flex-col items-start gap-3 max-w-2xl px-2 md:px-10 lg:px-14 w-full mx-auto ${
               isVisibleSection3
                 ? "opacity-100 translate-x-0"
                 : "opacity-0 -translate-x-10"

@@ -73,7 +73,7 @@ export default function FeaturesDetail() {
 
   return (
     <section className="px-10 py-[70px] md:py-[128px] bg-white" id="benefit">
-      <h2 className="text-3xl font-bold text-[#fe2858] text-center mb-20">
+      <h2 className="text-3xl md:text-4xl font-bold text-[#fe2858] text-center mb-20">
         主な機能
       </h2>
       <div className="max-w-7xl mx-auto space-y-16 md:space-y-24">
@@ -82,20 +82,22 @@ export default function FeaturesDetail() {
           className="grid grid-cols-1 lg:grid-cols-2 gap-8 md:gap-12 items-center"
         >
           <div
-            className={`space-y-4 md:space-y-6 transition-all duration-1000 max-w-2xl px-2 md:px-10 lg:px-20 w-full mx-auto flex flex-col items-start gap-3 ${
+            className={`space-y-4 md:space-y-6 transition-all duration-1000 max-w-2xl px-2 md:px-10 lg:px-14 w-full mx-auto flex flex-col items-start gap-3 ${
               isVisibleSection1
                 ? "opacity-100 translate-x-0"
                 : "opacity-0 -translate-x-10"
             }`}
           >
             <h3 className="text-xl md:text-3xl font-bold text-black">
-              1. 訴求軸に根拠を | 競合と比較して「売れる訴求」を提案
+              1. 訴求軸に根拠を | 競合と比較して
+              <br />
+              「売れる訴求」を提案
             </h3>
             <div className="text-base md:text-lg text-black space-y-2">
-              <p>今あるLP・画像素材を活かして手軽に動画を作りたい</p>
-              <p>バナーデザインのパターンを広げたい</p>
-              <p>今使ってる訴求が最適なのかテストしたい</p>
-              <p>バナーのテストを繰り返して最善の組み合わせを見つけたい</p>
+              <p>LPの​URLを​入力すると、​同一ジャンルの​他社LPを​複数抽出。</p>
+              <p>参考に​したい​LPを​3つ選ぶと、​他社LPを​踏まえて</p>
+              <p>貴社で​打ち出すべき訴求要素を​提案します。</p>
+              <p>提案内容を​元に​動画の​骨子に​活かすことができます。</p>
             </div>
             {/* <ul className="space-y-3">
               <li className="flex items-center space-x-3">
@@ -136,21 +138,22 @@ export default function FeaturesDetail() {
           className="grid grid-cols-1 lg:grid-cols-2 gap-8 md:gap-12 items-center"
         >
           <div
-            className={`space-y-4 md:space-y-6 transition-all duration-1000 max-w-2xl px-2 md:px-10 lg:px-20 w-full mx-auto flex flex-col items-start gap-3 ${
+            className={`space-y-4 md:space-y-6 transition-all duration-1000 max-w-2xl px-2 md:px-10 lg:px-14 w-full mx-auto flex flex-col items-start gap-3 ${
               isVisibleSection2
                 ? "opacity-100 translate-x-0"
                 : "opacity-0 -translate-x-10"
             }`}
           >
             <h3 className="text-xl md:text-3xl font-bold text-black">
-              2. LP入力から5分 | 成果に直結する要素で動画を複数パターン生成
+              2. LP入力から5分 | 成果に直結する
+              <br />
+              要素で動画を複数パターン生成
             </h3>
             <div className="text-base md:text-lg text-black space-y-2">
-              <p>Hook (最初の3秒) ・3つのポイント・CTAなど、動画の</p>
-              <p>インタラクション率に直結する要素を</p>
-              <p>選択すると、15秒の動画を</p>
-              <p>複数パターン生成。仮説検証に必要な</p>
-              <p>複数の動画を一度に用意できます。</p>
+              <p>Hook​（最初の​3秒）​・​3つの​ポイント・CTAなど、</p>
+              <p>動画の​インタラクション率に​直結する​要素を​</p>
+              <p>選択すると、​15秒の​動画を​複数パターン生成。</p>
+              <p>仮説検証に​必要な​複数の​動画を​一度に​用意できます。​</p>
             </div>
           </div>
           <div
@@ -175,22 +178,23 @@ export default function FeaturesDetail() {
           className="grid grid-cols-1 lg:grid-cols-2 gap-8 md:gap-12 items-center"
         >
           <div
-            className={`space-y-4 md:space-y-6 transition-all duration-1000 flex flex-col items-start gap-3 max-w-2xl px-2 md:px-10 lg:px-20 w-full mx-auto ${
+            className={`space-y-4 md:space-y-6 transition-all duration-1000 flex flex-col items-start gap-3 max-w-2xl px-2 md:px-10 lg:px-14 w-full mx-auto ${
               isVisibleSection3
                 ? "opacity-100 translate-x-0"
                 : "opacity-0 -translate-x-10"
             }`}
           >
             <h3 className="text-xl md:text-3xl font-bold text-black">
-              3. PDCAを1ツールで | 自動で成果を分析、改善案まで提案
+              3. PDCAを1ツールで | 自動で成果を分析、
+              <br />
+              改善案まで提案
             </h3>
             <div className="text-base md:text-lg text-black space-y-2">
-              <p>出稿後、各パターンの</p>
-              <p>視聴維持率・クリック・CVRなどを</p>
-              <p>自動で解析し、次の改善案を提示。</p>
-              <p>そのまま再生成も可能です。チームに</p>
-              <p>運用ノウハウが少なくても、高速に</p>
-              <p>成果を改善できます。</p>
+              <p>出稿後、​各パターンの​視聴維持率、​クリック、</p>
+              <p>CVRなどを​自動で​解析し、​次の​改善案を​提示。</p>
+              <p>そのまま​再生成も​可能です。</p>
+              <p>チームに​運用ノウハウが​少なくても、​高速に​成果を</p>
+              <p>改善できます。</p>
             </div>
             {/* <ul className="space-y-3">
               <li className="flex items-center space-x-3">

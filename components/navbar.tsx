@@ -38,9 +38,7 @@ export default function Navbar() {
 
   return (
     <header
-      className={`fixed top-0 left-0 right-0 z-50 px-4 py-4 transition-all duration-300 ${
-        isScrolled ? "bg-black shadow-md" : "bg-black"
-      }`}
+      className="fixed top-0 left-0 right-0 z-50 px-4 py-4 bg-black shadow-md transition-all duration-300"
     >
       <div className="max-w-7xl mx-auto flex items-center justify-between">
         <div className="flex items-center space-x-2">
@@ -79,13 +77,13 @@ export default function Navbar() {
           >
             業界別サンプル動画
           </a>
-          <a
+          {/* <a
             href="#features-highlight"
             className="text-white hover:text-[#fe2858]"
             onClick={handleSmoothScroll}
           >
             特徴
-          </a>
+          </a> */}
 
           <a
             href="#about"
@@ -98,7 +96,7 @@ export default function Navbar() {
             <TrialDialog
               trigger={
                 <Button className="bg-[#2af0ea] text-black hover:bg-[#288784] hover:text-white transition-all duration-300 border-2 border-[#2af0ea]">
-                  1週間​無料トライアルで​今すぐ​制作
+                  1週間​無料｜今すぐ​制作する
                 </Button>
               }
             />
@@ -123,13 +121,13 @@ export default function Navbar() {
           >
             業界別サンプル動画
           </a>
-          <a
+          {/* <a
             href="#features-highlight"
             className="text-white hover:text-[#fe2858]"
             onClick={handleSmoothScroll}
           >
             特徴
-          </a>
+          </a> */}
 
           <a
             href="#about"
@@ -142,7 +140,7 @@ export default function Navbar() {
             <TrialDialog
               trigger={
                 <Button className="bg-[#2af0ea] text-black hover:bg-[#288784] hover:text-white transition-all duration-300 w-full border-2 border-[#2af0ea]">
-                  1週間​無料トライアルで​今すぐ​制作
+                  1週間​無料｜今すぐ​制作する
                 </Button>
               }
             />

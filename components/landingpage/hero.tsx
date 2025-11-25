@@ -57,44 +57,55 @@ export default function Hero() {
     <section
       id="hero"
       ref={ref}
-      className=" py-40 bg-gradient-to-b from-black via-[#272727] to-black min-h-screen h-screen flex flex-col items-center justify-center"
+      className="relative bg-gradient-to-b from-black via-[#272727] to-black min-h-screen h-screen flex flex-col items-center justify-center overflow-hidden pt-20 md:pt-24"
     >
-      <div className="mx-auto w-full flex flex-col items-center h-full my-36">
-        {/* Video Centered */}
-        <div
-          className={`relative transition-all duration-1000 delay-300 mb-11 w-full flex justify-center items-center ${
-            isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-10"
-          }`}
-        >
-          {/* Overlayed Text */}
-          <div className="absolute inset-0 flex flex-col items-center justify-center z-10 px-2 sm:px-6">
-            <h1 className="text-2xl sm:text-3xl md:text-3xl lg:text-5xl font-bold text-center text-white tracking-tight drop-shadow-lg md:mb-12 mb-6">
-              売れる​動画​広告　LPから​5分で​制作｜HookHack
-            </h1>
-            {/* <span className="inline-block text-white px-4 py-1 font-semibold text-4xl sm:text-6xl my-6 md:my-10 md:mb-10 drop-shadow-lg">
-              『Hook Hack』
-            </span> */}
-            {/* Button Centered */}
-            <TrialDialog
-              trigger={
-                <Button
-                  size="lg"
-                  className="bg-gradient-to-r from-[#fe2858] to-[#ff5e81] hover:from-[#c55064] hover:to-[rgb(215,73,97)] text-white px-6 sm:px-10 py-4 sm:py-6 text-base sm:text-lg font-bold rounded-md shadow-lg transition-all  "
-                >
-                  1週間​無料トライアルで​今すぐ​制作
-                </Button>
-              }
-            />
-          </div>
-          {/* Video */}
-          <div className=" shadow-2xl flex justify-center items-center w-full h-[40vh] sm:h-[65vh] my-3">
-            {/* <img src="/hero.gif" className="w-full h-full object-cover" /> */}
-          </div>
+      {/* Video Fullscreen */}
+      <div
+        className={`absolute inset-0 w-full h-full transition-all duration-1000 delay-300 ${
+          isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-10"
+        }`}
+      >
+        <img
+          src="/lphero169.gif"
+          className="w-full h-full object-contain object-center"
+          alt="Hero video"
+        />
+      </div>
+
+      {/* Dark Overlay */}
+      <div className="absolute inset-0 w-full h-full bg-black bg-opacity-40 z-[5]"></div>
+
+      {/* Overlayed Text */}
+      <div className="relative z-10 flex flex-col items-center px-2 sm:px-6 w-full h-full pb-32">
+        {/* Headline and CTA - Absolute Middle */}
+        <div className="absolute top-[45%] left-1/2 transform -translate-x-1/2 -translate-y-1/2 flex flex-col items-center w-full px-2 sm:px-6">
+          <h1 className="text-2xl sm:text-3xl md:text-3xl lg:text-5xl font-bold text-center p-1 rounded-lg bg-black text-white tracking-tight drop-shadow-lg md:mb-12 mb-6">
+            動画広告をLPから5分で制作｜HookHack
+          </h1>
+          {/* Button Centered */}
+          <TrialDialog
+            trigger={
+              <Button
+                size="lg"
+                className="bg-gradient-to-r from-[#fe2858] to-[#ff5e81] hover:from-[#c55064] hover:to-[rgb(215,73,97)] text-white px-6 sm:px-10 py-4 sm:py-6 text-base sm:text-lg font-bold rounded-md shadow-lg transition-all  "
+              >
+                1週間​無料｜今すぐ​制作する
+              </Button>
+            }
+          />
         </div>
-        {/* Main Headline */}
+        {/* Title from Explain section */}
+        <div className="absolute top-[calc(50%+180px)] sm:top-[calc(50%+200px)] md:top-[calc(50%+220px)] lg:top-[calc(50%+150px)] flex flex-col items-center text-center px-4">
+          <h2 className="text-xl sm:text-2xl md:text-2xl lg:text-3xl font-bold text-center p-1 rounded-lg bg-black text-white tracking-tight drop-shadow-lg mb-4">
+            制作だけでなく、​制作後の​検証から​成果改善まで
+          </h2>
+          <h2 className="text-xl sm:text-2xl md:text-2xl lg:text-3xl font-bold text-center p-1 rounded-lg bg-black text-white tracking-tight drop-shadow-lg">
+            動画​広告の​PDCAに​必要な​機能を​１ツールで​網羅
+          </h2>
+        </div>
       </div>
       {/* Arrow Down and Learn More */}
-      <div className="absolute left-1/2 bottom-10 transform -translate-x-1/2 flex flex-col items-center px-10 w-full">
+      <div className="absolute left-1/2 bottom-0 transform -translate-x-1/2 flex flex-col items-center justify-center px-10 w-full z-20 bg-black h-20 py-16">
         <a
           href="#explain"
           onClick={(e) => {

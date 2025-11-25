@@ -41,7 +41,7 @@ const CustomCheckboxGroup = React.forwardRef<HTMLDivElement, CustomCheckboxGroup
 
   return (
     <CheckboxGroupContext.Provider value={{ value, onItemCheckedChange }}>
-      <div className={cn('flex flex-wrap gap-4', className)} {...props} ref={ref}>
+      <div className={cn('flex flex-col gap-4', className)} {...props} ref={ref}>
         {children}
       </div>
     </CheckboxGroupContext.Provider>

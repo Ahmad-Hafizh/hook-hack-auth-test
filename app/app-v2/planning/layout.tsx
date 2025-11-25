@@ -1,6 +1,5 @@
 'use client';
 import { Card, CardContent } from '@/components/ui/card';
-import { Progress } from '@/components/ui/progress';
 import { usePathname } from 'next/navigation';
 import React from 'react';
 

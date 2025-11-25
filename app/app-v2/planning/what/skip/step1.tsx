@@ -7,6 +7,7 @@ import React from 'react';
 const Step1Skip = ({ onNext, onSetSuggestions, onSetCompetitorStrategy }: { onNext: () => void; onSetSuggestions: (suggestions: any) => void; onSetCompetitorStrategy: (strategy: any) => void }) => {
   const [loadingSubmit, setLoadingSubmit] = React.useState(false);
   const [competitorUrls, setCompetitorUrls] = React.useState<string[]>([]);
+  const [userUrl, setUserUrl] = React.useState('');
 
   const submitStep1 = async () => {
     setLoadingSubmit(true);
@@ -18,6 +19,7 @@ const Step1Skip = ({ onNext, onSetSuggestions, onSetCompetitorStrategy }: { onNe
       });
       const { data } = await callAppV2Api.post('/v1/key-message', {
         competitors,
+        user_url: userUrl,
         provider: 'openai',
       });
 
@@ -41,7 +43,7 @@ const Step1Skip = ({ onNext, onSetSuggestions, onSetCompetitorStrategy }: { onNe
         <div className="flex flex-col gap-6">
           <div className="flex flex-col gap-2">
             <p>ENTER YOUR PRODUCT/SERVICE URL</p>
-            <Input type="text" placeholder="https://url/" className="border border-black px-4 py-2 w-[500px]" />
+            <Input type="text" placeholder="https://url/" className="border border-black px-4 py-2 w-[500px]" onChange={(e) => setUserUrl(e.target.value)} />
           </div>
           <div className="flex flex-col gap-2">
             <p>ENTER YOUR COMPETITOR PRODUCT/SERVICE URL</p>

@@ -1,6 +1,7 @@
 import callAppV2Api from '@/config/axios/axiosAppV2';
+import { IVariants } from './useStepData';
 
-export const submitStep1 = async ({ setLoading, onNext, budget, onSetPlan }: { setLoading: (loading: boolean) => void; onNext: () => void; budget: number; onSetPlan: (plan: any) => void }) => {
+export const submitStep1 = async ({ setLoading, onNext, budget, setPlan }: { setLoading: (loading: boolean) => void; onNext: () => void; budget: number; setPlan: React.Dispatch<React.SetStateAction<any>> }) => {
   setLoading(true);
   try {
     const { data } = await callAppV2Api.post('/v1/video-tests/plan', {
@@ -12,7 +13,7 @@ export const submitStep1 = async ({ setLoading, onNext, budget, onSetPlan }: { s
       language: 'en',
     });
 
-    onSetPlan(data.plan);
+    setPlan(data.plan);
     onNext();
   } catch (error) {
     console.error('Error submitting Step 1:', error);
@@ -32,16 +33,17 @@ export const submitStep2 = async ({ setLoading, onNext }: { setLoading: (loading
   }
 };
 
-export const generateVariants = async ({ setLoadingGenerate, onSetVariants }: { setLoadingGenerate: (loading: boolean) => void; onSetVariants: (variants: any) => void }) => {
+export const generateVariants = async ({ setLoadingGenerate, setVariants }: { setLoadingGenerate: (loading: boolean) => void; setVariants: React.Dispatch<React.SetStateAction<IVariants>> }) => {
   setLoadingGenerate(true);
   try {
+    const { key_message, strong_points } = JSON.parse(localStorage.getItem('planning-what-data') || '{}');
     const { data } = await callAppV2Api.post('/v1/video/main-content', {
-      key_message: 'stringstri',
-      strong_points: ['string', 'string', 'string'],
+      key_message: key_message,
+      strong_points: strong_points,
       provider: 'openai',
       language: 'en',
     });
-    onSetVariants(data.variants);
+    setVariants({ ...data.variants, strong_point_1_images: [], strong_point_2_images: [], strong_point_3_images: [] });
   } catch (error) {
     console.error('Error generating variants:', error);
   } finally {
@@ -62,29 +64,27 @@ export const submitStep3 = async ({ setLoading, onNext }: { setLoading: (loading
   }
 };
 
-export const submitStep4 = async ({ setLoading, onNext }: { setLoading: (loading: boolean) => void; onNext: () => void }) => {
+export const submitStep4 = async ({
+  setLoading,
+  onNext,
+  patternCombinations,
+  setRendersCreatomate,
+}: {
+  setLoading: (loading: boolean) => void;
+  onNext: () => void;
+  patternCombinations: any[];
+  setRendersCreatomate: (renders: any[]) => void;
+}) => {
   setLoading(true);
   try {
     const { data } = await callAppV2Api.post('/v1/creatomate/renders', {
-      template_id: 'string',
-      videos: [
-        {
-          hook: 'string',
-          strong_point_1: 'string',
-          strong_point_2: 'string',
-          strong_point_3: 'string',
-          cta: 'string',
-          images: {
-            strong_point_1: 'https://example.com/',
-            strong_point_2: 'https://example.com/',
-            strong_point_3: 'https://example.com/',
-            logo: 'https://example.com/',
-          },
-        },
-      ],
+      template_id: 'f9a7fdef-4311-4b0c-942a-6f3f00a353dd',
+      videos: patternCombinations,
       provider: 'creatomate',
     });
-    console.log(data);
+
+    setRendersCreatomate(data.renders);
+    onNext();
   } catch (error) {
     console.error('Error submitting Step 4:', error);
   } finally {

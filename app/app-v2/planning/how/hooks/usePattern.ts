@@ -4,19 +4,19 @@ import { IElements, IPattern } from './useStepData';
 const generateCombinations = (arrays: string[][]): string[][] => {
   if (arrays.length === 0) return [[]];
 
-  let result: string[][] = [[]];
+  let combinations: string[][] = [[]];
 
   for (const array of arrays) {
     const temp: string[][] = [];
-    for (const resultItem of result) {
+    for (const resultItem of combinations) {
       for (const item of array) {
         temp.push([...resultItem, item]);
       }
     }
-    result = temp;
+    combinations = temp;
   }
 
-  return result;
+  return combinations;
 };
 
 // Calculate total pattern count only (lightweight, runs on every change)
@@ -79,22 +79,7 @@ export const calculateValuePattern = (elements: IElements, category: keyof IElem
   // Get the count for the updated category
   const getValue = (key: keyof IElements) => (key === category ? newValue.length : elements[key].length);
 
-  // Quick check if all categories would be empty
-  if (
-    !newValue.length &&
-    !elements.hooks.length &&
-    !elements.body1Images.length &&
-    !elements.body1Messages.length &&
-    !elements.body2Images.length &&
-    !elements.body2Messages.length &&
-    !elements.body3Images.length &&
-    !elements.body3Messages.length &&
-    !elements.ctas.length
-  ) {
-    return 0;
-  }
-
-  // Calculate pattern count directly without temporary arrays
+  // Calculate pattern count directly
   return (
     (getValue('hooks') || 1) *
     (getValue('body1Images') || 1) *
@@ -105,4 +90,52 @@ export const calculateValuePattern = (elements: IElements, category: keyof IElem
     (getValue('body3Messages') || 1) *
     (getValue('ctas') || 1)
   );
+};
+
+export const onElementValueChange = (category: keyof IElements, value: string[], elements: IElements, setElements: React.Dispatch<React.SetStateAction<IElements>>) => {
+  // Always allow deselecting (reducing selections)
+  if (value.length < elements[category].length) {
+    setElements({ ...elements, [category]: value });
+    return;
+  }
+
+  // For selecting more items:
+  // 1. Check if we haven't exceeded 2 items per category
+  // 2. Check if predicted pattern count would be <= 10
+  if (value.length <= 2) {
+    const predictedPatternCount = calculateValuePattern(elements, category, value);
+    if (predictedPatternCount <= 10) {
+      setElements({ ...elements, [category]: value });
+    }
+  }
+};
+
+export const onUploadBrandLogo = (url: string, patternCombinations: IPattern[], setPatternCombinations: React.Dispatch<React.SetStateAction<IPattern[]>>, setBrandLogoUrl: React.Dispatch<React.SetStateAction<string | null>>) => {
+  setBrandLogoUrl(url);
+  const newPatternCombinations = patternCombinations.map((combination) => ({
+    ...combination,
+    images: {
+      ...combination.images,
+      logo: url,
+    },
+  }));
+
+  setPatternCombinations(newPatternCombinations);
+};
+
+export const onUploadBodyImage = (url: string, setElements: React.Dispatch<React.SetStateAction<IElements>>, category: keyof IElements) => {
+  setElements((prevElements) => {
+    const newImages = [...prevElements[category], url];
+    // Check if we can add this image (max 2 and pattern <= 10)
+    if (newImages.length <= 2) {
+      const predictedCount = calculateValuePattern(prevElements, category, newImages);
+      if (predictedCount <= 10) {
+        return {
+          ...prevElements,
+          [category]: newImages,
+        };
+      }
+    }
+    return prevElements;
+  });
 };

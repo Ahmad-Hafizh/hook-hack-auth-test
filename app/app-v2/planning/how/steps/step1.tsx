@@ -5,9 +5,9 @@ import { JapaneseYen } from 'lucide-react';
 import React from 'react';
 import { submitStep1 } from '../hooks/useFetchApi';
 
-const Step1 = ({ onNext, onSetPlan }: { onNext: () => void; onSetPlan: (plan: any) => void }) => {
+const Step1 = ({ onNext, setPlan }: { onNext: () => void; setPlan: React.Dispatch<React.SetStateAction<any>> }) => {
   const [loading, setLoading] = React.useState(false);
-  const [budget, setBudget] = React.useState(0);
+  const [budget, setBudget] = React.useState<number | undefined>(undefined);
 
   return (
     <div className="px-10 h-full flex flex-col gap-5 container justify-between">
@@ -20,12 +20,12 @@ const Step1 = ({ onNext, onSetPlan }: { onNext: () => void; onSetPlan: (plan: an
           <p>BUDGET PER MONTH</p>
           <div className="relative flex items-center">
             <JapaneseYen className="absolute  text-gray-500 w-4 h-4 left-2" />
-            <Input type="number" placeholder="Enter your monthly budget" className="border pl-8 pr-4 py-2 w-[500px]" value={budget} onChange={(e) => setBudget(Number(e.target.value))} />
+            <Input type="number" placeholder="Enter your monthly budget" className="border pl-8 pr-4 py-2 w-[500px]" defaultValue={budget} min={0} onChange={(e) => setBudget(Number(e.target.value))} />
           </div>
         </div>
       </div>
       <div className="flex justify-end">
-        <Button className="border border-black bg-black text-white px-4 py-2" onClick={() => submitStep1({ setLoading, onNext, budget, onSetPlan })} disabled={loading}>
+        <Button className="border border-black bg-black text-white px-4 py-2" onClick={() => submitStep1({ setLoading, onNext, budget: budget ?? 0, setPlan })} disabled={loading}>
           {loading && <Spinner className="w-3 h-3" />} Next
         </Button>
       </div>

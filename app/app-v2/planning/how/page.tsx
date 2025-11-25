@@ -7,15 +7,16 @@ import Step3 from './steps/step3';
 import Step4 from './steps/step4';
 import { useStep } from '../hooks/useStep';
 import { useStepData } from './hooks/useStepData';
+import Step5 from './steps/step5';
 
 const PlanningHowPage = () => {
-  const { step, onStep } = useStep(4);
-  const { plan, elements, onSetElements, onSetPlan, onSetVariants, variants, patternCount, setPatternCount, patternCombinations, setPatternCombinations } = useStepData();
+  const { step, onStep } = useStep(5);
+  const { plan, setPlan, elements, setElements, variants, setVariants, patternCount, setPatternCount, patternCombinations, setPatternCombinations, rendersCreatomate, setRendersCreatomate } = useStepData();
 
   const stepList = [
     {
       id: 1,
-      page: <Step1 onNext={() => onStep(2)} onSetPlan={onSetPlan} />,
+      page: <Step1 onNext={() => onStep(2)} setPlan={setPlan} />,
     },
     {
       id: 2,
@@ -28,19 +29,22 @@ const PlanningHowPage = () => {
           onNext={() => onStep(4)}
           plan={plan}
           elements={elements}
-          onSetElements={onSetElements}
-          onSetVariants={onSetVariants}
+          setElements={setElements}
+          setVariants={setVariants}
           variants={variants}
           patternCount={patternCount}
           setPatternCount={setPatternCount}
-          patternCombinations={patternCombinations}
           setPatternCombinations={setPatternCombinations}
         />
       ),
     },
     {
       id: 4,
-      page: <Step4 onNext={() => onStep(5)} patternCombinations={patternCombinations} setPatternCombinations={setPatternCombinations} />,
+      page: <Step4 onNext={() => onStep(5)} patternCombinations={patternCombinations} setPatternCombinations={setPatternCombinations} setRendersCreatomate={setRendersCreatomate} />,
+    },
+    {
+      id: 5,
+      page: <Step5 rendersCreatomate={rendersCreatomate} />,
     },
   ];
 

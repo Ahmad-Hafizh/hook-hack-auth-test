@@ -1,6 +1,6 @@
 import { useState } from 'react';
 
-interface IPlan {
+export interface IPlan {
   assumptions: {
     platform: string;
     targer_impressions_per_video: number;
@@ -20,6 +20,9 @@ export interface IVariants {
   strong_point_2_messages: string[];
   strong_point_3_messages: string[];
   ctas: string[];
+  strong_point_1_images: string[];
+  strong_point_2_images: string[];
+  strong_point_3_images: string[];
 }
 
 export interface IElements {
@@ -47,16 +50,23 @@ export interface IPattern {
   };
 }
 
+export interface IRendersCreatomate {
+  result_url: string;
+}
+
 export const useStepData = () => {
   const [plan, setPlan] = useState<IPlan>();
-  const onSetPlan = (data: IPlan) => {
-    setPlan(data);
-  };
 
-  const [variants, setVariants] = useState<IVariants>();
-  const onSetVariants = (data: IVariants) => {
-    setVariants(data);
-  };
+  const [variants, setVariants] = useState<IVariants>({
+    hooks: [],
+    strong_point_1_messages: [],
+    strong_point_2_messages: [],
+    strong_point_3_messages: [],
+    ctas: [],
+    strong_point_1_images: [],
+    strong_point_2_images: [],
+    strong_point_3_images: [],
+  });
 
   const [elements, setElements] = useState<IElements>({
     hooks: [],
@@ -68,12 +78,11 @@ export const useStepData = () => {
     body3Messages: [],
     ctas: [],
   });
-  const onSetElements = (data: IElements) => {
-    setElements(data);
-  };
 
   const [patternCount, setPatternCount] = useState<number>(0);
   const [patternCombinations, setPatternCombinations] = useState<IPattern[]>([]);
 
-  return { plan, onSetPlan, variants, onSetVariants, elements, onSetElements, patternCount, setPatternCount, patternCombinations, setPatternCombinations };
+  const [rendersCreatomate, setRendersCreatomate] = useState<IRendersCreatomate[]>([]);
+
+  return { plan, setPlan, variants, setVariants, elements, setElements, patternCount, setPatternCount, patternCombinations, setPatternCombinations, rendersCreatomate, setRendersCreatomate };
 };

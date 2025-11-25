@@ -2,7 +2,8 @@ export default function Solutions() {
   const businessCompanySolutions = [
     "今あるLP・画像素材を活かして手軽に動画を作りたい",
     "バナーデザインのパターンを広げたい",
-    "リスティング・ディスプレイが頭打ちで、動画広告を試したい",
+    "代理店が忙しくて深い企画を作れていない",
+    "動画のPDCAを自社で回したい",
     "P-MAXを運用しているが動画を作っていない",
   ];
 
@@ -55,6 +56,10 @@ export default function Solutions() {
               </p>
             </div>
           ))}
+          {/* Empty box to match left column */}
+          <div className="w-full bg-white rounded-lg px-8 py-6 shadow-sm h-20">
+            <p className="text-lg md:text-xl text-black text-center"></p>
+          </div>
         </div>
       </div>
     </div>

@@ -32,7 +32,7 @@ export default function IndustrySamples() {
           {samples.map((sample, index) => (
             <div key={index} className="flex flex-col items-center space-y-4">
               {/* Video Player */}
-              <div className="w-full aspect-[9/16] rounded-lg overflow-hidden shadow-lg relative bg-black">
+              <div className="w-full max-w-[280px] aspect-[9/16] rounded-lg overflow-hidden shadow-lg relative bg-black mx-auto mt-14">
                 <video
                   className="w-full h-full object-cover"
                   controls

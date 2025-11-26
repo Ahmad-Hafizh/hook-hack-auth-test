@@ -5,7 +5,7 @@ import { JapaneseYen } from 'lucide-react';
 import React from 'react';
 import { submitStep1 } from '../hooks/useFetchApi';
 
-const Step1 = ({ onNext }: { onNext: () => void }) => {
+const Step1 = ({ onNext, onSetPlan }: { onNext: () => void; onSetPlan: (plan: any) => void }) => {
   const [loading, setLoading] = React.useState(false);
   const [budget, setBudget] = React.useState(0);
 
@@ -25,7 +25,7 @@ const Step1 = ({ onNext }: { onNext: () => void }) => {
         </div>
       </div>
       <div className="flex justify-end">
-        <Button className="border border-black bg-black text-white px-4 py-2" onClick={() => submitStep1({ setLoading, onNext, budget })} disabled={loading}>
+        <Button className="border border-black bg-black text-white px-4 py-2" onClick={() => submitStep1({ setLoading, onNext, budget, onSetPlan })} disabled={loading}>
           {loading && <Spinner className="w-3 h-3" />} Next
         </Button>
       </div>

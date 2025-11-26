@@ -63,7 +63,7 @@ const AppPage = () => {
       {page == 'switch' && pages.switch.page}
       {(page == 'scratch' || page == 'skip') && (
         <>
-          <TopHorizontalProgress pageStep={pages[page].steps} step={step} />
+          <TopHorizontalProgress pageStep={pages[page].steps.length} step={step} />
 
           {/* Current Step Content */}
           {pages[page].steps[step - 1]?.page}

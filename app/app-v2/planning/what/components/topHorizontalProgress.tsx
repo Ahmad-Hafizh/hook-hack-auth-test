@@ -1,9 +1,9 @@
 import React from 'react';
 
-const TopHorizontalProgress = ({ pageStep, step }: { pageStep: any[]; step: number }) => {
+const TopHorizontalProgress = ({ pageStep, step }: { pageStep: number; step: number }) => {
   return (
     <div className="flex justify-center items-center mb-10 gap-2">
-      {pageStep.map((_, i) => {
+      {Array.from({ length: pageStep }).map((_, i) => {
         const stepNumber = i + 1;
         const isCurrentStep = step === stepNumber;
         const isCompletedStep = step > stepNumber;
@@ -18,7 +18,7 @@ const TopHorizontalProgress = ({ pageStep, step }: { pageStep: any[]; step: numb
             >
               <p className="text-xs font-bold">{stepNumber}</p>
             </div>
-            {i < pageStep.length - 1 && <div className={`h-[3px] w-8 rounded-full transition-all duration-200 ${isCompletedStep ? 'bg-rose-500' : 'bg-gray-300'}`} />}
+            {i < pageStep - 1 && <div className={`h-[3px] w-8 rounded-full transition-all duration-200 ${isCompletedStep ? 'bg-rose-500' : 'bg-gray-300'}`} />}
           </div>
         );
       })}

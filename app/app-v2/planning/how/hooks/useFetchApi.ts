@@ -25,13 +25,13 @@ export const submitStep1 = async ({ setLoading, onNext, budget, setPlan }: { set
 export const submitStep2 = async ({
   setLoading,
   onNext,
-  selectedTemplate,
+  selectedTemplateId,
   setVariants,
   variants,
 }: {
   setLoading: (loading: boolean) => void;
   onNext: () => void;
-  selectedTemplate: string;
+  selectedTemplateId: string;
   setVariants: React.Dispatch<React.SetStateAction<any>>;
   variants: IVariants;
 }) => {
@@ -70,9 +70,8 @@ export const submitStep2 = async ({
       },
     ];
 
-    const selectedTemplateData = templatesCreatomateModification.find((t) => t.template_id === selectedTemplate);
+    const selectedTemplateData = templatesCreatomateModification.find((t) => t.template_id === selectedTemplateId);
 
-    // setSelectedTemplateData(selectedTemplateData);
     setVariants({
       ...variants,
       strong_point_1_images: [...variants.strong_point_1_images, selectedTemplateData?.images.strong_point_1],
@@ -130,12 +129,14 @@ export const submitStep4 = async ({
   patternCombinations,
   setRendersCreatomate,
   brandLogoUrl,
+  selectedTemplateId,
 }: {
   setLoading: (loading: boolean) => void;
   onNext: () => void;
   patternCombinations: any[];
   setRendersCreatomate: (renders: any[]) => void;
   brandLogoUrl: string | null;
+  selectedTemplateId: string;
 }) => {
   setLoading(true);
   try {
@@ -144,7 +145,7 @@ export const submitStep4 = async ({
     });
 
     const { data } = await callAppV2Api.post('/v1/creatomate/renders', {
-      template_id: 'f9a7fdef-4311-4b0c-942a-6f3f00a353dd',
+      template_id: selectedTemplateId,
       videos,
       provider: 'creatomate',
     });

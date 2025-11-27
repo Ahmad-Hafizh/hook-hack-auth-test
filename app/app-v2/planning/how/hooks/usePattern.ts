@@ -20,18 +20,30 @@ const generateCombinations = (arrays: string[][]): string[][] => {
 };
 
 // Calculate total pattern count only (lightweight, runs on every change)
-export const calculatePatternCount = (elements: IElements): number => {
+export const calculatePatternCount = (
+  elements: IElements
+): {
+  totalPattern: number;
+  complete: boolean;
+} => {
   const { hooks, body1Images, body1Messages, body2Images, body2Messages, body3Images, body3Messages, ctas } = elements;
 
   // Quick check if all categories are empty
   const hasSelections = hooks.length || body1Images.length || body1Messages.length || body2Images.length || body2Messages.length || body3Images.length || body3Messages.length || ctas.length;
 
+  const isComplete = !!(hooks.length && body1Images.length && body1Messages.length && body2Images.length && body2Messages.length && body3Images.length && body3Messages.length && ctas.length);
+
   if (!hasSelections) {
-    return 0;
+    return { totalPattern: 0, complete: false };
   }
 
+  const totalPattern = (hooks.length || 1) * (body1Images.length || 1) * (body1Messages.length || 1) * (body2Images.length || 1) * (body2Messages.length || 1) * (body3Images.length || 1) * (body3Messages.length || 1) * (ctas.length || 1);
+
   // Calculate pattern count directly without generating combinations
-  return (hooks.length || 1) * (body1Images.length || 1) * (body1Messages.length || 1) * (body2Images.length || 1) * (body2Messages.length || 1) * (body3Images.length || 1) * (body3Messages.length || 1) * (ctas.length || 1);
+  return {
+    totalPattern,
+    complete: isComplete,
+  };
 };
 
 // Generate actual pattern combinations (heavy, only call on submit/next)

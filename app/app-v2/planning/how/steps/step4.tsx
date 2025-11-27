@@ -31,13 +31,12 @@ const Step4 = ({
     <div className="px-10 h-full flex flex-col gap-5 container justify-between">
       <div className="flex flex-col ">
         <h2 className="text-2xl font-semibold">Select your preferred distribution channels</h2>
-        <p> Select 8 element, multiple checks per element will lead to more patterns being tested</p>
       </div>
 
       <div className="grid grid-cols-2 gap-10 w-full h-fit ">
         <Card className="flex flex-col gap-4 px-4 ">
           <CardHeader className="p-4 justify-between flex flex-row items-center">
-            <CardTitle className="font-bold text-lg">Brand Logo</CardTitle>
+            <CardTitle className="font-bold text-lg">ブランドロゴ</CardTitle>
             <div className="w-fit">
               <UploadImageButton onUploadImage={(url) => onUploadBrandLogo(url, patternCombinations, setPatternCombinations, setBrandLogoUrl)} />
             </div>
@@ -48,27 +47,10 @@ const Step4 = ({
             </div>
           </CardContent>
         </Card>
-        {/* <Card className="flex flex-col gap-4">
-          <CardHeader className="p-4">
-            <CardTitle className="font-bold text-lg">Background Color</CardTitle>
-          </CardHeader>
-          <CardContent className="px-4">
-            <RadioGroup defaultValue="option-one" className="gap-4">
-              {Array.from({ length: 10 }).map((_, index) => (
-                <div className="flex items-center space-x-2 " key={index}>
-                  <RadioGroupItem value={`hook-option-${index + 1}`} id={`hook-option-${index + 1}`} />
-                  <Label htmlFor={`hook-option-${index + 1}`} className="text-base flex flex-row items-center gap-2">
-                    <div className={`content-[''] bg-[color] w-5 h-5 border`}></div>
-                    <p>Background Color option {index + 1}</p>
-                  </Label>
-                </div>
-              ))}
-            </RadioGroup>
-          </CardContent>
-        </Card> */}
+
         <Card className="flex flex-col gap-4 px-4">
           <CardHeader className="p-4">
-            <CardTitle className="font-bold text-lg">Background Music</CardTitle>
+            <CardTitle className="font-bold text-lg underline">BGM</CardTitle>
           </CardHeader>
           <CardContent className="px-4">
             <RadioGroup defaultValue="option-one" className="gap-4">
@@ -85,24 +67,6 @@ const Step4 = ({
             </RadioGroup>
           </CardContent>
         </Card>
-
-        {/* <Card className="flex flex-col gap-4">
-          <CardHeader className="p-4">
-            <CardTitle className="font-bold text-lg">Font</CardTitle>
-          </CardHeader>
-          <CardContent className="px-4">
-            <RadioGroup defaultValue="option-one" className="gap-4">
-              {Array.from({ length: 2 }).map((_, index) => (
-                <div className="flex items-center space-x-2 " key={index}>
-                  <RadioGroupItem value={`hook-option-${index + 1}`} id={`hook-option-${index + 1}`} />
-                  <Label htmlFor={`hook-option-${index + 1}`} className="text-base">
-                    Font option {index + 1}
-                  </Label>
-                </div>
-              ))}
-            </RadioGroup>
-          </CardContent>
-        </Card> */}
       </div>
 
       <div className="flex justify-end">

@@ -1,4 +1,3 @@
-import { prisma } from '@/prisma/seed';
 import { auth } from '@clerk/nextjs/server';
 
 export async function GET() {
@@ -11,9 +10,9 @@ export async function GET() {
       });
     }
 
-    const user = await prisma.user.findUnique({
-      where: { userId: userId },
-    });
+    // const user = await prisma.user.findUnique({
+    //   where: { userId: userId },
+    // });
 
     // if (!user) {
     //   await prisma.user.create({

@@ -3,14 +3,11 @@ import React from 'react';
 import { CustomCheckboxGroup, CustomCheckboxItem } from './customCheckbox';
 import { IElements, IVariants } from '../hooks/useStepData';
 import { Label } from '@/components/ui/label';
-import { Button } from '@/components/ui/button';
 import Image from 'next/image';
 import UploadImageButton from './uploadImageButton';
-import { onUploadBodyImage } from '../hooks/usePattern';
 import { Edit } from 'lucide-react';
-import { Input } from '@/components/ui/input';
 import { Textarea } from '@/components/ui/textarea';
-import { reformValue } from '../hooks/useLogic';
+import { reformValue, replaceMessages } from '../hooks/useLogic';
 
 const ElementCard = ({
   type,
@@ -27,20 +24,20 @@ const ElementCard = ({
   onElementValueChange: (type: keyof IElements, value: string[], elements: IElements, setElements: React.Dispatch<React.SetStateAction<IElements>>) => void;
   setElements: React.Dispatch<React.SetStateAction<IElements>>;
 }) => {
-  if (type === 'hook') {
+  if (type === 'hook' && setVariants) {
     return (
       <Card className="w-full h-fit pr-5 pb-5">
         <CardHeader className="w-full">
           <CardTitle>Hooks</CardTitle>
         </CardHeader>
-        <CardContent className="w-full">
+        <CardContent className="w-full  h-[400px] overflow-y-scroll ">
           <CustomCheckboxGroup className="gap-5  w-full" value={elements.hooks} onValueChange={(value) => onElementValueChange('hooks', value, elements, setElements)}>
             {variants.hooks &&
               variants.hooks.map((value: string, index: number) => (
                 <div className="flex items-center space-x-2 w-full" key={index}>
                   <CustomCheckboxItem id={`hook-option-${index + 1}`} value={value} />
                   <Label htmlFor={`hook-option-${index + 1}`} className="text-base w-full whitespace-nowrap cursor-pointer">
-                    <Textarea defaultValue={reformValue(value, 6, 6)} className="w-[150px] h-[120px] px-2 py-0" />
+                    <Textarea defaultValue={reformValue(value, 6, 6)} className="w-[150px] h-[120px] p-2" onChange={(e) => replaceMessages(e.target.value, setVariants, index, 'hooks', variants.hooks)} />
                   </Label>
                 </div>
               ))}
@@ -93,20 +90,20 @@ const ElementCard = ({
         </CardContent>
       </Card>
     );
-  } else if (type === 'body1message') {
+  } else if (type === 'body1message' && setVariants) {
     return (
       <Card className="flex flex-col gap-5 h-fit pr-5 pb-5">
         <CardHeader>
           <CardTitle>Body 1 Message</CardTitle>
         </CardHeader>
-        <CardContent>
+        <CardContent className="h-[400px] overflow-y-scroll">
           <CustomCheckboxGroup className="gap-5" value={elements.body1Messages} onValueChange={(value) => onElementValueChange('body1Messages', value, elements, setElements)}>
             {variants.strong_point_1_messages &&
               variants.strong_point_1_messages.map((value: string, index: number) => (
                 <div className="flex items-center space-x-2 " key={index}>
                   <CustomCheckboxItem id={`body1-message-${index + 1}`} value={value} />
                   <Label htmlFor={`body1-message-${index + 1}`} className="text-base cursor-pointer">
-                    <Textarea defaultValue={reformValue(value, 9, 4)} className="w-[150px] h-[120px] px-2 py-0" />
+                    <Textarea defaultValue={reformValue(value, 9, 4)} className="w-[150px] h-[120px] p-2" onChange={(e) => replaceMessages(e.target.value, setVariants, index, 'strong_point_1_messages', variants.strong_point_1_messages)} />
                   </Label>
                 </div>
               ))}
@@ -159,20 +156,20 @@ const ElementCard = ({
         </CardContent>
       </Card>
     );
-  } else if (type === 'body2message') {
+  } else if (type === 'body2message' && setVariants) {
     return (
       <Card className="flex flex-col gap-5 h-fit pr-5 pb-5">
         <CardHeader>
           <CardTitle>Body 2 Message</CardTitle>
         </CardHeader>
-        <CardContent>
+        <CardContent className="h-[400px] overflow-y-scroll">
           <CustomCheckboxGroup className="gap-5" value={elements.body2Messages} onValueChange={(value) => onElementValueChange('body2Messages', value, elements, setElements)}>
             {variants.strong_point_2_messages &&
               variants.strong_point_2_messages.map((value: string, index: number) => (
                 <div className="flex items-center space-x-2 " key={index}>
                   <CustomCheckboxItem id={`body2-message-${index + 1}`} value={value} />
                   <Label htmlFor={`body2-message-${index + 1}`} className="text-base cursor-pointer">
-                    <Textarea defaultValue={reformValue(value, 9, 4)} className="w-[150px] h-[120px] px-2 py-0" />
+                    <Textarea defaultValue={reformValue(value, 9, 4)} className="w-[150px] h-[120px] p-2" onChange={(e) => replaceMessages(e.target.value, setVariants, index, 'strong_point_2_messages', variants.strong_point_2_messages)} />
                   </Label>
                 </div>
               ))}
@@ -185,6 +182,7 @@ const ElementCard = ({
       <Card className="flex flex-col gap-5 h-fit pr-5 pb-5">
         <CardHeader>
           <CardTitle>Body 3 Image</CardTitle>
+          <CardDescription className="underline">Image guide: 16:9 ratio</CardDescription>
         </CardHeader>
         <CardContent>
           <CustomCheckboxGroup value={elements.body3Images} onValueChange={(value) => onElementValueChange('body3Images', value, elements, setElements)}>
@@ -224,20 +222,20 @@ const ElementCard = ({
         </CardContent>
       </Card>
     );
-  } else if (type === 'body3message') {
+  } else if (type === 'body3message' && setVariants) {
     return (
       <Card className="flex flex-col gap-5 h-fit pr-5 pb-5">
         <CardHeader>
           <CardTitle>Body 3 Message</CardTitle>
         </CardHeader>
-        <CardContent>
+        <CardContent className="h-[400px] overflow-y-scroll">
           <CustomCheckboxGroup className="gap-5" value={elements.body3Messages} onValueChange={(value) => onElementValueChange('body3Messages', value, elements, setElements)}>
             {variants.strong_point_3_messages &&
               variants.strong_point_3_messages.map((value: string, index: number) => (
                 <div className="flex items-center space-x-2 " key={index}>
                   <CustomCheckboxItem id={`body3-message-${index + 1}`} value={value} />
                   <Label htmlFor={`body3-message-${index + 1}`} className="text-base cursor-pointer">
-                    <Textarea defaultValue={reformValue(value, 9, 4)} className="w-[150px] h-[120px] px-2 py-0" />
+                    <Textarea defaultValue={reformValue(value, 9, 4)} className="w-[150px] h-[120px] p-2" onChange={(e) => replaceMessages(e.target.value, setVariants, index, 'strong_point_3_messages', variants.strong_point_3_messages)} />
                   </Label>
                 </div>
               ))}
@@ -245,20 +243,20 @@ const ElementCard = ({
         </CardContent>
       </Card>
     );
-  } else if (type === 'cta') {
+  } else if (type === 'cta' && setVariants) {
     return (
       <Card className="w-full h-fit pr-5 pb-5">
         <CardHeader className="w-full">
           <CardTitle>CTA's</CardTitle>
         </CardHeader>
-        <CardContent className="w-full">
+        <CardContent className="h-[400px] overflow-y-scroll ">
           <CustomCheckboxGroup className="gap-5  w-full" value={elements.ctas} onValueChange={(value) => onElementValueChange('ctas', value, elements, setElements)}>
             {variants.ctas &&
               variants.ctas.map((value: string, index: number) => (
                 <div className="flex items-center space-x-2 w-full" key={index}>
                   <CustomCheckboxItem id={`cta-option-${index + 1}`} value={value} />
                   <Label htmlFor={`cta-option-${index + 1}`} className="text-base w-full whitespace-nowrap cursor-pointer">
-                    <Textarea defaultValue={reformValue(value, 5, 3)} className="w-[150px] h-[120px] px-2 py-0" />
+                    <Textarea defaultValue={reformValue(value, 5, 3)} className="w-[150px] h-[120px] p-2" onChange={(e) => replaceMessages(e.target.value, setVariants, index, 'ctas', variants.ctas)} />
                   </Label>
                 </div>
               ))}

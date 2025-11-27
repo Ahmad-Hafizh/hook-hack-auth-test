@@ -99,16 +99,7 @@ export const useStepData = () => {
 
   const [rendersCreatomate, setRendersCreatomate] = useState<IRendersCreatomate[]>([]);
 
-  const [selectedTemplateData, setSelectedTemplateData] = useState<ITemplateCreatomate>({
-    template_id: '',
-    images: {
-      logo: '',
-      strong_point_3: '',
-      strong_point_2: '',
-      strong_point_1: '',
-      background_music: '',
-    },
-  });
+  const [selectedTemplateId, setSelectedTemplateId] = useState<string>('');
 
-  return { plan, setPlan, variants, setVariants, elements, setElements, patternCount, setPatternCount, patternCombinations, setPatternCombinations, rendersCreatomate, setRendersCreatomate, selectedTemplateData, setSelectedTemplateData };
+  return { plan, setPlan, variants, setVariants, elements, setElements, patternCount, setPatternCount, patternCombinations, setPatternCombinations, rendersCreatomate, setRendersCreatomate, selectedTemplateId, setSelectedTemplateId };
 };

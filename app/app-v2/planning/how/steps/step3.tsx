@@ -21,7 +21,6 @@ const Step3 = ({
   setElements,
   setVariants,
   setPatternCombinations,
-  selectedTemplateData,
 }: {
   onNext: () => void;
   plan: IPlan | undefined;
@@ -32,17 +31,18 @@ const Step3 = ({
   patternCount: number;
   setPatternCount: React.Dispatch<React.SetStateAction<number>>;
   setPatternCombinations: React.Dispatch<React.SetStateAction<IPattern[]>>;
-  selectedTemplateData: ITemplateCreatomate;
 }) => {
   const [loading, setLoading] = React.useState(false);
   const [loadingGenerate, setLoadingGenerate] = React.useState(true);
+  const [isComplete, setIsComplete] = React.useState(false);
 
   React.useEffect(() => {
     generateVariants({ setLoadingGenerate, setVariants, variants });
   }, []);
 
   React.useEffect(() => {
-    setPatternCount(calculatePatternCount(elements));
+    setPatternCount(calculatePatternCount(elements).totalPattern);
+    setIsComplete(calculatePatternCount(elements).complete);
   }, [elements]);
 
   return (
@@ -54,7 +54,7 @@ const Step3 = ({
           </p>
           <HoverCard>
             <HoverCardTrigger className="w-6 h-6 border-2 border-black text-lg font-bold rounded-full flex justify-center items-center">?</HoverCardTrigger>
-            <HoverCardContent>This is image gudi for the video</HoverCardContent>
+            <HoverCardContent>This is image guide for the video</HoverCardContent>
           </HoverCard>
         </div>
         <div className="flex flex-col gap-4 items-center justify-center">
@@ -65,10 +65,6 @@ const Step3 = ({
           <ElementProgress elements={elements} />
         </div>
       </div>
-      {/* <div className="flex flex-col ">
-        <h2 className="text-2xl font-semibold">Select your preferred distribution channels</h2>
-        <p> Select 8 element, multiple checks per element will lead to more patterns being tested</p>
-      </div> */}
 
       <div className=" w-full h-full overflow-x-auto relative ">
         {loadingGenerate ? (
@@ -77,14 +73,14 @@ const Step3 = ({
           </div>
         ) : (
           <div className="flex flex-row w-fit gap-10 whitespace-nowrap pb-10">
-            <ElementCard type="hook" variants={variants} elements={elements} onElementValueChange={onElementValueChange} setElements={setElements} />
+            <ElementCard type="hook" variants={variants} elements={elements} onElementValueChange={onElementValueChange} setElements={setElements} setVariants={setVariants} />
             <ElementCard type="body1image" variants={variants} elements={elements} onElementValueChange={onElementValueChange} setElements={setElements} setVariants={setVariants} />
-            <ElementCard type="body1message" variants={variants} elements={elements} onElementValueChange={onElementValueChange} setElements={setElements} />
+            <ElementCard type="body1message" variants={variants} elements={elements} onElementValueChange={onElementValueChange} setElements={setElements} setVariants={setVariants} />
             <ElementCard type="body2image" variants={variants} elements={elements} onElementValueChange={onElementValueChange} setElements={setElements} setVariants={setVariants} />
-            <ElementCard type="body2message" variants={variants} elements={elements} onElementValueChange={onElementValueChange} setElements={setElements} />
+            <ElementCard type="body2message" variants={variants} elements={elements} onElementValueChange={onElementValueChange} setElements={setElements} setVariants={setVariants} />
             <ElementCard type="body3image" variants={variants} elements={elements} onElementValueChange={onElementValueChange} setElements={setElements} setVariants={setVariants} />
-            <ElementCard type="body3message" variants={variants} elements={elements} onElementValueChange={onElementValueChange} setElements={setElements} />
-            <ElementCard type="cta" variants={variants} elements={elements} onElementValueChange={onElementValueChange} setElements={setElements} />
+            <ElementCard type="body3message" variants={variants} elements={elements} onElementValueChange={onElementValueChange} setElements={setElements} setVariants={setVariants} />
+            <ElementCard type="cta" variants={variants} elements={elements} onElementValueChange={onElementValueChange} setElements={setElements} setVariants={setVariants} />
           </div>
         )}
       </div>
@@ -98,7 +94,7 @@ const Step3 = ({
 
             submitStep3({ setLoading, onNext });
           }}
-          disabled={loading || loadingGenerate}
+          disabled={loading || loadingGenerate || !isComplete}
           className="border-2 border-rose-600 bg-rose-600  hover:bg-rose-500 text-white px-4 py-2"
         >
           {loading && <Spinner />}

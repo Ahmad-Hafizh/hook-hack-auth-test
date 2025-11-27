@@ -17,12 +17,14 @@ const Step4 = ({
   setPatternCombinations,
   setRendersCreatomate,
   variants,
+  selectedTemplateId,
 }: {
   onNext: () => void;
   patternCombinations: IPattern[];
   setPatternCombinations: React.Dispatch<React.SetStateAction<IPattern[]>>;
   setRendersCreatomate: React.Dispatch<React.SetStateAction<any[]>>;
   variants: IVariants;
+  selectedTemplateId: string;
 }) => {
   const [loading, setLoading] = React.useState(false);
   const [brandLogoUrl, setBrandLogoUrl] = React.useState<string>(variants.brand_logo || '');
@@ -70,7 +72,11 @@ const Step4 = ({
       </div>
 
       <div className="flex justify-end">
-        <Button onClick={() => submitStep4({ setLoading, onNext, patternCombinations, setRendersCreatomate, brandLogoUrl })} disabled={loading} className="border-2 border-rose-600 bg-rose-600  hover:bg-rose-500 text-white px-4 py-2">
+        <Button
+          onClick={() => submitStep4({ setLoading, onNext, patternCombinations, setRendersCreatomate, brandLogoUrl, selectedTemplateId })}
+          disabled={loading}
+          className="border-2 border-rose-600 bg-rose-600  hover:bg-rose-500 text-white px-4 py-2"
+        >
           {loading && <Spinner className="w-3 h-3" />}
           次に​進む
         </Button>

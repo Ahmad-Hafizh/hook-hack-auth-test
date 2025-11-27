@@ -1,4 +1,5 @@
 import callAppV2Api from '@/config/axios/axiosAppV2';
+import { IWebsites } from './useStepData';
 
 export const submitStep1Scratch = async ({ url, onSetKeywords, onNext, setLoading }: { url: string; onSetKeywords: (keywords: any) => void; onNext: () => void; setLoading: (loading: boolean) => void }) => {
   setLoading(true);
@@ -18,11 +19,11 @@ export const submitStep1Scratch = async ({ url, onSetKeywords, onNext, setLoadin
   }
 };
 
-export const submitStep2Scratch = async ({ selectedKeywords, onSetWebsites, onNext, setLoading }: { selectedKeywords: string[]; onSetWebsites: (websites: any[]) => void; onNext: () => void; setLoading: (loading: boolean) => void }) => {
+export const submitStep2Scratch = async ({ selectedKeywords, onSetWebsites, onNext, setLoading }: { selectedKeywords: string; onSetWebsites: (websites: any[]) => void; onNext: () => void; setLoading: (loading: boolean) => void }) => {
   setLoading(true);
   try {
     const { data } = await callAppV2Api.post('/v1/websites', {
-      keywords: selectedKeywords,
+      keywords: [selectedKeywords],
       limit: 5,
     });
 
@@ -38,15 +39,13 @@ export const submitStep2Scratch = async ({ selectedKeywords, onSetWebsites, onNe
 export const submitStep3 = async ({
   selectedVisuals,
   keyVisuals,
-  onSetSuggestions,
-  onSetCompetitorStrategy,
+  setBriefPlanning,
   onNext,
   setLoadingSubmit,
 }: {
   selectedVisuals: string[];
   keyVisuals: any[];
-  onSetSuggestions: (suggestions: any) => void;
-  onSetCompetitorStrategy: (competitorStrategy: any) => void;
+  setBriefPlanning: (briefPlanning: any) => void;
   onNext: () => void;
   setLoadingSubmit: (loading: boolean) => void;
 }) => {
@@ -74,8 +73,11 @@ export const submitStep3 = async ({
       tone: 'professional',
     });
 
-    onSetSuggestions(data.suggestion);
-    onSetCompetitorStrategy(data.competitors);
+    setBriefPlanning({
+      user: data.user ? data.user : { key_message: '', strong_points: [] },
+      competitors: data.competitors,
+      suggestion: data.suggestion,
+    });
     onNext();
   } catch (error) {
     console.error('Error submitting Step 3:', error);
@@ -85,22 +87,23 @@ export const submitStep3 = async ({
 };
 
 export const get5MoreVisuals = async ({
-  keywords,
+  selectedKeywords,
   websites,
   onSetWebsites,
   setLoadingGenerate,
 }: {
-  keywords: { term: string }[];
-  websites: any[];
-  onSetWebsites: (websites: any[]) => void;
+  selectedKeywords: string;
+  websites: IWebsites[];
+  onSetWebsites: (websites: IWebsites[]) => void;
   setLoadingGenerate: (loading: boolean) => void;
 }) => {
   setLoadingGenerate(true);
   try {
+    const exclude_domains = websites.map((w) => w.url);
     const { data } = await callAppV2Api.post('/v1/websites', {
-      keywords: keywords.map((k) => k.term),
+      keywords: [selectedKeywords],
       limit: 5,
-      exclude_domains: websites.map((w) => w.domain),
+      exclude_domains,
     });
 
     onSetWebsites([...websites, ...data.websites]);
@@ -111,14 +114,24 @@ export const get5MoreVisuals = async ({
   }
 };
 
-export const generateScreenshot = async ({ websites, setKeyVisuals, setLoadingGenerateVisual }: { websites: any[]; setKeyVisuals: (keyVisuals: any[]) => void; setLoadingGenerateVisual: (loading: boolean) => void }) => {
+export const generateScreenshot = async ({
+  keyVisuals,
+  websites,
+  setKeyVisuals,
+  setLoadingGenerateVisual,
+}: {
+  keyVisuals: any[];
+  websites: any[];
+  setKeyVisuals: (keyVisuals: any[]) => void;
+  setLoadingGenerateVisual: (loading: boolean) => void;
+}) => {
   setLoadingGenerateVisual(true);
   try {
     const { data } = await callAppV2Api.post('/v1/websites/screenshot', {
       urls: websites.map((website) => website.url),
     });
 
-    setKeyVisuals(data.items);
+    setKeyVisuals([...keyVisuals, ...data.items]);
   } catch (error) {
     console.error('Error generating screenshot:', error);
   } finally {

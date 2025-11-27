@@ -4,10 +4,11 @@ import { Button } from '@/components/ui/button';
 import { generateVariants, submitStep3 } from '../hooks/useFetchApi';
 import { Spinner } from '@/components/ui/spinner';
 import { Infinity } from 'lucide-react';
-import { IElements, IPattern, IPlan, IVariants } from '../hooks/useStepData';
+import { IElements, IPattern, IPlan, ITemplateCreatomate, IVariants } from '../hooks/useStepData';
 import { generatePatternCombinations, calculatePatternCount, onElementValueChange } from '../hooks/usePattern';
 import ElementProgress from '../components/elementProgress';
 import ElementCard from '../components/elementCard';
+import { HoverCard, HoverCardContent, HoverCardTrigger } from '@/components/ui/hover-card';
 
 const Step3 = ({
   onNext,
@@ -19,6 +20,7 @@ const Step3 = ({
   setElements,
   setVariants,
   setPatternCombinations,
+  selectedTemplateData,
 }: {
   onNext: () => void;
   plan: IPlan | undefined;
@@ -29,13 +31,15 @@ const Step3 = ({
   patternCount: number;
   setPatternCount: React.Dispatch<React.SetStateAction<number>>;
   setPatternCombinations: React.Dispatch<React.SetStateAction<IPattern[]>>;
+  selectedTemplateData: ITemplateCreatomate;
 }) => {
   const [loading, setLoading] = React.useState(false);
   const [loadingGenerate, setLoadingGenerate] = React.useState(true);
   const { hooks, body1Images, body1Messages, body2Images, body2Messages, body3Images, body3Messages, ctas } = elements;
+  const [isAllFilled, setIsAllFilled] = React.useState(false);
 
   React.useEffect(() => {
-    generateVariants({ setLoadingGenerate, setVariants });
+    generateVariants({ setLoadingGenerate, setVariants, variants });
   }, []);
 
   React.useEffect(() => {
@@ -45,9 +49,14 @@ const Step3 = ({
   return (
     <div className="px-10 h-full flex flex-col gap-5 container justify-between">
       <div className="flex flex-col items-center gap-4 mb-10">
-        <div className="flex gap-4 text-2xl font-bold">
-          <p>{patternCount} Pattern</p>
-          <p>{plan?.test_term_weeks || 0} Weeks</p>
+        <div className="flex gap-2 items-center">
+          <p className="text-2xl font-bold">
+            {patternCount} パターンを {plan?.test_term_weeks || 0} 週間テスト
+          </p>
+          <HoverCard>
+            <HoverCardTrigger className="w-6 h-6 border-2 border-black text-lg font-bold rounded-full flex justify-center items-center">?</HoverCardTrigger>
+            <HoverCardContent>The React Framework – created and maintained by @vercel.</HoverCardContent>
+          </HoverCard>
         </div>
         <div className="flex flex-col gap-4 items-center justify-center">
           <p className="text-sm flex items-center gap-2 leading-none">
@@ -57,10 +66,10 @@ const Step3 = ({
           <ElementProgress elements={elements} />
         </div>
       </div>
-      <div className="flex flex-col ">
+      {/* <div className="flex flex-col ">
         <h2 className="text-2xl font-semibold">Select your preferred distribution channels</h2>
         <p> Select 8 element, multiple checks per element will lead to more patterns being tested</p>
-      </div>
+      </div> */}
 
       <div className=" w-full h-full overflow-x-auto relative ">
         {loadingGenerate ? (
@@ -70,9 +79,12 @@ const Step3 = ({
         ) : (
           <div className="flex flex-row w-fit gap-10 whitespace-nowrap pb-10">
             <ElementCard type="hook" variants={variants} elements={elements} onElementValueChange={onElementValueChange} setElements={setElements} />
-            <ElementCard type="body1" variants={variants} elements={elements} onElementValueChange={onElementValueChange} setElements={setElements} />
-            <ElementCard type="body2" variants={variants} elements={elements} onElementValueChange={onElementValueChange} setElements={setElements} />
-            <ElementCard type="body3" variants={variants} elements={elements} onElementValueChange={onElementValueChange} setElements={setElements} />
+            <ElementCard type="body1image" variants={variants} elements={elements} onElementValueChange={onElementValueChange} setElements={setElements} setVariants={setVariants} />
+            <ElementCard type="body1message" variants={variants} elements={elements} onElementValueChange={onElementValueChange} setElements={setElements} />
+            <ElementCard type="body2image" variants={variants} elements={elements} onElementValueChange={onElementValueChange} setElements={setElements} setVariants={setVariants} />
+            <ElementCard type="body2message" variants={variants} elements={elements} onElementValueChange={onElementValueChange} setElements={setElements} />
+            <ElementCard type="body3image" variants={variants} elements={elements} onElementValueChange={onElementValueChange} setElements={setElements} setVariants={setVariants} />
+            <ElementCard type="body3message" variants={variants} elements={elements} onElementValueChange={onElementValueChange} setElements={setElements} />
             <ElementCard type="cta" variants={variants} elements={elements} onElementValueChange={onElementValueChange} setElements={setElements} />
           </div>
         )}
@@ -87,14 +99,11 @@ const Step3 = ({
 
             submitStep3({ setLoading, onNext });
           }}
-          disabled={
-            loading ||
-            loadingGenerate ||
-            (hooks.length == 0 && body1Messages.length === 0 && body2Messages.length === 0 && body3Messages.length === 0 && ctas.length === 0 && body1Images.length === 0 && body2Images.length === 0 && body3Images.length === 0)
-          }
+          disabled={loading || loadingGenerate || isAllFilled}
+          className="border-2 border-rose-600 bg-rose-600  hover:bg-rose-500 text-white px-4 py-2"
         >
           {loading && <Spinner />}
-          Next
+          次に​進む
         </Button>
       </div>
     </div>

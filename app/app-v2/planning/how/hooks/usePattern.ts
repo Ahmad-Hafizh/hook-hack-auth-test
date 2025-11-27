@@ -110,7 +110,7 @@ export const onElementValueChange = (category: keyof IElements, value: string[],
   }
 };
 
-export const onUploadBrandLogo = (url: string, patternCombinations: IPattern[], setPatternCombinations: React.Dispatch<React.SetStateAction<IPattern[]>>, setBrandLogoUrl: React.Dispatch<React.SetStateAction<string | null>>) => {
+export const onUploadBrandLogo = (url: string, patternCombinations: IPattern[], setPatternCombinations: React.Dispatch<React.SetStateAction<IPattern[]>>, setBrandLogoUrl: React.Dispatch<React.SetStateAction<string>>) => {
   setBrandLogoUrl(url);
   const newPatternCombinations = patternCombinations.map((combination) => ({
     ...combination,

@@ -1,7 +1,6 @@
 generator client {
-  provider   = "prisma-client-js"
-  output     = "./generated"
-  engineType = "client"
+  provider = "prisma-client"
+  output   = "./generated"
 }
 
 datasource db {
@@ -9,19 +8,19 @@ datasource db {
 }
 
 model User {
-  id             BigInt        @id @default(autoincrement())
-  userId         String        @unique
-  email          String        @unique
-  phoneNumber    String?
-  tiktokUsername String?
-  credit         Int           @default(0)
-  createdAt      DateTime      @default(now()) @db.Timestamptz(6)
-  updatedAt      DateTime      @updatedAt @db.Timestamptz(6)
-  firstName      String
-  lastName       String
-  project        project[]
-  transaction    Transaction[]
-  sessions       Session[]
+  id               BigInt            @id @default(autoincrement())
+  userId           String            @unique
+  email            String?           @unique
+  phoneNumber      String?
+  tiktokUsername   String?
+  credit           Int               @default(0)
+  createdAt        DateTime          @default(now()) @db.Timestamptz(6)
+  updatedAt        DateTime          @updatedAt @db.Timestamptz(6)
+  firstName        String?
+  lastName         String?
+  project          project[]
+  transaction      Transaction[]
+  planningSessions PlanningSession[]
 }
 
 /// This model contains row level security and requires additional setup for migrations. Visit https://pris.ly/d/row-level-security for more info.
@@ -95,23 +94,25 @@ model Transaction {
   user User @relation(fields: [userId], references: [userId], onDelete: Cascade)
 }
 
-model Session {
-  id           String    @id @default(cuid())
-  sessionToken String?   @unique
-  finishedAt   DateTime? @db.Timestamptz(6)
-  lastPage     Pages?
+model PlanningSession {
+  id           String         @id @default(cuid())
+  sessionToken String?        @unique
+  finishedAt   DateTime?      @db.Timestamptz(6)
+  lastPage     PlanningPages?
   lastStep     Int?
   product      String?
 
   userId         String
   user           User            @relation(fields: [userId], references: [userId], onDelete: Cascade)
-  planningPlans  PlanningPlan[]
+  planningPlans  PlanningPlan?
   renderedVideos RenderedVideo[]
+  creativeBrief  CreativeBrief?
 }
 
-enum Pages {
+enum PlanningPages {
   switch
-  what
+  what_scratch
+  what_skip
   how
   generation
 }
@@ -120,6 +121,9 @@ model CreativeBrief {
   id           BigInt   @id @default(autoincrement())
   keyMessages  String?
   strongPoints String[]
+
+  planningSessionId String          @unique
+  PlanningSession   PlanningSession @relation(fields: [planningSessionId], references: [id])
 }
 
 model PlanningPlan {
@@ -133,8 +137,8 @@ model PlanningPlan {
   target_impressions_per_video    Int?
   typical_cpm                     Int?
 
-  sessionId String
-  Session   Session @relation(fields: [sessionId], references: [id])
+  planningSessionId String          @unique
+  PlanningSession   PlanningSession @relation(fields: [planningSessionId], references: [id])
 }
 
 model RenderedVideo {
@@ -142,6 +146,6 @@ model RenderedVideo {
   videoUrl  String
   createdAt DateTime @default(now()) @db.Timestamptz(6)
 
-  sessionId String
-  session   Session @relation(fields: [sessionId], references: [id], onDelete: Cascade)
+  planningSessionId String
+  PlanningSession   PlanningSession @relation(fields: [planningSessionId], references: [id], onDelete: Cascade)
 }

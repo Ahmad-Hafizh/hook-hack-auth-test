@@ -23,6 +23,8 @@ export interface IVariants {
   strong_point_1_images: string[];
   strong_point_2_images: string[];
   strong_point_3_images: string[];
+  background_music: string[];
+  brand_logo: string;
 }
 
 export interface IElements {
@@ -54,6 +56,17 @@ export interface IRendersCreatomate {
   result_url: string;
 }
 
+export interface ITemplateCreatomate {
+  template_id: string;
+  images: {
+    logo: string;
+    strong_point_3: string;
+    strong_point_2: string;
+    strong_point_1: string;
+    background_music: string;
+  };
+}
+
 export const useStepData = () => {
   const [plan, setPlan] = useState<IPlan>();
 
@@ -66,6 +79,8 @@ export const useStepData = () => {
     strong_point_1_images: [],
     strong_point_2_images: [],
     strong_point_3_images: [],
+    background_music: [],
+    brand_logo: '',
   });
 
   const [elements, setElements] = useState<IElements>({
@@ -84,5 +99,16 @@ export const useStepData = () => {
 
   const [rendersCreatomate, setRendersCreatomate] = useState<IRendersCreatomate[]>([]);
 
-  return { plan, setPlan, variants, setVariants, elements, setElements, patternCount, setPatternCount, patternCombinations, setPatternCombinations, rendersCreatomate, setRendersCreatomate };
+  const [selectedTemplateData, setSelectedTemplateData] = useState<ITemplateCreatomate>({
+    template_id: '',
+    images: {
+      logo: '',
+      strong_point_3: '',
+      strong_point_2: '',
+      strong_point_1: '',
+      background_music: '',
+    },
+  });
+
+  return { plan, setPlan, variants, setVariants, elements, setElements, patternCount, setPatternCount, patternCombinations, setPatternCombinations, rendersCreatomate, setRendersCreatomate, selectedTemplateData, setSelectedTemplateData };
 };

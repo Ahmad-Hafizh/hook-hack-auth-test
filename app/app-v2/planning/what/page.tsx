@@ -15,7 +15,7 @@ import { useStep } from '../hooks/useStep';
 const AppPage = () => {
   const { page, onChangePage } = usePage();
   const { step, onStep } = useStep(page == 'scratch' ? 4 : page == 'skip' ? 2 : 0, page);
-  const { onSetKeywords, keywords, websites, onSetWebsites, onSetSuggestions, onSetCompetitorStrategy, suggestions, competitorStrategy } = useStepData();
+  const { onSetKeywords, keywords, websites, onSetWebsites, briefPlanning, setBriefPlanning, selectedKeywords, setSelectedKeywords } = useStepData();
 
   const pages = {
     switch: {
@@ -31,15 +31,15 @@ const AppPage = () => {
         },
         {
           id: 2,
-          page: <Step2Scratch onNext={() => onStep(3)} keywords={keywords} onSetWebsites={onSetWebsites} />,
+          page: <Step2Scratch onNext={() => onStep(3)} keywords={keywords} onSetWebsites={onSetWebsites} selectedKeywords={selectedKeywords} setSelectedKeywords={setSelectedKeywords} />,
         },
         {
           id: 3,
-          page: <Step3 onNext={() => onStep(4)} onPrev={() => onStep(2)} websites={websites} onSetWebsites={onSetWebsites} onSetSuggestions={onSetSuggestions} onSetCompetitorStrategy={onSetCompetitorStrategy} keywords={keywords} />,
+          page: <Step3 onNext={() => onStep(4)} onPrev={() => onStep(2)} websites={websites} onSetWebsites={onSetWebsites} setBriefPlanning={setBriefPlanning} keywords={keywords} selectedKeywords={selectedKeywords} />,
         },
         {
           id: 4,
-          page: <Step4 suggestions={suggestions} competitorStrategy={competitorStrategy} />,
+          page: <Step4 briefPlanning={briefPlanning} />,
         },
       ],
     },
@@ -48,11 +48,11 @@ const AppPage = () => {
       steps: [
         {
           id: 1,
-          page: <Step1Skip onNext={() => onStep(2)} onSetSuggestions={onSetSuggestions} onSetCompetitorStrategy={onSetCompetitorStrategy} />,
+          page: <Step1Skip onNext={() => onStep(2)} setBriefPlanning={setBriefPlanning} />,
         },
         {
           id: 2,
-          page: <Step2Skip onNext={() => onStep(1)} suggestions={suggestions} competitorStrategy={competitorStrategy} />,
+          page: <Step2Skip briefPlanning={briefPlanning} />,
         },
       ],
     },

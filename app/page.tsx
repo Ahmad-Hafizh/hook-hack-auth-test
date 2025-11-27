@@ -20,6 +20,8 @@ import Schedule from "@/components/landingpage/schedule";
 import Price from "@/components/landingpage/price";
 import TrialDialog from "@/components/landingpage/TrialDialog";
 
+// Demo
+
 export default function LandingPage() {
   return (
     <div className="min-h-screen bg-white">

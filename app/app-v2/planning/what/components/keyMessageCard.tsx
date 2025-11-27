@@ -1,16 +1,17 @@
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardFooter, CardHeader, CardTitle } from '@/components/ui/card';
+import { RadioGroupItem } from '@/components/ui/radio-group';
 import { Textarea } from '@/components/ui/textarea';
 import React from 'react';
 
-const KeyMessageCard = ({ key_message, strong_points, title }: { key_message: string; strong_points: string[]; title: string }) => {
+const KeyMessageCard = ({ key_message, strong_points, title, type }: { key_message: string; strong_points: string[]; title: string; type: string }) => {
   return (
-    <Card className="w-full">
+    <Card className="w-full min-w-[800px]">
       <CardHeader>
         <CardTitle className="text-2xl">{title}</CardTitle>
       </CardHeader>
       <CardContent className="flex flex-col gap-4 w-full items-start justify-center">
-        {title == 'Your Company' ? (
+        {type === 'your-company' ? (
           <>
             <div className="flex flex-col gap-2 w-full items-start justify-center">
               <p>
@@ -28,11 +29,17 @@ const KeyMessageCard = ({ key_message, strong_points, title }: { key_message: st
         ) : (
           <>
             <div className="flex flex-col gap-2 w-full items-start justify-center">
+              <div className="opacity-0">
+                <p>''</p>
+              </div>
               <div className="py-4 px-6 border border-black w-full h-fit flex flex-col items-start justify-center rounded-lg">
                 <p className="text-lg font-semibold">{key_message}</p>
               </div>
             </div>
             <div className="flex flex-col gap-2 w-full items-start justify-center">
+              <div className="opacity-0">
+                <p> </p>
+              </div>
               <div className="py-4 px-6 border border-black w-full h-fit flex flex-col items-start justify-center rounded-lg ">
                 <ol className="list-decimal list-inside text-lg font-medium">
                   {strong_points.map((point: string, index: number) => (
@@ -44,10 +51,10 @@ const KeyMessageCard = ({ key_message, strong_points, title }: { key_message: st
           </>
         )}
       </CardContent>
-      {title === 'AI Suggestion' || title === 'Your Company' ? (
+      {type === 'ai-suggestion' || type === 'your-company' ? (
         <CardFooter>
           <div className="flex gap-4 w-full items-center justify-center ">
-            <input type="checkbox" />
+            <RadioGroupItem value={type} id={type} className="w-5 h-5 border-2 border-black rounded-full checked:bg-cyan-500" />
             <Button>Edit This</Button>
           </div>
         </CardFooter>

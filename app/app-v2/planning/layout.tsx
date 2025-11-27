@@ -22,7 +22,7 @@ const PlanningPage = ({ children }: { children: React.ReactNode }) => {
                   <div className={`contents-[''] w-[3px] h-8 rounded-full top-6 z-0 ${progressValue == 0 ? 'bg-gray-300' : 'bg-rose-500'}`}></div>
                 </div>
                 <div className={`leading-none  flex items-start pt-1 ${currentPath == 'what' ? 'text-black font-bold' : 'text-gray-500 font-medium'}`}>
-                  <p>Planning (WHAT)</p>
+                  <p>企画​（訴求​内容）​</p>
                 </div>
               </div>
               <div className="grid grid-rows-1 grid-cols-[auto_1fr] gap-4 ">
@@ -35,7 +35,7 @@ const PlanningPage = ({ children }: { children: React.ReactNode }) => {
                   <div className={`contents-[''] w-[3px] h-8 rounded-full top-6 z-0 ${progressValue > 50 ? 'bg-rose-500' : 'bg-gray-300'}`}></div>
                 </div>
                 <div className={`leading-none  flex items-start pt-1 ${currentPath == 'how' ? 'text-black font-bold' : 'text-gray-500 font-medium'}`}>
-                  <p>Planning (HOW)</p>
+                  <p>企画​（訴求​方法）​</p>
                 </div>
               </div>
               <div className="grid grid-rows-1 grid-cols-[auto_1fr] gap-4 ">
@@ -45,7 +45,7 @@ const PlanningPage = ({ children }: { children: React.ReactNode }) => {
                   </div>
                 </div>
                 <div className={`leading-none  flex items-start pt-1 ${currentPath == 'generation' ? 'text-black font-bold' : 'text-gray-500 font-medium'}`}>
-                  <p>Generation</p>
+                  <p>動画生成</p>
                 </div>
               </div>
             </div>

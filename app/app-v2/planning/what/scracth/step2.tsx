@@ -4,17 +4,28 @@ import { ToggleGroup, ToggleGroupItem } from '@/components/ui/toggle-group';
 import React from 'react';
 import { submitStep2Scratch } from '../hooks/useFetchApi';
 
-const Step2Scratch = ({ onNext, keywords, onSetWebsites }: { onNext: () => void; keywords: any[]; onSetWebsites: (websites: any[]) => void }) => {
+const Step2Scratch = ({
+  onNext,
+  keywords,
+  onSetWebsites,
+  selectedKeywords,
+  setSelectedKeywords,
+}: {
+  onNext: () => void;
+  keywords: any[];
+  onSetWebsites: (websites: any[]) => void;
+  selectedKeywords: string;
+  setSelectedKeywords: (value: string) => void;
+}) => {
   const [loading, setLoading] = React.useState(false);
-  const [selectedKeywords, setSelectedKeywords] = React.useState<string[]>([]);
 
   return (
     <div className="px-10 h-full flex flex-col gap-5 container justify-between">
-      <div className=" flex flex-col gap-20">
+      <div className=" flex flex-col gap-20 h-full py-10">
         <div className="flex flex-col gap-2">
-          <h1 className="text-3xl font-bold leading-none"> Choose Keyword</h1>
+          <h1 className="text-2xl font-bold leading-none">あなたの​プロダクト／サービスに​当てはまる​キーワードを​選択してください​</h1>
         </div>
-        <ToggleGroup type="multiple" variant={'outline'} className="justify-start flex-wrap gap-4 w-1/2" onValueChange={(value) => setSelectedKeywords(value)}>
+        <ToggleGroup type="single" variant={'outline'} className="justify-start flex-wrap gap-4 w-1/2" onValueChange={(value) => setSelectedKeywords(value)} value={selectedKeywords}>
           {keywords.map((keyword, index) => (
             <ToggleGroupItem
               key={index}
@@ -27,8 +38,8 @@ const Step2Scratch = ({ onNext, keywords, onSetWebsites }: { onNext: () => void;
         </ToggleGroup>
       </div>
       <div className="flex justify-end">
-        <Button className="border border-black bg-black text-white px-4 py-2" onClick={() => submitStep2Scratch({ selectedKeywords, onSetWebsites, onNext, setLoading })} disabled={loading}>
-          {loading && <Spinner className="w-3 h-3" />} Next
+        <Button className="border-2 border-rose-600 bg-rose-600  hover:bg-rose-500 text-white px-4 py-2" onClick={() => submitStep2Scratch({ selectedKeywords, onSetWebsites, onNext, setLoading })} disabled={loading}>
+          {loading && <Spinner className="w-3 h-3" />} 次に​進む
         </Button>
       </div>
     </div>

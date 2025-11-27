@@ -11,7 +11,8 @@ import Step5 from './steps/step5';
 
 const PlanningHowPage = () => {
   const { step, onStep } = useStep(5);
-  const { plan, setPlan, elements, setElements, variants, setVariants, patternCount, setPatternCount, patternCombinations, setPatternCombinations, rendersCreatomate, setRendersCreatomate } = useStepData();
+  const { plan, setPlan, elements, setElements, variants, setVariants, patternCount, setPatternCount, patternCombinations, setPatternCombinations, rendersCreatomate, setRendersCreatomate, selectedTemplateData, setSelectedTemplateData } =
+    useStepData();
 
   const stepList = [
     {
@@ -20,7 +21,7 @@ const PlanningHowPage = () => {
     },
     {
       id: 2,
-      page: <Step2 onNext={() => onStep(3)} />,
+      page: <Step2 onNext={() => onStep(3)} setSelectedTemplateData={setSelectedTemplateData} setVariants={setVariants} variants={variants} />,
     },
     {
       id: 3,
@@ -35,12 +36,13 @@ const PlanningHowPage = () => {
           patternCount={patternCount}
           setPatternCount={setPatternCount}
           setPatternCombinations={setPatternCombinations}
+          selectedTemplateData={selectedTemplateData}
         />
       ),
     },
     {
       id: 4,
-      page: <Step4 onNext={() => onStep(5)} patternCombinations={patternCombinations} setPatternCombinations={setPatternCombinations} setRendersCreatomate={setRendersCreatomate} />,
+      page: <Step4 onNext={() => onStep(5)} patternCombinations={patternCombinations} setPatternCombinations={setPatternCombinations} setRendersCreatomate={setRendersCreatomate} variants={variants} />,
     },
     {
       id: 5,

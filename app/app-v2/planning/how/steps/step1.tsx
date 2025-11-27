@@ -13,11 +13,14 @@ const Step1 = ({ onNext, setPlan }: { onNext: () => void; setPlan: React.Dispatc
     <div className="px-10 h-full flex flex-col gap-5 container justify-between">
       <div className=" flex flex-col gap-20">
         <div className="flex flex-col gap-2">
-          <h1 className="text-3xl font-bold leading-none">INPUT MONTHLY BUDGET</h1>
-          <p>We will use this to calculate your terms of test later on!!</p>
+          <h1 className="text-2xl font-bold leading-tight">
+            動画の​訴求内容が​決まったので、
+            <br />
+            ​どのような​訴求方​法で​動画に​するか​決めて​いきましょう。​
+          </h1>
         </div>
         <div className="flex flex-col gap-2">
-          <p>BUDGET PER MONTH</p>
+          <p>月額動画​広告予算を​入力</p>
           <div className="relative flex items-center">
             <JapaneseYen className="absolute  text-gray-500 w-4 h-4 left-2" />
             <Input type="number" placeholder="Enter your monthly budget" className="border pl-8 pr-4 py-2 w-[500px]" defaultValue={budget} min={0} onChange={(e) => setBudget(Number(e.target.value))} />
@@ -25,8 +28,9 @@ const Step1 = ({ onNext, setPlan }: { onNext: () => void; setPlan: React.Dispatc
         </div>
       </div>
       <div className="flex justify-end">
-        <Button className="border border-black bg-black text-white px-4 py-2" onClick={() => submitStep1({ setLoading, onNext, budget: budget ?? 0, setPlan })} disabled={loading}>
-          {loading && <Spinner className="w-3 h-3" />} Next
+        <Button onClick={() => submitStep1({ setLoading, onNext, budget: budget ?? 0, setPlan })} disabled={loading} className="border-2 border-rose-600 bg-rose-600  hover:bg-rose-500 text-white px-4 py-2">
+          {loading && <Spinner className="w-3 h-3" />}
+          次に​進む
         </Button>
       </div>
     </div>

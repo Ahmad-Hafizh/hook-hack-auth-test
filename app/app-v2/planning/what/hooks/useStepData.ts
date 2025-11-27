@@ -1,17 +1,17 @@
 'use client';
 import { useState } from 'react';
 
-interface IKeywords {
+export interface IKeywords {
   term: string;
 }
 
-interface IWebsites {
+export interface IWebsites {
   url: String;
   title: String;
   reason: String;
 }
 
-interface IStep3Form {
+export interface IStep3Form {
   url: string;
   title: string;
   meta_description: string;
@@ -22,7 +22,7 @@ interface IStep3Form {
   };
 }
 
-interface IKeyVisual {
+export interface IKeyVisual {
   url: string;
   title: string;
   meta_description: string;
@@ -32,13 +32,15 @@ interface IKeyVisual {
   };
 }
 
-interface ISuggestion {
+interface IKeyStrategy {
   key_message: string;
   strong_points: string[];
 }
-interface ICompetitorStrategy {
-  key_message: string;
-  strong_points: string[];
+
+export interface IBriefPlanning {
+  user: IKeyStrategy;
+  competitors: IKeyStrategy[];
+  suggestion: IKeyStrategy;
 }
 
 export const useStepData = () => {
@@ -52,6 +54,8 @@ export const useStepData = () => {
   const onSetKeywords = (keywords: IKeywords[]) => {
     setKeywords(keywords);
   };
+
+  const [selectedKeywords, setSelectedKeywords] = useState<string>('');
 
   // step 2
   const [step2Form, setStep2Form] = useState<string[]>([]);
@@ -75,15 +79,11 @@ export const useStepData = () => {
     setStep3Form(value);
   };
 
-  const [suggestions, setSuggestions] = useState<ISuggestion>();
-  const onSetSuggestions = (suggestions: ISuggestion) => {
-    setSuggestions(suggestions);
-  };
-
-  const [competitorStrategy, setCompetitorStrategy] = useState<ICompetitorStrategy[]>();
-  const onSetCompetitorStrategy = (competitorStrategy: ICompetitorStrategy[]) => {
-    setCompetitorStrategy(competitorStrategy);
-  };
+  const [briefPlanning, setBriefPlanning] = useState<IBriefPlanning>({
+    user: { key_message: '', strong_points: [] },
+    competitors: [],
+    suggestion: { key_message: '', strong_points: [] },
+  });
 
   return {
     // step 1
@@ -96,14 +96,14 @@ export const useStepData = () => {
     onChangeStep2Form,
     websites,
     onSetWebsites,
+    selectedKeywords,
+    setSelectedKeywords,
     // step 3
     keyVisuals,
     onSetKeyVisuals,
     step3Form,
     onChangeStep3Form,
-    suggestions,
-    onSetSuggestions,
-    competitorStrategy,
-    onSetCompetitorStrategy,
+    briefPlanning,
+    setBriefPlanning,
   };
 };

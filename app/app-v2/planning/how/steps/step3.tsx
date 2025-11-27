@@ -9,6 +9,7 @@ import { generatePatternCombinations, calculatePatternCount, onElementValueChang
 import ElementProgress from '../components/elementProgress';
 import ElementCard from '../components/elementCard';
 import { HoverCard, HoverCardContent, HoverCardTrigger } from '@/components/ui/hover-card';
+import { log } from 'console';
 
 const Step3 = ({
   onNext,
@@ -35,8 +36,6 @@ const Step3 = ({
 }) => {
   const [loading, setLoading] = React.useState(false);
   const [loadingGenerate, setLoadingGenerate] = React.useState(true);
-  const { hooks, body1Images, body1Messages, body2Images, body2Messages, body3Images, body3Messages, ctas } = elements;
-  const [isAllFilled, setIsAllFilled] = React.useState(false);
 
   React.useEffect(() => {
     generateVariants({ setLoadingGenerate, setVariants, variants });
@@ -55,7 +54,7 @@ const Step3 = ({
           </p>
           <HoverCard>
             <HoverCardTrigger className="w-6 h-6 border-2 border-black text-lg font-bold rounded-full flex justify-center items-center">?</HoverCardTrigger>
-            <HoverCardContent>The React Framework – created and maintained by @vercel.</HoverCardContent>
+            <HoverCardContent>This is image gudi for the video</HoverCardContent>
           </HoverCard>
         </div>
         <div className="flex flex-col gap-4 items-center justify-center">
@@ -99,7 +98,7 @@ const Step3 = ({
 
             submitStep3({ setLoading, onNext });
           }}
-          disabled={loading || loadingGenerate || isAllFilled}
+          disabled={loading || loadingGenerate}
           className="border-2 border-rose-600 bg-rose-600  hover:bg-rose-500 text-white px-4 py-2"
         >
           {loading && <Spinner />}

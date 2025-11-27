@@ -7,7 +7,10 @@ import { Button } from '@/components/ui/button';
 import Image from 'next/image';
 import UploadImageButton from './uploadImageButton';
 import { onUploadBodyImage } from '../hooks/usePattern';
-import { Edit, Plus, X } from 'lucide-react';
+import { Edit } from 'lucide-react';
+import { Input } from '@/components/ui/input';
+import { Textarea } from '@/components/ui/textarea';
+import { reformValue } from '../hooks/useLogic';
 
 const ElementCard = ({
   type,
@@ -37,7 +40,7 @@ const ElementCard = ({
                 <div className="flex items-center space-x-2 w-full" key={index}>
                   <CustomCheckboxItem id={`hook-option-${index + 1}`} value={value} />
                   <Label htmlFor={`hook-option-${index + 1}`} className="text-base w-full whitespace-nowrap cursor-pointer">
-                    {value}
+                    <Textarea defaultValue={reformValue(value, 6, 6)} className="w-[150px] h-[120px] px-2 py-0" />
                   </Label>
                 </div>
               ))}
@@ -103,7 +106,7 @@ const ElementCard = ({
                 <div className="flex items-center space-x-2 " key={index}>
                   <CustomCheckboxItem id={`body1-message-${index + 1}`} value={value} />
                   <Label htmlFor={`body1-message-${index + 1}`} className="text-base cursor-pointer">
-                    {value}
+                    <Textarea defaultValue={reformValue(value, 9, 4)} className="w-[150px] h-[120px] px-2 py-0" />
                   </Label>
                 </div>
               ))}
@@ -169,7 +172,7 @@ const ElementCard = ({
                 <div className="flex items-center space-x-2 " key={index}>
                   <CustomCheckboxItem id={`body2-message-${index + 1}`} value={value} />
                   <Label htmlFor={`body2-message-${index + 1}`} className="text-base cursor-pointer">
-                    {value}
+                    <Textarea defaultValue={reformValue(value, 9, 4)} className="w-[150px] h-[120px] px-2 py-0" />
                   </Label>
                 </div>
               ))}
@@ -234,7 +237,7 @@ const ElementCard = ({
                 <div className="flex items-center space-x-2 " key={index}>
                   <CustomCheckboxItem id={`body3-message-${index + 1}`} value={value} />
                   <Label htmlFor={`body3-message-${index + 1}`} className="text-base cursor-pointer">
-                    {value}
+                    <Textarea defaultValue={reformValue(value, 9, 4)} className="w-[150px] h-[120px] px-2 py-0" />
                   </Label>
                 </div>
               ))}
@@ -255,7 +258,7 @@ const ElementCard = ({
                 <div className="flex items-center space-x-2 w-full" key={index}>
                   <CustomCheckboxItem id={`cta-option-${index + 1}`} value={value} />
                   <Label htmlFor={`cta-option-${index + 1}`} className="text-base w-full whitespace-nowrap cursor-pointer">
-                    {value}
+                    <Textarea defaultValue={reformValue(value, 5, 3)} className="w-[150px] h-[120px] px-2 py-0" />
                   </Label>
                 </div>
               ))}

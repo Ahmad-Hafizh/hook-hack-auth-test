@@ -59,6 +59,7 @@ export const ModelName = {
   PlanningSession: 'PlanningSession',
   CreativeBrief: 'CreativeBrief',
   PlanningPlan: 'PlanningPlan',
+  PlanningVariants: 'PlanningVariants',
   RenderedVideo: 'RenderedVideo'
 } as const
 
@@ -176,8 +177,7 @@ export const PlanningSessionScalarFieldEnum = {
   finishedAt: 'finishedAt',
   lastPage: 'lastPage',
   lastStep: 'lastStep',
-  product: 'product',
-  userId: 'userId'
+  product: 'product'
 } as const
 
 export type PlanningSessionScalarFieldEnum = (typeof PlanningSessionScalarFieldEnum)[keyof typeof PlanningSessionScalarFieldEnum]
@@ -209,10 +209,28 @@ export const PlanningPlanScalarFieldEnum = {
 export type PlanningPlanScalarFieldEnum = (typeof PlanningPlanScalarFieldEnum)[keyof typeof PlanningPlanScalarFieldEnum]
 
 
+export const PlanningVariantsScalarFieldEnum = {
+  id: 'id',
+  hooks: 'hooks',
+  bodyA_messages: 'bodyA_messages',
+  bodyB_messages: 'bodyB_messages',
+  bodyC_messages: 'bodyC_messages',
+  ctas: 'ctas',
+  planningSessionId: 'planningSessionId'
+} as const
+
+export type PlanningVariantsScalarFieldEnum = (typeof PlanningVariantsScalarFieldEnum)[keyof typeof PlanningVariantsScalarFieldEnum]
+
+
 export const RenderedVideoScalarFieldEnum = {
   id: 'id',
   videoUrl: 'videoUrl',
   createdAt: 'createdAt',
+  hook: 'hook',
+  bodyAMessage: 'bodyAMessage',
+  bodyBMessage: 'bodyBMessage',
+  bodyCMessage: 'bodyCMessage',
+  cta: 'cta',
   planningSessionId: 'planningSessionId'
 } as const
 

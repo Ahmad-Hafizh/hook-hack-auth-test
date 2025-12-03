@@ -3,8 +3,10 @@ import { Input } from '@/components/ui/input';
 import { Spinner } from '@/components/ui/spinner';
 import React from 'react';
 import { submitStep1Scratch } from '../hooks/useFetchApi';
+import { useParams } from 'next/navigation';
 
 const Step1Scratch = ({ onNext, onSetKeywords }: { onNext: () => void; onSetKeywords: (keywords: any) => void }) => {
+  const { sessionId } = useParams();
   const [loading, setLoading] = React.useState(false);
   const [url, setUrl] = React.useState('');
 

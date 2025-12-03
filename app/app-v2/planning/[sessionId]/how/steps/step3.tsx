@@ -1,7 +1,7 @@
 'use client';
 import React from 'react';
 import { Button } from '@/components/ui/button';
-import { generateVariants, submitStep3 } from '../hooks/useFetchApi';
+import { generateVariants, getResultsVariants, submitStep3 } from '../hooks/useFetchApi';
 import { Spinner } from '@/components/ui/spinner';
 import { Infinity } from 'lucide-react';
 import { IElements, IPattern, IPlan, ITemplateCreatomate, IVariants } from '../hooks/useStepData';
@@ -35,10 +35,20 @@ const Step3 = ({
   const [loading, setLoading] = React.useState(false);
   const [loadingGenerate, setLoadingGenerate] = React.useState(true);
   const [isComplete, setIsComplete] = React.useState(false);
+  const [jobId, setJobId] = React.useState('');
 
   React.useEffect(() => {
-    generateVariants({ setLoadingGenerate, setVariants, variants });
+    const async = async () => {
+      await generateVariants({ setLoadingGenerate, setJobId });
+    };
+    async();
   }, []);
+
+  React.useEffect(() => {
+    if (jobId) {
+      getResultsVariants({ setVariants, variants, job_id: jobId });
+    }
+  }, [jobId]);
 
   React.useEffect(() => {
     setPatternCount(calculatePatternCount(elements).totalPattern);

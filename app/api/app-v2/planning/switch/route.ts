@@ -2,18 +2,10 @@ import { prisma } from '@/config/prisma/prisma';
 import { getAuth } from '@clerk/nextjs/server';
 import { NextRequest, NextResponse } from 'next/server';
 
-export async function GET() {
-  try {
-    return new Response('Planning Switch API is running', { status: 200 });
-  } catch (error) {
-    return new Response('Error', { status: 500 });
-  }
-}
-
 export async function POST(req: NextRequest) {
   try {
     const body = await req.json();
-    const { product, page } = body;
+    const { page } = body;
 
     const { userId } = getAuth(req);
 
@@ -23,10 +15,8 @@ export async function POST(req: NextRequest) {
 
     const session = await prisma.planningSession.create({
       data: {
-        userId,
         lastPage: page || 'what_scratch',
         lastStep: 1,
-        product,
       },
     });
 

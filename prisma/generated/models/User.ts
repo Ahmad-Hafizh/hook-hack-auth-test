@@ -262,7 +262,6 @@ export type UserWhereInput = {
   lastName?: Prisma.StringNullableFilter<"User"> | string | null
   project?: Prisma.ProjectListRelationFilter
   transaction?: Prisma.TransactionListRelationFilter
-  planningSessions?: Prisma.PlanningSessionListRelationFilter
 }
 
 export type UserOrderByWithRelationInput = {
@@ -278,7 +277,6 @@ export type UserOrderByWithRelationInput = {
   lastName?: Prisma.SortOrderInput | Prisma.SortOrder
   project?: Prisma.projectOrderByRelationAggregateInput
   transaction?: Prisma.TransactionOrderByRelationAggregateInput
-  planningSessions?: Prisma.PlanningSessionOrderByRelationAggregateInput
 }
 
 export type UserWhereUniqueInput = Prisma.AtLeast<{
@@ -297,7 +295,6 @@ export type UserWhereUniqueInput = Prisma.AtLeast<{
   lastName?: Prisma.StringNullableFilter<"User"> | string | null
   project?: Prisma.ProjectListRelationFilter
   transaction?: Prisma.TransactionListRelationFilter
-  planningSessions?: Prisma.PlanningSessionListRelationFilter
 }, "id" | "userId" | "email">
 
 export type UserOrderByWithAggregationInput = {
@@ -347,7 +344,6 @@ export type UserCreateInput = {
   lastName?: string | null
   project?: Prisma.projectCreateNestedManyWithoutUserInput
   transaction?: Prisma.TransactionCreateNestedManyWithoutUserInput
-  planningSessions?: Prisma.PlanningSessionCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateInput = {
@@ -363,7 +359,6 @@ export type UserUncheckedCreateInput = {
   lastName?: string | null
   project?: Prisma.projectUncheckedCreateNestedManyWithoutUserInput
   transaction?: Prisma.TransactionUncheckedCreateNestedManyWithoutUserInput
-  planningSessions?: Prisma.PlanningSessionUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserUpdateInput = {
@@ -379,7 +374,6 @@ export type UserUpdateInput = {
   lastName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   project?: Prisma.projectUpdateManyWithoutUserNestedInput
   transaction?: Prisma.TransactionUpdateManyWithoutUserNestedInput
-  planningSessions?: Prisma.PlanningSessionUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateInput = {
@@ -395,7 +389,6 @@ export type UserUncheckedUpdateInput = {
   lastName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   project?: Prisma.projectUncheckedUpdateManyWithoutUserNestedInput
   transaction?: Prisma.TransactionUncheckedUpdateManyWithoutUserNestedInput
-  planningSessions?: Prisma.PlanningSessionUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserCreateManyInput = {
@@ -547,20 +540,6 @@ export type UserUpdateOneRequiredWithoutTransactionNestedInput = {
   update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutTransactionInput, Prisma.UserUpdateWithoutTransactionInput>, Prisma.UserUncheckedUpdateWithoutTransactionInput>
 }
 
-export type UserCreateNestedOneWithoutPlanningSessionsInput = {
-  create?: Prisma.XOR<Prisma.UserCreateWithoutPlanningSessionsInput, Prisma.UserUncheckedCreateWithoutPlanningSessionsInput>
-  connectOrCreate?: Prisma.UserCreateOrConnectWithoutPlanningSessionsInput
-  connect?: Prisma.UserWhereUniqueInput
-}
-
-export type UserUpdateOneRequiredWithoutPlanningSessionsNestedInput = {
-  create?: Prisma.XOR<Prisma.UserCreateWithoutPlanningSessionsInput, Prisma.UserUncheckedCreateWithoutPlanningSessionsInput>
-  connectOrCreate?: Prisma.UserCreateOrConnectWithoutPlanningSessionsInput
-  upsert?: Prisma.UserUpsertWithoutPlanningSessionsInput
-  connect?: Prisma.UserWhereUniqueInput
-  update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutPlanningSessionsInput, Prisma.UserUpdateWithoutPlanningSessionsInput>, Prisma.UserUncheckedUpdateWithoutPlanningSessionsInput>
-}
-
 export type UserCreateWithoutProjectInput = {
   id?: bigint | number
   userId: string
@@ -573,7 +552,6 @@ export type UserCreateWithoutProjectInput = {
   firstName?: string | null
   lastName?: string | null
   transaction?: Prisma.TransactionCreateNestedManyWithoutUserInput
-  planningSessions?: Prisma.PlanningSessionCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutProjectInput = {
@@ -588,7 +566,6 @@ export type UserUncheckedCreateWithoutProjectInput = {
   firstName?: string | null
   lastName?: string | null
   transaction?: Prisma.TransactionUncheckedCreateNestedManyWithoutUserInput
-  planningSessions?: Prisma.PlanningSessionUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutProjectInput = {
@@ -619,7 +596,6 @@ export type UserUpdateWithoutProjectInput = {
   firstName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   lastName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   transaction?: Prisma.TransactionUpdateManyWithoutUserNestedInput
-  planningSessions?: Prisma.PlanningSessionUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutProjectInput = {
@@ -634,7 +610,6 @@ export type UserUncheckedUpdateWithoutProjectInput = {
   firstName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   lastName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   transaction?: Prisma.TransactionUncheckedUpdateManyWithoutUserNestedInput
-  planningSessions?: Prisma.PlanningSessionUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserCreateWithoutTransactionInput = {
@@ -649,7 +624,6 @@ export type UserCreateWithoutTransactionInput = {
   firstName?: string | null
   lastName?: string | null
   project?: Prisma.projectCreateNestedManyWithoutUserInput
-  planningSessions?: Prisma.PlanningSessionCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutTransactionInput = {
@@ -664,7 +638,6 @@ export type UserUncheckedCreateWithoutTransactionInput = {
   firstName?: string | null
   lastName?: string | null
   project?: Prisma.projectUncheckedCreateNestedManyWithoutUserInput
-  planningSessions?: Prisma.PlanningSessionUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutTransactionInput = {
@@ -695,7 +668,6 @@ export type UserUpdateWithoutTransactionInput = {
   firstName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   lastName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   project?: Prisma.projectUpdateManyWithoutUserNestedInput
-  planningSessions?: Prisma.PlanningSessionUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutTransactionInput = {
@@ -710,83 +682,6 @@ export type UserUncheckedUpdateWithoutTransactionInput = {
   firstName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   lastName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   project?: Prisma.projectUncheckedUpdateManyWithoutUserNestedInput
-  planningSessions?: Prisma.PlanningSessionUncheckedUpdateManyWithoutUserNestedInput
-}
-
-export type UserCreateWithoutPlanningSessionsInput = {
-  id?: bigint | number
-  userId: string
-  email?: string | null
-  phoneNumber?: string | null
-  tiktokUsername?: string | null
-  credit?: number
-  createdAt?: Date | string
-  updatedAt?: Date | string
-  firstName?: string | null
-  lastName?: string | null
-  project?: Prisma.projectCreateNestedManyWithoutUserInput
-  transaction?: Prisma.TransactionCreateNestedManyWithoutUserInput
-}
-
-export type UserUncheckedCreateWithoutPlanningSessionsInput = {
-  id?: bigint | number
-  userId: string
-  email?: string | null
-  phoneNumber?: string | null
-  tiktokUsername?: string | null
-  credit?: number
-  createdAt?: Date | string
-  updatedAt?: Date | string
-  firstName?: string | null
-  lastName?: string | null
-  project?: Prisma.projectUncheckedCreateNestedManyWithoutUserInput
-  transaction?: Prisma.TransactionUncheckedCreateNestedManyWithoutUserInput
-}
-
-export type UserCreateOrConnectWithoutPlanningSessionsInput = {
-  where: Prisma.UserWhereUniqueInput
-  create: Prisma.XOR<Prisma.UserCreateWithoutPlanningSessionsInput, Prisma.UserUncheckedCreateWithoutPlanningSessionsInput>
-}
-
-export type UserUpsertWithoutPlanningSessionsInput = {
-  update: Prisma.XOR<Prisma.UserUpdateWithoutPlanningSessionsInput, Prisma.UserUncheckedUpdateWithoutPlanningSessionsInput>
-  create: Prisma.XOR<Prisma.UserCreateWithoutPlanningSessionsInput, Prisma.UserUncheckedCreateWithoutPlanningSessionsInput>
-  where?: Prisma.UserWhereInput
-}
-
-export type UserUpdateToOneWithWhereWithoutPlanningSessionsInput = {
-  where?: Prisma.UserWhereInput
-  data: Prisma.XOR<Prisma.UserUpdateWithoutPlanningSessionsInput, Prisma.UserUncheckedUpdateWithoutPlanningSessionsInput>
-}
-
-export type UserUpdateWithoutPlanningSessionsInput = {
-  id?: Prisma.BigIntFieldUpdateOperationsInput | bigint | number
-  userId?: Prisma.StringFieldUpdateOperationsInput | string
-  email?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  phoneNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  tiktokUsername?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  credit?: Prisma.IntFieldUpdateOperationsInput | number
-  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  firstName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  lastName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  project?: Prisma.projectUpdateManyWithoutUserNestedInput
-  transaction?: Prisma.TransactionUpdateManyWithoutUserNestedInput
-}
-
-export type UserUncheckedUpdateWithoutPlanningSessionsInput = {
-  id?: Prisma.BigIntFieldUpdateOperationsInput | bigint | number
-  userId?: Prisma.StringFieldUpdateOperationsInput | string
-  email?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  phoneNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  tiktokUsername?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  credit?: Prisma.IntFieldUpdateOperationsInput | number
-  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  firstName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  lastName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  project?: Prisma.projectUncheckedUpdateManyWithoutUserNestedInput
-  transaction?: Prisma.TransactionUncheckedUpdateManyWithoutUserNestedInput
 }
 
 
@@ -797,13 +692,11 @@ export type UserUncheckedUpdateWithoutPlanningSessionsInput = {
 export type UserCountOutputType = {
   project: number
   transaction: number
-  planningSessions: number
 }
 
 export type UserCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   project?: boolean | UserCountOutputTypeCountProjectArgs
   transaction?: boolean | UserCountOutputTypeCountTransactionArgs
-  planningSessions?: boolean | UserCountOutputTypeCountPlanningSessionsArgs
 }
 
 /**
@@ -830,13 +723,6 @@ export type UserCountOutputTypeCountTransactionArgs<ExtArgs extends runtime.Type
   where?: Prisma.TransactionWhereInput
 }
 
-/**
- * UserCountOutputType without action
- */
-export type UserCountOutputTypeCountPlanningSessionsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  where?: Prisma.PlanningSessionWhereInput
-}
-
 
 export type UserSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
@@ -851,7 +737,6 @@ export type UserSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = r
   lastName?: boolean
   project?: boolean | Prisma.User$projectArgs<ExtArgs>
   transaction?: boolean | Prisma.User$transactionArgs<ExtArgs>
-  planningSessions?: boolean | Prisma.User$planningSessionsArgs<ExtArgs>
   _count?: boolean | Prisma.UserCountOutputTypeDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["user"]>
 
@@ -898,7 +783,6 @@ export type UserOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = run
 export type UserInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   project?: boolean | Prisma.User$projectArgs<ExtArgs>
   transaction?: boolean | Prisma.User$transactionArgs<ExtArgs>
-  planningSessions?: boolean | Prisma.User$planningSessionsArgs<ExtArgs>
   _count?: boolean | Prisma.UserCountOutputTypeDefaultArgs<ExtArgs>
 }
 export type UserIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {}
@@ -909,7 +793,6 @@ export type $UserPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs =
   objects: {
     project: Prisma.$projectPayload<ExtArgs>[]
     transaction: Prisma.$TransactionPayload<ExtArgs>[]
-    planningSessions: Prisma.$PlanningSessionPayload<ExtArgs>[]
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: bigint
@@ -1318,7 +1201,6 @@ export interface Prisma__UserClient<T, Null = never, ExtArgs extends runtime.Typ
   readonly [Symbol.toStringTag]: "PrismaPromise"
   project<T extends Prisma.User$projectArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$projectArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$projectPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   transaction<T extends Prisma.User$transactionArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$transactionArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$TransactionPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
-  planningSessions<T extends Prisma.User$planningSessionsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$planningSessionsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$PlanningSessionPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
    * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -1791,30 +1673,6 @@ export type User$transactionArgs<ExtArgs extends runtime.Types.Extensions.Intern
   take?: number
   skip?: number
   distinct?: Prisma.TransactionScalarFieldEnum | Prisma.TransactionScalarFieldEnum[]
-}
-
-/**
- * User.planningSessions
- */
-export type User$planningSessionsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  /**
-   * Select specific fields to fetch from the PlanningSession
-   */
-  select?: Prisma.PlanningSessionSelect<ExtArgs> | null
-  /**
-   * Omit specific fields from the PlanningSession
-   */
-  omit?: Prisma.PlanningSessionOmit<ExtArgs> | null
-  /**
-   * Choose, which related nodes to fetch as well
-   */
-  include?: Prisma.PlanningSessionInclude<ExtArgs> | null
-  where?: Prisma.PlanningSessionWhereInput
-  orderBy?: Prisma.PlanningSessionOrderByWithRelationInput | Prisma.PlanningSessionOrderByWithRelationInput[]
-  cursor?: Prisma.PlanningSessionWhereUniqueInput
-  take?: number
-  skip?: number
-  distinct?: Prisma.PlanningSessionScalarFieldEnum | Prisma.PlanningSessionScalarFieldEnum[]
 }
 
 /**

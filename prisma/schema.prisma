@@ -20,7 +20,6 @@ model User {
   lastName         String?
   project          project[]
   transaction      Transaction[]
-  planningSessions PlanningSession[]
 }
 
 /// This model contains row level security and requires additional setup for migrations. Visit https://pris.ly/d/row-level-security for more info.
@@ -102,12 +101,12 @@ model PlanningSession {
   lastStep     Int?
   product      String?
 
-  userId         String
-  user           User            @relation(fields: [userId], references: [userId], onDelete: Cascade)
   planningPlans  PlanningPlan?
-  renderedVideos RenderedVideo[]
   creativeBrief  CreativeBrief?
+  planningVariants PlanningVariants?
+  renderedVideos RenderedVideo[]
 }
+
 
 enum PlanningPages {
   switch
@@ -141,10 +140,27 @@ model PlanningPlan {
   PlanningSession   PlanningSession @relation(fields: [planningSessionId], references: [id])
 }
 
+model PlanningVariants{
+  id                BigInt   @id @default(autoincrement())
+  hooks             String[]
+  bodyA_messages    String[]
+  bodyB_messages    String[]
+  bodyC_messages    String[]
+  ctas              String[]
+
+  planningSessionId String          @unique
+  PlanningSession   PlanningSession @relation(fields: [planningSessionId], references: [id])  
+}
+
 model RenderedVideo {
   id        BigInt   @id @default(autoincrement())
   videoUrl  String
   createdAt DateTime @default(now()) @db.Timestamptz(6)
+  hook         String
+  bodyAMessage String
+  bodyBMessage String
+  bodyCMessage String
+  cta          String
 
   planningSessionId String
   PlanningSession   PlanningSession @relation(fields: [planningSessionId], references: [id], onDelete: Cascade)

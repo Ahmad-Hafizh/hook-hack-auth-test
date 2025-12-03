@@ -5,7 +5,7 @@ import TopHorizontalProgress from '../what/components/topHorizontalProgress';
 import Step2 from './steps/step2';
 import Step3 from './steps/step3';
 import Step4 from './steps/step4';
-import { useStep } from '../hooks/useStep';
+import { useStep } from '../../hooks/useStep';
 import { useStepData } from './hooks/useStepData';
 import Step5 from './steps/step5';
 

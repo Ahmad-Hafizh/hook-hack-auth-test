@@ -392,6 +392,7 @@ export const ModelName = {
   PlanningSession: 'PlanningSession',
   CreativeBrief: 'CreativeBrief',
   PlanningPlan: 'PlanningPlan',
+  PlanningVariants: 'PlanningVariants',
   RenderedVideo: 'RenderedVideo'
 } as const
 
@@ -408,7 +409,7 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
     omit: GlobalOmitOptions
   }
   meta: {
-    modelProps: "user" | "v2_format" | "requestlist" | "project" | "transaction" | "planningSession" | "creativeBrief" | "planningPlan" | "renderedVideo"
+    modelProps: "user" | "v2_format" | "requestlist" | "project" | "transaction" | "planningSession" | "creativeBrief" | "planningPlan" | "planningVariants" | "renderedVideo"
     txIsolationLevel: TransactionIsolationLevel
   }
   model: {
@@ -1004,6 +1005,80 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
         }
       }
     }
+    PlanningVariants: {
+      payload: Prisma.$PlanningVariantsPayload<ExtArgs>
+      fields: Prisma.PlanningVariantsFieldRefs
+      operations: {
+        findUnique: {
+          args: Prisma.PlanningVariantsFindUniqueArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$PlanningVariantsPayload> | null
+        }
+        findUniqueOrThrow: {
+          args: Prisma.PlanningVariantsFindUniqueOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$PlanningVariantsPayload>
+        }
+        findFirst: {
+          args: Prisma.PlanningVariantsFindFirstArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$PlanningVariantsPayload> | null
+        }
+        findFirstOrThrow: {
+          args: Prisma.PlanningVariantsFindFirstOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$PlanningVariantsPayload>
+        }
+        findMany: {
+          args: Prisma.PlanningVariantsFindManyArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$PlanningVariantsPayload>[]
+        }
+        create: {
+          args: Prisma.PlanningVariantsCreateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$PlanningVariantsPayload>
+        }
+        createMany: {
+          args: Prisma.PlanningVariantsCreateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        createManyAndReturn: {
+          args: Prisma.PlanningVariantsCreateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$PlanningVariantsPayload>[]
+        }
+        delete: {
+          args: Prisma.PlanningVariantsDeleteArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$PlanningVariantsPayload>
+        }
+        update: {
+          args: Prisma.PlanningVariantsUpdateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$PlanningVariantsPayload>
+        }
+        deleteMany: {
+          args: Prisma.PlanningVariantsDeleteManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateMany: {
+          args: Prisma.PlanningVariantsUpdateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateManyAndReturn: {
+          args: Prisma.PlanningVariantsUpdateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$PlanningVariantsPayload>[]
+        }
+        upsert: {
+          args: Prisma.PlanningVariantsUpsertArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$PlanningVariantsPayload>
+        }
+        aggregate: {
+          args: Prisma.PlanningVariantsAggregateArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AggregatePlanningVariants>
+        }
+        groupBy: {
+          args: Prisma.PlanningVariantsGroupByArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.PlanningVariantsGroupByOutputType>[]
+        }
+        count: {
+          args: Prisma.PlanningVariantsCountArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.PlanningVariantsCountAggregateOutputType> | number
+        }
+      }
+    }
     RenderedVideo: {
       payload: Prisma.$RenderedVideoPayload<ExtArgs>
       fields: Prisma.RenderedVideoFieldRefs
@@ -1215,8 +1290,7 @@ export const PlanningSessionScalarFieldEnum = {
   finishedAt: 'finishedAt',
   lastPage: 'lastPage',
   lastStep: 'lastStep',
-  product: 'product',
-  userId: 'userId'
+  product: 'product'
 } as const
 
 export type PlanningSessionScalarFieldEnum = (typeof PlanningSessionScalarFieldEnum)[keyof typeof PlanningSessionScalarFieldEnum]
@@ -1248,10 +1322,28 @@ export const PlanningPlanScalarFieldEnum = {
 export type PlanningPlanScalarFieldEnum = (typeof PlanningPlanScalarFieldEnum)[keyof typeof PlanningPlanScalarFieldEnum]
 
 
+export const PlanningVariantsScalarFieldEnum = {
+  id: 'id',
+  hooks: 'hooks',
+  bodyA_messages: 'bodyA_messages',
+  bodyB_messages: 'bodyB_messages',
+  bodyC_messages: 'bodyC_messages',
+  ctas: 'ctas',
+  planningSessionId: 'planningSessionId'
+} as const
+
+export type PlanningVariantsScalarFieldEnum = (typeof PlanningVariantsScalarFieldEnum)[keyof typeof PlanningVariantsScalarFieldEnum]
+
+
 export const RenderedVideoScalarFieldEnum = {
   id: 'id',
   videoUrl: 'videoUrl',
   createdAt: 'createdAt',
+  hook: 'hook',
+  bodyAMessage: 'bodyAMessage',
+  bodyBMessage: 'bodyBMessage',
+  bodyCMessage: 'bodyCMessage',
+  cta: 'cta',
   planningSessionId: 'planningSessionId'
 } as const
 
@@ -1496,6 +1588,7 @@ export type GlobalOmitConfig = {
   planningSession?: Prisma.PlanningSessionOmit
   creativeBrief?: Prisma.CreativeBriefOmit
   planningPlan?: Prisma.PlanningPlanOmit
+  planningVariants?: Prisma.PlanningVariantsOmit
   renderedVideo?: Prisma.RenderedVideoOmit
 }
 

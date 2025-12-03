@@ -5,7 +5,7 @@ import React from 'react';
 
 const PlanningPage = ({ children }: { children: React.ReactNode }) => {
   const path = usePathname();
-  const currentPath = path.split('/')[3];
+  const currentPath = path.split('/')[4];
   const progressValue = currentPath === 'what' ? 0 : currentPath === 'how' ? 50 : 100;
 
   return (

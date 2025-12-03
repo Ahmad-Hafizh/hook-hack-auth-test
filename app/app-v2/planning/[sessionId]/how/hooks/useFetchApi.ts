@@ -92,21 +92,32 @@ export const submitStep2 = async ({
   }
 };
 
-export const generateVariants = async ({ setLoadingGenerate, setVariants, variants }: { setLoadingGenerate: (loading: boolean) => void; setVariants: React.Dispatch<React.SetStateAction<IVariants>>; variants: IVariants }) => {
+export const generateVariants = async ({ setLoadingGenerate, setJobId }: { setLoadingGenerate: (loading: boolean) => void; setJobId: React.Dispatch<React.SetStateAction<string>> }) => {
   setLoadingGenerate(true);
   try {
     const { key_message, strong_points } = JSON.parse(localStorage.getItem('planning-what-data') || '{}');
-    const { data } = await callAppV2Api.post('/v1/video/main-content', {
+    const { data } = await callAppV2Api.post('/v1/video/main-content/async', {
       key_message: key_message,
       strong_points: strong_points,
       provider: 'openai',
       language: 'en',
     });
-    setVariants({ ...variants, ...data.variants });
+
+    setJobId(data.job_id);
   } catch (error) {
     console.error('Error generating variants:', error);
   } finally {
     setLoadingGenerate(false);
+  }
+};
+
+export const getResultsVariants = async ({ setVariants, variants, job_id }: { setVariants: React.Dispatch<React.SetStateAction<IVariants>>; variants: IVariants; job_id: string }) => {
+  try {
+    const { data } = await callAppV2Api.get(`/v1/video/main-content/async/${job_id}`);
+
+    setVariants({ ...variants, ...data.result.variants });
+  } catch (error) {
+    console.log(error);
   }
 };
 

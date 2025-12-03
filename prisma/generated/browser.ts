@@ -59,6 +59,11 @@ export type CreativeBrief = Prisma.CreativeBriefModel
  */
 export type PlanningPlan = Prisma.PlanningPlanModel
 /**
+ * Model PlanningVariants
+ * 
+ */
+export type PlanningVariants = Prisma.PlanningVariantsModel
+/**
  * Model RenderedVideo
  * 
  */

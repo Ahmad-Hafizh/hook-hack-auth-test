@@ -1,6 +1,23 @@
 import callAppV2Api from '@/config/axios/axiosAppV2';
 import { IWebsites } from './useStepData';
+import callApi from '@/config/axios/axios';
 
+// export const submitStep1Scratch = async ({ sessionId, url, onSetKeywords, onNext, setLoading }: { sessionId: string; url: string; onSetKeywords: (keywords: any) => void; onNext: () => void; setLoading: (loading: boolean) => void }) => {
+//   setLoading(true);
+//   try {
+//     const { data } = await callApi.post('/app-v2/planning/what/step1', {
+//       product: url,
+//       sessionId,
+//     });
+
+//     onSetKeywords(data.keywords);
+//     onNext();
+//   } catch (error) {
+//     console.error('Error submitting Step 1:', error);
+//   } finally {
+//     setLoading(false);
+//   }
+// };
 export const submitStep1Scratch = async ({ url, onSetKeywords, onNext, setLoading }: { url: string; onSetKeywords: (keywords: any) => void; onNext: () => void; setLoading: (loading: boolean) => void }) => {
   setLoading(true);
   try {

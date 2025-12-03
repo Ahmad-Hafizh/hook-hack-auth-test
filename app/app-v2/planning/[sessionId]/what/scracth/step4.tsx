@@ -2,13 +2,14 @@
 import { Button } from '@/components/ui/button';
 import React from 'react';
 import KeyMessageCard from '../components/keyMessageCard';
-import { useRouter } from 'next/navigation';
+import { useParams, useRouter } from 'next/navigation';
 import { RadioGroup, RadioGroupItem } from '@/components/ui/radio-group';
 import { IBriefPlanning } from '../hooks/useStepData';
 import { Spinner } from '@/components/ui/spinner';
 
 const Step4 = ({ briefPlanning }: { briefPlanning: IBriefPlanning }) => {
   const router = useRouter();
+  const params = useParams();
   const [selectedOption, setSelectedOption] = React.useState('your-company');
 
   const [strongPoints, setStrongPoints] = React.useState<string[]>(briefPlanning.user.strong_points);
@@ -40,7 +41,7 @@ const Step4 = ({ briefPlanning }: { briefPlanning: IBriefPlanning }) => {
               'planning-what-data',
               selectedOption === 'your-company' ? JSON.stringify({ key_message: keyMessage, strong_points: strongPoints }) : JSON.stringify({ key_message: suggestionKeyMessage, strong_points: suggestionStrongPoints })
             );
-            router.push('/app-v2/planning/how');
+            router.push(`/app-v2/planning/${params.sessionId}/how`);
           }}
           className=" border-2 border-rose-600 bg-rose-600  hover:bg-rose-500 text-white px-4 py-2"
         >

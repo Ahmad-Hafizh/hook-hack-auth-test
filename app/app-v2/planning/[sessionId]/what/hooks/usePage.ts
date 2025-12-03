@@ -1,10 +1,10 @@
 import { useState } from 'react';
 
 export const usePage = () => {
-  const [page, setPage] = useState<'switch' | 'scratch' | 'skip'>('switch');
+  const [page, setPage] = useState<'scratch' | 'skip'>('scratch');
 
   const onChangePage = (newPage: string) => {
-    const typedPage = newPage as 'switch' | 'scratch' | 'skip';
+    const typedPage = newPage as 'scratch' | 'skip';
     setPage(typedPage);
   };
 

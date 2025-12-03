@@ -4,13 +4,14 @@ import { useState, useEffect } from "react";
 import { useRouter, usePathname } from "next/navigation";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
-import { Lock } from "lucide-react";
+import { Lock, Eye, EyeOff } from "lucide-react";
 
 export function PasswordWall({ children }: { children: React.ReactNode }) {
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
   const [isChecking, setIsChecking] = useState(true);
   const [isAuthenticated, setIsAuthenticated] = useState(false);
+  const [showPassword, setShowPassword] = useState(false);
   const router = useRouter();
   const pathname = usePathname();
 
@@ -39,13 +40,6 @@ export function PasswordWall({ children }: { children: React.ReactNode }) {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setError("");
-
-    // Frontend logging for debugging
-    console.log("=== FRONTEND PASSWORD DEBUG ===");
-    console.log("Password entered length:", password.length);
-    console.log("Password entered (visible for debug):", password);
-    console.log("Pathname:", pathname);
-    console.log("================================");
 
     try {
       const response = await fetch("/api/verify-password", {
@@ -97,22 +91,27 @@ export function PasswordWall({ children }: { children: React.ReactNode }) {
           </div>
 
           <form onSubmit={handleSubmit} className="space-y-4">
-            <div>
+            <div className="relative">
               <Input
-                type="text"
+                type={showPassword ? "text" : "password"}
                 placeholder="Enter password"
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
-                className="w-full"
+                className="w-full pr-10"
                 autoFocus
               />
-              {/* Debug: Show password temporarily */}
-              {password && (
-                <p className="mt-2 text-xs text-gray-500">
-                  Debug: Password length: {password.length} | Value: "{password}
-                  "
-                </p>
-              )}
+              <button
+                type="button"
+                onClick={() => setShowPassword(!showPassword)}
+                className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-500 hover:text-gray-700 focus:outline-none"
+                aria-label={showPassword ? "Hide password" : "Show password"}
+              >
+                {showPassword ? (
+                  <EyeOff className="h-4 w-4" />
+                ) : (
+                  <Eye className="h-4 w-4" />
+                )}
+              </button>
             </div>
 
             {error && (

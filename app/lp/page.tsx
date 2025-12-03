@@ -21,10 +21,12 @@ import Solutions from "@/components/landingpage/solutions";
 import Schedule from "@/components/landingpage/schedule";
 import Price from "@/components/landingpage/price";
 import TrialDialog from "@/components/landingpage/TrialDialog";
+import { PasswordWall } from "@/components/password-wall";
 
 export default function LandingPage() {
   return (
-    <div className="min-h-screen bg-white">
+    <PasswordWall>
+      <div className="min-h-screen bg-white">
       <Navbar />
       <Hero />
       {/* <Explain /> */}
@@ -57,5 +59,6 @@ export default function LandingPage() {
       </div>
       <Footer />
     </div>
+    </PasswordWall>
   );
 }

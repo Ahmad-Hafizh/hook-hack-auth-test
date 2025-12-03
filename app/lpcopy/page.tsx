@@ -10,22 +10,25 @@ import { CaseStudiesSection } from "@/components/case-studies-section";
 import { InterviewSection } from "@/components/interview-section";
 import { CTASection } from "@/components/cta-section";
 import { LPCopyFooter as Footer } from "@/components/lpcopy-footer";
+import { PasswordWall } from "@/components/password-wall";
 
 export default function LPCopyPage() {
   return (
-    <main className="min-h-screen">
-      <Header />
-      <HeroSection />
-      <LogoCarousel />
-      <IntroSection />
-      <PlatformSection />
-      <FeaturesSection />
-      <TemplatesSection />
-      <PickupSection />
-      <CaseStudiesSection />
-      <InterviewSection />
-      <CTASection />
-      <Footer />
-    </main>
+    <PasswordWall>
+      <main className="min-h-screen">
+        <Header />
+        <HeroSection />
+        <LogoCarousel />
+        <IntroSection />
+        <PlatformSection />
+        <FeaturesSection />
+        <TemplatesSection />
+        <PickupSection />
+        <CaseStudiesSection />
+        <InterviewSection />
+        <CTASection />
+        <Footer />
+      </main>
+    </PasswordWall>
   );
 }

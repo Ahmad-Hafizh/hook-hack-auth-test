@@ -1,65 +1,73 @@
-'use client'
+"use client";
 
-import { useState, useEffect } from 'react'
-import { useRouter, usePathname } from 'next/navigation'
-import { Input } from '@/components/ui/input'
-import { Button } from '@/components/ui/button'
-import { Lock } from 'lucide-react'
+import { useState, useEffect } from "react";
+import { useRouter, usePathname } from "next/navigation";
+import { Input } from "@/components/ui/input";
+import { Button } from "@/components/ui/button";
+import { Lock } from "lucide-react";
 
 export function PasswordWall({ children }: { children: React.ReactNode }) {
-  const [password, setPassword] = useState('')
-  const [error, setError] = useState('')
-  const [isChecking, setIsChecking] = useState(true)
-  const [isAuthenticated, setIsAuthenticated] = useState(false)
-  const router = useRouter()
-  const pathname = usePathname()
+  const [password, setPassword] = useState("");
+  const [error, setError] = useState("");
+  const [isChecking, setIsChecking] = useState(true);
+  const [isAuthenticated, setIsAuthenticated] = useState(false);
+  const router = useRouter();
+  const pathname = usePathname();
 
   useEffect(() => {
     // Check if already authenticated
     const checkAuth = async () => {
       try {
-        const response = await fetch('/api/check-password', {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
+        const response = await fetch("/api/check-password", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
           body: JSON.stringify({ pathname }),
-        })
-        const data = await response.json()
+        });
+        const data = await response.json();
         if (data.authenticated) {
-          setIsAuthenticated(true)
+          setIsAuthenticated(true);
         }
       } catch (err) {
-        console.error('Auth check failed:', err)
+        console.error("Auth check failed:", err);
       } finally {
-        setIsChecking(false)
+        setIsChecking(false);
       }
-    }
-    checkAuth()
-  }, [pathname])
+    };
+    checkAuth();
+  }, [pathname]);
 
   const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault()
-    setError('')
+    e.preventDefault();
+    setError("");
+
+    // Frontend logging for debugging
+    console.log("=== FRONTEND PASSWORD DEBUG ===");
+    console.log("Password entered length:", password.length);
+    console.log("Password entered (visible for debug):", password);
+    console.log("Pathname:", pathname);
+    console.log("================================");
 
     try {
-      const response = await fetch('/api/verify-password', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
+      const response = await fetch("/api/verify-password", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ password, pathname }),
-      })
+      });
 
-      const data = await response.json()
+      const data = await response.json();
 
       if (data.success) {
-        setIsAuthenticated(true)
+        setIsAuthenticated(true);
         // Refresh to clear any cached state
-        router.refresh()
+        router.refresh();
       } else {
-        setError(data.error || 'Incorrect password')
+        setError(data.error || "Incorrect password");
       }
     } catch (err) {
-      setError('An error occurred. Please try again.')
+      console.error("Password verification error:", err);
+      setError("An error occurred. Please try again.");
     }
-  }
+  };
 
   if (isChecking) {
     return (
@@ -69,7 +77,7 @@ export function PasswordWall({ children }: { children: React.ReactNode }) {
           <p className="mt-4 text-gray-600">Checking access...</p>
         </div>
       </div>
-    )
+    );
   }
 
   if (!isAuthenticated) {
@@ -80,20 +88,31 @@ export function PasswordWall({ children }: { children: React.ReactNode }) {
             <div className="inline-flex items-center justify-center w-16 h-16 bg-gray-100 rounded-full mb-4">
               <Lock className="w-8 h-8 text-gray-600" />
             </div>
-            <h1 className="text-2xl font-bold text-gray-900 mb-2">Password Protected</h1>
-            <p className="text-gray-600">Please enter the password to access this page</p>
+            <h1 className="text-2xl font-bold text-gray-900 mb-2">
+              Password Protected
+            </h1>
+            <p className="text-gray-600">
+              Please enter the password to access this page
+            </p>
           </div>
 
           <form onSubmit={handleSubmit} className="space-y-4">
             <div>
               <Input
-                type="password"
+                type="text"
                 placeholder="Enter password"
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
                 className="w-full"
                 autoFocus
               />
+              {/* Debug: Show password temporarily */}
+              {password && (
+                <p className="mt-2 text-xs text-gray-500">
+                  Debug: Password length: {password.length} | Value: "{password}
+                  "
+                </p>
+              )}
             </div>
 
             {error && (
@@ -108,9 +127,8 @@ export function PasswordWall({ children }: { children: React.ReactNode }) {
           </form>
         </div>
       </div>
-    )
+    );
   }
 
-  return <>{children}</>
+  return <>{children}</>;
 }
-

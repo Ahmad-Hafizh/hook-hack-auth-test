@@ -25,6 +25,18 @@ export async function POST(req: NextRequest) {
       )
     }
 
+    // Server-side logging for debugging
+    console.log('=== PASSWORD VERIFICATION DEBUG ===')
+    console.log('Pathname:', pathname)
+    console.log('Received password length:', password?.length)
+    console.log('Received password (first 3 chars):', password?.substring(0, 3) + '...')
+    console.log('Expected password length:', correctPassword?.length)
+    console.log('Expected password (first 3 chars):', correctPassword?.substring(0, 3) + '...')
+    console.log('Passwords match:', password === correctPassword)
+    console.log('Password comparison (strict):', password === correctPassword)
+    console.log('Password comparison (trimmed):', password?.trim() === correctPassword?.trim())
+    console.log('===================================')
+
     if (password === correctPassword) {
       // Set cookie that expires in 1 hour
       const cookieStore = await cookies()

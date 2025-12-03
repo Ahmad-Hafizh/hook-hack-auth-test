@@ -92,23 +92,48 @@ export const submitStep2 = async ({
   }
 };
 
-export const generateVariants = async ({ setLoadingGenerate, setVariants, variants }: { setLoadingGenerate: (loading: boolean) => void; setVariants: React.Dispatch<React.SetStateAction<IVariants>>; variants: IVariants }) => {
-  setLoadingGenerate(true);
+export const generateVariants = async ({ setJobId }: { setJobId: React.Dispatch<React.SetStateAction<string | null>> }) => {
   try {
     const { key_message, strong_points } = JSON.parse(localStorage.getItem('planning-what-data') || '{}');
-    const { data } = await callAppV2Api.post('/v1/video/main-content', {
+    const { data } = await callAppV2Api.post('/v1/video/main-content/async', {
       key_message: key_message,
       strong_points: strong_points,
       provider: 'openai',
       language: 'en',
     });
-    setVariants({ ...variants, ...data.variants });
+    // setVariants({ ...variants, ...data.variants });
+    setJobId(data.job_id);
+    return data.job_id;
   } catch (error) {
     console.error('Error generating variants:', error);
-  } finally {
-    setLoadingGenerate(false);
   }
 };
+
+export const getJobResult = async ({ jobId }: { jobId: string }) => {
+  try {
+    const { data } = await callAppV2Api.get(`/v1/video/main-content/async/${jobId}`);
+    return data;
+  } catch (error) {
+    console.log(error);
+  }
+};
+// export const generateVariants = async ({ setLoadingGenerate, setVariants, variants }: { setLoadingGenerate: (loading: boolean) => void; setVariants: React.Dispatch<React.SetStateAction<IVariants>>; variants: IVariants }) => {
+//   setLoadingGenerate(true);
+//   try {
+//     const { key_message, strong_points } = JSON.parse(localStorage.getItem('planning-what-data') || '{}');
+//     const { data } = await callAppV2Api.post('/v1/video/main-content', {
+//       key_message: key_message,
+//       strong_points: strong_points,
+//       provider: 'openai',
+//       language: 'en',
+//     });
+//     setVariants({ ...variants, ...data.variants });
+//   } catch (error) {
+//     console.error('Error generating variants:', error);
+//   } finally {
+//     setLoadingGenerate(false);
+//   }
+// };
 
 export const submitStep3 = async ({ setLoading, onNext }: { setLoading: (loading: boolean) => void; onNext: () => void }) => {
   setLoading(true);
@@ -130,6 +155,7 @@ export const submitStep4 = async ({
   setRendersCreatomate,
   brandLogoUrl,
   selectedTemplateId,
+  bgm,
 }: {
   setLoading: (loading: boolean) => void;
   onNext: () => void;
@@ -137,11 +163,12 @@ export const submitStep4 = async ({
   setRendersCreatomate: (renders: any[]) => void;
   brandLogoUrl: string | null;
   selectedTemplateId: string;
+  bgm: string;
 }) => {
   setLoading(true);
   try {
     const videos = patternCombinations.map((pattern) => {
-      return { ...pattern, images: { ...pattern.images, logo: brandLogoUrl || 'https://example.com/default-logo.png' } };
+      return { ...pattern, images: { ...pattern.images, logo: brandLogoUrl || 'https://example.com/default-logo.png' }, bgm };
     });
 
     const { data } = await callAppV2Api.post('/v1/creatomate/renders', {

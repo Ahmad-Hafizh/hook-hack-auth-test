@@ -65,7 +65,7 @@ export default function Footer() {
                 </Link>
               </li>
             </ul>
-          </div>
+            </div>
           <div className="hidden">
             <h4 className="font-semibold mb-4 text-center md:text-left">
               Support

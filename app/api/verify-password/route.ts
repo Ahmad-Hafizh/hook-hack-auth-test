@@ -9,15 +9,16 @@ export async function POST(req: NextRequest) {
     const { password, pathname } = await req.json()
 
     // Determine which password to check based on pathname
+    // Check /lpcopy first since /lp would match /lpcopy otherwise
     let correctPassword = ''
     let cookieName = ''
 
-    if (pathname?.startsWith('/lp')) {
-      correctPassword = LP_PASSWORD
-      cookieName = 'lp_access'
-    } else if (pathname?.startsWith('/lpcopy')) {
+    if (pathname?.startsWith('/lpcopy')) {
       correctPassword = LPCOPY_PASSWORD
       cookieName = 'lpcopy_access'
+    } else if (pathname?.startsWith('/lp')) {
+      correctPassword = LP_PASSWORD
+      cookieName = 'lp_access'
     } else {
       return NextResponse.json(
         { success: false, error: 'Invalid path' },

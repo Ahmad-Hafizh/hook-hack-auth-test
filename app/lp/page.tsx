@@ -26,7 +26,7 @@ import { PasswordWall } from "@/components/password-wall";
 export default function LandingPage() {
   return (
     <PasswordWall>
-      <div className="min-h-screen bg-white">
+    <div className="min-h-screen bg-white">
       <Navbar />
       <Hero />
       {/* <Explain /> */}

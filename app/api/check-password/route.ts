@@ -6,12 +6,13 @@ export async function POST(req: NextRequest) {
     const { pathname } = await req.json()
 
     // Determine which cookie to check based on pathname
+    // Check /lpcopy first since /lp would match /lpcopy otherwise
     let cookieName = ''
 
-    if (pathname?.startsWith('/lp')) {
-      cookieName = 'lp_access'
-    } else if (pathname?.startsWith('/lpcopy')) {
+    if (pathname?.startsWith('/lpcopy')) {
       cookieName = 'lpcopy_access'
+    } else if (pathname?.startsWith('/lp')) {
+      cookieName = 'lp_access'
     } else {
       return NextResponse.json({ authenticated: false })
     }

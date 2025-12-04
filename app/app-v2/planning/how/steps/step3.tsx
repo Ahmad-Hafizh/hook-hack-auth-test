@@ -40,6 +40,7 @@ const Step3 = ({
   setElements,
   setVariants,
   setPatternCombinations,
+  selectedTemplateId,
 }: {
   onNext: () => void;
   plan: IPlan | undefined;
@@ -50,11 +51,32 @@ const Step3 = ({
   patternCount: number;
   setPatternCount: React.Dispatch<React.SetStateAction<number>>;
   setPatternCombinations: React.Dispatch<React.SetStateAction<IPattern[]>>;
+  selectedTemplateId: string;
 }) => {
   const [loading, setLoading] = React.useState(false);
   const [loadingGenerate, setLoadingGenerate] = React.useState(true);
   const [isComplete, setIsComplete] = React.useState(false);
   const [jobId, setJobId] = React.useState<string | null>(null);
+
+  // Determine target aspect ratio based on the selected template (video style)
+  // real estate template: 469 / 1023 (vertical)
+  // other two templates: 4 / 3
+  const selectedAspectRatio = React.useMemo(() => {
+    // Real estate template (vertical)
+    if (selectedTemplateId === "6f8e118a-703d-4b94-8534-96a2b7be7d62") {
+      return 469 / 1023;
+    }
+
+    // All other templates: 4:3 (horizontal)
+    return 4 / 3;
+  }, [selectedTemplateId]);
+
+  const aspectLabel = React.useMemo(() => {
+    if (selectedTemplateId === "6f8e118a-703d-4b94-8534-96a2b7be7d62") {
+      return "469 / 1023（縦）";
+    }
+    return "4 : 3（横）";
+  }, [selectedTemplateId]);
 
   React.useEffect(() => {
     const fetchVariants = async () => {
@@ -104,6 +126,18 @@ const Step3 = ({
     setPatternCount(calculatePatternCount(elements).totalPattern);
     setIsComplete(calculatePatternCount(elements).complete);
   }, [elements]);
+
+  // Debug: observe when image variants / selections change
+  React.useEffect(() => {
+    console.log(
+      "[Step3] variants.strong_point_1_images",
+      variants.strong_point_1_images
+    );
+  }, [variants.strong_point_1_images]);
+
+  React.useEffect(() => {
+    console.log("[Step3] elements.body1Images", elements.body1Images);
+  }, [elements.body1Images]);
 
   if (!jobId || isPolling) {
     return (
@@ -172,9 +206,16 @@ const Step3 = ({
             <ElementCard
               type="image"
               title="Body 1 Images"
-              description="Aspect ratio : 9/16"
+              description={`Aspect ratio : ${aspectLabel}`}
+              // @ts-expect-error extended props for image cards
+              aspectRatio={selectedAspectRatio}
               variant={variants.strong_point_1_images}
               onVariantChange={(value, index) => {
+                console.log("[Step3] Body1 onVariantChange", {
+                  index,
+                  oldUrl: variants.strong_point_1_images[index],
+                  newUrl: value,
+                });
                 const oldUrl = variants.strong_point_1_images[index];
 
                 // Update variants using functional state to avoid stale closures
@@ -188,6 +229,11 @@ const Step3 = ({
                 if (oldUrl) {
                   setElements((prev) => {
                     if (!prev.body1Images.includes(oldUrl)) return prev;
+                    console.log("[Step3] Body1 updating elements.body1Images", {
+                      before: prev.body1Images,
+                      replacing: oldUrl,
+                      with: value,
+                    });
                     return {
                       ...prev,
                       body1Images: prev.body1Images.map((url) =>
@@ -198,18 +244,14 @@ const Step3 = ({
                 }
               }}
               value={elements.body1Images}
-              onElementValueChange={(value) => {
-                // Body images should behave like a single-select:
-                // keep only the most recently selected image.
-                const lastSelected = value[value.length - 1];
-                const nextValue = lastSelected ? [lastSelected] : [];
+              onElementValueChange={(value) =>
                 onElementValueChange({
                   category: "body1Images",
-                  value: nextValue,
+                  value,
                   elements,
                   setElements,
-                });
-              }}
+                })
+              }
             />
             <ElementCard
               type="text"
@@ -236,7 +278,9 @@ const Step3 = ({
             <ElementCard
               type="image"
               title="Body 2 Images"
-              description="Aspect ratio : 9/16"
+              description={`Aspect ratio : ${aspectLabel}`}
+              // @ts-expect-error extended props for image cards
+              aspectRatio={selectedAspectRatio}
               variant={variants.strong_point_2_images}
               onVariantChange={(value, index) => {
                 const oldUrl = variants.strong_point_2_images[index];
@@ -260,16 +304,14 @@ const Step3 = ({
                 }
               }}
               value={elements.body2Images}
-              onElementValueChange={(value) => {
-                const lastSelected = value[value.length - 1];
-                const nextValue = lastSelected ? [lastSelected] : [];
+              onElementValueChange={(value) =>
                 onElementValueChange({
                   category: "body2Images",
-                  value: nextValue,
+                  value,
                   elements,
                   setElements,
-                });
-              }}
+                })
+              }
             />
             <ElementCard
               type="text"
@@ -296,7 +338,9 @@ const Step3 = ({
             <ElementCard
               type="image"
               title="Body 3 Images"
-              description="Aspect ratio : 9/16"
+              description={`Aspect ratio : ${aspectLabel}`}
+              // @ts-expect-error extended props for image cards
+              aspectRatio={selectedAspectRatio}
               variant={variants.strong_point_3_images}
               onVariantChange={(value, index) => {
                 const oldUrl = variants.strong_point_3_images[index];
@@ -320,16 +364,14 @@ const Step3 = ({
                 }
               }}
               value={elements.body3Images}
-              onElementValueChange={(value) => {
-                const lastSelected = value[value.length - 1];
-                const nextValue = lastSelected ? [lastSelected] : [];
+              onElementValueChange={(value) =>
                 onElementValueChange({
                   category: "body3Images",
-                  value: nextValue,
+                  value,
                   elements,
                   setElements,
-                });
-              }}
+                })
+              }
             />
             <ElementCard
               type="text"

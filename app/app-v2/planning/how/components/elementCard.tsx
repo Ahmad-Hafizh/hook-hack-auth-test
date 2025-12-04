@@ -14,6 +14,7 @@ const ElementCard = ({
   onVariantChange,
   title,
   description,
+  aspectRatio,
 }: {
   type: string;
   variant: any[];
@@ -22,6 +23,11 @@ const ElementCard = ({
   onVariantChange: (value: string, index: number) => void;
   title: string;
   description?: string;
+  /**
+   * Target aspect ratio for image-based elements.
+   * When provided, uploads will open the cropper with this ratio.
+   */
+  aspectRatio?: number;
 }) => {
   if (type === 'text') {
     return (
@@ -53,7 +59,7 @@ const ElementCard = ({
                   <div className="text-base relative w-[300px] aspect-video ">
                     <Image src={value} alt={title} fill className="border rounded-sm absolute object-fill" />
                     <div className="top-2 right-2 absolute">
-                      <UploadImageButton onUploadImage={(url: string) => onVariantChange(url, index)}>
+                      <UploadImageButton onUploadImage={(url: string) => onVariantChange(url, index)} aspectRatio={aspectRatio}>
                         <div className="px-2 py-1 border bg-white rounded-full shadow-md text-sm leading-none font-bold cursor-pointer flex items-center gap-1 hover:bg-gray-100">
                           Edit <Edit className="w-4 h-4" />
                         </div>
@@ -67,6 +73,7 @@ const ElementCard = ({
               onUploadImage={(url: string) => {
                 onVariantChange(url, variant.length);
               }}
+              aspectRatio={aspectRatio}
             />
           </CustomCheckboxGroup>
         </CardContent>

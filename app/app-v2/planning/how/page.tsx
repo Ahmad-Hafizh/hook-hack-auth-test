@@ -36,6 +36,7 @@ const PlanningHowPage = () => {
           patternCount={patternCount}
           setPatternCount={setPatternCount}
           setPatternCombinations={setPatternCombinations}
+          selectedTemplateId={selectedTemplateId}
         />
       ),
     },

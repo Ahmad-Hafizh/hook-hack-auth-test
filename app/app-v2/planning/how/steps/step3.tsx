@@ -1,15 +1,34 @@
-'use client';
-import React, { use } from 'react';
-import { Button } from '@/components/ui/button';
-import { generateVariants, getJobResult, submitStep3 } from '../hooks/useFetchApi';
-import { Spinner } from '@/components/ui/spinner';
-import { Infinity } from 'lucide-react';
-import { IElements, IPattern, IPlan, ITemplateCreatomate, IVariants } from '../hooks/useStepData';
-import { generatePatternCombinations, calculatePatternCount, onElementValueChange } from '../hooks/usePattern';
-import ElementProgress from '../components/elementProgress';
-import ElementCard from '../components/elementCard';
-import { HoverCard, HoverCardContent, HoverCardTrigger } from '@/components/ui/hover-card';
-import { useMutation, useQuery } from '@tanstack/react-query';
+"use client";
+import React, { use } from "react";
+import { Button } from "@/components/ui/button";
+import {
+  generateVariants,
+  getJobResult,
+  submitStep3,
+} from "../hooks/useFetchApi";
+import { Spinner } from "@/components/ui/spinner";
+import { Infinity } from "lucide-react";
+import {
+  IElements,
+  IPattern,
+  IPlan,
+  ITemplateCreatomate,
+  IVariants,
+} from "../hooks/useStepData";
+import {
+  generatePatternCombinations,
+  calculatePatternCount,
+  onElementValueChange,
+} from "../hooks/usePattern";
+import ElementProgress from "../components/elementProgress";
+import ElementCard from "../components/elementCard";
+import {
+  HoverCard,
+  HoverCardContent,
+  HoverCardTrigger,
+} from "@/components/ui/hover-card";
+// @ts-ignore
+import { useMutation, useQuery } from "@tanstack/react-query";
 
 const Step3 = ({
   onNext,
@@ -48,13 +67,17 @@ const Step3 = ({
   }, []);
 
   // Use the polling query
-  const { data: jobResult, isLoading: isPolling } = useQuery({
-    queryKey: ['status', jobId],
+  const { data: jobResult, isLoading: isPolling } = useQuery<{
+    status?: string;
+    result?: { variants?: IVariants };
+    error?: unknown;
+  }>({
+    queryKey: ["status", jobId],
     queryFn: () => getJobResult({ jobId: jobId! }),
     enabled: !!jobId && loadingGenerate, // Only poll when we have a jobId and still loading
-    refetchInterval: (query) => {
+    refetchInterval: (query: { state: { data?: { status?: string } } }) => {
       // Stop polling when status is not 'running'
-      if (query.state.data?.status !== 'running') {
+      if (query.state.data?.status !== "running") {
         return false; // Stop polling
       }
       return 5000; // Poll every 5 seconds while status is 'running'
@@ -63,12 +86,16 @@ const Step3 = ({
 
   // Handle job completion
   React.useEffect(() => {
-    if (jobResult && jobResult.status !== 'running' && jobResult.result?.variants) {
+    if (
+      jobResult &&
+      jobResult.status !== "running" &&
+      jobResult.result?.variants
+    ) {
       const variantsData = jobResult.result.variants;
       setVariants({ ...variants, ...variantsData });
       setLoadingGenerate(false);
     } else if (jobResult && !jobResult.status) {
-      console.error('Job failed:', jobResult.error);
+      console.error("Job failed:", jobResult.error);
       setLoadingGenerate(false);
     }
   }, [jobResult, setVariants, setElements]);
@@ -94,14 +121,23 @@ const Step3 = ({
             {patternCount} パターンを {plan?.test_term_weeks || 0} 週間テスト
           </p>
           <HoverCard>
-            <HoverCardTrigger className="w-6 h-6 border-2 border-black text-lg font-bold rounded-full flex justify-center items-center">?</HoverCardTrigger>
-            <HoverCardContent>This is image guide for the video</HoverCardContent>
+            <HoverCardTrigger className="w-6 h-6 border-2 border-black text-lg font-bold rounded-full flex justify-center items-center">
+              ?
+            </HoverCardTrigger>
+            <HoverCardContent>
+              This is image guide for the video
+            </HoverCardContent>
           </HoverCard>
         </div>
         <div className="flex flex-col gap-4 items-center justify-center">
           <p className="text-sm flex items-center gap-2 leading-none">
             <Infinity className="w-5 h-5" /> Pattern
-            {plan?.test_term_weeks ? <strong className="text-base">{plan.test_term_weeks}</strong> : <Infinity className="w-5 h-5" />} Weeks to test is recommended
+            {plan?.test_term_weeks ? (
+              <strong className="text-base">{plan.test_term_weeks}</strong>
+            ) : (
+              <Infinity className="w-5 h-5" />
+            )}{" "}
+            Weeks to test is recommended
           </p>
           <ElementProgress elements={elements} />
         </div>
@@ -124,7 +160,14 @@ const Step3 = ({
                 setVariants({ ...variants, hooks: newHooks });
               }}
               value={elements.hooks}
-              onElementValueChange={(value) => onElementValueChange({ category: 'hooks', value, elements, setElements })}
+              onElementValueChange={(value) =>
+                onElementValueChange({
+                  category: "hooks",
+                  value,
+                  elements,
+                  setElements,
+                })
+              }
             />
             <ElementCard
               type="image"
@@ -132,12 +175,41 @@ const Step3 = ({
               description="Aspect ratio : 9/16"
               variant={variants.strong_point_1_images}
               onVariantChange={(value, index) => {
-                const newBody1Images = [...variants.strong_point_1_images];
-                newBody1Images[index] = value;
-                setVariants({ ...variants, strong_point_1_images: newBody1Images });
+                const oldUrl = variants.strong_point_1_images[index];
+
+                // Update variants using functional state to avoid stale closures
+                setVariants((prev) => {
+                  const newBody1Images = [...prev.strong_point_1_images];
+                  newBody1Images[index] = value;
+                  return { ...prev, strong_point_1_images: newBody1Images };
+                });
+
+                // Keep selections in sync when an already-selected image is edited
+                if (oldUrl) {
+                  setElements((prev) => {
+                    if (!prev.body1Images.includes(oldUrl)) return prev;
+                    return {
+                      ...prev,
+                      body1Images: prev.body1Images.map((url) =>
+                        url === oldUrl ? value : url
+                      ),
+                    };
+                  });
+                }
               }}
               value={elements.body1Images}
-              onElementValueChange={(value) => onElementValueChange({ category: 'body1Images', value, elements, setElements })}
+              onElementValueChange={(value) => {
+                // Body images should behave like a single-select:
+                // keep only the most recently selected image.
+                const lastSelected = value[value.length - 1];
+                const nextValue = lastSelected ? [lastSelected] : [];
+                onElementValueChange({
+                  category: "body1Images",
+                  value: nextValue,
+                  elements,
+                  setElements,
+                });
+              }}
             />
             <ElementCard
               type="text"
@@ -146,10 +218,20 @@ const Step3 = ({
               onVariantChange={(value, index) => {
                 const newBody1Messages = [...variants.strong_point_1_messages];
                 newBody1Messages[index] = value;
-                setVariants({ ...variants, strong_point_1_messages: newBody1Messages });
+                setVariants({
+                  ...variants,
+                  strong_point_1_messages: newBody1Messages,
+                });
               }}
               value={elements.body1Messages}
-              onElementValueChange={(value) => onElementValueChange({ category: 'body1Messages', value, elements, setElements })}
+              onElementValueChange={(value) =>
+                onElementValueChange({
+                  category: "body1Messages",
+                  value,
+                  elements,
+                  setElements,
+                })
+              }
             />
             <ElementCard
               type="image"
@@ -157,12 +239,37 @@ const Step3 = ({
               description="Aspect ratio : 9/16"
               variant={variants.strong_point_2_images}
               onVariantChange={(value, index) => {
-                const newBody2Images = [...variants.strong_point_2_images];
-                newBody2Images[index] = value;
-                setVariants({ ...variants, strong_point_2_images: newBody2Images });
+                const oldUrl = variants.strong_point_2_images[index];
+
+                setVariants((prev) => {
+                  const newBody2Images = [...prev.strong_point_2_images];
+                  newBody2Images[index] = value;
+                  return { ...prev, strong_point_2_images: newBody2Images };
+                });
+
+                if (oldUrl) {
+                  setElements((prev) => {
+                    if (!prev.body2Images.includes(oldUrl)) return prev;
+                    return {
+                      ...prev,
+                      body2Images: prev.body2Images.map((url) =>
+                        url === oldUrl ? value : url
+                      ),
+                    };
+                  });
+                }
               }}
               value={elements.body2Images}
-              onElementValueChange={(value) => onElementValueChange({ category: 'body2Images', value, elements, setElements })}
+              onElementValueChange={(value) => {
+                const lastSelected = value[value.length - 1];
+                const nextValue = lastSelected ? [lastSelected] : [];
+                onElementValueChange({
+                  category: "body2Images",
+                  value: nextValue,
+                  elements,
+                  setElements,
+                });
+              }}
             />
             <ElementCard
               type="text"
@@ -171,10 +278,20 @@ const Step3 = ({
               onVariantChange={(value, index) => {
                 const newBody2Messages = [...variants.strong_point_2_messages];
                 newBody2Messages[index] = value;
-                setVariants({ ...variants, strong_point_2_messages: newBody2Messages });
+                setVariants({
+                  ...variants,
+                  strong_point_2_messages: newBody2Messages,
+                });
               }}
               value={elements.body2Messages}
-              onElementValueChange={(value) => onElementValueChange({ category: 'body2Messages', value, elements, setElements })}
+              onElementValueChange={(value) =>
+                onElementValueChange({
+                  category: "body2Messages",
+                  value,
+                  elements,
+                  setElements,
+                })
+              }
             />
             <ElementCard
               type="image"
@@ -182,12 +299,37 @@ const Step3 = ({
               description="Aspect ratio : 9/16"
               variant={variants.strong_point_3_images}
               onVariantChange={(value, index) => {
-                const newBody3Images = [...variants.strong_point_3_images];
-                newBody3Images[index] = value;
-                setVariants({ ...variants, strong_point_3_images: newBody3Images });
+                const oldUrl = variants.strong_point_3_images[index];
+
+                setVariants((prev) => {
+                  const newBody3Images = [...prev.strong_point_3_images];
+                  newBody3Images[index] = value;
+                  return { ...prev, strong_point_3_images: newBody3Images };
+                });
+
+                if (oldUrl) {
+                  setElements((prev) => {
+                    if (!prev.body3Images.includes(oldUrl)) return prev;
+                    return {
+                      ...prev,
+                      body3Images: prev.body3Images.map((url) =>
+                        url === oldUrl ? value : url
+                      ),
+                    };
+                  });
+                }
               }}
               value={elements.body3Images}
-              onElementValueChange={(value) => onElementValueChange({ category: 'body3Images', value, elements, setElements })}
+              onElementValueChange={(value) => {
+                const lastSelected = value[value.length - 1];
+                const nextValue = lastSelected ? [lastSelected] : [];
+                onElementValueChange({
+                  category: "body3Images",
+                  value: nextValue,
+                  elements,
+                  setElements,
+                });
+              }}
             />
             <ElementCard
               type="text"
@@ -196,10 +338,20 @@ const Step3 = ({
               onVariantChange={(value, index) => {
                 const newBody3Messages = [...variants.strong_point_3_messages];
                 newBody3Messages[index] = value;
-                setVariants({ ...variants, strong_point_3_messages: newBody3Messages });
+                setVariants({
+                  ...variants,
+                  strong_point_3_messages: newBody3Messages,
+                });
               }}
               value={elements.body3Messages}
-              onElementValueChange={(value) => onElementValueChange({ category: 'body3Messages', value, elements, setElements })}
+              onElementValueChange={(value) =>
+                onElementValueChange({
+                  category: "body3Messages",
+                  value,
+                  elements,
+                  setElements,
+                })
+              }
             />
             <ElementCard
               type="text"
@@ -211,7 +363,14 @@ const Step3 = ({
                 setVariants({ ...variants, ctas: newCtas });
               }}
               value={elements.ctas}
-              onElementValueChange={(value) => onElementValueChange({ category: 'ctas', value, elements, setElements })}
+              onElementValueChange={(value) =>
+                onElementValueChange({
+                  category: "ctas",
+                  value,
+                  elements,
+                  setElements,
+                })
+              }
             />
           </div>
         )}

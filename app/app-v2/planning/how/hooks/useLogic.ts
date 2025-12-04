@@ -2,7 +2,8 @@ import { IVariants } from './useStepData';
 
 export const reformValue = (value: string, col: number, row: number) => {
   const splittedArray: string[] = [];
-  const splited = value.split('');
+  const cleanedValue = value.replace(/\n/g, '');
+  const splited = cleanedValue.split('');
   splited.forEach((char, index) => {
     if (Math.floor(index / col) <= row) {
       splittedArray[Math.floor(index / col)] = (splittedArray[Math.floor(index / col)] || '') + char;

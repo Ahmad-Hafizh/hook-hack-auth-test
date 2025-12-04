@@ -104,7 +104,7 @@ export const calculateValuePattern = (elements: IElements, category: keyof IElem
   );
 };
 
-export const onElementValueChange = (category: keyof IElements, value: string[], elements: IElements, setElements: React.Dispatch<React.SetStateAction<IElements>>) => {
+export const onElementValueChange = ({ category, value, elements, setElements }: { category: keyof IElements; value: string[]; elements: IElements; setElements: React.Dispatch<React.SetStateAction<IElements>> }) => {
   // Always allow deselecting (reducing selections)
   if (value.length < elements[category].length) {
     setElements({ ...elements, [category]: value });

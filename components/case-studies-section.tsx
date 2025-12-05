@@ -27,7 +27,7 @@ export function CaseStudiesSection() {
 
   return (
     <section className="py-20 bg-white">
-      <div className="max-w-6xl mx-auto px-4">
+      <div className="max-w-6xl mx-auto px-4 md:px-6 lg:px-8">
         <h2 className="text-2xl md:text-3xl font-bold text-center mb-4">導入事例紹介</h2>
         <div className="w-16 h-1 bg-[#00c8c8] mx-auto mb-12"></div>
 

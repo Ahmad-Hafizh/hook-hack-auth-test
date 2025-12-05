@@ -1,7 +1,7 @@
 export function IntroSection() {
   return (
     <section className="py-20 bg-[#fafafa]">
-      <div className="max-w-4xl mx-auto px-4 text-center">
+      <div className="max-w-4xl mx-auto px-4 md:px-6 lg:px-8 text-center">
         <div className="inline-block bg-white rounded-full px-6 py-3 shadow-md mb-8">
           <p className="text-[#666] flex items-center gap-2">
             <span className="text-2xl">🎬</span>

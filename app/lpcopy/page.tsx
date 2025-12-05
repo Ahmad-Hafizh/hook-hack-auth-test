@@ -1,5 +1,8 @@
 import { Header } from "@/components/header";
 import { HeroSection } from "@/components/hero-section";
+import { HighlightFeatureProcess } from "@/components/highlight-feature-process";
+import { SolutionsSection } from "@/components/solutions-section";
+import { MainBenefitSection } from "@/components/mainbenefit-section";
 import { LogoCarousel } from "@/components/logo-carousel";
 import { IntroSection } from "@/components/intro-section";
 import { PlatformSection } from "@/components/platform-section";
@@ -18,6 +21,9 @@ export default function LPCopyPage() {
       <main className="min-h-screen">
         <Header />
         <HeroSection />
+        <HighlightFeatureProcess />
+        <SolutionsSection />
+        <MainBenefitSection />
         <LogoCarousel />
         <IntroSection />
         <PlatformSection />

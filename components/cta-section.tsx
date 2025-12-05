@@ -3,7 +3,7 @@ import { Download } from "lucide-react"
 export function CTASection() {
   return (
     <section className="py-20 bg-gradient-to-r from-[#00c8c8] to-[#00a0a0]">
-      <div className="max-w-4xl mx-auto px-4 text-center">
+      <div className="max-w-4xl mx-auto px-4 md:px-6 lg:px-8 text-center">
         <h2 className="text-2xl md:text-3xl font-bold text-white mb-4">LetroStudioをもっと詳しく知る</h2>
         <p className="text-white/80 mb-8">
           動画マーケティングの成功事例や機能詳細をまとめた資料を無料でダウンロードいただけます

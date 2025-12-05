@@ -18,7 +18,7 @@ export function FeaturesSection() {
 
   return (
     <section className="py-20 bg-[#e8fafa]">
-      <div className="max-w-6xl mx-auto px-4">
+      <div className="max-w-6xl mx-auto px-4 md:px-6 lg:px-8">
         <div className="grid md:grid-cols-2 gap-12 items-start mb-16">
           <div>
             <div className="flex items-center gap-2 mb-4">

@@ -26,7 +26,7 @@ export function PlatformSection() {
 
   return (
     <section className="py-20 bg-white">
-      <div className="max-w-6xl mx-auto px-4">
+      <div className="max-w-6xl mx-auto px-4 md:px-6 lg:px-8">
         <h2 className="text-2xl md:text-3xl font-bold text-center mb-4">
           動画マーケティングを成功につなげるプラットフォーム
         </h2>

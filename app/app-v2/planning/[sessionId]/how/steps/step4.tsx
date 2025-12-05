@@ -28,6 +28,8 @@ const Step4 = ({
 }) => {
   const [loading, setLoading] = React.useState(false);
   const [brandLogoUrl, setBrandLogoUrl] = React.useState<string>(variants.brand_logo || '');
+  // Preselect the first background music URL (if any) so we always send a valid value
+  const [bgm, setBgm] = React.useState<string>(variants.background_music[0] || '');
 
   return (
     <div className="px-10 h-full flex flex-col gap-5 container justify-between">
@@ -55,11 +57,15 @@ const Step4 = ({
             <CardTitle className="font-bold text-lg underline">BGM</CardTitle>
           </CardHeader>
           <CardContent className="px-4">
-            <RadioGroup defaultValue="option-one" className="gap-4">
+            <RadioGroup
+              value={bgm}
+              className="gap-4"
+              onValueChange={(value) => setBgm(value)}
+            >
               {variants.background_music.map((value: string, index) => (
                 <div className="flex items-center space-x-2 " key={index}>
-                  <RadioGroupItem value={`hook-option-${index + 1}`} id={`hook-option-${index + 1}`} />
-                  <Label htmlFor={`hook-option-${index + 1}`} className="">
+                  <RadioGroupItem value={value} id={`bgm-option-${index + 1}`} />
+                  <Label htmlFor={`bgm-option-${index + 1}`} className="">
                     <audio controls>
                       <source src={value} type="audio/mpeg" />
                     </audio>
@@ -73,7 +79,7 @@ const Step4 = ({
 
       <div className="flex justify-end">
         <Button
-          onClick={() => submitStep4({ setLoading, onNext, patternCombinations, setRendersCreatomate, brandLogoUrl, selectedTemplateId })}
+          onClick={() => submitStep4({ setLoading, onNext, patternCombinations, setRendersCreatomate, brandLogoUrl, selectedTemplateId, bgm })}
           disabled={loading}
           className="border-2 border-rose-600 bg-rose-600  hover:bg-rose-500 text-white px-4 py-2"
         >

@@ -61,7 +61,11 @@ const Step2 = ({
         ))}
       </RadioGroup>
       <div className="flex justify-end">
-        <Button onClick={() => submitStep2({ setLoading, onNext, setVariants, variants, selectedTemplateId })} disabled={loading} className="border-2 border-rose-600 bg-rose-600  hover:bg-rose-500 text-white px-4 py-2">
+        <Button
+          onClick={() => submitStep2({ setLoading, onNext, setVariants, variants, selectedTemplateId })}
+          disabled={loading || selectedTemplateId === ''}
+          className="border-2 border-rose-600 bg-rose-600  hover:bg-rose-500 text-white px-4 py-2"
+        >
           {loading && <Spinner />}
           次に​進む
         </Button>

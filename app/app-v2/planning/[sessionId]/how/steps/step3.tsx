@@ -1,7 +1,7 @@
 'use client';
-import React from 'react';
+import React, { use } from 'react';
 import { Button } from '@/components/ui/button';
-import { generateVariants, getResultsVariants, submitStep3 } from '../hooks/useFetchApi';
+import { generateVariants, getJobResult, submitStep3 } from '../hooks/useFetchApi';
 import { Spinner } from '@/components/ui/spinner';
 import { Infinity } from 'lucide-react';
 import { IElements, IPattern, IPlan, ITemplateCreatomate, IVariants } from '../hooks/useStepData';
@@ -9,7 +9,8 @@ import { generatePatternCombinations, calculatePatternCount, onElementValueChang
 import ElementProgress from '../components/elementProgress';
 import ElementCard from '../components/elementCard';
 import { HoverCard, HoverCardContent, HoverCardTrigger } from '@/components/ui/hover-card';
-import { log } from 'console';
+// @ts-ignore
+import { useMutation, useQuery } from '@tanstack/react-query';
 
 const Step3 = ({
   onNext,
@@ -35,14 +36,47 @@ const Step3 = ({
   const [loading, setLoading] = React.useState(false);
   const [loadingGenerate, setLoadingGenerate] = React.useState(true);
   const [isComplete, setIsComplete] = React.useState(false);
-  const [jobId, setJobId] = React.useState('');
+  const [jobId, setJobId] = React.useState<string | null>(null);
 
   React.useEffect(() => {
-    const async = async () => {
-      await generateVariants({ setLoadingGenerate, setJobId });
+    const fetchVariants = async () => {
+      setLoadingGenerate(true);
+      generateVariants({ setJobId });
     };
-    async();
+    if (!jobId) {
+      fetchVariants();
+    }
   }, []);
+
+  // Use the polling query
+  const { data: jobResult, isLoading: isPolling } = useQuery<{
+    status?: string;
+    result?: { variants?: IVariants };
+    error?: unknown;
+  }>({
+    queryKey: ['status', jobId],
+    queryFn: () => getJobResult({ jobId: jobId! }),
+    enabled: !!jobId && loadingGenerate, // Only poll when we have a jobId and still loading
+    refetchInterval: (query: { state: { data?: { status?: string } } }) => {
+      // Stop polling when status is not 'running'
+      if (query.state.data?.status !== 'running') {
+        return false; // Stop polling
+      }
+      return 5000; // Poll every 5 seconds while status is 'running'
+    },
+  });
+
+  // Handle job completion
+  React.useEffect(() => {
+    if (jobResult && jobResult.status !== 'running' && jobResult.result?.variants) {
+      const variantsData = jobResult.result.variants;
+      setVariants({ ...variants, ...variantsData });
+      setLoadingGenerate(false);
+    } else if (jobResult && !jobResult.status) {
+      console.error('Job failed:', jobResult.error);
+      setLoadingGenerate(false);
+    }
+  }, [jobResult, setVariants, setElements]);
 
   React.useEffect(() => {
     if (jobId) {
@@ -54,6 +88,14 @@ const Step3 = ({
     setPatternCount(calculatePatternCount(elements).totalPattern);
     setIsComplete(calculatePatternCount(elements).complete);
   }, [elements]);
+
+  if (!jobId || isPolling) {
+    return (
+      <div className="w-full h-96 flex justify-center items-center">
+        <Spinner /> Generating variants...
+      </div>
+    );
+  }
 
   return (
     <div className="px-10 h-full flex flex-col gap-5 container justify-between">
@@ -83,14 +125,222 @@ const Step3 = ({
           </div>
         ) : (
           <div className="flex flex-row w-fit gap-10 whitespace-nowrap pb-10">
-            <ElementCard type="hook" variants={variants} elements={elements} onElementValueChange={onElementValueChange} setElements={setElements} setVariants={setVariants} />
-            <ElementCard type="body1image" variants={variants} elements={elements} onElementValueChange={onElementValueChange} setElements={setElements} setVariants={setVariants} />
-            <ElementCard type="body1message" variants={variants} elements={elements} onElementValueChange={onElementValueChange} setElements={setElements} setVariants={setVariants} />
-            <ElementCard type="body2image" variants={variants} elements={elements} onElementValueChange={onElementValueChange} setElements={setElements} setVariants={setVariants} />
-            <ElementCard type="body2message" variants={variants} elements={elements} onElementValueChange={onElementValueChange} setElements={setElements} setVariants={setVariants} />
-            <ElementCard type="body3image" variants={variants} elements={elements} onElementValueChange={onElementValueChange} setElements={setElements} setVariants={setVariants} />
-            <ElementCard type="body3message" variants={variants} elements={elements} onElementValueChange={onElementValueChange} setElements={setElements} setVariants={setVariants} />
-            <ElementCard type="cta" variants={variants} elements={elements} onElementValueChange={onElementValueChange} setElements={setElements} setVariants={setVariants} />
+            <ElementCard
+              type="text"
+              title="Hooks"
+              variant={variants.hooks}
+              onVariantChange={(value, index) => {
+                const newHooks = [...variants.hooks];
+                newHooks[index] = value;
+                setVariants({ ...variants, hooks: newHooks });
+              }}
+              value={elements.hooks}
+              onElementValueChange={(value) =>
+                onElementValueChange({
+                  category: 'hooks',
+                  value,
+                  elements,
+                  setElements,
+                })
+              }
+            />
+            <ElementCard
+              type="image"
+              title="Body 1 Images"
+              description="Aspect ratio : 9/16"
+              variant={variants.strong_point_1_images}
+              onVariantChange={(value, index) => {
+                const oldUrl = variants.strong_point_1_images[index];
+
+                // Update variants using functional state to avoid stale closures
+                setVariants((prev) => {
+                  const newBody1Images = [...prev.strong_point_1_images];
+                  newBody1Images[index] = value;
+                  return { ...prev, strong_point_1_images: newBody1Images };
+                });
+
+                // Keep selections in sync when an already-selected image is edited
+                if (oldUrl) {
+                  setElements((prev) => {
+                    if (!prev.body1Images.includes(oldUrl)) return prev;
+                    return {
+                      ...prev,
+                      body1Images: prev.body1Images.map((url) => (url === oldUrl ? value : url)),
+                    };
+                  });
+                }
+              }}
+              value={elements.body1Images}
+              onElementValueChange={(value) => {
+                // Body images should behave like a single-select:
+                // keep only the most recently selected image.
+                const lastSelected = value[value.length - 1];
+                const nextValue = lastSelected ? [lastSelected] : [];
+                onElementValueChange({
+                  category: 'body1Images',
+                  value: nextValue,
+                  elements,
+                  setElements,
+                });
+              }}
+            />
+            <ElementCard
+              type="text"
+              title="Body 1 Messages"
+              variant={variants.strong_point_1_messages}
+              onVariantChange={(value, index) => {
+                const newBody1Messages = [...variants.strong_point_1_messages];
+                newBody1Messages[index] = value;
+                setVariants({
+                  ...variants,
+                  strong_point_1_messages: newBody1Messages,
+                });
+              }}
+              value={elements.body1Messages}
+              onElementValueChange={(value) =>
+                onElementValueChange({
+                  category: 'body1Messages',
+                  value,
+                  elements,
+                  setElements,
+                })
+              }
+            />
+            <ElementCard
+              type="image"
+              title="Body 2 Images"
+              description="Aspect ratio : 9/16"
+              variant={variants.strong_point_2_images}
+              onVariantChange={(value, index) => {
+                const oldUrl = variants.strong_point_2_images[index];
+
+                setVariants((prev) => {
+                  const newBody2Images = [...prev.strong_point_2_images];
+                  newBody2Images[index] = value;
+                  return { ...prev, strong_point_2_images: newBody2Images };
+                });
+
+                if (oldUrl) {
+                  setElements((prev) => {
+                    if (!prev.body2Images.includes(oldUrl)) return prev;
+                    return {
+                      ...prev,
+                      body2Images: prev.body2Images.map((url) => (url === oldUrl ? value : url)),
+                    };
+                  });
+                }
+              }}
+              value={elements.body2Images}
+              onElementValueChange={(value) => {
+                const lastSelected = value[value.length - 1];
+                const nextValue = lastSelected ? [lastSelected] : [];
+                onElementValueChange({
+                  category: 'body2Images',
+                  value: nextValue,
+                  elements,
+                  setElements,
+                });
+              }}
+            />
+            <ElementCard
+              type="text"
+              title="Body 2 Messages"
+              variant={variants.strong_point_2_messages}
+              onVariantChange={(value, index) => {
+                const newBody2Messages = [...variants.strong_point_2_messages];
+                newBody2Messages[index] = value;
+                setVariants({
+                  ...variants,
+                  strong_point_2_messages: newBody2Messages,
+                });
+              }}
+              value={elements.body2Messages}
+              onElementValueChange={(value) =>
+                onElementValueChange({
+                  category: 'body2Messages',
+                  value,
+                  elements,
+                  setElements,
+                })
+              }
+            />
+            <ElementCard
+              type="image"
+              title="Body 3 Images"
+              description="Aspect ratio : 9/16"
+              variant={variants.strong_point_3_images}
+              onVariantChange={(value, index) => {
+                const oldUrl = variants.strong_point_3_images[index];
+
+                setVariants((prev) => {
+                  const newBody3Images = [...prev.strong_point_3_images];
+                  newBody3Images[index] = value;
+                  return { ...prev, strong_point_3_images: newBody3Images };
+                });
+
+                if (oldUrl) {
+                  setElements((prev) => {
+                    if (!prev.body3Images.includes(oldUrl)) return prev;
+                    return {
+                      ...prev,
+                      body3Images: prev.body3Images.map((url) => (url === oldUrl ? value : url)),
+                    };
+                  });
+                }
+              }}
+              value={elements.body3Images}
+              onElementValueChange={(value) => {
+                const lastSelected = value[value.length - 1];
+                const nextValue = lastSelected ? [lastSelected] : [];
+                onElementValueChange({
+                  category: 'body3Images',
+                  value: nextValue,
+                  elements,
+                  setElements,
+                });
+              }}
+            />
+            <ElementCard
+              type="text"
+              title="Body 3 Messages"
+              variant={variants.strong_point_3_messages}
+              onVariantChange={(value, index) => {
+                const newBody3Messages = [...variants.strong_point_3_messages];
+                newBody3Messages[index] = value;
+                setVariants({
+                  ...variants,
+                  strong_point_3_messages: newBody3Messages,
+                });
+              }}
+              value={elements.body3Messages}
+              onElementValueChange={(value) =>
+                onElementValueChange({
+                  category: 'body3Messages',
+                  value,
+                  elements,
+                  setElements,
+                })
+              }
+            />
+            <ElementCard
+              type="text"
+              title="CTAs"
+              variant={variants.ctas}
+              onVariantChange={(value, index) => {
+                const newCtas = [...variants.ctas];
+                newCtas[index] = value;
+                setVariants({ ...variants, ctas: newCtas });
+              }}
+              value={elements.ctas}
+              onElementValueChange={(value) =>
+                onElementValueChange({
+                  category: 'ctas',
+                  value,
+                  elements,
+                  setElements,
+                })
+              }
+            />
           </div>
         )}
       </div>

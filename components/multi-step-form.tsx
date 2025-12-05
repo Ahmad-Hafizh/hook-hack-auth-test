@@ -121,10 +121,18 @@ export function MultiStepForm({
   const [isSaving, setIsSaving] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const [modalVideo, setModalVideo] = useState<null | any>(null);
+  const [isMounted, setIsMounted] = useState(false);
   const [switchState, setSwitchState] = useState({
     production: "Inside",
     purpose: "Conversion",
   });
+
+  // ----------------------
+  // Client-side mount check for portal
+  // ----------------------
+  useEffect(() => {
+    setIsMounted(true);
+  }, []);
 
   // ----------------------
   // Resume Logic: Hydrate form state with existing data
@@ -746,8 +754,9 @@ export function MultiStepForm({
           </Card>
         )}
       </motion.div>
-      {typeof window !== "undefined" &&
+      {isMounted &&
         modalVideo &&
+        typeof document !== "undefined" &&
         ReactDOM.createPortal(
           <div
             className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50"

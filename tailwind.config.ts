@@ -107,11 +107,15 @@ const config: Config = {
   		},
   		fontFamily: {
   			sans: [
-  				'var(--font-inter)',
+  				'var(--font-noto-sans-jp)',
+  				'var(--font-jp)',
+  				'Noto Sans JP',
   				'sans-serif'
   			],
   			'noto-sans-jp': [
   				'var(--font-noto-sans-jp)',
+  				'var(--font-jp)',
+  				'Noto Sans JP',
   				'sans-serif'
   			]
   		}

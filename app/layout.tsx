@@ -6,7 +6,11 @@ import { Toaster } from '@/components/ui/toaster';
 import { ClerkProvider } from '@clerk/nextjs';
 import ReactQueryProvider from './ReactQueryProvider';
 
-const noto = Noto_Sans_JP({ subsets: ['latin'], variable: '--font-jp' });
+const noto = Noto_Sans_JP({ 
+  subsets: ['latin'],
+  weight: ['400', '500', '700', '900'],
+  variable: '--font-jp'
+});
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (

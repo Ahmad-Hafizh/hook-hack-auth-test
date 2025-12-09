@@ -50,7 +50,7 @@ export function InterviewSection() {
         </div>
 
         <div className="text-center mt-8">
-          <button className="bg-[#00c8c8] text-white px-8 py-3 rounded-full font-bold hover:bg-[#00b0b0] transition-colors">
+          <button className="bg-gradient-to-r from-[#0093c8] to-[#1deec8] hover:from-[#0099a8] hover:to-[#00b399] text-white px-8 py-3 rounded-full font-bold transition-all">
             インタビューをもっと見る
           </button>
         </div>

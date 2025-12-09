@@ -1,45 +1,71 @@
+"use client";
+
+import { useState, useEffect } from "react";
+
 export function Header() {
+  const [isScrolled, setIsScrolled] = useState(false);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      setIsScrolled(window.scrollY > 30);
+    };
+
+    window.addEventListener("scroll", handleScroll);
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
+
   return (
-    <header className="sticky top-0 z-50 bg-[#2d3436] text-white">
-      <div className="max-w-7xl mx-auto px-4 md:px-6 lg:py-6 py-3 flex items-center justify-between">
-        <div className="flex items-center gap-8 w-full">
-          <div className="flex items-center justify-between w-full">
-            <a href="/" className="text-xl font-bold tracking-wide">
-              <span className="text-[#00c8c8] text-2xl">Hook</span>
-              <span className="text-white text-2xl">Hack</span>
-            </a>
-            <nav className="hidden lg:flex items-center gap-6 text-sm">
+    <header
+      className={`fixed top-0 left-0 right-0 z-50 text-white transition-colors duration-300 ${isScrolled ? "bg-transparent" : ""}`}
+    >
+      <div className="max-w-3/4 mx-44 px-4 md:px-6 lg:py-3 py-3">
+        <div className="bg-[#11434D] rounded-full px-12 py-1 shadow-lg backdrop-blur-sm flex items-center justify-between">
+          {/* Left: Logo */}
+          <a href="#hero" className="flex items-center">
+            <img
+              src="/newlogothin.png"
+              alt="HookHack"
+              className="h-16 w-auto"
+            />
+          </a>
+
+          {/* Right: Menu and CTA Button */}
+          <div className="flex items-center gap-6">
+            <nav className="hidden lg:flex items-center gap-12 text-sm mr-8">
               <a
-                href="#"
+                href="#main-features"
                 className="text-white hover:underline hover:underline-offset-4 transition-all decoration-[#00c8c8]"
               >
                 主な機能
               </a>
               <a
-                href="#"
+                href="#sample-videos"
                 className="text-white  hover:underline hover:underline-offset-4 transition-all decoration-[#00c8c8]"
               >
                 業界別サンプル動画
               </a>
               <a
-                href="#"
+                href="#pricing"
                 className="text-white hover:underline hover:underline-offset-4 transition-all decoration-[#00c8c8]"
               >
                 費用
               </a>
               <a
-                href="#"
+                href="#team"
                 className="text-white hover:underline hover:underline-offset-4 transition-all decoration-[#00c8c8]"
               >
                 メンバー紹介
               </a>
               <a
-                href="#"
+                href="#company"
                 className="text-white hover:underline hover:underline-offset-4 transition-all decoration-[#00c8c8]"
               >
                 会社概要
               </a>
             </nav>
+            <button className="bg-gradient-to-r from-[#0093c8] to-[#1deec8] hover:from-[#0099a8] hover:to-[#00b399] text-white px-4 py-2 rounded-full text-sm font-bold transition-all shadow-md">
+              1週間無料トライアル
+            </button>
           </div>
         </div>
       </div>

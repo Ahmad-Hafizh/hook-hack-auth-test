@@ -16,7 +16,7 @@ export default function Footer() {
             {/* <span className="text-3xl font-bold text-white my-3 block">
               Hook Hack
             </span> */}
-            <img src="/H.svg" alt="Hook-Hack" className="w-32 md:w-40 py-2" />
+            <img src="/logonew.png" alt="HookHack Logo" className="h-12 md:h-16 w-auto py-2" />
 
             {/* <p className="text-gray-100 text-center md:text-center text-sm md:text-base">
               what should we write here?

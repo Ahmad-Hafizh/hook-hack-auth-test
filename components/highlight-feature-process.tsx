@@ -11,19 +11,19 @@ interface TabContent {
 
 const tabContents: Record<TabType, TabContent> = {
   PLAN: {
-    video: "https://placehold.co/800x600/cccccc/ffffff.gif?text=PLAN+Video",
+    video: "/videoplan.gif",
     description: "複数LPから案を発散",
   },
   DO: {
-    video: "https://placehold.co/800x600/cccccc/ffffff.gif?text=DO+Video",
+    video: "/videoplan.gif",
     description: "案を元に複数の動画を制作",
   },
   CHECK: {
-    video: "https://placehold.co/800x600/cccccc/ffffff.gif?text=CHECK+Video",
+    video: "/videoplan.gif",
     description: "顧客が反応した要素を数値で分析",
   },
   ACTION: {
-    video: "https://placehold.co/800x600/cccccc/ffffff.gif?text=ACTION+Video",
+    video: "/videoplan.gif",
     description: "反応の得られたインサイトをLPに反映",
   },
 };
@@ -49,19 +49,25 @@ export function HighlightFeatureProcess() {
   const isHovering = hoveredTab !== null;
 
   return (
-    <section className="py-20 bg-[#e8fafa]">
+    <section className="pb-20 pt-10 bg-white">
       <div className="max-w-6xl mx-auto px-4 md:px-6 lg:px-8">
         {/* Title */}
-        <h2 className="text-3xl md:text-4xl font-bold text-center text-[#00c8c8] mb-12">
-          <span className="relative inline-block">
-            HookHack
-            <span className="absolute -bottom-4 left-5 w-full h-1 bg-yellow-400"></span>
+        <h2
+          className="text-3xl md:text-4xl font-bold text-center text-[#2C9FB8] mb-12"
+          style={{ lineHeight: "1.6" }}
+        >
+          <span className="relative inline-flex items-center gap-2">
+            {/* <img src="/5.png" alt="" className="h-6 md:h-9 w-auto mt-1" /> */}
+            HookHackとは
+            <br />
+            高速な動画PDCAで、成果につながる動画を 作成するツールです。
+            {/* <img src="/6.png" alt="" className="h-6 md:h-9 w-auto mt-1" /> */}
+            {/* <span className="absolute -bottom-4 left-5 w-full h-1 bg-yellow-400"></span> */}
           </span>
-          とは
         </h2>
 
         {/* Description Text */}
-        <div className="text-center mb-12 space-y-2">
+        {/* <div className="text-center mb-12 space-y-2">
           <p className="text-[#333] text-base md:text-lg">
             自社と他社のLPを元にターゲット顧客のインサイト案を発散
           </p>
@@ -74,14 +80,14 @@ export function HighlightFeatureProcess() {
           <p className="text-[#333] text-base md:text-lg">
             動画から得られたインサイトはLP改修にも活かせます
           </p>
-        </div>
+        </div> */}
 
         {/* Video Container */}
         <div className="mb-8">
           <div
-            className={`bg-white border p-4 md:p-6 shadow-sm overflow-hidden transition-all duration-300 ease-in-out ${
+            className={`bg-white border shadow-md overflow-hidden transition-all duration-300 ease-in-out ${
               isHovering
-                ? "rounded-2xl border-[#00c8c8] bg-[#f0fdfd]"
+                ? "rounded-2xl border-[#2C9FB8] bg-[#f0fdfd]"
                 : "rounded-xl border-gray-200"
             }`}
           >
@@ -104,6 +110,12 @@ export function HighlightFeatureProcess() {
         <div className="flex flex-wrap justify-center gap-4 md:gap-3 lg:gap-12 mb-4">
           {(["PLAN", "DO", "CHECK", "ACTION"] as TabType[]).map((tab) => {
             const isActive = activeTab === tab;
+            const hoverColors: Record<TabType, string> = {
+              PLAN: "hover:bg-blue-500 hover:text-white",
+              DO: "hover:bg-green-500 hover:text-white",
+              CHECK: "hover:bg-yellow-500 hover:text-white",
+              ACTION: "hover:bg-purple-500 hover:text-white",
+            };
             return (
               <button
                 key={tab}
@@ -112,11 +124,11 @@ export function HighlightFeatureProcess() {
                 onMouseLeave={() => setHoveredTab(null)}
                 className={`
                   relative px-5 py-2 md:px-12 md:py-2 rounded-full font-medium text-xs md:text-sm lg:text-base lg:mb-5
-                  transition-all duration-300 ease-in-out transform hover:rounded-xl 
+                  transition-all duration-200 ease-in-out transform hover:rounded-xl ${hoverColors[tab]}
                   ${
                     isActive
                       ? "bg-gray-700 text-white shadow-lg scale-105"
-                      : "bg-gray-200 text-gray-700 hover:bg-gray-300"
+                      : "bg-gray-200 text-gray-700"
                   }
                 `}
               >

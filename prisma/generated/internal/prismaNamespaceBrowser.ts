@@ -61,7 +61,8 @@ export const ModelName = {
   PlanningPlan: 'PlanningPlan',
   PlanningVariants: 'PlanningVariants',
   RenderedVideo: 'RenderedVideo',
-  Ads: 'Ads'
+  Ads: 'Ads',
+  GoogleAdsCredential: 'GoogleAdsCredential'
 } as const
 
 export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -179,9 +180,9 @@ export const PlanningSessionScalarFieldEnum = {
   lastPage: 'lastPage',
   lastStep: 'lastStep',
   product: 'product',
-  keyword: 'keyword',
+  userId: 'userId',
   competitors: 'competitors',
-  userId: 'userId'
+  keyword: 'keyword'
 } as const
 
 export type PlanningSessionScalarFieldEnum = (typeof PlanningSessionScalarFieldEnum)[keyof typeof PlanningSessionScalarFieldEnum]
@@ -207,9 +208,9 @@ export const PlanningPlanScalarFieldEnum = {
   platform: 'platform',
   target_impressions_per_video: 'target_impressions_per_video',
   typical_cpm: 'typical_cpm',
+  planningSessionId: 'planningSessionId',
   budget: 'budget',
-  template_id: 'template_id',
-  planningSessionId: 'planningSessionId'
+  template_id: 'template_id'
 } as const
 
 export type PlanningPlanScalarFieldEnum = (typeof PlanningPlanScalarFieldEnum)[keyof typeof PlanningPlanScalarFieldEnum]
@@ -232,12 +233,12 @@ export const RenderedVideoScalarFieldEnum = {
   id: 'id',
   videoUrl: 'videoUrl',
   createdAt: 'createdAt',
-  hook: 'hook',
+  planningSessionId: 'planningSessionId',
   bodyAMessage: 'bodyAMessage',
   bodyBMessage: 'bodyBMessage',
   bodyCMessage: 'bodyCMessage',
   cta: 'cta',
-  planningSessionId: 'planningSessionId'
+  hook: 'hook'
 } as const
 
 export type RenderedVideoScalarFieldEnum = (typeof RenderedVideoScalarFieldEnum)[keyof typeof RenderedVideoScalarFieldEnum]
@@ -252,6 +253,18 @@ export const AdsScalarFieldEnum = {
 } as const
 
 export type AdsScalarFieldEnum = (typeof AdsScalarFieldEnum)[keyof typeof AdsScalarFieldEnum]
+
+
+export const GoogleAdsCredentialScalarFieldEnum = {
+  id: 'id',
+  userId: 'userId',
+  refreshToken: 'refreshToken',
+  customerIds: 'customerIds',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type GoogleAdsCredentialScalarFieldEnum = (typeof GoogleAdsCredentialScalarFieldEnum)[keyof typeof GoogleAdsCredentialScalarFieldEnum]
 
 
 export const SortOrder = {

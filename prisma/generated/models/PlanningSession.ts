@@ -41,8 +41,8 @@ export type PlanningSessionMinAggregateOutputType = {
   lastPage: $Enums.PlanningPages | null
   lastStep: number | null
   product: string | null
-  keyword: string | null
   userId: string | null
+  keyword: string | null
 }
 
 export type PlanningSessionMaxAggregateOutputType = {
@@ -52,8 +52,8 @@ export type PlanningSessionMaxAggregateOutputType = {
   lastPage: $Enums.PlanningPages | null
   lastStep: number | null
   product: string | null
-  keyword: string | null
   userId: string | null
+  keyword: string | null
 }
 
 export type PlanningSessionCountAggregateOutputType = {
@@ -63,9 +63,9 @@ export type PlanningSessionCountAggregateOutputType = {
   lastPage: number
   lastStep: number
   product: number
-  keyword: number
-  competitors: number
   userId: number
+  competitors: number
+  keyword: number
   _all: number
 }
 
@@ -85,8 +85,8 @@ export type PlanningSessionMinAggregateInputType = {
   lastPage?: true
   lastStep?: true
   product?: true
-  keyword?: true
   userId?: true
+  keyword?: true
 }
 
 export type PlanningSessionMaxAggregateInputType = {
@@ -96,8 +96,8 @@ export type PlanningSessionMaxAggregateInputType = {
   lastPage?: true
   lastStep?: true
   product?: true
-  keyword?: true
   userId?: true
+  keyword?: true
 }
 
 export type PlanningSessionCountAggregateInputType = {
@@ -107,9 +107,9 @@ export type PlanningSessionCountAggregateInputType = {
   lastPage?: true
   lastStep?: true
   product?: true
-  keyword?: true
-  competitors?: true
   userId?: true
+  competitors?: true
+  keyword?: true
   _all?: true
 }
 
@@ -206,9 +206,9 @@ export type PlanningSessionGroupByOutputType = {
   lastPage: $Enums.PlanningPages | null
   lastStep: number | null
   product: string | null
-  keyword: string | null
-  competitors: string[]
   userId: string
+  competitors: string[]
+  keyword: string | null
   _count: PlanningSessionCountAggregateOutputType | null
   _avg: PlanningSessionAvgAggregateOutputType | null
   _sum: PlanningSessionSumAggregateOutputType | null
@@ -241,15 +241,15 @@ export type PlanningSessionWhereInput = {
   lastPage?: Prisma.EnumPlanningPagesNullableFilter<"PlanningSession"> | $Enums.PlanningPages | null
   lastStep?: Prisma.IntNullableFilter<"PlanningSession"> | number | null
   product?: Prisma.StringNullableFilter<"PlanningSession"> | string | null
-  keyword?: Prisma.StringNullableFilter<"PlanningSession"> | string | null
-  competitors?: Prisma.StringNullableListFilter<"PlanningSession">
   userId?: Prisma.StringFilter<"PlanningSession"> | string
-  User?: Prisma.XOR<Prisma.UserScalarRelationFilter, Prisma.UserWhereInput>
-  planningPlans?: Prisma.XOR<Prisma.PlanningPlanNullableScalarRelationFilter, Prisma.PlanningPlanWhereInput> | null
+  competitors?: Prisma.StringNullableListFilter<"PlanningSession">
+  keyword?: Prisma.StringNullableFilter<"PlanningSession"> | string | null
+  ads?: Prisma.AdsListRelationFilter
   creativeBrief?: Prisma.XOR<Prisma.CreativeBriefNullableScalarRelationFilter, Prisma.CreativeBriefWhereInput> | null
+  planningPlans?: Prisma.XOR<Prisma.PlanningPlanNullableScalarRelationFilter, Prisma.PlanningPlanWhereInput> | null
+  User?: Prisma.XOR<Prisma.UserScalarRelationFilter, Prisma.UserWhereInput>
   planningVariants?: Prisma.XOR<Prisma.PlanningVariantsNullableScalarRelationFilter, Prisma.PlanningVariantsWhereInput> | null
   renderedVideos?: Prisma.RenderedVideoListRelationFilter
-  ads?: Prisma.AdsListRelationFilter
 }
 
 export type PlanningSessionOrderByWithRelationInput = {
@@ -259,15 +259,15 @@ export type PlanningSessionOrderByWithRelationInput = {
   lastPage?: Prisma.SortOrderInput | Prisma.SortOrder
   lastStep?: Prisma.SortOrderInput | Prisma.SortOrder
   product?: Prisma.SortOrderInput | Prisma.SortOrder
-  keyword?: Prisma.SortOrderInput | Prisma.SortOrder
-  competitors?: Prisma.SortOrder
   userId?: Prisma.SortOrder
-  User?: Prisma.UserOrderByWithRelationInput
-  planningPlans?: Prisma.PlanningPlanOrderByWithRelationInput
+  competitors?: Prisma.SortOrder
+  keyword?: Prisma.SortOrderInput | Prisma.SortOrder
+  ads?: Prisma.AdsOrderByRelationAggregateInput
   creativeBrief?: Prisma.CreativeBriefOrderByWithRelationInput
+  planningPlans?: Prisma.PlanningPlanOrderByWithRelationInput
+  User?: Prisma.UserOrderByWithRelationInput
   planningVariants?: Prisma.PlanningVariantsOrderByWithRelationInput
   renderedVideos?: Prisma.RenderedVideoOrderByRelationAggregateInput
-  ads?: Prisma.AdsOrderByRelationAggregateInput
 }
 
 export type PlanningSessionWhereUniqueInput = Prisma.AtLeast<{
@@ -280,15 +280,15 @@ export type PlanningSessionWhereUniqueInput = Prisma.AtLeast<{
   lastPage?: Prisma.EnumPlanningPagesNullableFilter<"PlanningSession"> | $Enums.PlanningPages | null
   lastStep?: Prisma.IntNullableFilter<"PlanningSession"> | number | null
   product?: Prisma.StringNullableFilter<"PlanningSession"> | string | null
-  keyword?: Prisma.StringNullableFilter<"PlanningSession"> | string | null
-  competitors?: Prisma.StringNullableListFilter<"PlanningSession">
   userId?: Prisma.StringFilter<"PlanningSession"> | string
-  User?: Prisma.XOR<Prisma.UserScalarRelationFilter, Prisma.UserWhereInput>
-  planningPlans?: Prisma.XOR<Prisma.PlanningPlanNullableScalarRelationFilter, Prisma.PlanningPlanWhereInput> | null
+  competitors?: Prisma.StringNullableListFilter<"PlanningSession">
+  keyword?: Prisma.StringNullableFilter<"PlanningSession"> | string | null
+  ads?: Prisma.AdsListRelationFilter
   creativeBrief?: Prisma.XOR<Prisma.CreativeBriefNullableScalarRelationFilter, Prisma.CreativeBriefWhereInput> | null
+  planningPlans?: Prisma.XOR<Prisma.PlanningPlanNullableScalarRelationFilter, Prisma.PlanningPlanWhereInput> | null
+  User?: Prisma.XOR<Prisma.UserScalarRelationFilter, Prisma.UserWhereInput>
   planningVariants?: Prisma.XOR<Prisma.PlanningVariantsNullableScalarRelationFilter, Prisma.PlanningVariantsWhereInput> | null
   renderedVideos?: Prisma.RenderedVideoListRelationFilter
-  ads?: Prisma.AdsListRelationFilter
 }, "id" | "sessionToken">
 
 export type PlanningSessionOrderByWithAggregationInput = {
@@ -298,9 +298,9 @@ export type PlanningSessionOrderByWithAggregationInput = {
   lastPage?: Prisma.SortOrderInput | Prisma.SortOrder
   lastStep?: Prisma.SortOrderInput | Prisma.SortOrder
   product?: Prisma.SortOrderInput | Prisma.SortOrder
-  keyword?: Prisma.SortOrderInput | Prisma.SortOrder
-  competitors?: Prisma.SortOrder
   userId?: Prisma.SortOrder
+  competitors?: Prisma.SortOrder
+  keyword?: Prisma.SortOrderInput | Prisma.SortOrder
   _count?: Prisma.PlanningSessionCountOrderByAggregateInput
   _avg?: Prisma.PlanningSessionAvgOrderByAggregateInput
   _max?: Prisma.PlanningSessionMaxOrderByAggregateInput
@@ -318,9 +318,9 @@ export type PlanningSessionScalarWhereWithAggregatesInput = {
   lastPage?: Prisma.EnumPlanningPagesNullableWithAggregatesFilter<"PlanningSession"> | $Enums.PlanningPages | null
   lastStep?: Prisma.IntNullableWithAggregatesFilter<"PlanningSession"> | number | null
   product?: Prisma.StringNullableWithAggregatesFilter<"PlanningSession"> | string | null
-  keyword?: Prisma.StringNullableWithAggregatesFilter<"PlanningSession"> | string | null
-  competitors?: Prisma.StringNullableListFilter<"PlanningSession">
   userId?: Prisma.StringWithAggregatesFilter<"PlanningSession"> | string
+  competitors?: Prisma.StringNullableListFilter<"PlanningSession">
+  keyword?: Prisma.StringNullableWithAggregatesFilter<"PlanningSession"> | string | null
 }
 
 export type PlanningSessionCreateInput = {
@@ -330,14 +330,14 @@ export type PlanningSessionCreateInput = {
   lastPage?: $Enums.PlanningPages | null
   lastStep?: number | null
   product?: string | null
-  keyword?: string | null
   competitors?: Prisma.PlanningSessionCreatecompetitorsInput | string[]
-  User: Prisma.UserCreateNestedOneWithoutPlanningSessionsInput
-  planningPlans?: Prisma.PlanningPlanCreateNestedOneWithoutPlanningSessionInput
+  keyword?: string | null
+  ads?: Prisma.AdsCreateNestedManyWithoutPlanningSessionInput
   creativeBrief?: Prisma.CreativeBriefCreateNestedOneWithoutPlanningSessionInput
+  planningPlans?: Prisma.PlanningPlanCreateNestedOneWithoutPlanningSessionInput
+  User: Prisma.UserCreateNestedOneWithoutPlanningSessionsInput
   planningVariants?: Prisma.PlanningVariantsCreateNestedOneWithoutPlanningSessionInput
   renderedVideos?: Prisma.RenderedVideoCreateNestedManyWithoutPlanningSessionInput
-  ads?: Prisma.AdsCreateNestedManyWithoutPlanningSessionInput
 }
 
 export type PlanningSessionUncheckedCreateInput = {
@@ -347,14 +347,14 @@ export type PlanningSessionUncheckedCreateInput = {
   lastPage?: $Enums.PlanningPages | null
   lastStep?: number | null
   product?: string | null
-  keyword?: string | null
-  competitors?: Prisma.PlanningSessionCreatecompetitorsInput | string[]
   userId: string
-  planningPlans?: Prisma.PlanningPlanUncheckedCreateNestedOneWithoutPlanningSessionInput
+  competitors?: Prisma.PlanningSessionCreatecompetitorsInput | string[]
+  keyword?: string | null
+  ads?: Prisma.AdsUncheckedCreateNestedManyWithoutPlanningSessionInput
   creativeBrief?: Prisma.CreativeBriefUncheckedCreateNestedOneWithoutPlanningSessionInput
+  planningPlans?: Prisma.PlanningPlanUncheckedCreateNestedOneWithoutPlanningSessionInput
   planningVariants?: Prisma.PlanningVariantsUncheckedCreateNestedOneWithoutPlanningSessionInput
   renderedVideos?: Prisma.RenderedVideoUncheckedCreateNestedManyWithoutPlanningSessionInput
-  ads?: Prisma.AdsUncheckedCreateNestedManyWithoutPlanningSessionInput
 }
 
 export type PlanningSessionUpdateInput = {
@@ -364,14 +364,14 @@ export type PlanningSessionUpdateInput = {
   lastPage?: Prisma.NullableEnumPlanningPagesFieldUpdateOperationsInput | $Enums.PlanningPages | null
   lastStep?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   product?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  keyword?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   competitors?: Prisma.PlanningSessionUpdatecompetitorsInput | string[]
-  User?: Prisma.UserUpdateOneRequiredWithoutPlanningSessionsNestedInput
-  planningPlans?: Prisma.PlanningPlanUpdateOneWithoutPlanningSessionNestedInput
+  keyword?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  ads?: Prisma.AdsUpdateManyWithoutPlanningSessionNestedInput
   creativeBrief?: Prisma.CreativeBriefUpdateOneWithoutPlanningSessionNestedInput
+  planningPlans?: Prisma.PlanningPlanUpdateOneWithoutPlanningSessionNestedInput
+  User?: Prisma.UserUpdateOneRequiredWithoutPlanningSessionsNestedInput
   planningVariants?: Prisma.PlanningVariantsUpdateOneWithoutPlanningSessionNestedInput
   renderedVideos?: Prisma.RenderedVideoUpdateManyWithoutPlanningSessionNestedInput
-  ads?: Prisma.AdsUpdateManyWithoutPlanningSessionNestedInput
 }
 
 export type PlanningSessionUncheckedUpdateInput = {
@@ -381,14 +381,14 @@ export type PlanningSessionUncheckedUpdateInput = {
   lastPage?: Prisma.NullableEnumPlanningPagesFieldUpdateOperationsInput | $Enums.PlanningPages | null
   lastStep?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   product?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  keyword?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  competitors?: Prisma.PlanningSessionUpdatecompetitorsInput | string[]
   userId?: Prisma.StringFieldUpdateOperationsInput | string
-  planningPlans?: Prisma.PlanningPlanUncheckedUpdateOneWithoutPlanningSessionNestedInput
+  competitors?: Prisma.PlanningSessionUpdatecompetitorsInput | string[]
+  keyword?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  ads?: Prisma.AdsUncheckedUpdateManyWithoutPlanningSessionNestedInput
   creativeBrief?: Prisma.CreativeBriefUncheckedUpdateOneWithoutPlanningSessionNestedInput
+  planningPlans?: Prisma.PlanningPlanUncheckedUpdateOneWithoutPlanningSessionNestedInput
   planningVariants?: Prisma.PlanningVariantsUncheckedUpdateOneWithoutPlanningSessionNestedInput
   renderedVideos?: Prisma.RenderedVideoUncheckedUpdateManyWithoutPlanningSessionNestedInput
-  ads?: Prisma.AdsUncheckedUpdateManyWithoutPlanningSessionNestedInput
 }
 
 export type PlanningSessionCreateManyInput = {
@@ -398,9 +398,9 @@ export type PlanningSessionCreateManyInput = {
   lastPage?: $Enums.PlanningPages | null
   lastStep?: number | null
   product?: string | null
-  keyword?: string | null
-  competitors?: Prisma.PlanningSessionCreatecompetitorsInput | string[]
   userId: string
+  competitors?: Prisma.PlanningSessionCreatecompetitorsInput | string[]
+  keyword?: string | null
 }
 
 export type PlanningSessionUpdateManyMutationInput = {
@@ -410,8 +410,8 @@ export type PlanningSessionUpdateManyMutationInput = {
   lastPage?: Prisma.NullableEnumPlanningPagesFieldUpdateOperationsInput | $Enums.PlanningPages | null
   lastStep?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   product?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  keyword?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   competitors?: Prisma.PlanningSessionUpdatecompetitorsInput | string[]
+  keyword?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
 }
 
 export type PlanningSessionUncheckedUpdateManyInput = {
@@ -421,9 +421,9 @@ export type PlanningSessionUncheckedUpdateManyInput = {
   lastPage?: Prisma.NullableEnumPlanningPagesFieldUpdateOperationsInput | $Enums.PlanningPages | null
   lastStep?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   product?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  keyword?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  competitors?: Prisma.PlanningSessionUpdatecompetitorsInput | string[]
   userId?: Prisma.StringFieldUpdateOperationsInput | string
+  competitors?: Prisma.PlanningSessionUpdatecompetitorsInput | string[]
+  keyword?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
 }
 
 export type PlanningSessionListRelationFilter = {
@@ -451,9 +451,9 @@ export type PlanningSessionCountOrderByAggregateInput = {
   lastPage?: Prisma.SortOrder
   lastStep?: Prisma.SortOrder
   product?: Prisma.SortOrder
-  keyword?: Prisma.SortOrder
-  competitors?: Prisma.SortOrder
   userId?: Prisma.SortOrder
+  competitors?: Prisma.SortOrder
+  keyword?: Prisma.SortOrder
 }
 
 export type PlanningSessionAvgOrderByAggregateInput = {
@@ -467,8 +467,8 @@ export type PlanningSessionMaxOrderByAggregateInput = {
   lastPage?: Prisma.SortOrder
   lastStep?: Prisma.SortOrder
   product?: Prisma.SortOrder
-  keyword?: Prisma.SortOrder
   userId?: Prisma.SortOrder
+  keyword?: Prisma.SortOrder
 }
 
 export type PlanningSessionMinOrderByAggregateInput = {
@@ -478,8 +478,8 @@ export type PlanningSessionMinOrderByAggregateInput = {
   lastPage?: Prisma.SortOrder
   lastStep?: Prisma.SortOrder
   product?: Prisma.SortOrder
-  keyword?: Prisma.SortOrder
   userId?: Prisma.SortOrder
+  keyword?: Prisma.SortOrder
 }
 
 export type PlanningSessionSumOrderByAggregateInput = {
@@ -627,13 +627,13 @@ export type PlanningSessionCreateWithoutUserInput = {
   lastPage?: $Enums.PlanningPages | null
   lastStep?: number | null
   product?: string | null
-  keyword?: string | null
   competitors?: Prisma.PlanningSessionCreatecompetitorsInput | string[]
-  planningPlans?: Prisma.PlanningPlanCreateNestedOneWithoutPlanningSessionInput
+  keyword?: string | null
+  ads?: Prisma.AdsCreateNestedManyWithoutPlanningSessionInput
   creativeBrief?: Prisma.CreativeBriefCreateNestedOneWithoutPlanningSessionInput
+  planningPlans?: Prisma.PlanningPlanCreateNestedOneWithoutPlanningSessionInput
   planningVariants?: Prisma.PlanningVariantsCreateNestedOneWithoutPlanningSessionInput
   renderedVideos?: Prisma.RenderedVideoCreateNestedManyWithoutPlanningSessionInput
-  ads?: Prisma.AdsCreateNestedManyWithoutPlanningSessionInput
 }
 
 export type PlanningSessionUncheckedCreateWithoutUserInput = {
@@ -643,13 +643,13 @@ export type PlanningSessionUncheckedCreateWithoutUserInput = {
   lastPage?: $Enums.PlanningPages | null
   lastStep?: number | null
   product?: string | null
-  keyword?: string | null
   competitors?: Prisma.PlanningSessionCreatecompetitorsInput | string[]
-  planningPlans?: Prisma.PlanningPlanUncheckedCreateNestedOneWithoutPlanningSessionInput
+  keyword?: string | null
+  ads?: Prisma.AdsUncheckedCreateNestedManyWithoutPlanningSessionInput
   creativeBrief?: Prisma.CreativeBriefUncheckedCreateNestedOneWithoutPlanningSessionInput
+  planningPlans?: Prisma.PlanningPlanUncheckedCreateNestedOneWithoutPlanningSessionInput
   planningVariants?: Prisma.PlanningVariantsUncheckedCreateNestedOneWithoutPlanningSessionInput
   renderedVideos?: Prisma.RenderedVideoUncheckedCreateNestedManyWithoutPlanningSessionInput
-  ads?: Prisma.AdsUncheckedCreateNestedManyWithoutPlanningSessionInput
 }
 
 export type PlanningSessionCreateOrConnectWithoutUserInput = {
@@ -688,9 +688,9 @@ export type PlanningSessionScalarWhereInput = {
   lastPage?: Prisma.EnumPlanningPagesNullableFilter<"PlanningSession"> | $Enums.PlanningPages | null
   lastStep?: Prisma.IntNullableFilter<"PlanningSession"> | number | null
   product?: Prisma.StringNullableFilter<"PlanningSession"> | string | null
-  keyword?: Prisma.StringNullableFilter<"PlanningSession"> | string | null
-  competitors?: Prisma.StringNullableListFilter<"PlanningSession">
   userId?: Prisma.StringFilter<"PlanningSession"> | string
+  competitors?: Prisma.StringNullableListFilter<"PlanningSession">
+  keyword?: Prisma.StringNullableFilter<"PlanningSession"> | string | null
 }
 
 export type PlanningSessionCreateWithoutCreativeBriefInput = {
@@ -700,13 +700,13 @@ export type PlanningSessionCreateWithoutCreativeBriefInput = {
   lastPage?: $Enums.PlanningPages | null
   lastStep?: number | null
   product?: string | null
-  keyword?: string | null
   competitors?: Prisma.PlanningSessionCreatecompetitorsInput | string[]
-  User: Prisma.UserCreateNestedOneWithoutPlanningSessionsInput
+  keyword?: string | null
+  ads?: Prisma.AdsCreateNestedManyWithoutPlanningSessionInput
   planningPlans?: Prisma.PlanningPlanCreateNestedOneWithoutPlanningSessionInput
+  User: Prisma.UserCreateNestedOneWithoutPlanningSessionsInput
   planningVariants?: Prisma.PlanningVariantsCreateNestedOneWithoutPlanningSessionInput
   renderedVideos?: Prisma.RenderedVideoCreateNestedManyWithoutPlanningSessionInput
-  ads?: Prisma.AdsCreateNestedManyWithoutPlanningSessionInput
 }
 
 export type PlanningSessionUncheckedCreateWithoutCreativeBriefInput = {
@@ -716,13 +716,13 @@ export type PlanningSessionUncheckedCreateWithoutCreativeBriefInput = {
   lastPage?: $Enums.PlanningPages | null
   lastStep?: number | null
   product?: string | null
-  keyword?: string | null
-  competitors?: Prisma.PlanningSessionCreatecompetitorsInput | string[]
   userId: string
+  competitors?: Prisma.PlanningSessionCreatecompetitorsInput | string[]
+  keyword?: string | null
+  ads?: Prisma.AdsUncheckedCreateNestedManyWithoutPlanningSessionInput
   planningPlans?: Prisma.PlanningPlanUncheckedCreateNestedOneWithoutPlanningSessionInput
   planningVariants?: Prisma.PlanningVariantsUncheckedCreateNestedOneWithoutPlanningSessionInput
   renderedVideos?: Prisma.RenderedVideoUncheckedCreateNestedManyWithoutPlanningSessionInput
-  ads?: Prisma.AdsUncheckedCreateNestedManyWithoutPlanningSessionInput
 }
 
 export type PlanningSessionCreateOrConnectWithoutCreativeBriefInput = {
@@ -748,13 +748,13 @@ export type PlanningSessionUpdateWithoutCreativeBriefInput = {
   lastPage?: Prisma.NullableEnumPlanningPagesFieldUpdateOperationsInput | $Enums.PlanningPages | null
   lastStep?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   product?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  keyword?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   competitors?: Prisma.PlanningSessionUpdatecompetitorsInput | string[]
-  User?: Prisma.UserUpdateOneRequiredWithoutPlanningSessionsNestedInput
+  keyword?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  ads?: Prisma.AdsUpdateManyWithoutPlanningSessionNestedInput
   planningPlans?: Prisma.PlanningPlanUpdateOneWithoutPlanningSessionNestedInput
+  User?: Prisma.UserUpdateOneRequiredWithoutPlanningSessionsNestedInput
   planningVariants?: Prisma.PlanningVariantsUpdateOneWithoutPlanningSessionNestedInput
   renderedVideos?: Prisma.RenderedVideoUpdateManyWithoutPlanningSessionNestedInput
-  ads?: Prisma.AdsUpdateManyWithoutPlanningSessionNestedInput
 }
 
 export type PlanningSessionUncheckedUpdateWithoutCreativeBriefInput = {
@@ -764,13 +764,13 @@ export type PlanningSessionUncheckedUpdateWithoutCreativeBriefInput = {
   lastPage?: Prisma.NullableEnumPlanningPagesFieldUpdateOperationsInput | $Enums.PlanningPages | null
   lastStep?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   product?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  keyword?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  competitors?: Prisma.PlanningSessionUpdatecompetitorsInput | string[]
   userId?: Prisma.StringFieldUpdateOperationsInput | string
+  competitors?: Prisma.PlanningSessionUpdatecompetitorsInput | string[]
+  keyword?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  ads?: Prisma.AdsUncheckedUpdateManyWithoutPlanningSessionNestedInput
   planningPlans?: Prisma.PlanningPlanUncheckedUpdateOneWithoutPlanningSessionNestedInput
   planningVariants?: Prisma.PlanningVariantsUncheckedUpdateOneWithoutPlanningSessionNestedInput
   renderedVideos?: Prisma.RenderedVideoUncheckedUpdateManyWithoutPlanningSessionNestedInput
-  ads?: Prisma.AdsUncheckedUpdateManyWithoutPlanningSessionNestedInput
 }
 
 export type PlanningSessionCreateWithoutPlanningPlansInput = {
@@ -780,13 +780,13 @@ export type PlanningSessionCreateWithoutPlanningPlansInput = {
   lastPage?: $Enums.PlanningPages | null
   lastStep?: number | null
   product?: string | null
-  keyword?: string | null
   competitors?: Prisma.PlanningSessionCreatecompetitorsInput | string[]
-  User: Prisma.UserCreateNestedOneWithoutPlanningSessionsInput
+  keyword?: string | null
+  ads?: Prisma.AdsCreateNestedManyWithoutPlanningSessionInput
   creativeBrief?: Prisma.CreativeBriefCreateNestedOneWithoutPlanningSessionInput
+  User: Prisma.UserCreateNestedOneWithoutPlanningSessionsInput
   planningVariants?: Prisma.PlanningVariantsCreateNestedOneWithoutPlanningSessionInput
   renderedVideos?: Prisma.RenderedVideoCreateNestedManyWithoutPlanningSessionInput
-  ads?: Prisma.AdsCreateNestedManyWithoutPlanningSessionInput
 }
 
 export type PlanningSessionUncheckedCreateWithoutPlanningPlansInput = {
@@ -796,13 +796,13 @@ export type PlanningSessionUncheckedCreateWithoutPlanningPlansInput = {
   lastPage?: $Enums.PlanningPages | null
   lastStep?: number | null
   product?: string | null
-  keyword?: string | null
-  competitors?: Prisma.PlanningSessionCreatecompetitorsInput | string[]
   userId: string
+  competitors?: Prisma.PlanningSessionCreatecompetitorsInput | string[]
+  keyword?: string | null
+  ads?: Prisma.AdsUncheckedCreateNestedManyWithoutPlanningSessionInput
   creativeBrief?: Prisma.CreativeBriefUncheckedCreateNestedOneWithoutPlanningSessionInput
   planningVariants?: Prisma.PlanningVariantsUncheckedCreateNestedOneWithoutPlanningSessionInput
   renderedVideos?: Prisma.RenderedVideoUncheckedCreateNestedManyWithoutPlanningSessionInput
-  ads?: Prisma.AdsUncheckedCreateNestedManyWithoutPlanningSessionInput
 }
 
 export type PlanningSessionCreateOrConnectWithoutPlanningPlansInput = {
@@ -828,13 +828,13 @@ export type PlanningSessionUpdateWithoutPlanningPlansInput = {
   lastPage?: Prisma.NullableEnumPlanningPagesFieldUpdateOperationsInput | $Enums.PlanningPages | null
   lastStep?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   product?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  keyword?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   competitors?: Prisma.PlanningSessionUpdatecompetitorsInput | string[]
-  User?: Prisma.UserUpdateOneRequiredWithoutPlanningSessionsNestedInput
+  keyword?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  ads?: Prisma.AdsUpdateManyWithoutPlanningSessionNestedInput
   creativeBrief?: Prisma.CreativeBriefUpdateOneWithoutPlanningSessionNestedInput
+  User?: Prisma.UserUpdateOneRequiredWithoutPlanningSessionsNestedInput
   planningVariants?: Prisma.PlanningVariantsUpdateOneWithoutPlanningSessionNestedInput
   renderedVideos?: Prisma.RenderedVideoUpdateManyWithoutPlanningSessionNestedInput
-  ads?: Prisma.AdsUpdateManyWithoutPlanningSessionNestedInput
 }
 
 export type PlanningSessionUncheckedUpdateWithoutPlanningPlansInput = {
@@ -844,13 +844,13 @@ export type PlanningSessionUncheckedUpdateWithoutPlanningPlansInput = {
   lastPage?: Prisma.NullableEnumPlanningPagesFieldUpdateOperationsInput | $Enums.PlanningPages | null
   lastStep?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   product?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  keyword?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  competitors?: Prisma.PlanningSessionUpdatecompetitorsInput | string[]
   userId?: Prisma.StringFieldUpdateOperationsInput | string
+  competitors?: Prisma.PlanningSessionUpdatecompetitorsInput | string[]
+  keyword?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  ads?: Prisma.AdsUncheckedUpdateManyWithoutPlanningSessionNestedInput
   creativeBrief?: Prisma.CreativeBriefUncheckedUpdateOneWithoutPlanningSessionNestedInput
   planningVariants?: Prisma.PlanningVariantsUncheckedUpdateOneWithoutPlanningSessionNestedInput
   renderedVideos?: Prisma.RenderedVideoUncheckedUpdateManyWithoutPlanningSessionNestedInput
-  ads?: Prisma.AdsUncheckedUpdateManyWithoutPlanningSessionNestedInput
 }
 
 export type PlanningSessionCreateWithoutPlanningVariantsInput = {
@@ -860,13 +860,13 @@ export type PlanningSessionCreateWithoutPlanningVariantsInput = {
   lastPage?: $Enums.PlanningPages | null
   lastStep?: number | null
   product?: string | null
-  keyword?: string | null
   competitors?: Prisma.PlanningSessionCreatecompetitorsInput | string[]
-  User: Prisma.UserCreateNestedOneWithoutPlanningSessionsInput
-  planningPlans?: Prisma.PlanningPlanCreateNestedOneWithoutPlanningSessionInput
-  creativeBrief?: Prisma.CreativeBriefCreateNestedOneWithoutPlanningSessionInput
-  renderedVideos?: Prisma.RenderedVideoCreateNestedManyWithoutPlanningSessionInput
+  keyword?: string | null
   ads?: Prisma.AdsCreateNestedManyWithoutPlanningSessionInput
+  creativeBrief?: Prisma.CreativeBriefCreateNestedOneWithoutPlanningSessionInput
+  planningPlans?: Prisma.PlanningPlanCreateNestedOneWithoutPlanningSessionInput
+  User: Prisma.UserCreateNestedOneWithoutPlanningSessionsInput
+  renderedVideos?: Prisma.RenderedVideoCreateNestedManyWithoutPlanningSessionInput
 }
 
 export type PlanningSessionUncheckedCreateWithoutPlanningVariantsInput = {
@@ -876,13 +876,13 @@ export type PlanningSessionUncheckedCreateWithoutPlanningVariantsInput = {
   lastPage?: $Enums.PlanningPages | null
   lastStep?: number | null
   product?: string | null
-  keyword?: string | null
-  competitors?: Prisma.PlanningSessionCreatecompetitorsInput | string[]
   userId: string
-  planningPlans?: Prisma.PlanningPlanUncheckedCreateNestedOneWithoutPlanningSessionInput
-  creativeBrief?: Prisma.CreativeBriefUncheckedCreateNestedOneWithoutPlanningSessionInput
-  renderedVideos?: Prisma.RenderedVideoUncheckedCreateNestedManyWithoutPlanningSessionInput
+  competitors?: Prisma.PlanningSessionCreatecompetitorsInput | string[]
+  keyword?: string | null
   ads?: Prisma.AdsUncheckedCreateNestedManyWithoutPlanningSessionInput
+  creativeBrief?: Prisma.CreativeBriefUncheckedCreateNestedOneWithoutPlanningSessionInput
+  planningPlans?: Prisma.PlanningPlanUncheckedCreateNestedOneWithoutPlanningSessionInput
+  renderedVideos?: Prisma.RenderedVideoUncheckedCreateNestedManyWithoutPlanningSessionInput
 }
 
 export type PlanningSessionCreateOrConnectWithoutPlanningVariantsInput = {
@@ -908,13 +908,13 @@ export type PlanningSessionUpdateWithoutPlanningVariantsInput = {
   lastPage?: Prisma.NullableEnumPlanningPagesFieldUpdateOperationsInput | $Enums.PlanningPages | null
   lastStep?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   product?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  keyword?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   competitors?: Prisma.PlanningSessionUpdatecompetitorsInput | string[]
-  User?: Prisma.UserUpdateOneRequiredWithoutPlanningSessionsNestedInput
-  planningPlans?: Prisma.PlanningPlanUpdateOneWithoutPlanningSessionNestedInput
-  creativeBrief?: Prisma.CreativeBriefUpdateOneWithoutPlanningSessionNestedInput
-  renderedVideos?: Prisma.RenderedVideoUpdateManyWithoutPlanningSessionNestedInput
+  keyword?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   ads?: Prisma.AdsUpdateManyWithoutPlanningSessionNestedInput
+  creativeBrief?: Prisma.CreativeBriefUpdateOneWithoutPlanningSessionNestedInput
+  planningPlans?: Prisma.PlanningPlanUpdateOneWithoutPlanningSessionNestedInput
+  User?: Prisma.UserUpdateOneRequiredWithoutPlanningSessionsNestedInput
+  renderedVideos?: Prisma.RenderedVideoUpdateManyWithoutPlanningSessionNestedInput
 }
 
 export type PlanningSessionUncheckedUpdateWithoutPlanningVariantsInput = {
@@ -924,13 +924,13 @@ export type PlanningSessionUncheckedUpdateWithoutPlanningVariantsInput = {
   lastPage?: Prisma.NullableEnumPlanningPagesFieldUpdateOperationsInput | $Enums.PlanningPages | null
   lastStep?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   product?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  keyword?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  competitors?: Prisma.PlanningSessionUpdatecompetitorsInput | string[]
   userId?: Prisma.StringFieldUpdateOperationsInput | string
-  planningPlans?: Prisma.PlanningPlanUncheckedUpdateOneWithoutPlanningSessionNestedInput
-  creativeBrief?: Prisma.CreativeBriefUncheckedUpdateOneWithoutPlanningSessionNestedInput
-  renderedVideos?: Prisma.RenderedVideoUncheckedUpdateManyWithoutPlanningSessionNestedInput
+  competitors?: Prisma.PlanningSessionUpdatecompetitorsInput | string[]
+  keyword?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   ads?: Prisma.AdsUncheckedUpdateManyWithoutPlanningSessionNestedInput
+  creativeBrief?: Prisma.CreativeBriefUncheckedUpdateOneWithoutPlanningSessionNestedInput
+  planningPlans?: Prisma.PlanningPlanUncheckedUpdateOneWithoutPlanningSessionNestedInput
+  renderedVideos?: Prisma.RenderedVideoUncheckedUpdateManyWithoutPlanningSessionNestedInput
 }
 
 export type PlanningSessionCreateWithoutRenderedVideosInput = {
@@ -940,13 +940,13 @@ export type PlanningSessionCreateWithoutRenderedVideosInput = {
   lastPage?: $Enums.PlanningPages | null
   lastStep?: number | null
   product?: string | null
-  keyword?: string | null
   competitors?: Prisma.PlanningSessionCreatecompetitorsInput | string[]
-  User: Prisma.UserCreateNestedOneWithoutPlanningSessionsInput
-  planningPlans?: Prisma.PlanningPlanCreateNestedOneWithoutPlanningSessionInput
-  creativeBrief?: Prisma.CreativeBriefCreateNestedOneWithoutPlanningSessionInput
-  planningVariants?: Prisma.PlanningVariantsCreateNestedOneWithoutPlanningSessionInput
+  keyword?: string | null
   ads?: Prisma.AdsCreateNestedManyWithoutPlanningSessionInput
+  creativeBrief?: Prisma.CreativeBriefCreateNestedOneWithoutPlanningSessionInput
+  planningPlans?: Prisma.PlanningPlanCreateNestedOneWithoutPlanningSessionInput
+  User: Prisma.UserCreateNestedOneWithoutPlanningSessionsInput
+  planningVariants?: Prisma.PlanningVariantsCreateNestedOneWithoutPlanningSessionInput
 }
 
 export type PlanningSessionUncheckedCreateWithoutRenderedVideosInput = {
@@ -956,13 +956,13 @@ export type PlanningSessionUncheckedCreateWithoutRenderedVideosInput = {
   lastPage?: $Enums.PlanningPages | null
   lastStep?: number | null
   product?: string | null
-  keyword?: string | null
-  competitors?: Prisma.PlanningSessionCreatecompetitorsInput | string[]
   userId: string
-  planningPlans?: Prisma.PlanningPlanUncheckedCreateNestedOneWithoutPlanningSessionInput
-  creativeBrief?: Prisma.CreativeBriefUncheckedCreateNestedOneWithoutPlanningSessionInput
-  planningVariants?: Prisma.PlanningVariantsUncheckedCreateNestedOneWithoutPlanningSessionInput
+  competitors?: Prisma.PlanningSessionCreatecompetitorsInput | string[]
+  keyword?: string | null
   ads?: Prisma.AdsUncheckedCreateNestedManyWithoutPlanningSessionInput
+  creativeBrief?: Prisma.CreativeBriefUncheckedCreateNestedOneWithoutPlanningSessionInput
+  planningPlans?: Prisma.PlanningPlanUncheckedCreateNestedOneWithoutPlanningSessionInput
+  planningVariants?: Prisma.PlanningVariantsUncheckedCreateNestedOneWithoutPlanningSessionInput
 }
 
 export type PlanningSessionCreateOrConnectWithoutRenderedVideosInput = {
@@ -988,13 +988,13 @@ export type PlanningSessionUpdateWithoutRenderedVideosInput = {
   lastPage?: Prisma.NullableEnumPlanningPagesFieldUpdateOperationsInput | $Enums.PlanningPages | null
   lastStep?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   product?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  keyword?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   competitors?: Prisma.PlanningSessionUpdatecompetitorsInput | string[]
-  User?: Prisma.UserUpdateOneRequiredWithoutPlanningSessionsNestedInput
-  planningPlans?: Prisma.PlanningPlanUpdateOneWithoutPlanningSessionNestedInput
-  creativeBrief?: Prisma.CreativeBriefUpdateOneWithoutPlanningSessionNestedInput
-  planningVariants?: Prisma.PlanningVariantsUpdateOneWithoutPlanningSessionNestedInput
+  keyword?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   ads?: Prisma.AdsUpdateManyWithoutPlanningSessionNestedInput
+  creativeBrief?: Prisma.CreativeBriefUpdateOneWithoutPlanningSessionNestedInput
+  planningPlans?: Prisma.PlanningPlanUpdateOneWithoutPlanningSessionNestedInput
+  User?: Prisma.UserUpdateOneRequiredWithoutPlanningSessionsNestedInput
+  planningVariants?: Prisma.PlanningVariantsUpdateOneWithoutPlanningSessionNestedInput
 }
 
 export type PlanningSessionUncheckedUpdateWithoutRenderedVideosInput = {
@@ -1004,13 +1004,13 @@ export type PlanningSessionUncheckedUpdateWithoutRenderedVideosInput = {
   lastPage?: Prisma.NullableEnumPlanningPagesFieldUpdateOperationsInput | $Enums.PlanningPages | null
   lastStep?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   product?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  keyword?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  competitors?: Prisma.PlanningSessionUpdatecompetitorsInput | string[]
   userId?: Prisma.StringFieldUpdateOperationsInput | string
-  planningPlans?: Prisma.PlanningPlanUncheckedUpdateOneWithoutPlanningSessionNestedInput
-  creativeBrief?: Prisma.CreativeBriefUncheckedUpdateOneWithoutPlanningSessionNestedInput
-  planningVariants?: Prisma.PlanningVariantsUncheckedUpdateOneWithoutPlanningSessionNestedInput
+  competitors?: Prisma.PlanningSessionUpdatecompetitorsInput | string[]
+  keyword?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   ads?: Prisma.AdsUncheckedUpdateManyWithoutPlanningSessionNestedInput
+  creativeBrief?: Prisma.CreativeBriefUncheckedUpdateOneWithoutPlanningSessionNestedInput
+  planningPlans?: Prisma.PlanningPlanUncheckedUpdateOneWithoutPlanningSessionNestedInput
+  planningVariants?: Prisma.PlanningVariantsUncheckedUpdateOneWithoutPlanningSessionNestedInput
 }
 
 export type PlanningSessionCreateWithoutAdsInput = {
@@ -1020,11 +1020,11 @@ export type PlanningSessionCreateWithoutAdsInput = {
   lastPage?: $Enums.PlanningPages | null
   lastStep?: number | null
   product?: string | null
-  keyword?: string | null
   competitors?: Prisma.PlanningSessionCreatecompetitorsInput | string[]
-  User: Prisma.UserCreateNestedOneWithoutPlanningSessionsInput
-  planningPlans?: Prisma.PlanningPlanCreateNestedOneWithoutPlanningSessionInput
+  keyword?: string | null
   creativeBrief?: Prisma.CreativeBriefCreateNestedOneWithoutPlanningSessionInput
+  planningPlans?: Prisma.PlanningPlanCreateNestedOneWithoutPlanningSessionInput
+  User: Prisma.UserCreateNestedOneWithoutPlanningSessionsInput
   planningVariants?: Prisma.PlanningVariantsCreateNestedOneWithoutPlanningSessionInput
   renderedVideos?: Prisma.RenderedVideoCreateNestedManyWithoutPlanningSessionInput
 }
@@ -1036,11 +1036,11 @@ export type PlanningSessionUncheckedCreateWithoutAdsInput = {
   lastPage?: $Enums.PlanningPages | null
   lastStep?: number | null
   product?: string | null
-  keyword?: string | null
-  competitors?: Prisma.PlanningSessionCreatecompetitorsInput | string[]
   userId: string
-  planningPlans?: Prisma.PlanningPlanUncheckedCreateNestedOneWithoutPlanningSessionInput
+  competitors?: Prisma.PlanningSessionCreatecompetitorsInput | string[]
+  keyword?: string | null
   creativeBrief?: Prisma.CreativeBriefUncheckedCreateNestedOneWithoutPlanningSessionInput
+  planningPlans?: Prisma.PlanningPlanUncheckedCreateNestedOneWithoutPlanningSessionInput
   planningVariants?: Prisma.PlanningVariantsUncheckedCreateNestedOneWithoutPlanningSessionInput
   renderedVideos?: Prisma.RenderedVideoUncheckedCreateNestedManyWithoutPlanningSessionInput
 }
@@ -1068,11 +1068,11 @@ export type PlanningSessionUpdateWithoutAdsInput = {
   lastPage?: Prisma.NullableEnumPlanningPagesFieldUpdateOperationsInput | $Enums.PlanningPages | null
   lastStep?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   product?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  keyword?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   competitors?: Prisma.PlanningSessionUpdatecompetitorsInput | string[]
-  User?: Prisma.UserUpdateOneRequiredWithoutPlanningSessionsNestedInput
-  planningPlans?: Prisma.PlanningPlanUpdateOneWithoutPlanningSessionNestedInput
+  keyword?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   creativeBrief?: Prisma.CreativeBriefUpdateOneWithoutPlanningSessionNestedInput
+  planningPlans?: Prisma.PlanningPlanUpdateOneWithoutPlanningSessionNestedInput
+  User?: Prisma.UserUpdateOneRequiredWithoutPlanningSessionsNestedInput
   planningVariants?: Prisma.PlanningVariantsUpdateOneWithoutPlanningSessionNestedInput
   renderedVideos?: Prisma.RenderedVideoUpdateManyWithoutPlanningSessionNestedInput
 }
@@ -1084,11 +1084,11 @@ export type PlanningSessionUncheckedUpdateWithoutAdsInput = {
   lastPage?: Prisma.NullableEnumPlanningPagesFieldUpdateOperationsInput | $Enums.PlanningPages | null
   lastStep?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   product?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  keyword?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  competitors?: Prisma.PlanningSessionUpdatecompetitorsInput | string[]
   userId?: Prisma.StringFieldUpdateOperationsInput | string
-  planningPlans?: Prisma.PlanningPlanUncheckedUpdateOneWithoutPlanningSessionNestedInput
+  competitors?: Prisma.PlanningSessionUpdatecompetitorsInput | string[]
+  keyword?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   creativeBrief?: Prisma.CreativeBriefUncheckedUpdateOneWithoutPlanningSessionNestedInput
+  planningPlans?: Prisma.PlanningPlanUncheckedUpdateOneWithoutPlanningSessionNestedInput
   planningVariants?: Prisma.PlanningVariantsUncheckedUpdateOneWithoutPlanningSessionNestedInput
   renderedVideos?: Prisma.RenderedVideoUncheckedUpdateManyWithoutPlanningSessionNestedInput
 }
@@ -1100,8 +1100,8 @@ export type PlanningSessionCreateManyUserInput = {
   lastPage?: $Enums.PlanningPages | null
   lastStep?: number | null
   product?: string | null
-  keyword?: string | null
   competitors?: Prisma.PlanningSessionCreatecompetitorsInput | string[]
+  keyword?: string | null
 }
 
 export type PlanningSessionUpdateWithoutUserInput = {
@@ -1111,13 +1111,13 @@ export type PlanningSessionUpdateWithoutUserInput = {
   lastPage?: Prisma.NullableEnumPlanningPagesFieldUpdateOperationsInput | $Enums.PlanningPages | null
   lastStep?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   product?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  keyword?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   competitors?: Prisma.PlanningSessionUpdatecompetitorsInput | string[]
-  planningPlans?: Prisma.PlanningPlanUpdateOneWithoutPlanningSessionNestedInput
+  keyword?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  ads?: Prisma.AdsUpdateManyWithoutPlanningSessionNestedInput
   creativeBrief?: Prisma.CreativeBriefUpdateOneWithoutPlanningSessionNestedInput
+  planningPlans?: Prisma.PlanningPlanUpdateOneWithoutPlanningSessionNestedInput
   planningVariants?: Prisma.PlanningVariantsUpdateOneWithoutPlanningSessionNestedInput
   renderedVideos?: Prisma.RenderedVideoUpdateManyWithoutPlanningSessionNestedInput
-  ads?: Prisma.AdsUpdateManyWithoutPlanningSessionNestedInput
 }
 
 export type PlanningSessionUncheckedUpdateWithoutUserInput = {
@@ -1127,13 +1127,13 @@ export type PlanningSessionUncheckedUpdateWithoutUserInput = {
   lastPage?: Prisma.NullableEnumPlanningPagesFieldUpdateOperationsInput | $Enums.PlanningPages | null
   lastStep?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   product?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  keyword?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   competitors?: Prisma.PlanningSessionUpdatecompetitorsInput | string[]
-  planningPlans?: Prisma.PlanningPlanUncheckedUpdateOneWithoutPlanningSessionNestedInput
+  keyword?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  ads?: Prisma.AdsUncheckedUpdateManyWithoutPlanningSessionNestedInput
   creativeBrief?: Prisma.CreativeBriefUncheckedUpdateOneWithoutPlanningSessionNestedInput
+  planningPlans?: Prisma.PlanningPlanUncheckedUpdateOneWithoutPlanningSessionNestedInput
   planningVariants?: Prisma.PlanningVariantsUncheckedUpdateOneWithoutPlanningSessionNestedInput
   renderedVideos?: Prisma.RenderedVideoUncheckedUpdateManyWithoutPlanningSessionNestedInput
-  ads?: Prisma.AdsUncheckedUpdateManyWithoutPlanningSessionNestedInput
 }
 
 export type PlanningSessionUncheckedUpdateManyWithoutUserInput = {
@@ -1143,8 +1143,8 @@ export type PlanningSessionUncheckedUpdateManyWithoutUserInput = {
   lastPage?: Prisma.NullableEnumPlanningPagesFieldUpdateOperationsInput | $Enums.PlanningPages | null
   lastStep?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   product?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  keyword?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   competitors?: Prisma.PlanningSessionUpdatecompetitorsInput | string[]
+  keyword?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
 }
 
 
@@ -1153,13 +1153,13 @@ export type PlanningSessionUncheckedUpdateManyWithoutUserInput = {
  */
 
 export type PlanningSessionCountOutputType = {
-  renderedVideos: number
   ads: number
+  renderedVideos: number
 }
 
 export type PlanningSessionCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  renderedVideos?: boolean | PlanningSessionCountOutputTypeCountRenderedVideosArgs
   ads?: boolean | PlanningSessionCountOutputTypeCountAdsArgs
+  renderedVideos?: boolean | PlanningSessionCountOutputTypeCountRenderedVideosArgs
 }
 
 /**
@@ -1175,15 +1175,15 @@ export type PlanningSessionCountOutputTypeDefaultArgs<ExtArgs extends runtime.Ty
 /**
  * PlanningSessionCountOutputType without action
  */
-export type PlanningSessionCountOutputTypeCountRenderedVideosArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  where?: Prisma.RenderedVideoWhereInput
+export type PlanningSessionCountOutputTypeCountAdsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.AdsWhereInput
 }
 
 /**
  * PlanningSessionCountOutputType without action
  */
-export type PlanningSessionCountOutputTypeCountAdsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  where?: Prisma.AdsWhereInput
+export type PlanningSessionCountOutputTypeCountRenderedVideosArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.RenderedVideoWhereInput
 }
 
 
@@ -1194,15 +1194,15 @@ export type PlanningSessionSelect<ExtArgs extends runtime.Types.Extensions.Inter
   lastPage?: boolean
   lastStep?: boolean
   product?: boolean
-  keyword?: boolean
-  competitors?: boolean
   userId?: boolean
-  User?: boolean | Prisma.UserDefaultArgs<ExtArgs>
-  planningPlans?: boolean | Prisma.PlanningSession$planningPlansArgs<ExtArgs>
+  competitors?: boolean
+  keyword?: boolean
+  ads?: boolean | Prisma.PlanningSession$adsArgs<ExtArgs>
   creativeBrief?: boolean | Prisma.PlanningSession$creativeBriefArgs<ExtArgs>
+  planningPlans?: boolean | Prisma.PlanningSession$planningPlansArgs<ExtArgs>
+  User?: boolean | Prisma.UserDefaultArgs<ExtArgs>
   planningVariants?: boolean | Prisma.PlanningSession$planningVariantsArgs<ExtArgs>
   renderedVideos?: boolean | Prisma.PlanningSession$renderedVideosArgs<ExtArgs>
-  ads?: boolean | Prisma.PlanningSession$adsArgs<ExtArgs>
   _count?: boolean | Prisma.PlanningSessionCountOutputTypeDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["planningSession"]>
 
@@ -1213,9 +1213,9 @@ export type PlanningSessionSelectCreateManyAndReturn<ExtArgs extends runtime.Typ
   lastPage?: boolean
   lastStep?: boolean
   product?: boolean
-  keyword?: boolean
-  competitors?: boolean
   userId?: boolean
+  competitors?: boolean
+  keyword?: boolean
   User?: boolean | Prisma.UserDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["planningSession"]>
 
@@ -1226,9 +1226,9 @@ export type PlanningSessionSelectUpdateManyAndReturn<ExtArgs extends runtime.Typ
   lastPage?: boolean
   lastStep?: boolean
   product?: boolean
-  keyword?: boolean
-  competitors?: boolean
   userId?: boolean
+  competitors?: boolean
+  keyword?: boolean
   User?: boolean | Prisma.UserDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["planningSession"]>
 
@@ -1239,19 +1239,19 @@ export type PlanningSessionSelectScalar = {
   lastPage?: boolean
   lastStep?: boolean
   product?: boolean
-  keyword?: boolean
-  competitors?: boolean
   userId?: boolean
+  competitors?: boolean
+  keyword?: boolean
 }
 
-export type PlanningSessionOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "sessionToken" | "finishedAt" | "lastPage" | "lastStep" | "product" | "keyword" | "competitors" | "userId", ExtArgs["result"]["planningSession"]>
+export type PlanningSessionOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "sessionToken" | "finishedAt" | "lastPage" | "lastStep" | "product" | "userId" | "competitors" | "keyword", ExtArgs["result"]["planningSession"]>
 export type PlanningSessionInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  User?: boolean | Prisma.UserDefaultArgs<ExtArgs>
-  planningPlans?: boolean | Prisma.PlanningSession$planningPlansArgs<ExtArgs>
+  ads?: boolean | Prisma.PlanningSession$adsArgs<ExtArgs>
   creativeBrief?: boolean | Prisma.PlanningSession$creativeBriefArgs<ExtArgs>
+  planningPlans?: boolean | Prisma.PlanningSession$planningPlansArgs<ExtArgs>
+  User?: boolean | Prisma.UserDefaultArgs<ExtArgs>
   planningVariants?: boolean | Prisma.PlanningSession$planningVariantsArgs<ExtArgs>
   renderedVideos?: boolean | Prisma.PlanningSession$renderedVideosArgs<ExtArgs>
-  ads?: boolean | Prisma.PlanningSession$adsArgs<ExtArgs>
   _count?: boolean | Prisma.PlanningSessionCountOutputTypeDefaultArgs<ExtArgs>
 }
 export type PlanningSessionIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
@@ -1264,12 +1264,12 @@ export type PlanningSessionIncludeUpdateManyAndReturn<ExtArgs extends runtime.Ty
 export type $PlanningSessionPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   name: "PlanningSession"
   objects: {
-    User: Prisma.$UserPayload<ExtArgs>
-    planningPlans: Prisma.$PlanningPlanPayload<ExtArgs> | null
+    ads: Prisma.$AdsPayload<ExtArgs>[]
     creativeBrief: Prisma.$CreativeBriefPayload<ExtArgs> | null
+    planningPlans: Prisma.$PlanningPlanPayload<ExtArgs> | null
+    User: Prisma.$UserPayload<ExtArgs>
     planningVariants: Prisma.$PlanningVariantsPayload<ExtArgs> | null
     renderedVideos: Prisma.$RenderedVideoPayload<ExtArgs>[]
-    ads: Prisma.$AdsPayload<ExtArgs>[]
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: string
@@ -1278,9 +1278,9 @@ export type $PlanningSessionPayload<ExtArgs extends runtime.Types.Extensions.Int
     lastPage: $Enums.PlanningPages | null
     lastStep: number | null
     product: string | null
-    keyword: string | null
-    competitors: string[]
     userId: string
+    competitors: string[]
+    keyword: string | null
   }, ExtArgs["result"]["planningSession"]>
   composites: {}
 }
@@ -1675,12 +1675,12 @@ readonly fields: PlanningSessionFieldRefs;
  */
 export interface Prisma__PlanningSessionClient<T, Null = never, ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
   readonly [Symbol.toStringTag]: "PrismaPromise"
-  User<T extends Prisma.UserDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.UserDefaultArgs<ExtArgs>>): Prisma.Prisma__UserClient<runtime.Types.Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
-  planningPlans<T extends Prisma.PlanningSession$planningPlansArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.PlanningSession$planningPlansArgs<ExtArgs>>): Prisma.Prisma__PlanningPlanClient<runtime.Types.Result.GetResult<Prisma.$PlanningPlanPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+  ads<T extends Prisma.PlanningSession$adsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.PlanningSession$adsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$AdsPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   creativeBrief<T extends Prisma.PlanningSession$creativeBriefArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.PlanningSession$creativeBriefArgs<ExtArgs>>): Prisma.Prisma__CreativeBriefClient<runtime.Types.Result.GetResult<Prisma.$CreativeBriefPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+  planningPlans<T extends Prisma.PlanningSession$planningPlansArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.PlanningSession$planningPlansArgs<ExtArgs>>): Prisma.Prisma__PlanningPlanClient<runtime.Types.Result.GetResult<Prisma.$PlanningPlanPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+  User<T extends Prisma.UserDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.UserDefaultArgs<ExtArgs>>): Prisma.Prisma__UserClient<runtime.Types.Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
   planningVariants<T extends Prisma.PlanningSession$planningVariantsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.PlanningSession$planningVariantsArgs<ExtArgs>>): Prisma.Prisma__PlanningVariantsClient<runtime.Types.Result.GetResult<Prisma.$PlanningVariantsPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
   renderedVideos<T extends Prisma.PlanningSession$renderedVideosArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.PlanningSession$renderedVideosArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$RenderedVideoPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
-  ads<T extends Prisma.PlanningSession$adsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.PlanningSession$adsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$AdsPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
    * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -1716,9 +1716,9 @@ export interface PlanningSessionFieldRefs {
   readonly lastPage: Prisma.FieldRef<"PlanningSession", 'PlanningPages'>
   readonly lastStep: Prisma.FieldRef<"PlanningSession", 'Int'>
   readonly product: Prisma.FieldRef<"PlanningSession", 'String'>
-  readonly keyword: Prisma.FieldRef<"PlanningSession", 'String'>
-  readonly competitors: Prisma.FieldRef<"PlanningSession", 'String[]'>
   readonly userId: Prisma.FieldRef<"PlanningSession", 'String'>
+  readonly competitors: Prisma.FieldRef<"PlanningSession", 'String[]'>
+  readonly keyword: Prisma.FieldRef<"PlanningSession", 'String'>
 }
     
 
@@ -2115,22 +2115,27 @@ export type PlanningSessionDeleteManyArgs<ExtArgs extends runtime.Types.Extensio
 }
 
 /**
- * PlanningSession.planningPlans
+ * PlanningSession.ads
  */
-export type PlanningSession$planningPlansArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+export type PlanningSession$adsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   /**
-   * Select specific fields to fetch from the PlanningPlan
+   * Select specific fields to fetch from the Ads
    */
-  select?: Prisma.PlanningPlanSelect<ExtArgs> | null
+  select?: Prisma.AdsSelect<ExtArgs> | null
   /**
-   * Omit specific fields from the PlanningPlan
+   * Omit specific fields from the Ads
    */
-  omit?: Prisma.PlanningPlanOmit<ExtArgs> | null
+  omit?: Prisma.AdsOmit<ExtArgs> | null
   /**
    * Choose, which related nodes to fetch as well
    */
-  include?: Prisma.PlanningPlanInclude<ExtArgs> | null
-  where?: Prisma.PlanningPlanWhereInput
+  include?: Prisma.AdsInclude<ExtArgs> | null
+  where?: Prisma.AdsWhereInput
+  orderBy?: Prisma.AdsOrderByWithRelationInput | Prisma.AdsOrderByWithRelationInput[]
+  cursor?: Prisma.AdsWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.AdsScalarFieldEnum | Prisma.AdsScalarFieldEnum[]
 }
 
 /**
@@ -2150,6 +2155,25 @@ export type PlanningSession$creativeBriefArgs<ExtArgs extends runtime.Types.Exte
    */
   include?: Prisma.CreativeBriefInclude<ExtArgs> | null
   where?: Prisma.CreativeBriefWhereInput
+}
+
+/**
+ * PlanningSession.planningPlans
+ */
+export type PlanningSession$planningPlansArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the PlanningPlan
+   */
+  select?: Prisma.PlanningPlanSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the PlanningPlan
+   */
+  omit?: Prisma.PlanningPlanOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.PlanningPlanInclude<ExtArgs> | null
+  where?: Prisma.PlanningPlanWhereInput
 }
 
 /**
@@ -2193,30 +2217,6 @@ export type PlanningSession$renderedVideosArgs<ExtArgs extends runtime.Types.Ext
   take?: number
   skip?: number
   distinct?: Prisma.RenderedVideoScalarFieldEnum | Prisma.RenderedVideoScalarFieldEnum[]
-}
-
-/**
- * PlanningSession.ads
- */
-export type PlanningSession$adsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  /**
-   * Select specific fields to fetch from the Ads
-   */
-  select?: Prisma.AdsSelect<ExtArgs> | null
-  /**
-   * Omit specific fields from the Ads
-   */
-  omit?: Prisma.AdsOmit<ExtArgs> | null
-  /**
-   * Choose, which related nodes to fetch as well
-   */
-  include?: Prisma.AdsInclude<ExtArgs> | null
-  where?: Prisma.AdsWhereInput
-  orderBy?: Prisma.AdsOrderByWithRelationInput | Prisma.AdsOrderByWithRelationInput[]
-  cursor?: Prisma.AdsWhereUniqueInput
-  take?: number
-  skip?: number
-  distinct?: Prisma.AdsScalarFieldEnum | Prisma.AdsScalarFieldEnum[]
 }
 
 /**

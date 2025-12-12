@@ -95,3 +95,8 @@ export type RenderedVideo = Prisma.RenderedVideoModel
  * 
  */
 export type Ads = Prisma.AdsModel
+/**
+ * Model GoogleAdsCredential
+ * 
+ */
+export type GoogleAdsCredential = Prisma.GoogleAdsCredentialModel

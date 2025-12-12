@@ -394,7 +394,8 @@ export const ModelName = {
   PlanningPlan: 'PlanningPlan',
   PlanningVariants: 'PlanningVariants',
   RenderedVideo: 'RenderedVideo',
-  Ads: 'Ads'
+  Ads: 'Ads',
+  GoogleAdsCredential: 'GoogleAdsCredential'
 } as const
 
 export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -410,7 +411,7 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
     omit: GlobalOmitOptions
   }
   meta: {
-    modelProps: "user" | "v2_format" | "requestlist" | "project" | "transaction" | "planningSession" | "creativeBrief" | "planningPlan" | "planningVariants" | "renderedVideo" | "ads"
+    modelProps: "user" | "v2_format" | "requestlist" | "project" | "transaction" | "planningSession" | "creativeBrief" | "planningPlan" | "planningVariants" | "renderedVideo" | "ads" | "googleAdsCredential"
     txIsolationLevel: TransactionIsolationLevel
   }
   model: {
@@ -1228,6 +1229,80 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
         }
       }
     }
+    GoogleAdsCredential: {
+      payload: Prisma.$GoogleAdsCredentialPayload<ExtArgs>
+      fields: Prisma.GoogleAdsCredentialFieldRefs
+      operations: {
+        findUnique: {
+          args: Prisma.GoogleAdsCredentialFindUniqueArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$GoogleAdsCredentialPayload> | null
+        }
+        findUniqueOrThrow: {
+          args: Prisma.GoogleAdsCredentialFindUniqueOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$GoogleAdsCredentialPayload>
+        }
+        findFirst: {
+          args: Prisma.GoogleAdsCredentialFindFirstArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$GoogleAdsCredentialPayload> | null
+        }
+        findFirstOrThrow: {
+          args: Prisma.GoogleAdsCredentialFindFirstOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$GoogleAdsCredentialPayload>
+        }
+        findMany: {
+          args: Prisma.GoogleAdsCredentialFindManyArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$GoogleAdsCredentialPayload>[]
+        }
+        create: {
+          args: Prisma.GoogleAdsCredentialCreateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$GoogleAdsCredentialPayload>
+        }
+        createMany: {
+          args: Prisma.GoogleAdsCredentialCreateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        createManyAndReturn: {
+          args: Prisma.GoogleAdsCredentialCreateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$GoogleAdsCredentialPayload>[]
+        }
+        delete: {
+          args: Prisma.GoogleAdsCredentialDeleteArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$GoogleAdsCredentialPayload>
+        }
+        update: {
+          args: Prisma.GoogleAdsCredentialUpdateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$GoogleAdsCredentialPayload>
+        }
+        deleteMany: {
+          args: Prisma.GoogleAdsCredentialDeleteManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateMany: {
+          args: Prisma.GoogleAdsCredentialUpdateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateManyAndReturn: {
+          args: Prisma.GoogleAdsCredentialUpdateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$GoogleAdsCredentialPayload>[]
+        }
+        upsert: {
+          args: Prisma.GoogleAdsCredentialUpsertArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$GoogleAdsCredentialPayload>
+        }
+        aggregate: {
+          args: Prisma.GoogleAdsCredentialAggregateArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AggregateGoogleAdsCredential>
+        }
+        groupBy: {
+          args: Prisma.GoogleAdsCredentialGroupByArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.GoogleAdsCredentialGroupByOutputType>[]
+        }
+        count: {
+          args: Prisma.GoogleAdsCredentialCountArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.GoogleAdsCredentialCountAggregateOutputType> | number
+        }
+      }
+    }
   }
 } & {
   other: {
@@ -1366,9 +1441,9 @@ export const PlanningSessionScalarFieldEnum = {
   lastPage: 'lastPage',
   lastStep: 'lastStep',
   product: 'product',
-  keyword: 'keyword',
+  userId: 'userId',
   competitors: 'competitors',
-  userId: 'userId'
+  keyword: 'keyword'
 } as const
 
 export type PlanningSessionScalarFieldEnum = (typeof PlanningSessionScalarFieldEnum)[keyof typeof PlanningSessionScalarFieldEnum]
@@ -1394,9 +1469,9 @@ export const PlanningPlanScalarFieldEnum = {
   platform: 'platform',
   target_impressions_per_video: 'target_impressions_per_video',
   typical_cpm: 'typical_cpm',
+  planningSessionId: 'planningSessionId',
   budget: 'budget',
-  template_id: 'template_id',
-  planningSessionId: 'planningSessionId'
+  template_id: 'template_id'
 } as const
 
 export type PlanningPlanScalarFieldEnum = (typeof PlanningPlanScalarFieldEnum)[keyof typeof PlanningPlanScalarFieldEnum]
@@ -1419,12 +1494,12 @@ export const RenderedVideoScalarFieldEnum = {
   id: 'id',
   videoUrl: 'videoUrl',
   createdAt: 'createdAt',
-  hook: 'hook',
+  planningSessionId: 'planningSessionId',
   bodyAMessage: 'bodyAMessage',
   bodyBMessage: 'bodyBMessage',
   bodyCMessage: 'bodyCMessage',
   cta: 'cta',
-  planningSessionId: 'planningSessionId'
+  hook: 'hook'
 } as const
 
 export type RenderedVideoScalarFieldEnum = (typeof RenderedVideoScalarFieldEnum)[keyof typeof RenderedVideoScalarFieldEnum]
@@ -1439,6 +1514,18 @@ export const AdsScalarFieldEnum = {
 } as const
 
 export type AdsScalarFieldEnum = (typeof AdsScalarFieldEnum)[keyof typeof AdsScalarFieldEnum]
+
+
+export const GoogleAdsCredentialScalarFieldEnum = {
+  id: 'id',
+  userId: 'userId',
+  refreshToken: 'refreshToken',
+  customerIds: 'customerIds',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type GoogleAdsCredentialScalarFieldEnum = (typeof GoogleAdsCredentialScalarFieldEnum)[keyof typeof GoogleAdsCredentialScalarFieldEnum]
 
 
 export const SortOrder = {
@@ -1682,6 +1769,7 @@ export type GlobalOmitConfig = {
   planningVariants?: Prisma.PlanningVariantsOmit
   renderedVideo?: Prisma.RenderedVideoOmit
   ads?: Prisma.AdsOmit
+  googleAdsCredential?: Prisma.GoogleAdsCredentialOmit
 }
 
 /* Types for Logging */

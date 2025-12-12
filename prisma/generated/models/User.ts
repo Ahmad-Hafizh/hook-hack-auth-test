@@ -27,17 +27,15 @@ export type AggregateUser = {
 }
 
 export type UserAvgAggregateOutputType = {
-  id: number | null
   credit: number | null
 }
 
 export type UserSumAggregateOutputType = {
-  id: bigint | null
   credit: number | null
 }
 
 export type UserMinAggregateOutputType = {
-  id: bigint | null
+  id: string | null
   userId: string | null
   email: string | null
   phoneNumber: string | null
@@ -50,7 +48,7 @@ export type UserMinAggregateOutputType = {
 }
 
 export type UserMaxAggregateOutputType = {
-  id: bigint | null
+  id: string | null
   userId: string | null
   email: string | null
   phoneNumber: string | null
@@ -78,12 +76,10 @@ export type UserCountAggregateOutputType = {
 
 
 export type UserAvgAggregateInputType = {
-  id?: true
   credit?: true
 }
 
 export type UserSumAggregateInputType = {
-  id?: true
   credit?: true
 }
 
@@ -214,7 +210,7 @@ export type UserGroupByArgs<ExtArgs extends runtime.Types.Extensions.InternalArg
 }
 
 export type UserGroupByOutputType = {
-  id: bigint
+  id: string
   userId: string
   email: string | null
   phoneNumber: string | null
@@ -250,7 +246,7 @@ export type UserWhereInput = {
   AND?: Prisma.UserWhereInput | Prisma.UserWhereInput[]
   OR?: Prisma.UserWhereInput[]
   NOT?: Prisma.UserWhereInput | Prisma.UserWhereInput[]
-  id?: Prisma.BigIntFilter<"User"> | bigint | number
+  id?: Prisma.StringFilter<"User"> | string
   userId?: Prisma.StringFilter<"User"> | string
   email?: Prisma.StringNullableFilter<"User"> | string | null
   phoneNumber?: Prisma.StringNullableFilter<"User"> | string | null
@@ -282,7 +278,7 @@ export type UserOrderByWithRelationInput = {
 }
 
 export type UserWhereUniqueInput = Prisma.AtLeast<{
-  id?: bigint | number
+  id?: string
   userId?: string
   email?: string
   AND?: Prisma.UserWhereInput | Prisma.UserWhereInput[]
@@ -322,7 +318,7 @@ export type UserScalarWhereWithAggregatesInput = {
   AND?: Prisma.UserScalarWhereWithAggregatesInput | Prisma.UserScalarWhereWithAggregatesInput[]
   OR?: Prisma.UserScalarWhereWithAggregatesInput[]
   NOT?: Prisma.UserScalarWhereWithAggregatesInput | Prisma.UserScalarWhereWithAggregatesInput[]
-  id?: Prisma.BigIntWithAggregatesFilter<"User"> | bigint | number
+  id?: Prisma.StringWithAggregatesFilter<"User"> | string
   userId?: Prisma.StringWithAggregatesFilter<"User"> | string
   email?: Prisma.StringNullableWithAggregatesFilter<"User"> | string | null
   phoneNumber?: Prisma.StringNullableWithAggregatesFilter<"User"> | string | null
@@ -335,7 +331,7 @@ export type UserScalarWhereWithAggregatesInput = {
 }
 
 export type UserCreateInput = {
-  id?: bigint | number
+  id?: string
   userId: string
   email?: string | null
   phoneNumber?: string | null
@@ -351,7 +347,7 @@ export type UserCreateInput = {
 }
 
 export type UserUncheckedCreateInput = {
-  id?: bigint | number
+  id?: string
   userId: string
   email?: string | null
   phoneNumber?: string | null
@@ -367,7 +363,7 @@ export type UserUncheckedCreateInput = {
 }
 
 export type UserUpdateInput = {
-  id?: Prisma.BigIntFieldUpdateOperationsInput | bigint | number
+  id?: Prisma.StringFieldUpdateOperationsInput | string
   userId?: Prisma.StringFieldUpdateOperationsInput | string
   email?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   phoneNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -383,7 +379,7 @@ export type UserUpdateInput = {
 }
 
 export type UserUncheckedUpdateInput = {
-  id?: Prisma.BigIntFieldUpdateOperationsInput | bigint | number
+  id?: Prisma.StringFieldUpdateOperationsInput | string
   userId?: Prisma.StringFieldUpdateOperationsInput | string
   email?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   phoneNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -399,7 +395,7 @@ export type UserUncheckedUpdateInput = {
 }
 
 export type UserCreateManyInput = {
-  id?: bigint | number
+  id?: string
   userId: string
   email?: string | null
   phoneNumber?: string | null
@@ -412,7 +408,7 @@ export type UserCreateManyInput = {
 }
 
 export type UserUpdateManyMutationInput = {
-  id?: Prisma.BigIntFieldUpdateOperationsInput | bigint | number
+  id?: Prisma.StringFieldUpdateOperationsInput | string
   userId?: Prisma.StringFieldUpdateOperationsInput | string
   email?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   phoneNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -425,7 +421,7 @@ export type UserUpdateManyMutationInput = {
 }
 
 export type UserUncheckedUpdateManyInput = {
-  id?: Prisma.BigIntFieldUpdateOperationsInput | bigint | number
+  id?: Prisma.StringFieldUpdateOperationsInput | string
   userId?: Prisma.StringFieldUpdateOperationsInput | string
   email?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   phoneNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -451,7 +447,6 @@ export type UserCountOrderByAggregateInput = {
 }
 
 export type UserAvgOrderByAggregateInput = {
-  id?: Prisma.SortOrder
   credit?: Prisma.SortOrder
 }
 
@@ -482,21 +477,12 @@ export type UserMinOrderByAggregateInput = {
 }
 
 export type UserSumOrderByAggregateInput = {
-  id?: Prisma.SortOrder
   credit?: Prisma.SortOrder
 }
 
 export type UserScalarRelationFilter = {
   is?: Prisma.UserWhereInput
   isNot?: Prisma.UserWhereInput
-}
-
-export type BigIntFieldUpdateOperationsInput = {
-  set?: bigint | number
-  increment?: bigint | number
-  decrement?: bigint | number
-  multiply?: bigint | number
-  divide?: bigint | number
 }
 
 export type StringFieldUpdateOperationsInput = {
@@ -562,7 +548,7 @@ export type UserUpdateOneRequiredWithoutPlanningSessionsNestedInput = {
 }
 
 export type UserCreateWithoutProjectInput = {
-  id?: bigint | number
+  id?: string
   userId: string
   email?: string | null
   phoneNumber?: string | null
@@ -577,7 +563,7 @@ export type UserCreateWithoutProjectInput = {
 }
 
 export type UserUncheckedCreateWithoutProjectInput = {
-  id?: bigint | number
+  id?: string
   userId: string
   email?: string | null
   phoneNumber?: string | null
@@ -608,7 +594,7 @@ export type UserUpdateToOneWithWhereWithoutProjectInput = {
 }
 
 export type UserUpdateWithoutProjectInput = {
-  id?: Prisma.BigIntFieldUpdateOperationsInput | bigint | number
+  id?: Prisma.StringFieldUpdateOperationsInput | string
   userId?: Prisma.StringFieldUpdateOperationsInput | string
   email?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   phoneNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -623,7 +609,7 @@ export type UserUpdateWithoutProjectInput = {
 }
 
 export type UserUncheckedUpdateWithoutProjectInput = {
-  id?: Prisma.BigIntFieldUpdateOperationsInput | bigint | number
+  id?: Prisma.StringFieldUpdateOperationsInput | string
   userId?: Prisma.StringFieldUpdateOperationsInput | string
   email?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   phoneNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -638,7 +624,7 @@ export type UserUncheckedUpdateWithoutProjectInput = {
 }
 
 export type UserCreateWithoutTransactionInput = {
-  id?: bigint | number
+  id?: string
   userId: string
   email?: string | null
   phoneNumber?: string | null
@@ -653,7 +639,7 @@ export type UserCreateWithoutTransactionInput = {
 }
 
 export type UserUncheckedCreateWithoutTransactionInput = {
-  id?: bigint | number
+  id?: string
   userId: string
   email?: string | null
   phoneNumber?: string | null
@@ -684,7 +670,7 @@ export type UserUpdateToOneWithWhereWithoutTransactionInput = {
 }
 
 export type UserUpdateWithoutTransactionInput = {
-  id?: Prisma.BigIntFieldUpdateOperationsInput | bigint | number
+  id?: Prisma.StringFieldUpdateOperationsInput | string
   userId?: Prisma.StringFieldUpdateOperationsInput | string
   email?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   phoneNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -699,7 +685,7 @@ export type UserUpdateWithoutTransactionInput = {
 }
 
 export type UserUncheckedUpdateWithoutTransactionInput = {
-  id?: Prisma.BigIntFieldUpdateOperationsInput | bigint | number
+  id?: Prisma.StringFieldUpdateOperationsInput | string
   userId?: Prisma.StringFieldUpdateOperationsInput | string
   email?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   phoneNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -714,7 +700,7 @@ export type UserUncheckedUpdateWithoutTransactionInput = {
 }
 
 export type UserCreateWithoutPlanningSessionsInput = {
-  id?: bigint | number
+  id?: string
   userId: string
   email?: string | null
   phoneNumber?: string | null
@@ -729,7 +715,7 @@ export type UserCreateWithoutPlanningSessionsInput = {
 }
 
 export type UserUncheckedCreateWithoutPlanningSessionsInput = {
-  id?: bigint | number
+  id?: string
   userId: string
   email?: string | null
   phoneNumber?: string | null
@@ -760,7 +746,7 @@ export type UserUpdateToOneWithWhereWithoutPlanningSessionsInput = {
 }
 
 export type UserUpdateWithoutPlanningSessionsInput = {
-  id?: Prisma.BigIntFieldUpdateOperationsInput | bigint | number
+  id?: Prisma.StringFieldUpdateOperationsInput | string
   userId?: Prisma.StringFieldUpdateOperationsInput | string
   email?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   phoneNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -775,7 +761,7 @@ export type UserUpdateWithoutPlanningSessionsInput = {
 }
 
 export type UserUncheckedUpdateWithoutPlanningSessionsInput = {
-  id?: Prisma.BigIntFieldUpdateOperationsInput | bigint | number
+  id?: Prisma.StringFieldUpdateOperationsInput | string
   userId?: Prisma.StringFieldUpdateOperationsInput | string
   email?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   phoneNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -912,7 +898,7 @@ export type $UserPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs =
     planningSessions: Prisma.$PlanningSessionPayload<ExtArgs>[]
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
-    id: bigint
+    id: string
     userId: string
     email: string | null
     phoneNumber: string | null
@@ -1348,7 +1334,7 @@ export interface Prisma__UserClient<T, Null = never, ExtArgs extends runtime.Typ
  * Fields of the User model
  */
 export interface UserFieldRefs {
-  readonly id: Prisma.FieldRef<"User", 'BigInt'>
+  readonly id: Prisma.FieldRef<"User", 'String'>
   readonly userId: Prisma.FieldRef<"User", 'String'>
   readonly email: Prisma.FieldRef<"User", 'String'>
   readonly phoneNumber: Prisma.FieldRef<"User", 'String'>

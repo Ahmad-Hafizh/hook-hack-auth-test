@@ -27,27 +27,27 @@ export type AggregatePlanningPlan = {
 }
 
 export type PlanningPlanAvgAggregateOutputType = {
-  id: number | null
   estimated_cost_per_video: number | null
   recommended_min_spend_per_video: number | null
   test_term_weeks: number | null
   videos_per_month: number | null
   target_impressions_per_video: number | null
   typical_cpm: number | null
+  budget: number | null
 }
 
 export type PlanningPlanSumAggregateOutputType = {
-  id: bigint | null
   estimated_cost_per_video: number | null
   recommended_min_spend_per_video: number | null
   test_term_weeks: number | null
   videos_per_month: number | null
   target_impressions_per_video: number | null
   typical_cpm: number | null
+  budget: number | null
 }
 
 export type PlanningPlanMinAggregateOutputType = {
-  id: bigint | null
+  id: string | null
   currency: string | null
   estimated_cost_per_video: number | null
   recommended_min_spend_per_video: number | null
@@ -56,11 +56,13 @@ export type PlanningPlanMinAggregateOutputType = {
   platform: string | null
   target_impressions_per_video: number | null
   typical_cpm: number | null
+  budget: number | null
+  template_id: string | null
   planningSessionId: string | null
 }
 
 export type PlanningPlanMaxAggregateOutputType = {
-  id: bigint | null
+  id: string | null
   currency: string | null
   estimated_cost_per_video: number | null
   recommended_min_spend_per_video: number | null
@@ -69,6 +71,8 @@ export type PlanningPlanMaxAggregateOutputType = {
   platform: string | null
   target_impressions_per_video: number | null
   typical_cpm: number | null
+  budget: number | null
+  template_id: string | null
   planningSessionId: string | null
 }
 
@@ -82,29 +86,31 @@ export type PlanningPlanCountAggregateOutputType = {
   platform: number
   target_impressions_per_video: number
   typical_cpm: number
+  budget: number
+  template_id: number
   planningSessionId: number
   _all: number
 }
 
 
 export type PlanningPlanAvgAggregateInputType = {
-  id?: true
   estimated_cost_per_video?: true
   recommended_min_spend_per_video?: true
   test_term_weeks?: true
   videos_per_month?: true
   target_impressions_per_video?: true
   typical_cpm?: true
+  budget?: true
 }
 
 export type PlanningPlanSumAggregateInputType = {
-  id?: true
   estimated_cost_per_video?: true
   recommended_min_spend_per_video?: true
   test_term_weeks?: true
   videos_per_month?: true
   target_impressions_per_video?: true
   typical_cpm?: true
+  budget?: true
 }
 
 export type PlanningPlanMinAggregateInputType = {
@@ -117,6 +123,8 @@ export type PlanningPlanMinAggregateInputType = {
   platform?: true
   target_impressions_per_video?: true
   typical_cpm?: true
+  budget?: true
+  template_id?: true
   planningSessionId?: true
 }
 
@@ -130,6 +138,8 @@ export type PlanningPlanMaxAggregateInputType = {
   platform?: true
   target_impressions_per_video?: true
   typical_cpm?: true
+  budget?: true
+  template_id?: true
   planningSessionId?: true
 }
 
@@ -143,6 +153,8 @@ export type PlanningPlanCountAggregateInputType = {
   platform?: true
   target_impressions_per_video?: true
   typical_cpm?: true
+  budget?: true
+  template_id?: true
   planningSessionId?: true
   _all?: true
 }
@@ -234,7 +246,7 @@ export type PlanningPlanGroupByArgs<ExtArgs extends runtime.Types.Extensions.Int
 }
 
 export type PlanningPlanGroupByOutputType = {
-  id: bigint
+  id: string
   currency: string | null
   estimated_cost_per_video: number | null
   recommended_min_spend_per_video: number | null
@@ -243,6 +255,8 @@ export type PlanningPlanGroupByOutputType = {
   platform: string | null
   target_impressions_per_video: number | null
   typical_cpm: number | null
+  budget: number | null
+  template_id: string | null
   planningSessionId: string
   _count: PlanningPlanCountAggregateOutputType | null
   _avg: PlanningPlanAvgAggregateOutputType | null
@@ -270,7 +284,7 @@ export type PlanningPlanWhereInput = {
   AND?: Prisma.PlanningPlanWhereInput | Prisma.PlanningPlanWhereInput[]
   OR?: Prisma.PlanningPlanWhereInput[]
   NOT?: Prisma.PlanningPlanWhereInput | Prisma.PlanningPlanWhereInput[]
-  id?: Prisma.BigIntFilter<"PlanningPlan"> | bigint | number
+  id?: Prisma.StringFilter<"PlanningPlan"> | string
   currency?: Prisma.StringNullableFilter<"PlanningPlan"> | string | null
   estimated_cost_per_video?: Prisma.IntNullableFilter<"PlanningPlan"> | number | null
   recommended_min_spend_per_video?: Prisma.IntNullableFilter<"PlanningPlan"> | number | null
@@ -279,6 +293,8 @@ export type PlanningPlanWhereInput = {
   platform?: Prisma.StringNullableFilter<"PlanningPlan"> | string | null
   target_impressions_per_video?: Prisma.IntNullableFilter<"PlanningPlan"> | number | null
   typical_cpm?: Prisma.IntNullableFilter<"PlanningPlan"> | number | null
+  budget?: Prisma.IntNullableFilter<"PlanningPlan"> | number | null
+  template_id?: Prisma.StringNullableFilter<"PlanningPlan"> | string | null
   planningSessionId?: Prisma.StringFilter<"PlanningPlan"> | string
   PlanningSession?: Prisma.XOR<Prisma.PlanningSessionScalarRelationFilter, Prisma.PlanningSessionWhereInput>
 }
@@ -293,12 +309,14 @@ export type PlanningPlanOrderByWithRelationInput = {
   platform?: Prisma.SortOrderInput | Prisma.SortOrder
   target_impressions_per_video?: Prisma.SortOrderInput | Prisma.SortOrder
   typical_cpm?: Prisma.SortOrderInput | Prisma.SortOrder
+  budget?: Prisma.SortOrderInput | Prisma.SortOrder
+  template_id?: Prisma.SortOrderInput | Prisma.SortOrder
   planningSessionId?: Prisma.SortOrder
   PlanningSession?: Prisma.PlanningSessionOrderByWithRelationInput
 }
 
 export type PlanningPlanWhereUniqueInput = Prisma.AtLeast<{
-  id?: bigint | number
+  id?: string
   planningSessionId?: string
   AND?: Prisma.PlanningPlanWhereInput | Prisma.PlanningPlanWhereInput[]
   OR?: Prisma.PlanningPlanWhereInput[]
@@ -311,6 +329,8 @@ export type PlanningPlanWhereUniqueInput = Prisma.AtLeast<{
   platform?: Prisma.StringNullableFilter<"PlanningPlan"> | string | null
   target_impressions_per_video?: Prisma.IntNullableFilter<"PlanningPlan"> | number | null
   typical_cpm?: Prisma.IntNullableFilter<"PlanningPlan"> | number | null
+  budget?: Prisma.IntNullableFilter<"PlanningPlan"> | number | null
+  template_id?: Prisma.StringNullableFilter<"PlanningPlan"> | string | null
   PlanningSession?: Prisma.XOR<Prisma.PlanningSessionScalarRelationFilter, Prisma.PlanningSessionWhereInput>
 }, "id" | "planningSessionId">
 
@@ -324,6 +344,8 @@ export type PlanningPlanOrderByWithAggregationInput = {
   platform?: Prisma.SortOrderInput | Prisma.SortOrder
   target_impressions_per_video?: Prisma.SortOrderInput | Prisma.SortOrder
   typical_cpm?: Prisma.SortOrderInput | Prisma.SortOrder
+  budget?: Prisma.SortOrderInput | Prisma.SortOrder
+  template_id?: Prisma.SortOrderInput | Prisma.SortOrder
   planningSessionId?: Prisma.SortOrder
   _count?: Prisma.PlanningPlanCountOrderByAggregateInput
   _avg?: Prisma.PlanningPlanAvgOrderByAggregateInput
@@ -336,7 +358,7 @@ export type PlanningPlanScalarWhereWithAggregatesInput = {
   AND?: Prisma.PlanningPlanScalarWhereWithAggregatesInput | Prisma.PlanningPlanScalarWhereWithAggregatesInput[]
   OR?: Prisma.PlanningPlanScalarWhereWithAggregatesInput[]
   NOT?: Prisma.PlanningPlanScalarWhereWithAggregatesInput | Prisma.PlanningPlanScalarWhereWithAggregatesInput[]
-  id?: Prisma.BigIntWithAggregatesFilter<"PlanningPlan"> | bigint | number
+  id?: Prisma.StringWithAggregatesFilter<"PlanningPlan"> | string
   currency?: Prisma.StringNullableWithAggregatesFilter<"PlanningPlan"> | string | null
   estimated_cost_per_video?: Prisma.IntNullableWithAggregatesFilter<"PlanningPlan"> | number | null
   recommended_min_spend_per_video?: Prisma.IntNullableWithAggregatesFilter<"PlanningPlan"> | number | null
@@ -345,11 +367,13 @@ export type PlanningPlanScalarWhereWithAggregatesInput = {
   platform?: Prisma.StringNullableWithAggregatesFilter<"PlanningPlan"> | string | null
   target_impressions_per_video?: Prisma.IntNullableWithAggregatesFilter<"PlanningPlan"> | number | null
   typical_cpm?: Prisma.IntNullableWithAggregatesFilter<"PlanningPlan"> | number | null
+  budget?: Prisma.IntNullableWithAggregatesFilter<"PlanningPlan"> | number | null
+  template_id?: Prisma.StringNullableWithAggregatesFilter<"PlanningPlan"> | string | null
   planningSessionId?: Prisma.StringWithAggregatesFilter<"PlanningPlan"> | string
 }
 
 export type PlanningPlanCreateInput = {
-  id?: bigint | number
+  id?: string
   currency?: string | null
   estimated_cost_per_video?: number | null
   recommended_min_spend_per_video?: number | null
@@ -358,11 +382,13 @@ export type PlanningPlanCreateInput = {
   platform?: string | null
   target_impressions_per_video?: number | null
   typical_cpm?: number | null
+  budget?: number | null
+  template_id?: string | null
   PlanningSession: Prisma.PlanningSessionCreateNestedOneWithoutPlanningPlansInput
 }
 
 export type PlanningPlanUncheckedCreateInput = {
-  id?: bigint | number
+  id?: string
   currency?: string | null
   estimated_cost_per_video?: number | null
   recommended_min_spend_per_video?: number | null
@@ -371,11 +397,13 @@ export type PlanningPlanUncheckedCreateInput = {
   platform?: string | null
   target_impressions_per_video?: number | null
   typical_cpm?: number | null
+  budget?: number | null
+  template_id?: string | null
   planningSessionId: string
 }
 
 export type PlanningPlanUpdateInput = {
-  id?: Prisma.BigIntFieldUpdateOperationsInput | bigint | number
+  id?: Prisma.StringFieldUpdateOperationsInput | string
   currency?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   estimated_cost_per_video?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   recommended_min_spend_per_video?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
@@ -384,11 +412,13 @@ export type PlanningPlanUpdateInput = {
   platform?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   target_impressions_per_video?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   typical_cpm?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  budget?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  template_id?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   PlanningSession?: Prisma.PlanningSessionUpdateOneRequiredWithoutPlanningPlansNestedInput
 }
 
 export type PlanningPlanUncheckedUpdateInput = {
-  id?: Prisma.BigIntFieldUpdateOperationsInput | bigint | number
+  id?: Prisma.StringFieldUpdateOperationsInput | string
   currency?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   estimated_cost_per_video?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   recommended_min_spend_per_video?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
@@ -397,11 +427,13 @@ export type PlanningPlanUncheckedUpdateInput = {
   platform?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   target_impressions_per_video?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   typical_cpm?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  budget?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  template_id?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   planningSessionId?: Prisma.StringFieldUpdateOperationsInput | string
 }
 
 export type PlanningPlanCreateManyInput = {
-  id?: bigint | number
+  id?: string
   currency?: string | null
   estimated_cost_per_video?: number | null
   recommended_min_spend_per_video?: number | null
@@ -410,11 +442,13 @@ export type PlanningPlanCreateManyInput = {
   platform?: string | null
   target_impressions_per_video?: number | null
   typical_cpm?: number | null
+  budget?: number | null
+  template_id?: string | null
   planningSessionId: string
 }
 
 export type PlanningPlanUpdateManyMutationInput = {
-  id?: Prisma.BigIntFieldUpdateOperationsInput | bigint | number
+  id?: Prisma.StringFieldUpdateOperationsInput | string
   currency?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   estimated_cost_per_video?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   recommended_min_spend_per_video?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
@@ -423,10 +457,12 @@ export type PlanningPlanUpdateManyMutationInput = {
   platform?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   target_impressions_per_video?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   typical_cpm?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  budget?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  template_id?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
 }
 
 export type PlanningPlanUncheckedUpdateManyInput = {
-  id?: Prisma.BigIntFieldUpdateOperationsInput | bigint | number
+  id?: Prisma.StringFieldUpdateOperationsInput | string
   currency?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   estimated_cost_per_video?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   recommended_min_spend_per_video?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
@@ -435,6 +471,8 @@ export type PlanningPlanUncheckedUpdateManyInput = {
   platform?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   target_impressions_per_video?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   typical_cpm?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  budget?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  template_id?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   planningSessionId?: Prisma.StringFieldUpdateOperationsInput | string
 }
 
@@ -453,17 +491,19 @@ export type PlanningPlanCountOrderByAggregateInput = {
   platform?: Prisma.SortOrder
   target_impressions_per_video?: Prisma.SortOrder
   typical_cpm?: Prisma.SortOrder
+  budget?: Prisma.SortOrder
+  template_id?: Prisma.SortOrder
   planningSessionId?: Prisma.SortOrder
 }
 
 export type PlanningPlanAvgOrderByAggregateInput = {
-  id?: Prisma.SortOrder
   estimated_cost_per_video?: Prisma.SortOrder
   recommended_min_spend_per_video?: Prisma.SortOrder
   test_term_weeks?: Prisma.SortOrder
   videos_per_month?: Prisma.SortOrder
   target_impressions_per_video?: Prisma.SortOrder
   typical_cpm?: Prisma.SortOrder
+  budget?: Prisma.SortOrder
 }
 
 export type PlanningPlanMaxOrderByAggregateInput = {
@@ -476,6 +516,8 @@ export type PlanningPlanMaxOrderByAggregateInput = {
   platform?: Prisma.SortOrder
   target_impressions_per_video?: Prisma.SortOrder
   typical_cpm?: Prisma.SortOrder
+  budget?: Prisma.SortOrder
+  template_id?: Prisma.SortOrder
   planningSessionId?: Prisma.SortOrder
 }
 
@@ -489,17 +531,19 @@ export type PlanningPlanMinOrderByAggregateInput = {
   platform?: Prisma.SortOrder
   target_impressions_per_video?: Prisma.SortOrder
   typical_cpm?: Prisma.SortOrder
+  budget?: Prisma.SortOrder
+  template_id?: Prisma.SortOrder
   planningSessionId?: Prisma.SortOrder
 }
 
 export type PlanningPlanSumOrderByAggregateInput = {
-  id?: Prisma.SortOrder
   estimated_cost_per_video?: Prisma.SortOrder
   recommended_min_spend_per_video?: Prisma.SortOrder
   test_term_weeks?: Prisma.SortOrder
   videos_per_month?: Prisma.SortOrder
   target_impressions_per_video?: Prisma.SortOrder
   typical_cpm?: Prisma.SortOrder
+  budget?: Prisma.SortOrder
 }
 
 export type PlanningPlanCreateNestedOneWithoutPlanningSessionInput = {
@@ -535,7 +579,7 @@ export type PlanningPlanUncheckedUpdateOneWithoutPlanningSessionNestedInput = {
 }
 
 export type PlanningPlanCreateWithoutPlanningSessionInput = {
-  id?: bigint | number
+  id?: string
   currency?: string | null
   estimated_cost_per_video?: number | null
   recommended_min_spend_per_video?: number | null
@@ -544,10 +588,12 @@ export type PlanningPlanCreateWithoutPlanningSessionInput = {
   platform?: string | null
   target_impressions_per_video?: number | null
   typical_cpm?: number | null
+  budget?: number | null
+  template_id?: string | null
 }
 
 export type PlanningPlanUncheckedCreateWithoutPlanningSessionInput = {
-  id?: bigint | number
+  id?: string
   currency?: string | null
   estimated_cost_per_video?: number | null
   recommended_min_spend_per_video?: number | null
@@ -556,6 +602,8 @@ export type PlanningPlanUncheckedCreateWithoutPlanningSessionInput = {
   platform?: string | null
   target_impressions_per_video?: number | null
   typical_cpm?: number | null
+  budget?: number | null
+  template_id?: string | null
 }
 
 export type PlanningPlanCreateOrConnectWithoutPlanningSessionInput = {
@@ -575,7 +623,7 @@ export type PlanningPlanUpdateToOneWithWhereWithoutPlanningSessionInput = {
 }
 
 export type PlanningPlanUpdateWithoutPlanningSessionInput = {
-  id?: Prisma.BigIntFieldUpdateOperationsInput | bigint | number
+  id?: Prisma.StringFieldUpdateOperationsInput | string
   currency?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   estimated_cost_per_video?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   recommended_min_spend_per_video?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
@@ -584,10 +632,12 @@ export type PlanningPlanUpdateWithoutPlanningSessionInput = {
   platform?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   target_impressions_per_video?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   typical_cpm?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  budget?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  template_id?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
 }
 
 export type PlanningPlanUncheckedUpdateWithoutPlanningSessionInput = {
-  id?: Prisma.BigIntFieldUpdateOperationsInput | bigint | number
+  id?: Prisma.StringFieldUpdateOperationsInput | string
   currency?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   estimated_cost_per_video?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   recommended_min_spend_per_video?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
@@ -596,6 +646,8 @@ export type PlanningPlanUncheckedUpdateWithoutPlanningSessionInput = {
   platform?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   target_impressions_per_video?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   typical_cpm?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  budget?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  template_id?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
 }
 
 
@@ -610,6 +662,8 @@ export type PlanningPlanSelect<ExtArgs extends runtime.Types.Extensions.Internal
   platform?: boolean
   target_impressions_per_video?: boolean
   typical_cpm?: boolean
+  budget?: boolean
+  template_id?: boolean
   planningSessionId?: boolean
   PlanningSession?: boolean | Prisma.PlanningSessionDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["planningPlan"]>
@@ -624,6 +678,8 @@ export type PlanningPlanSelectCreateManyAndReturn<ExtArgs extends runtime.Types.
   platform?: boolean
   target_impressions_per_video?: boolean
   typical_cpm?: boolean
+  budget?: boolean
+  template_id?: boolean
   planningSessionId?: boolean
   PlanningSession?: boolean | Prisma.PlanningSessionDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["planningPlan"]>
@@ -638,6 +694,8 @@ export type PlanningPlanSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.
   platform?: boolean
   target_impressions_per_video?: boolean
   typical_cpm?: boolean
+  budget?: boolean
+  template_id?: boolean
   planningSessionId?: boolean
   PlanningSession?: boolean | Prisma.PlanningSessionDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["planningPlan"]>
@@ -652,10 +710,12 @@ export type PlanningPlanSelectScalar = {
   platform?: boolean
   target_impressions_per_video?: boolean
   typical_cpm?: boolean
+  budget?: boolean
+  template_id?: boolean
   planningSessionId?: boolean
 }
 
-export type PlanningPlanOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "currency" | "estimated_cost_per_video" | "recommended_min_spend_per_video" | "test_term_weeks" | "videos_per_month" | "platform" | "target_impressions_per_video" | "typical_cpm" | "planningSessionId", ExtArgs["result"]["planningPlan"]>
+export type PlanningPlanOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "currency" | "estimated_cost_per_video" | "recommended_min_spend_per_video" | "test_term_weeks" | "videos_per_month" | "platform" | "target_impressions_per_video" | "typical_cpm" | "budget" | "template_id" | "planningSessionId", ExtArgs["result"]["planningPlan"]>
 export type PlanningPlanInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   PlanningSession?: boolean | Prisma.PlanningSessionDefaultArgs<ExtArgs>
 }
@@ -672,7 +732,7 @@ export type $PlanningPlanPayload<ExtArgs extends runtime.Types.Extensions.Intern
     PlanningSession: Prisma.$PlanningSessionPayload<ExtArgs>
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
-    id: bigint
+    id: string
     currency: string | null
     estimated_cost_per_video: number | null
     recommended_min_spend_per_video: number | null
@@ -681,6 +741,8 @@ export type $PlanningPlanPayload<ExtArgs extends runtime.Types.Extensions.Intern
     platform: string | null
     target_impressions_per_video: number | null
     typical_cpm: number | null
+    budget: number | null
+    template_id: string | null
     planningSessionId: string
   }, ExtArgs["result"]["planningPlan"]>
   composites: {}
@@ -1106,7 +1168,7 @@ export interface Prisma__PlanningPlanClient<T, Null = never, ExtArgs extends run
  * Fields of the PlanningPlan model
  */
 export interface PlanningPlanFieldRefs {
-  readonly id: Prisma.FieldRef<"PlanningPlan", 'BigInt'>
+  readonly id: Prisma.FieldRef<"PlanningPlan", 'String'>
   readonly currency: Prisma.FieldRef<"PlanningPlan", 'String'>
   readonly estimated_cost_per_video: Prisma.FieldRef<"PlanningPlan", 'Int'>
   readonly recommended_min_spend_per_video: Prisma.FieldRef<"PlanningPlan", 'Int'>
@@ -1115,6 +1177,8 @@ export interface PlanningPlanFieldRefs {
   readonly platform: Prisma.FieldRef<"PlanningPlan", 'String'>
   readonly target_impressions_per_video: Prisma.FieldRef<"PlanningPlan", 'Int'>
   readonly typical_cpm: Prisma.FieldRef<"PlanningPlan", 'Int'>
+  readonly budget: Prisma.FieldRef<"PlanningPlan", 'Int'>
+  readonly template_id: Prisma.FieldRef<"PlanningPlan", 'String'>
   readonly planningSessionId: Prisma.FieldRef<"PlanningPlan", 'String'>
 }
     

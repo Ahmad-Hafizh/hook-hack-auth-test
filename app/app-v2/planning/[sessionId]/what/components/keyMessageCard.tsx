@@ -40,7 +40,7 @@ const KeyMessageCard = ({
                 <p className="opacity-0">asas</p>
               )}
               <Input
-                className="w-full py-3 px-4 text-xl border border-black h-fit focus-visible:ring-0"
+                className="w-full py-3 px-4 text-xl border border-black h-fit focus-visible:ring-0 disabled:opacity-100"
                 defaultValue={key_message || undefined}
                 placeholder="Key Messages"
                 onChange={(e) => setKeyMessage && setKeyMessage(e.target.value)}
@@ -57,21 +57,21 @@ const KeyMessageCard = ({
               )}
               <div className="w-full">
                 <Input
-                  className="w-full py-3 px-4 text-lg border border-black h-fit focus-visible:ring-0 mb-2"
+                  className="w-full py-3 px-4 text-lg border border-black h-fit focus-visible:ring-0 mb-2 disabled:opacity-100"
                   defaultValue={strong_points[0] || undefined}
                   placeholder="Strong point 1"
                   onChange={(e) => setStrongPoints && setStrongPoints((prev) => [...prev.slice(0, 0), e.target.value, ...prev.slice(1)])}
                   disabled={!isEdit}
                 />
                 <Input
-                  className="w-full py-3 px-4 text-lg border border-black h-fit focus-visible:ring-0 mb-2"
+                  className="w-full py-3 px-4 text-lg border border-black h-fit focus-visible:ring-0 mb-2 disabled:opacity-100"
                   defaultValue={strong_points[1] || undefined}
                   placeholder="Strong point 2"
                   onChange={(e) => setStrongPoints && setStrongPoints((prev) => [...prev.slice(0, 1), e.target.value, ...prev.slice(2)])}
                   disabled={!isEdit}
                 />
                 <Input
-                  className="w-full py-3 px-4 text-lg border border-black h-fit focus-visible:ring-0"
+                  className="w-full py-3 px-4 text-lg border border-black h-fit focus-visible:ring-0 disabled:opacity-100"
                   defaultValue={strong_points[2] || undefined}
                   placeholder="Strong point 3"
                   onChange={(e) => setStrongPoints && setStrongPoints((prev) => [...prev.slice(0, 2), e.target.value])}

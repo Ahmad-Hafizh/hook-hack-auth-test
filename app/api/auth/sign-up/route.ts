@@ -32,8 +32,10 @@ export async function POST(request: NextRequest) {
       return NextResponse.json({ error: error.message }, { status: 400 });
     }
 
-    const userInDb = await prisma.user.create({
-      data: {
+    const userInDb = await prisma.user.upsert({
+      where: { userId: data.user?.id! },
+      update: {},
+      create: {
         email: data.user?.email!,
         firstName: name.split(' ')[0],
         lastName: name.split(' ').slice(1).join(' '),
@@ -42,11 +44,7 @@ export async function POST(request: NextRequest) {
     });
 
     // Convert BigInt values to strings for JSON serialization
-    const serializedUser = JSON.parse(
-      JSON.stringify(userInDb, (key, value) => 
-        typeof value === 'bigint' ? value.toString() : value
-      )
-    );
+    const serializedUser = JSON.parse(JSON.stringify(userInDb, (key, value) => (typeof value === 'bigint' ? value.toString() : value)));
 
     return NextResponse.json(
       {

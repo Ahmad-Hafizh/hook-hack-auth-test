@@ -20,28 +20,18 @@ export type CreativeBriefModel = runtime.Types.Result.DefaultSelection<Prisma.$C
 
 export type AggregateCreativeBrief = {
   _count: CreativeBriefCountAggregateOutputType | null
-  _avg: CreativeBriefAvgAggregateOutputType | null
-  _sum: CreativeBriefSumAggregateOutputType | null
   _min: CreativeBriefMinAggregateOutputType | null
   _max: CreativeBriefMaxAggregateOutputType | null
 }
 
-export type CreativeBriefAvgAggregateOutputType = {
-  id: number | null
-}
-
-export type CreativeBriefSumAggregateOutputType = {
-  id: bigint | null
-}
-
 export type CreativeBriefMinAggregateOutputType = {
-  id: bigint | null
+  id: string | null
   keyMessages: string | null
   planningSessionId: string | null
 }
 
 export type CreativeBriefMaxAggregateOutputType = {
-  id: bigint | null
+  id: string | null
   keyMessages: string | null
   planningSessionId: string | null
 }
@@ -54,14 +44,6 @@ export type CreativeBriefCountAggregateOutputType = {
   _all: number
 }
 
-
-export type CreativeBriefAvgAggregateInputType = {
-  id?: true
-}
-
-export type CreativeBriefSumAggregateInputType = {
-  id?: true
-}
 
 export type CreativeBriefMinAggregateInputType = {
   id?: true
@@ -121,18 +103,6 @@ export type CreativeBriefAggregateArgs<ExtArgs extends runtime.Types.Extensions.
   /**
    * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
    * 
-   * Select which fields to average
-  **/
-  _avg?: CreativeBriefAvgAggregateInputType
-  /**
-   * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
-   * 
-   * Select which fields to sum
-  **/
-  _sum?: CreativeBriefSumAggregateInputType
-  /**
-   * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
-   * 
    * Select which fields to find the minimum value
   **/
   _min?: CreativeBriefMinAggregateInputType
@@ -163,20 +133,16 @@ export type CreativeBriefGroupByArgs<ExtArgs extends runtime.Types.Extensions.In
   take?: number
   skip?: number
   _count?: CreativeBriefCountAggregateInputType | true
-  _avg?: CreativeBriefAvgAggregateInputType
-  _sum?: CreativeBriefSumAggregateInputType
   _min?: CreativeBriefMinAggregateInputType
   _max?: CreativeBriefMaxAggregateInputType
 }
 
 export type CreativeBriefGroupByOutputType = {
-  id: bigint
+  id: string
   keyMessages: string | null
   strongPoints: string[]
   planningSessionId: string
   _count: CreativeBriefCountAggregateOutputType | null
-  _avg: CreativeBriefAvgAggregateOutputType | null
-  _sum: CreativeBriefSumAggregateOutputType | null
   _min: CreativeBriefMinAggregateOutputType | null
   _max: CreativeBriefMaxAggregateOutputType | null
 }
@@ -200,7 +166,7 @@ export type CreativeBriefWhereInput = {
   AND?: Prisma.CreativeBriefWhereInput | Prisma.CreativeBriefWhereInput[]
   OR?: Prisma.CreativeBriefWhereInput[]
   NOT?: Prisma.CreativeBriefWhereInput | Prisma.CreativeBriefWhereInput[]
-  id?: Prisma.BigIntFilter<"CreativeBrief"> | bigint | number
+  id?: Prisma.StringFilter<"CreativeBrief"> | string
   keyMessages?: Prisma.StringNullableFilter<"CreativeBrief"> | string | null
   strongPoints?: Prisma.StringNullableListFilter<"CreativeBrief">
   planningSessionId?: Prisma.StringFilter<"CreativeBrief"> | string
@@ -216,7 +182,7 @@ export type CreativeBriefOrderByWithRelationInput = {
 }
 
 export type CreativeBriefWhereUniqueInput = Prisma.AtLeast<{
-  id?: bigint | number
+  id?: string
   planningSessionId?: string
   AND?: Prisma.CreativeBriefWhereInput | Prisma.CreativeBriefWhereInput[]
   OR?: Prisma.CreativeBriefWhereInput[]
@@ -232,65 +198,63 @@ export type CreativeBriefOrderByWithAggregationInput = {
   strongPoints?: Prisma.SortOrder
   planningSessionId?: Prisma.SortOrder
   _count?: Prisma.CreativeBriefCountOrderByAggregateInput
-  _avg?: Prisma.CreativeBriefAvgOrderByAggregateInput
   _max?: Prisma.CreativeBriefMaxOrderByAggregateInput
   _min?: Prisma.CreativeBriefMinOrderByAggregateInput
-  _sum?: Prisma.CreativeBriefSumOrderByAggregateInput
 }
 
 export type CreativeBriefScalarWhereWithAggregatesInput = {
   AND?: Prisma.CreativeBriefScalarWhereWithAggregatesInput | Prisma.CreativeBriefScalarWhereWithAggregatesInput[]
   OR?: Prisma.CreativeBriefScalarWhereWithAggregatesInput[]
   NOT?: Prisma.CreativeBriefScalarWhereWithAggregatesInput | Prisma.CreativeBriefScalarWhereWithAggregatesInput[]
-  id?: Prisma.BigIntWithAggregatesFilter<"CreativeBrief"> | bigint | number
+  id?: Prisma.StringWithAggregatesFilter<"CreativeBrief"> | string
   keyMessages?: Prisma.StringNullableWithAggregatesFilter<"CreativeBrief"> | string | null
   strongPoints?: Prisma.StringNullableListFilter<"CreativeBrief">
   planningSessionId?: Prisma.StringWithAggregatesFilter<"CreativeBrief"> | string
 }
 
 export type CreativeBriefCreateInput = {
-  id?: bigint | number
+  id?: string
   keyMessages?: string | null
   strongPoints?: Prisma.CreativeBriefCreatestrongPointsInput | string[]
   PlanningSession: Prisma.PlanningSessionCreateNestedOneWithoutCreativeBriefInput
 }
 
 export type CreativeBriefUncheckedCreateInput = {
-  id?: bigint | number
+  id?: string
   keyMessages?: string | null
   strongPoints?: Prisma.CreativeBriefCreatestrongPointsInput | string[]
   planningSessionId: string
 }
 
 export type CreativeBriefUpdateInput = {
-  id?: Prisma.BigIntFieldUpdateOperationsInput | bigint | number
+  id?: Prisma.StringFieldUpdateOperationsInput | string
   keyMessages?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   strongPoints?: Prisma.CreativeBriefUpdatestrongPointsInput | string[]
   PlanningSession?: Prisma.PlanningSessionUpdateOneRequiredWithoutCreativeBriefNestedInput
 }
 
 export type CreativeBriefUncheckedUpdateInput = {
-  id?: Prisma.BigIntFieldUpdateOperationsInput | bigint | number
+  id?: Prisma.StringFieldUpdateOperationsInput | string
   keyMessages?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   strongPoints?: Prisma.CreativeBriefUpdatestrongPointsInput | string[]
   planningSessionId?: Prisma.StringFieldUpdateOperationsInput | string
 }
 
 export type CreativeBriefCreateManyInput = {
-  id?: bigint | number
+  id?: string
   keyMessages?: string | null
   strongPoints?: Prisma.CreativeBriefCreatestrongPointsInput | string[]
   planningSessionId: string
 }
 
 export type CreativeBriefUpdateManyMutationInput = {
-  id?: Prisma.BigIntFieldUpdateOperationsInput | bigint | number
+  id?: Prisma.StringFieldUpdateOperationsInput | string
   keyMessages?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   strongPoints?: Prisma.CreativeBriefUpdatestrongPointsInput | string[]
 }
 
 export type CreativeBriefUncheckedUpdateManyInput = {
-  id?: Prisma.BigIntFieldUpdateOperationsInput | bigint | number
+  id?: Prisma.StringFieldUpdateOperationsInput | string
   keyMessages?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   strongPoints?: Prisma.CreativeBriefUpdatestrongPointsInput | string[]
   planningSessionId?: Prisma.StringFieldUpdateOperationsInput | string
@@ -301,23 +265,11 @@ export type CreativeBriefNullableScalarRelationFilter = {
   isNot?: Prisma.CreativeBriefWhereInput | null
 }
 
-export type StringNullableListFilter<$PrismaModel = never> = {
-  equals?: string[] | Prisma.ListStringFieldRefInput<$PrismaModel> | null
-  has?: string | Prisma.StringFieldRefInput<$PrismaModel> | null
-  hasEvery?: string[] | Prisma.ListStringFieldRefInput<$PrismaModel>
-  hasSome?: string[] | Prisma.ListStringFieldRefInput<$PrismaModel>
-  isEmpty?: boolean
-}
-
 export type CreativeBriefCountOrderByAggregateInput = {
   id?: Prisma.SortOrder
   keyMessages?: Prisma.SortOrder
   strongPoints?: Prisma.SortOrder
   planningSessionId?: Prisma.SortOrder
-}
-
-export type CreativeBriefAvgOrderByAggregateInput = {
-  id?: Prisma.SortOrder
 }
 
 export type CreativeBriefMaxOrderByAggregateInput = {
@@ -330,10 +282,6 @@ export type CreativeBriefMinOrderByAggregateInput = {
   id?: Prisma.SortOrder
   keyMessages?: Prisma.SortOrder
   planningSessionId?: Prisma.SortOrder
-}
-
-export type CreativeBriefSumOrderByAggregateInput = {
-  id?: Prisma.SortOrder
 }
 
 export type CreativeBriefCreateNestedOneWithoutPlanningSessionInput = {
@@ -378,13 +326,13 @@ export type CreativeBriefUpdatestrongPointsInput = {
 }
 
 export type CreativeBriefCreateWithoutPlanningSessionInput = {
-  id?: bigint | number
+  id?: string
   keyMessages?: string | null
   strongPoints?: Prisma.CreativeBriefCreatestrongPointsInput | string[]
 }
 
 export type CreativeBriefUncheckedCreateWithoutPlanningSessionInput = {
-  id?: bigint | number
+  id?: string
   keyMessages?: string | null
   strongPoints?: Prisma.CreativeBriefCreatestrongPointsInput | string[]
 }
@@ -406,13 +354,13 @@ export type CreativeBriefUpdateToOneWithWhereWithoutPlanningSessionInput = {
 }
 
 export type CreativeBriefUpdateWithoutPlanningSessionInput = {
-  id?: Prisma.BigIntFieldUpdateOperationsInput | bigint | number
+  id?: Prisma.StringFieldUpdateOperationsInput | string
   keyMessages?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   strongPoints?: Prisma.CreativeBriefUpdatestrongPointsInput | string[]
 }
 
 export type CreativeBriefUncheckedUpdateWithoutPlanningSessionInput = {
-  id?: Prisma.BigIntFieldUpdateOperationsInput | bigint | number
+  id?: Prisma.StringFieldUpdateOperationsInput | string
   keyMessages?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   strongPoints?: Prisma.CreativeBriefUpdatestrongPointsInput | string[]
 }
@@ -467,7 +415,7 @@ export type $CreativeBriefPayload<ExtArgs extends runtime.Types.Extensions.Inter
     PlanningSession: Prisma.$PlanningSessionPayload<ExtArgs>
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
-    id: bigint
+    id: string
     keyMessages: string | null
     strongPoints: string[]
     planningSessionId: string
@@ -895,7 +843,7 @@ export interface Prisma__CreativeBriefClient<T, Null = never, ExtArgs extends ru
  * Fields of the CreativeBrief model
  */
 export interface CreativeBriefFieldRefs {
-  readonly id: Prisma.FieldRef<"CreativeBrief", 'BigInt'>
+  readonly id: Prisma.FieldRef<"CreativeBrief", 'String'>
   readonly keyMessages: Prisma.FieldRef<"CreativeBrief", 'String'>
   readonly strongPoints: Prisma.FieldRef<"CreativeBrief", 'String[]'>
   readonly planningSessionId: Prisma.FieldRef<"CreativeBrief", 'String'>

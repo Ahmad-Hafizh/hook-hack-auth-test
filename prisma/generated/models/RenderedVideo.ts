@@ -20,22 +20,12 @@ export type RenderedVideoModel = runtime.Types.Result.DefaultSelection<Prisma.$R
 
 export type AggregateRenderedVideo = {
   _count: RenderedVideoCountAggregateOutputType | null
-  _avg: RenderedVideoAvgAggregateOutputType | null
-  _sum: RenderedVideoSumAggregateOutputType | null
   _min: RenderedVideoMinAggregateOutputType | null
   _max: RenderedVideoMaxAggregateOutputType | null
 }
 
-export type RenderedVideoAvgAggregateOutputType = {
-  id: number | null
-}
-
-export type RenderedVideoSumAggregateOutputType = {
-  id: bigint | null
-}
-
 export type RenderedVideoMinAggregateOutputType = {
-  id: bigint | null
+  id: string | null
   videoUrl: string | null
   createdAt: Date | null
   hook: string | null
@@ -47,7 +37,7 @@ export type RenderedVideoMinAggregateOutputType = {
 }
 
 export type RenderedVideoMaxAggregateOutputType = {
-  id: bigint | null
+  id: string | null
   videoUrl: string | null
   createdAt: Date | null
   hook: string | null
@@ -71,14 +61,6 @@ export type RenderedVideoCountAggregateOutputType = {
   _all: number
 }
 
-
-export type RenderedVideoAvgAggregateInputType = {
-  id?: true
-}
-
-export type RenderedVideoSumAggregateInputType = {
-  id?: true
-}
 
 export type RenderedVideoMinAggregateInputType = {
   id?: true
@@ -155,18 +137,6 @@ export type RenderedVideoAggregateArgs<ExtArgs extends runtime.Types.Extensions.
   /**
    * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
    * 
-   * Select which fields to average
-  **/
-  _avg?: RenderedVideoAvgAggregateInputType
-  /**
-   * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
-   * 
-   * Select which fields to sum
-  **/
-  _sum?: RenderedVideoSumAggregateInputType
-  /**
-   * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
-   * 
    * Select which fields to find the minimum value
   **/
   _min?: RenderedVideoMinAggregateInputType
@@ -197,14 +167,12 @@ export type RenderedVideoGroupByArgs<ExtArgs extends runtime.Types.Extensions.In
   take?: number
   skip?: number
   _count?: RenderedVideoCountAggregateInputType | true
-  _avg?: RenderedVideoAvgAggregateInputType
-  _sum?: RenderedVideoSumAggregateInputType
   _min?: RenderedVideoMinAggregateInputType
   _max?: RenderedVideoMaxAggregateInputType
 }
 
 export type RenderedVideoGroupByOutputType = {
-  id: bigint
+  id: string
   videoUrl: string
   createdAt: Date
   hook: string
@@ -214,8 +182,6 @@ export type RenderedVideoGroupByOutputType = {
   cta: string
   planningSessionId: string
   _count: RenderedVideoCountAggregateOutputType | null
-  _avg: RenderedVideoAvgAggregateOutputType | null
-  _sum: RenderedVideoSumAggregateOutputType | null
   _min: RenderedVideoMinAggregateOutputType | null
   _max: RenderedVideoMaxAggregateOutputType | null
 }
@@ -239,7 +205,7 @@ export type RenderedVideoWhereInput = {
   AND?: Prisma.RenderedVideoWhereInput | Prisma.RenderedVideoWhereInput[]
   OR?: Prisma.RenderedVideoWhereInput[]
   NOT?: Prisma.RenderedVideoWhereInput | Prisma.RenderedVideoWhereInput[]
-  id?: Prisma.BigIntFilter<"RenderedVideo"> | bigint | number
+  id?: Prisma.StringFilter<"RenderedVideo"> | string
   videoUrl?: Prisma.StringFilter<"RenderedVideo"> | string
   createdAt?: Prisma.DateTimeFilter<"RenderedVideo"> | Date | string
   hook?: Prisma.StringFilter<"RenderedVideo"> | string
@@ -265,7 +231,7 @@ export type RenderedVideoOrderByWithRelationInput = {
 }
 
 export type RenderedVideoWhereUniqueInput = Prisma.AtLeast<{
-  id?: bigint | number
+  id?: string
   AND?: Prisma.RenderedVideoWhereInput | Prisma.RenderedVideoWhereInput[]
   OR?: Prisma.RenderedVideoWhereInput[]
   NOT?: Prisma.RenderedVideoWhereInput | Prisma.RenderedVideoWhereInput[]
@@ -291,17 +257,15 @@ export type RenderedVideoOrderByWithAggregationInput = {
   cta?: Prisma.SortOrder
   planningSessionId?: Prisma.SortOrder
   _count?: Prisma.RenderedVideoCountOrderByAggregateInput
-  _avg?: Prisma.RenderedVideoAvgOrderByAggregateInput
   _max?: Prisma.RenderedVideoMaxOrderByAggregateInput
   _min?: Prisma.RenderedVideoMinOrderByAggregateInput
-  _sum?: Prisma.RenderedVideoSumOrderByAggregateInput
 }
 
 export type RenderedVideoScalarWhereWithAggregatesInput = {
   AND?: Prisma.RenderedVideoScalarWhereWithAggregatesInput | Prisma.RenderedVideoScalarWhereWithAggregatesInput[]
   OR?: Prisma.RenderedVideoScalarWhereWithAggregatesInput[]
   NOT?: Prisma.RenderedVideoScalarWhereWithAggregatesInput | Prisma.RenderedVideoScalarWhereWithAggregatesInput[]
-  id?: Prisma.BigIntWithAggregatesFilter<"RenderedVideo"> | bigint | number
+  id?: Prisma.StringWithAggregatesFilter<"RenderedVideo"> | string
   videoUrl?: Prisma.StringWithAggregatesFilter<"RenderedVideo"> | string
   createdAt?: Prisma.DateTimeWithAggregatesFilter<"RenderedVideo"> | Date | string
   hook?: Prisma.StringWithAggregatesFilter<"RenderedVideo"> | string
@@ -313,7 +277,7 @@ export type RenderedVideoScalarWhereWithAggregatesInput = {
 }
 
 export type RenderedVideoCreateInput = {
-  id?: bigint | number
+  id?: string
   videoUrl: string
   createdAt?: Date | string
   hook: string
@@ -325,7 +289,7 @@ export type RenderedVideoCreateInput = {
 }
 
 export type RenderedVideoUncheckedCreateInput = {
-  id?: bigint | number
+  id?: string
   videoUrl: string
   createdAt?: Date | string
   hook: string
@@ -337,7 +301,7 @@ export type RenderedVideoUncheckedCreateInput = {
 }
 
 export type RenderedVideoUpdateInput = {
-  id?: Prisma.BigIntFieldUpdateOperationsInput | bigint | number
+  id?: Prisma.StringFieldUpdateOperationsInput | string
   videoUrl?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   hook?: Prisma.StringFieldUpdateOperationsInput | string
@@ -349,7 +313,7 @@ export type RenderedVideoUpdateInput = {
 }
 
 export type RenderedVideoUncheckedUpdateInput = {
-  id?: Prisma.BigIntFieldUpdateOperationsInput | bigint | number
+  id?: Prisma.StringFieldUpdateOperationsInput | string
   videoUrl?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   hook?: Prisma.StringFieldUpdateOperationsInput | string
@@ -361,7 +325,7 @@ export type RenderedVideoUncheckedUpdateInput = {
 }
 
 export type RenderedVideoCreateManyInput = {
-  id?: bigint | number
+  id?: string
   videoUrl: string
   createdAt?: Date | string
   hook: string
@@ -373,7 +337,7 @@ export type RenderedVideoCreateManyInput = {
 }
 
 export type RenderedVideoUpdateManyMutationInput = {
-  id?: Prisma.BigIntFieldUpdateOperationsInput | bigint | number
+  id?: Prisma.StringFieldUpdateOperationsInput | string
   videoUrl?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   hook?: Prisma.StringFieldUpdateOperationsInput | string
@@ -384,7 +348,7 @@ export type RenderedVideoUpdateManyMutationInput = {
 }
 
 export type RenderedVideoUncheckedUpdateManyInput = {
-  id?: Prisma.BigIntFieldUpdateOperationsInput | bigint | number
+  id?: Prisma.StringFieldUpdateOperationsInput | string
   videoUrl?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   hook?: Prisma.StringFieldUpdateOperationsInput | string
@@ -417,10 +381,6 @@ export type RenderedVideoCountOrderByAggregateInput = {
   planningSessionId?: Prisma.SortOrder
 }
 
-export type RenderedVideoAvgOrderByAggregateInput = {
-  id?: Prisma.SortOrder
-}
-
 export type RenderedVideoMaxOrderByAggregateInput = {
   id?: Prisma.SortOrder
   videoUrl?: Prisma.SortOrder
@@ -443,10 +403,6 @@ export type RenderedVideoMinOrderByAggregateInput = {
   bodyCMessage?: Prisma.SortOrder
   cta?: Prisma.SortOrder
   planningSessionId?: Prisma.SortOrder
-}
-
-export type RenderedVideoSumOrderByAggregateInput = {
-  id?: Prisma.SortOrder
 }
 
 export type RenderedVideoCreateNestedManyWithoutPlanningSessionInput = {
@@ -492,7 +448,7 @@ export type RenderedVideoUncheckedUpdateManyWithoutPlanningSessionNestedInput = 
 }
 
 export type RenderedVideoCreateWithoutPlanningSessionInput = {
-  id?: bigint | number
+  id?: string
   videoUrl: string
   createdAt?: Date | string
   hook: string
@@ -503,7 +459,7 @@ export type RenderedVideoCreateWithoutPlanningSessionInput = {
 }
 
 export type RenderedVideoUncheckedCreateWithoutPlanningSessionInput = {
-  id?: bigint | number
+  id?: string
   videoUrl: string
   createdAt?: Date | string
   hook: string
@@ -543,7 +499,7 @@ export type RenderedVideoScalarWhereInput = {
   AND?: Prisma.RenderedVideoScalarWhereInput | Prisma.RenderedVideoScalarWhereInput[]
   OR?: Prisma.RenderedVideoScalarWhereInput[]
   NOT?: Prisma.RenderedVideoScalarWhereInput | Prisma.RenderedVideoScalarWhereInput[]
-  id?: Prisma.BigIntFilter<"RenderedVideo"> | bigint | number
+  id?: Prisma.StringFilter<"RenderedVideo"> | string
   videoUrl?: Prisma.StringFilter<"RenderedVideo"> | string
   createdAt?: Prisma.DateTimeFilter<"RenderedVideo"> | Date | string
   hook?: Prisma.StringFilter<"RenderedVideo"> | string
@@ -555,7 +511,7 @@ export type RenderedVideoScalarWhereInput = {
 }
 
 export type RenderedVideoCreateManyPlanningSessionInput = {
-  id?: bigint | number
+  id?: string
   videoUrl: string
   createdAt?: Date | string
   hook: string
@@ -566,7 +522,7 @@ export type RenderedVideoCreateManyPlanningSessionInput = {
 }
 
 export type RenderedVideoUpdateWithoutPlanningSessionInput = {
-  id?: Prisma.BigIntFieldUpdateOperationsInput | bigint | number
+  id?: Prisma.StringFieldUpdateOperationsInput | string
   videoUrl?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   hook?: Prisma.StringFieldUpdateOperationsInput | string
@@ -577,7 +533,7 @@ export type RenderedVideoUpdateWithoutPlanningSessionInput = {
 }
 
 export type RenderedVideoUncheckedUpdateWithoutPlanningSessionInput = {
-  id?: Prisma.BigIntFieldUpdateOperationsInput | bigint | number
+  id?: Prisma.StringFieldUpdateOperationsInput | string
   videoUrl?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   hook?: Prisma.StringFieldUpdateOperationsInput | string
@@ -588,7 +544,7 @@ export type RenderedVideoUncheckedUpdateWithoutPlanningSessionInput = {
 }
 
 export type RenderedVideoUncheckedUpdateManyWithoutPlanningSessionInput = {
-  id?: Prisma.BigIntFieldUpdateOperationsInput | bigint | number
+  id?: Prisma.StringFieldUpdateOperationsInput | string
   videoUrl?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   hook?: Prisma.StringFieldUpdateOperationsInput | string
@@ -668,7 +624,7 @@ export type $RenderedVideoPayload<ExtArgs extends runtime.Types.Extensions.Inter
     PlanningSession: Prisma.$PlanningSessionPayload<ExtArgs>
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
-    id: bigint
+    id: string
     videoUrl: string
     createdAt: Date
     hook: string
@@ -1101,7 +1057,7 @@ export interface Prisma__RenderedVideoClient<T, Null = never, ExtArgs extends ru
  * Fields of the RenderedVideo model
  */
 export interface RenderedVideoFieldRefs {
-  readonly id: Prisma.FieldRef<"RenderedVideo", 'BigInt'>
+  readonly id: Prisma.FieldRef<"RenderedVideo", 'String'>
   readonly videoUrl: Prisma.FieldRef<"RenderedVideo", 'String'>
   readonly createdAt: Prisma.FieldRef<"RenderedVideo", 'DateTime'>
   readonly hook: Prisma.FieldRef<"RenderedVideo", 'String'>

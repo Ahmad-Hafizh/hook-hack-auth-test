@@ -9,10 +9,12 @@ import Step2Skip from './skip/step2';
 import { useStepData } from './hooks/useStepData';
 import TopHorizontalProgress from './components/topHorizontalProgress';
 import { usePlannningWhatContext } from './hooks/plannningWhatContext';
+import { usePlanningWhatDataContext } from './hooks/planningWhatDataContext';
 
 const AppPage = () => {
   const { onSetKeywords, keywords, websites, onSetWebsites, briefPlanning, setBriefPlanning, selectedKeywords, setSelectedKeywords } = useStepData();
   const { step, onStep, page } = usePlannningWhatContext();
+  const { keyVisuals, onSetKeyVisuals } = usePlanningWhatDataContext();
 
   const pages = {
     scratch: {
@@ -24,11 +26,11 @@ const AppPage = () => {
         },
         {
           id: 2,
-          page: <Step2Scratch onNext={() => onStep(3)} keywords={keywords} onSetWebsites={onSetWebsites} selectedKeywords={selectedKeywords} setSelectedKeywords={setSelectedKeywords} />,
+          page: <Step2Scratch onNext={() => onStep(3)} keywords={keywords} selectedKeywords={selectedKeywords} setSelectedKeywords={setSelectedKeywords} onSetKeyVisuals={onSetKeyVisuals} />,
         },
         {
           id: 3,
-          page: <Step3 onNext={() => onStep(4)} onPrev={() => onStep(2)} websites={websites} onSetWebsites={onSetWebsites} setBriefPlanning={setBriefPlanning} keywords={keywords} selectedKeywords={selectedKeywords} />,
+          page: <Step3 onNext={() => onStep(4)} onPrev={() => onStep(2)} setBriefPlanning={setBriefPlanning} selectedKeywords={selectedKeywords} keyVisuals={keyVisuals} onSetKeyVisuals={onSetKeyVisuals} />,
         },
         {
           id: 4,

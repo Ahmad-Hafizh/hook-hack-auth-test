@@ -3,11 +3,15 @@ import { Input } from '@/components/ui/input';
 import { Spinner } from '@/components/ui/spinner';
 import { JapaneseYen } from 'lucide-react';
 import React from 'react';
-import { submitStep1 } from '../hooks/useFetchApi';
+import { submitStep1 } from '../hooks/useFetchAPINext';
+import { useParams } from 'next/navigation';
+import { useDataContext } from '../hooks/useDataContext';
 
-const Step1 = ({ onNext, setPlan }: { onNext: () => void; setPlan: React.Dispatch<React.SetStateAction<any>> }) => {
+const Step1 = ({ onNext }: { onNext: () => void }) => {
+  const { sessionId } = useParams();
   const [loading, setLoading] = React.useState(false);
   const [budget, setBudget] = React.useState<number | undefined>(undefined);
+  const { onSetPlan } = useDataContext();
 
   return (
     <div className="px-10 h-full flex flex-col gap-5 container justify-between">
@@ -28,7 +32,7 @@ const Step1 = ({ onNext, setPlan }: { onNext: () => void; setPlan: React.Dispatc
         </div>
       </div>
       <div className="flex justify-end">
-        <Button onClick={() => submitStep1({ setLoading, onNext, budget: budget ?? 0, setPlan })} disabled={loading} className="border-2 border-rose-600 bg-rose-600  hover:bg-rose-500 text-white px-4 py-2">
+        <Button onClick={() => submitStep1({ setLoading, onNext, budget: budget ?? 0, onSetPlan, sessionId: sessionId as string })} disabled={loading} className="border-2 border-rose-600 bg-rose-600  hover:bg-rose-500 text-white px-4 py-2">
           {loading && <Spinner className="w-3 h-3" />}
           次に​進む
         </Button>

@@ -2,22 +2,24 @@ import { Button } from '@/components/ui/button';
 import { Spinner } from '@/components/ui/spinner';
 import { ToggleGroup, ToggleGroupItem } from '@/components/ui/toggle-group';
 import React from 'react';
-import { submitStep2Scratch } from '../hooks/useFetchApi';
+import { submitStep2Scratch } from '../hooks/useFetchAPINext';
+import { useParams } from 'next/navigation';
 
 const Step2Scratch = ({
   onNext,
   keywords,
-  onSetWebsites,
   selectedKeywords,
   setSelectedKeywords,
+  onSetKeyVisuals,
 }: {
   onNext: () => void;
   keywords: any[];
-  onSetWebsites: (websites: any[]) => void;
   selectedKeywords: string;
   setSelectedKeywords: (value: string) => void;
+  onSetKeyVisuals: (visuals: any[]) => void;
 }) => {
   const [loading, setLoading] = React.useState(false);
+  const { sessionId } = useParams();
 
   return (
     <div className="px-10 h-full flex flex-col gap-5 container justify-between">
@@ -38,7 +40,11 @@ const Step2Scratch = ({
         </ToggleGroup>
       </div>
       <div className="flex justify-end">
-        <Button className="border-2 border-rose-600 bg-rose-600  hover:bg-rose-500 text-white px-4 py-2" onClick={() => submitStep2Scratch({ selectedKeywords, onSetWebsites, onNext, setLoading })} disabled={loading}>
+        <Button
+          className="border-2 border-rose-600 bg-rose-600  hover:bg-rose-500 text-white px-4 py-2"
+          onClick={() => submitStep2Scratch({ selectedKeywords, onNext, setLoading, sessionId: sessionId as string, onSetKeyVisuals })}
+          disabled={loading}
+        >
           {loading && <Spinner className="w-3 h-3" />} 次に​進む
         </Button>
       </div>

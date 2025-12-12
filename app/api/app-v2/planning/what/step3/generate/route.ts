@@ -1,22 +1,25 @@
 import callAppV2Api from '@/config/axios/axiosAppV2';
 import { prisma } from '@/config/prisma/prisma';
 import { NextRequest, NextResponse } from 'next/server';
-import { checkPageStep } from '../../utils/checkPageStep';
 
 export async function POST(req: NextRequest) {
   try {
     const body = await req.json();
-    const { sessionId, keywords } = body;
+    const { sessionId, exclude_domains } = body;
 
-    const checkResult: { valid: boolean; response?: NextResponse } = await checkPageStep(sessionId, 'what_scratch', 2);
-    if (!checkResult.valid) {
-      return checkResult.response;
+    const session = await prisma.planningSession.findUnique({
+      where: { id: sessionId },
+    });
+
+    if (!session) {
+      return NextResponse.json({ error: 'Invalid session' }, { status: 400 });
     }
 
     // call websites endpoint
     const websitesResp = await callAppV2Api.post('/v1/websites', {
-      keywords,
+      keywords: [session.keyword],
       limit: 5,
+      exclude_domains,
     });
     const websites = websitesResp?.data;
     if (!websites || !Array.isArray(websites.websites)) {
@@ -45,16 +48,8 @@ export async function POST(req: NextRequest) {
       meta_description: item.meta_description ?? null,
     }));
 
-    await prisma.planningSession.update({
-      where: { id: sessionId },
-      data: {
-        lastStep: 3,
-        keyword: keywords[0] || '',
-      },
-    });
-
     return NextResponse.json({ message: 'Success', key_visuals: visualsUrls }, { status: 200 });
-  } catch (error: any) {
-    return NextResponse.json({ error: error.message || 'Error' }, { status: 500 });
+  } catch (error) {
+    return NextResponse.json({ error: 'Error' }, { status: 500 });
   }
 }

@@ -393,7 +393,8 @@ export const ModelName = {
   CreativeBrief: 'CreativeBrief',
   PlanningPlan: 'PlanningPlan',
   PlanningVariants: 'PlanningVariants',
-  RenderedVideo: 'RenderedVideo'
+  RenderedVideo: 'RenderedVideo',
+  Ads: 'Ads'
 } as const
 
 export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -409,7 +410,7 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
     omit: GlobalOmitOptions
   }
   meta: {
-    modelProps: "user" | "v2_format" | "requestlist" | "project" | "transaction" | "planningSession" | "creativeBrief" | "planningPlan" | "planningVariants" | "renderedVideo"
+    modelProps: "user" | "v2_format" | "requestlist" | "project" | "transaction" | "planningSession" | "creativeBrief" | "planningPlan" | "planningVariants" | "renderedVideo" | "ads"
     txIsolationLevel: TransactionIsolationLevel
   }
   model: {
@@ -1153,6 +1154,80 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
         }
       }
     }
+    Ads: {
+      payload: Prisma.$AdsPayload<ExtArgs>
+      fields: Prisma.AdsFieldRefs
+      operations: {
+        findUnique: {
+          args: Prisma.AdsFindUniqueArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$AdsPayload> | null
+        }
+        findUniqueOrThrow: {
+          args: Prisma.AdsFindUniqueOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$AdsPayload>
+        }
+        findFirst: {
+          args: Prisma.AdsFindFirstArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$AdsPayload> | null
+        }
+        findFirstOrThrow: {
+          args: Prisma.AdsFindFirstOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$AdsPayload>
+        }
+        findMany: {
+          args: Prisma.AdsFindManyArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$AdsPayload>[]
+        }
+        create: {
+          args: Prisma.AdsCreateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$AdsPayload>
+        }
+        createMany: {
+          args: Prisma.AdsCreateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        createManyAndReturn: {
+          args: Prisma.AdsCreateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$AdsPayload>[]
+        }
+        delete: {
+          args: Prisma.AdsDeleteArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$AdsPayload>
+        }
+        update: {
+          args: Prisma.AdsUpdateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$AdsPayload>
+        }
+        deleteMany: {
+          args: Prisma.AdsDeleteManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateMany: {
+          args: Prisma.AdsUpdateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateManyAndReturn: {
+          args: Prisma.AdsUpdateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$AdsPayload>[]
+        }
+        upsert: {
+          args: Prisma.AdsUpsertArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$AdsPayload>
+        }
+        aggregate: {
+          args: Prisma.AdsAggregateArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AggregateAds>
+        }
+        groupBy: {
+          args: Prisma.AdsGroupByArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AdsGroupByOutputType>[]
+        }
+        count: {
+          args: Prisma.AdsCountArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AdsCountAggregateOutputType> | number
+        }
+      }
+    }
   }
 } & {
   other: {
@@ -1290,7 +1365,10 @@ export const PlanningSessionScalarFieldEnum = {
   finishedAt: 'finishedAt',
   lastPage: 'lastPage',
   lastStep: 'lastStep',
-  product: 'product'
+  product: 'product',
+  keyword: 'keyword',
+  competitors: 'competitors',
+  userId: 'userId'
 } as const
 
 export type PlanningSessionScalarFieldEnum = (typeof PlanningSessionScalarFieldEnum)[keyof typeof PlanningSessionScalarFieldEnum]
@@ -1316,6 +1394,8 @@ export const PlanningPlanScalarFieldEnum = {
   platform: 'platform',
   target_impressions_per_video: 'target_impressions_per_video',
   typical_cpm: 'typical_cpm',
+  budget: 'budget',
+  template_id: 'template_id',
   planningSessionId: 'planningSessionId'
 } as const
 
@@ -1348,6 +1428,17 @@ export const RenderedVideoScalarFieldEnum = {
 } as const
 
 export type RenderedVideoScalarFieldEnum = (typeof RenderedVideoScalarFieldEnum)[keyof typeof RenderedVideoScalarFieldEnum]
+
+
+export const AdsScalarFieldEnum = {
+  id: 'id',
+  adUrl: 'adUrl',
+  createdAt: 'createdAt',
+  performance: 'performance',
+  planningSessionId: 'planningSessionId'
+} as const
+
+export type AdsScalarFieldEnum = (typeof AdsScalarFieldEnum)[keyof typeof AdsScalarFieldEnum]
 
 
 export const SortOrder = {
@@ -1398,20 +1489,6 @@ export type JsonNullValueFilter = (typeof JsonNullValueFilter)[keyof typeof Json
 
 
 /**
- * Reference to a field of type 'BigInt'
- */
-export type BigIntFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'BigInt'>
-    
-
-
-/**
- * Reference to a field of type 'BigInt[]'
- */
-export type ListBigIntFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'BigInt[]'>
-    
-
-
-/**
  * Reference to a field of type 'String'
  */
 export type StringFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'String'>
@@ -1450,6 +1527,20 @@ export type DateTimeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel
  * Reference to a field of type 'DateTime[]'
  */
 export type ListDateTimeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'DateTime[]'>
+    
+
+
+/**
+ * Reference to a field of type 'BigInt'
+ */
+export type BigIntFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'BigInt'>
+    
+
+
+/**
+ * Reference to a field of type 'BigInt[]'
+ */
+export type ListBigIntFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'BigInt[]'>
     
 
 
@@ -1590,6 +1681,7 @@ export type GlobalOmitConfig = {
   planningPlan?: Prisma.PlanningPlanOmit
   planningVariants?: Prisma.PlanningVariantsOmit
   renderedVideo?: Prisma.RenderedVideoOmit
+  ads?: Prisma.AdsOmit
 }
 
 /* Types for Logging */

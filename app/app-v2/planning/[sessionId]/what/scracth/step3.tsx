@@ -3,88 +3,81 @@ import { Button } from '@/components/ui/button';
 import { ToggleGroup } from '@/components/ui/toggle-group';
 import React, { useEffect } from 'react';
 import KeyVisualsCard from '../components/keyVisualsCard';
-import { generateScreenshot, get5MoreVisuals, submitStep3 } from '../hooks/useFetchApi';
+import { submitStep3, getMoreVisuals } from '../hooks/useFetchAPINext';
 import { Spinner } from '@/components/ui/spinner';
-import { IBriefPlanning, IWebsites } from '../hooks/useStepData';
+import { IBriefPlanning } from '../hooks/useStepData';
+import { useParams } from 'next/navigation';
 
 const Step3 = ({
   onNext,
   onPrev,
-  websites,
-  onSetWebsites,
-  keywords,
   setBriefPlanning,
-  selectedKeywords,
+  keyVisuals,
+  onSetKeyVisuals,
 }: {
   onNext: () => void;
   onPrev: () => void;
-  websites: IWebsites[];
-  onSetWebsites: (websites: IWebsites[]) => void;
-  keywords: { term: string }[];
   setBriefPlanning: React.Dispatch<React.SetStateAction<IBriefPlanning>>;
   selectedKeywords: string;
+  keyVisuals: any[];
+  onSetKeyVisuals: (visuals: any[]) => void;
 }) => {
+  const { sessionId } = useParams();
   const [selectedVisuals, setSelectedVisuals] = React.useState<string[]>([]);
-  const [generatedVisuals, setGeneratedVisuals] = React.useState(0);
+
   const [loadingSubmit, setLoadingSubmit] = React.useState(false);
   const [loadingGenerate, setLoadingGenerate] = React.useState(false);
-  const [loadingGenerateVisual, setLoadingGenerateVisual] = React.useState(true);
-  const [keyVisuals, setKeyVisuals] = React.useState<any[]>([]);
 
   useEffect(() => {
-    if (generatedVisuals === 0) {
-      generateScreenshot({ websites, setKeyVisuals, setLoadingGenerateVisual, keyVisuals });
-      setGeneratedVisuals(generatedVisuals + websites.length);
-    } else if (generatedVisuals < websites.length) {
-      const newWebsites = websites.slice(generatedVisuals);
-      generateScreenshot({ websites: newWebsites, setKeyVisuals, setLoadingGenerateVisual, keyVisuals });
-      setGeneratedVisuals(websites.length);
+    if (keyVisuals.length === 0) {
+      getMoreVisuals({ setLoadingGenerate, keyVisuals, onSetKeyVisuals, sessionId: sessionId as string });
     }
-  }, [websites]);
+  }, []);
 
   return (
     <div className="px-10 h-full flex flex-col gap-5 container justify-between">
       <div className=" flex flex-col gap-10 h-full py-10">
         <div className="flex flex-col gap-4">
           <h1 className="text-2xl font-bold leading-none">プロダクト／サービスに​合う​キービジュアルを​3つ​選んでください​</h1>
-          <Button variant="outline" className="w-fit" onClick={onPrev} type="button" disabled={loadingSubmit || loadingGenerate || loadingGenerateVisual}>
+          <Button variant="outline" className="w-fit" onClick={onPrev} type="button" disabled={loadingSubmit || loadingGenerate}>
             ＜ キーワードを​選び直す
           </Button>
         </div>
-        {loadingGenerateVisual ? (
-          <div className="flex gap-4 w-full h-full pb-4 justify-center items-center">
-            <Spinner className="w-6 h-6" />
-            <p>キービジュアルを生成中...</p>
-          </div>
-        ) : (
-          <div className="overflow-x-scroll w-full">
-            <ToggleGroup
-              type="multiple"
-              className="gap-4 w-fit pb-4 "
-              value={selectedVisuals}
-              onValueChange={(value: string[]) => {
-                if (selectedVisuals.length < 3) {
+
+        <div className="overflow-x-scroll w-full relative">
+          <ToggleGroup
+            type="multiple"
+            className="gap-4 w-fit pb-4 "
+            value={selectedVisuals}
+            onValueChange={(value: string[]) => {
+              if (selectedVisuals.length < 3) {
+                setSelectedVisuals(value);
+              } else {
+                if (selectedVisuals.includes(value[value.length - 1])) {
                   setSelectedVisuals(value);
-                } else {
-                  if (selectedVisuals.includes(value[value.length - 1])) {
-                    setSelectedVisuals(value);
-                  }
                 }
-              }}
-            >
-              {keyVisuals.map((keyVisual: any, index) => (
-                <KeyVisualsCard keyVisual={keyVisual} index={index} key={index} />
-              ))}
-            </ToggleGroup>
-          </div>
-        )}
+              }
+            }}
+          >
+            {keyVisuals.map((keyVisual: any, index) => (
+              <KeyVisualsCard keyVisual={keyVisual} index={index} key={index} />
+            ))}
+          </ToggleGroup>
+          {loadingGenerate && (
+            <div className="flex gap-4 w-full h-full justify-center items-center bg-white opacity-70 fixed top-0 left-0">
+              <Spinner className="w-6 h-6 opacity-100" />
+              <p className="text-lg font-medium opacity-100">キービジュアルを生成中...</p>
+            </div>
+          )}
+        </div>
       </div>
       <div className="flex justify-center gap-4">
-        <Button variant="outline" className="w-fit" type="button" onClick={() => get5MoreVisuals({ selectedKeywords, websites, onSetWebsites, setLoadingGenerate })} disabled={loadingSubmit || loadingGenerate || loadingGenerateVisual}>
+        <Button variant="outline" className="w-fit" type="button" onClick={() => getMoreVisuals({ setLoadingGenerate, keyVisuals, onSetKeyVisuals, sessionId: sessionId as string })} disabled={loadingSubmit || loadingGenerate}>
+          {loadingGenerate && <Spinner className="w-4 h-4 mr-2" />}
           さらに​5件表示する​
         </Button>
         <Button
-          onClick={() => submitStep3({ selectedVisuals, keyVisuals, setBriefPlanning, onNext, setLoadingSubmit })}
+          onClick={() => submitStep3({ selectedVisuals, keyVisuals, setBriefPlanning, onNext, setLoadingSubmit, sessionId: sessionId as string })}
           disabled={loadingSubmit || selectedVisuals.length < 3}
           className=" border-2 border-rose-600 bg-rose-600  hover:bg-rose-500 text-white px-4 py-2"
         >

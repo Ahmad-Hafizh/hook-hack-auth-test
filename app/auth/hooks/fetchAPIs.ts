@@ -50,9 +50,11 @@ export const handleSignIn = async ({
       throw new Error(data.error || 'Failed to sign in');
     }
 
+    console.log(data);
+
     // Redirect to dashboard or home page
-    router.push('/');
-    router.refresh();
+    // router.push('/');
+    // router.refresh();
   } catch (err: any) {
     setError(err.message || 'An error occurred during sign in');
   } finally {

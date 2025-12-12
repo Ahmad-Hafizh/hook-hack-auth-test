@@ -19,6 +19,20 @@ export async function POST(request: Request) {
       provider: 'creatomate',
     });
 
+    const renderedVideoData = data.renders.map((video: any, index: number) => ({
+      planningSessionId: sessionId,
+      videoUrl: video.result_url,
+      hook: patternCombinations[index].hooks,
+      bodyAMessage: patternCombinations[index].strong_point_1_messages,
+      bodyBMessage: patternCombinations[index].strong_point_2_messages,
+      bodyCMessage: patternCombinations[index].strong_point_3_messages,
+      cta: patternCombinations[index].ctas,
+    }));
+
+    await prisma.renderedVideo.createMany({
+      data: renderedVideoData,
+    });
+
     return NextResponse.json({ message: 'Success', data }, { status: 200 });
   } catch (error) {
     return NextResponse.json({ error: 'Error' }, { status: 500 });

@@ -60,7 +60,8 @@ export const ModelName = {
   CreativeBrief: 'CreativeBrief',
   PlanningPlan: 'PlanningPlan',
   PlanningVariants: 'PlanningVariants',
-  RenderedVideo: 'RenderedVideo'
+  RenderedVideo: 'RenderedVideo',
+  Ads: 'Ads'
 } as const
 
 export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -177,7 +178,10 @@ export const PlanningSessionScalarFieldEnum = {
   finishedAt: 'finishedAt',
   lastPage: 'lastPage',
   lastStep: 'lastStep',
-  product: 'product'
+  product: 'product',
+  keyword: 'keyword',
+  competitors: 'competitors',
+  userId: 'userId'
 } as const
 
 export type PlanningSessionScalarFieldEnum = (typeof PlanningSessionScalarFieldEnum)[keyof typeof PlanningSessionScalarFieldEnum]
@@ -203,6 +207,8 @@ export const PlanningPlanScalarFieldEnum = {
   platform: 'platform',
   target_impressions_per_video: 'target_impressions_per_video',
   typical_cpm: 'typical_cpm',
+  budget: 'budget',
+  template_id: 'template_id',
   planningSessionId: 'planningSessionId'
 } as const
 
@@ -235,6 +241,17 @@ export const RenderedVideoScalarFieldEnum = {
 } as const
 
 export type RenderedVideoScalarFieldEnum = (typeof RenderedVideoScalarFieldEnum)[keyof typeof RenderedVideoScalarFieldEnum]
+
+
+export const AdsScalarFieldEnum = {
+  id: 'id',
+  adUrl: 'adUrl',
+  createdAt: 'createdAt',
+  performance: 'performance',
+  planningSessionId: 'planningSessionId'
+} as const
+
+export type AdsScalarFieldEnum = (typeof AdsScalarFieldEnum)[keyof typeof AdsScalarFieldEnum]
 
 
 export const SortOrder = {

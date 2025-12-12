@@ -90,3 +90,8 @@ export type PlanningVariants = Prisma.PlanningVariantsModel
  * 
  */
 export type RenderedVideo = Prisma.RenderedVideoModel
+/**
+ * Model Ads
+ * 
+ */
+export type Ads = Prisma.AdsModel

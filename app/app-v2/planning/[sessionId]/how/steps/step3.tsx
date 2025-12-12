@@ -1,100 +1,86 @@
 'use client';
 import React, { use } from 'react';
 import { Button } from '@/components/ui/button';
-import { generateVariants, getJobResult, submitStep3 } from '../hooks/useFetchApi';
+import { submitStep3 } from '../hooks/useFetchApi';
+import { getJobResult } from '../hooks/useFetchAPINext';
 import { Spinner } from '@/components/ui/spinner';
 import { Infinity } from 'lucide-react';
-import { IElements, IPattern, IPlan, ITemplateCreatomate, IVariants } from '../hooks/useStepData';
 import { generatePatternCombinations, calculatePatternCount, onElementValueChange } from '../hooks/usePattern';
 import ElementProgress from '../components/elementProgress';
 import ElementCard from '../components/elementCard';
 import { HoverCard, HoverCardContent, HoverCardTrigger } from '@/components/ui/hover-card';
 // @ts-ignore
-import { useMutation, useQuery } from '@tanstack/react-query';
+import { useQuery } from '@tanstack/react-query';
+import { useParams } from 'next/navigation';
+import { useDataContext } from '../hooks/useDataContext';
 
-const Step3 = ({
-  onNext,
-  plan,
-  elements,
-  variants,
-  patternCount,
-  setPatternCount,
-  setElements,
-  setVariants,
-  setPatternCombinations,
-}: {
-  onNext: () => void;
-  plan: IPlan | undefined;
-  elements: IElements;
-  variants: IVariants;
-  setElements: React.Dispatch<React.SetStateAction<IElements>>;
-  setVariants: React.Dispatch<React.SetStateAction<IVariants>>;
-  patternCount: number;
-  setPatternCount: React.Dispatch<React.SetStateAction<number>>;
-  setPatternCombinations: React.Dispatch<React.SetStateAction<IPattern[]>>;
-}) => {
+const Step3 = ({ onNext }: { onNext: () => void }) => {
   const [loading, setLoading] = React.useState(false);
   const [loadingGenerate, setLoadingGenerate] = React.useState(true);
   const [isComplete, setIsComplete] = React.useState(false);
-  const [jobId, setJobId] = React.useState<string | null>(null);
+  const { plan, elements, variants, patternCount, onSetElements, onSetVariants, onSetPatternCount, onSetPatternCombinations, jobId } = useDataContext();
 
-  React.useEffect(() => {
-    const fetchVariants = async () => {
-      setLoadingGenerate(true);
-      generateVariants({ setJobId });
-    };
-    if (!jobId) {
-      fetchVariants();
-    }
-  }, []);
+  const { sessionId } = useParams();
 
   // Use the polling query
-  const { data: jobResult, isLoading: isPolling } = useQuery<{
+  const {
+    data: jobResult,
+    isPending,
+    error,
+  } = useQuery<{
     status?: string;
-    result?: { variants?: IVariants };
+    variants?: any;
     error?: unknown;
   }>({
-    queryKey: ['status', jobId],
-    queryFn: () => getJobResult({ jobId: jobId! }),
+    queryKey: ['jobStatus', jobId],
+    queryFn: () => getJobResult({ jobId: jobId!, sessionId: sessionId as string }),
     enabled: !!jobId && loadingGenerate, // Only poll when we have a jobId and still loading
-    refetchInterval: (query: { state: { data?: { status?: string } } }) => {
-      // Stop polling when status is not 'running'
-      if (query.state.data?.status !== 'running') {
-        return false; // Stop polling
+    refetchInterval: (query) => {
+      const currentStatus = query.state.data?.status;
+
+      // Stop polling if status is any terminal state
+      if (currentStatus === 'done' || currentStatus === 'error' || currentStatus === 'failed') {
+        return false;
       }
-      return 5000; // Poll every 5 seconds while status is 'running'
+
+      // Continue polling only if status is 'running'
+      if (currentStatus === 'running') {
+        return 10000;
+      }
+
+      // For undefined status, try again with shorter interval
+      return 3000;
     },
   });
 
   // Handle job completion
   React.useEffect(() => {
-    if (jobResult && jobResult.status !== 'running' && jobResult.result?.variants) {
-      const variantsData = jobResult.result.variants;
-      setVariants({ ...variants, ...variantsData });
-      setLoadingGenerate(false);
-    } else if (jobResult && !jobResult.status) {
-      console.error('Job failed:', jobResult.error);
-      setLoadingGenerate(false);
+    if (jobResult) {
+      if (jobResult.status === 'done' && jobResult.variants) {
+        onSetVariants(jobResult.variants);
+        setLoadingGenerate(false);
+      } else if (jobResult.status === 'failed' || jobResult.status === 'error') {
+        console.error('Job failed with status:', jobResult.status, jobResult.error);
+        setLoadingGenerate(false);
+      }
     }
-  }, [jobResult, setVariants, setElements]);
+  }, [jobResult, onSetVariants]);
 
   React.useEffect(() => {
-    if (jobId) {
-      getResultsVariants({ setVariants, variants, job_id: jobId });
-    }
-  }, [jobId]);
-
-  React.useEffect(() => {
-    setPatternCount(calculatePatternCount(elements).totalPattern);
+    onSetPatternCount(calculatePatternCount(elements).totalPattern);
     setIsComplete(calculatePatternCount(elements).complete);
   }, [elements]);
 
-  if (!jobId || isPolling) {
+  if (loadingGenerate || isPending) {
     return (
       <div className="w-full h-96 flex justify-center items-center">
         <Spinner /> Generating variants...
       </div>
     );
+  }
+
+  if (error) {
+    console.log(error);
   }
 
   return (
@@ -120,8 +106,8 @@ const Step3 = ({
 
       <div className=" w-full h-full overflow-x-auto relative ">
         {loadingGenerate ? (
-          <div className="w-full h-96 flex justify-center items-center">
-            <Spinner /> Generating variants...
+          <div className="w-full h-96 flex justify-center items-center gap-2">
+            <Spinner className="w-4 h-4" /> Generating variants...
           </div>
         ) : (
           <div className="flex flex-row w-fit gap-10 whitespace-nowrap pb-10">
@@ -132,7 +118,7 @@ const Step3 = ({
               onVariantChange={(value, index) => {
                 const newHooks = [...variants.hooks];
                 newHooks[index] = value;
-                setVariants({ ...variants, hooks: newHooks });
+                onSetVariants({ ...variants, hooks: newHooks });
               }}
               value={elements.hooks}
               onElementValueChange={(value) =>
@@ -140,7 +126,7 @@ const Step3 = ({
                   category: 'hooks',
                   value,
                   elements,
-                  setElements,
+                  onSetElements,
                 })
               }
             />
@@ -153,7 +139,7 @@ const Step3 = ({
                 const oldUrl = variants.strong_point_1_images[index];
 
                 // Update variants using functional state to avoid stale closures
-                setVariants((prev) => {
+                onSetVariants((prev: any) => {
                   const newBody1Images = [...prev.strong_point_1_images];
                   newBody1Images[index] = value;
                   return { ...prev, strong_point_1_images: newBody1Images };
@@ -161,11 +147,11 @@ const Step3 = ({
 
                 // Keep selections in sync when an already-selected image is edited
                 if (oldUrl) {
-                  setElements((prev) => {
+                  onSetElements((prev: any) => {
                     if (!prev.body1Images.includes(oldUrl)) return prev;
                     return {
                       ...prev,
-                      body1Images: prev.body1Images.map((url) => (url === oldUrl ? value : url)),
+                      body1Images: prev.body1Images.map((url: string) => (url === oldUrl ? value : url)),
                     };
                   });
                 }
@@ -180,7 +166,7 @@ const Step3 = ({
                   category: 'body1Images',
                   value: nextValue,
                   elements,
-                  setElements,
+                  onSetElements,
                 });
               }}
             />
@@ -191,7 +177,7 @@ const Step3 = ({
               onVariantChange={(value, index) => {
                 const newBody1Messages = [...variants.strong_point_1_messages];
                 newBody1Messages[index] = value;
-                setVariants({
+                onSetVariants({
                   ...variants,
                   strong_point_1_messages: newBody1Messages,
                 });
@@ -202,7 +188,7 @@ const Step3 = ({
                   category: 'body1Messages',
                   value,
                   elements,
-                  setElements,
+                  onSetElements,
                 })
               }
             />
@@ -214,18 +200,18 @@ const Step3 = ({
               onVariantChange={(value, index) => {
                 const oldUrl = variants.strong_point_2_images[index];
 
-                setVariants((prev) => {
+                onSetVariants((prev: any) => {
                   const newBody2Images = [...prev.strong_point_2_images];
                   newBody2Images[index] = value;
                   return { ...prev, strong_point_2_images: newBody2Images };
                 });
 
                 if (oldUrl) {
-                  setElements((prev) => {
+                  onSetElements((prev: any) => {
                     if (!prev.body2Images.includes(oldUrl)) return prev;
                     return {
                       ...prev,
-                      body2Images: prev.body2Images.map((url) => (url === oldUrl ? value : url)),
+                      body2Images: prev.body2Images.map((url: string) => (url === oldUrl ? value : url)),
                     };
                   });
                 }
@@ -238,7 +224,7 @@ const Step3 = ({
                   category: 'body2Images',
                   value: nextValue,
                   elements,
-                  setElements,
+                  onSetElements,
                 });
               }}
             />
@@ -249,7 +235,7 @@ const Step3 = ({
               onVariantChange={(value, index) => {
                 const newBody2Messages = [...variants.strong_point_2_messages];
                 newBody2Messages[index] = value;
-                setVariants({
+                onSetVariants({
                   ...variants,
                   strong_point_2_messages: newBody2Messages,
                 });
@@ -260,7 +246,7 @@ const Step3 = ({
                   category: 'body2Messages',
                   value,
                   elements,
-                  setElements,
+                  onSetElements,
                 })
               }
             />
@@ -272,18 +258,18 @@ const Step3 = ({
               onVariantChange={(value, index) => {
                 const oldUrl = variants.strong_point_3_images[index];
 
-                setVariants((prev) => {
+                onSetVariants((prev: any) => {
                   const newBody3Images = [...prev.strong_point_3_images];
                   newBody3Images[index] = value;
                   return { ...prev, strong_point_3_images: newBody3Images };
                 });
 
                 if (oldUrl) {
-                  setElements((prev) => {
+                  onSetElements((prev: any) => {
                     if (!prev.body3Images.includes(oldUrl)) return prev;
                     return {
                       ...prev,
-                      body3Images: prev.body3Images.map((url) => (url === oldUrl ? value : url)),
+                      body3Images: prev.body3Images.map((url: string) => (url === oldUrl ? value : url)),
                     };
                   });
                 }
@@ -296,7 +282,7 @@ const Step3 = ({
                   category: 'body3Images',
                   value: nextValue,
                   elements,
-                  setElements,
+                  onSetElements,
                 });
               }}
             />
@@ -307,7 +293,7 @@ const Step3 = ({
               onVariantChange={(value, index) => {
                 const newBody3Messages = [...variants.strong_point_3_messages];
                 newBody3Messages[index] = value;
-                setVariants({
+                onSetVariants({
                   ...variants,
                   strong_point_3_messages: newBody3Messages,
                 });
@@ -318,7 +304,7 @@ const Step3 = ({
                   category: 'body3Messages',
                   value,
                   elements,
-                  setElements,
+                  onSetElements,
                 })
               }
             />
@@ -329,7 +315,7 @@ const Step3 = ({
               onVariantChange={(value, index) => {
                 const newCtas = [...variants.ctas];
                 newCtas[index] = value;
-                setVariants({ ...variants, ctas: newCtas });
+                onSetVariants({ ...variants, ctas: newCtas });
               }}
               value={elements.ctas}
               onElementValueChange={(value) =>
@@ -337,7 +323,7 @@ const Step3 = ({
                   category: 'ctas',
                   value,
                   elements,
-                  setElements,
+                  onSetElements,
                 })
               }
             />
@@ -350,7 +336,7 @@ const Step3 = ({
           onClick={() => {
             // Generate pattern combinations only on submit
             const patterns = generatePatternCombinations(elements);
-            setPatternCombinations(patterns);
+            onSetPatternCombinations(patterns);
 
             submitStep3({ setLoading, onNext });
           }}

@@ -8,7 +8,7 @@ datasource db {
 }
 
 model User {
-  id               BigInt            @id @default(autoincrement())
+  id               String            @id @default(cuid())
   userId           String            @unique
   email            String?           @unique
   phoneNumber      String?
@@ -18,8 +18,9 @@ model User {
   updatedAt        DateTime          @updatedAt @db.Timestamptz(6)
   firstName        String?
   lastName         String?
-  project          project[]
+  planningSessions PlanningSession[]
   transaction      Transaction[]
+  project          project[]
 }
 
 /// This model contains row level security and requires additional setup for migrations. Visit https://pris.ly/d/row-level-security for more info.
@@ -80,53 +81,46 @@ model project {
 }
 
 model Transaction {
-  id              BigInt   @id @default(autoincrement())
+  id              String   @id @default(cuid())
   userId          String
   amount          Int
   quantity        Int
   stripeSessionId String   @unique
   status          String
-  type            String // e.g. "purchase"
+  type            String
   createdAt       DateTime @default(now()) @db.Timestamptz(6)
   updatedAt       DateTime @updatedAt @db.Timestamptz(6)
-
-  user User @relation(fields: [userId], references: [userId], onDelete: Cascade)
+  user            User     @relation(fields: [userId], references: [userId], onDelete: Cascade)
 }
 
 model PlanningSession {
-  id           String         @id @default(cuid())
-  sessionToken String?        @unique
-  finishedAt   DateTime?      @db.Timestamptz(6)
-  lastPage     PlanningPages?
-  lastStep     Int?
-  product      String?
-
-  planningPlans  PlanningPlan?
-  creativeBrief  CreativeBrief?
+  id               String            @id @default(cuid())
+  sessionToken     String?           @unique
+  finishedAt       DateTime?         @db.Timestamptz(6)
+  lastPage         PlanningPages?
+  lastStep         Int?
+  product          String?
+  userId           String
+  competitors      String[]
+  keyword          String?
+  ads              Ads[]
+  creativeBrief    CreativeBrief?
+  planningPlans    PlanningPlan?
+  User             User              @relation(fields: [userId], references: [id])
   planningVariants PlanningVariants?
-  renderedVideos RenderedVideo[]
-}
-
-
-enum PlanningPages {
-  switch
-  what_scratch
-  what_skip
-  how
-  generation
+  renderedVideos   RenderedVideo[]
 }
 
 model CreativeBrief {
-  id           BigInt   @id @default(autoincrement())
-  keyMessages  String?
-  strongPoints String[]
-
+  id                String          @id @default(cuid())
+  keyMessages       String?
+  strongPoints      String[]
   planningSessionId String          @unique
   PlanningSession   PlanningSession @relation(fields: [planningSessionId], references: [id])
 }
 
 model PlanningPlan {
-  id                              BigInt  @id @default(autoincrement())
+  id                              String          @id @default(cuid())
   currency                        String?
   estimated_cost_per_video        Int?
   recommended_min_spend_per_video Int?
@@ -135,33 +129,58 @@ model PlanningPlan {
   platform                        String?
   target_impressions_per_video    Int?
   typical_cpm                     Int?
-
-  planningSessionId String          @unique
-  PlanningSession   PlanningSession @relation(fields: [planningSessionId], references: [id])
+  planningSessionId               String          @unique
+  budget                          Int?
+  template_id                     String?
+  PlanningSession                 PlanningSession @relation(fields: [planningSessionId], references: [id])
 }
 
-model PlanningVariants{
-  id                BigInt   @id @default(autoincrement())
+model PlanningVariants {
+  id                String          @id @default(cuid())
   hooks             String[]
   bodyA_messages    String[]
   bodyB_messages    String[]
   bodyC_messages    String[]
   ctas              String[]
-
   planningSessionId String          @unique
-  PlanningSession   PlanningSession @relation(fields: [planningSessionId], references: [id])  
+  PlanningSession   PlanningSession @relation(fields: [planningSessionId], references: [id])
 }
 
 model RenderedVideo {
-  id        BigInt   @id @default(autoincrement())
-  videoUrl  String
-  createdAt DateTime @default(now()) @db.Timestamptz(6)
-  hook         String
-  bodyAMessage String
-  bodyBMessage String
-  bodyCMessage String
-  cta          String
-
+  id                String          @id @default(cuid())
+  videoUrl          String
+  createdAt         DateTime        @default(now()) @db.Timestamptz(6)
   planningSessionId String
-  PlanningSession   PlanningSession @relation(fields: [planningSessionId], references: [id], onDelete: Cascade)
+  bodyAMessage      String?
+  bodyBMessage      String?
+  bodyCMessage      String?
+  cta               String?
+  hook              String?
+  PlanningSession   PlanningSession @relation(fields: [planningSessionId], references: [id])
+}
+
+model Ads {
+  id                String          @id @default(cuid())
+  adUrl             String
+  createdAt         DateTime        @default(now()) @db.Timestamptz(6)
+  performance       Json?           @db.Json
+  planningSessionId String
+  PlanningSession   PlanningSession @relation(fields: [planningSessionId], references: [id])
+}
+
+model GoogleAdsCredential {
+  id           String    @id @default(dbgenerated("(gen_random_uuid())::text"))
+  userId       String    @unique
+  refreshToken String
+  customerIds  String[]
+  createdAt    DateTime? @default(now()) @db.Timestamptz(6)
+  updatedAt    DateTime? @default(now()) @db.Timestamptz(6)
+}
+
+enum PlanningPages {
+  switch
+  what_scratch
+  what_skip
+  how
+  generation
 }

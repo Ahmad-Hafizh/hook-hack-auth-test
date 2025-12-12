@@ -20,27 +20,17 @@ export type PlanningVariantsModel = runtime.Types.Result.DefaultSelection<Prisma
 
 export type AggregatePlanningVariants = {
   _count: PlanningVariantsCountAggregateOutputType | null
-  _avg: PlanningVariantsAvgAggregateOutputType | null
-  _sum: PlanningVariantsSumAggregateOutputType | null
   _min: PlanningVariantsMinAggregateOutputType | null
   _max: PlanningVariantsMaxAggregateOutputType | null
 }
 
-export type PlanningVariantsAvgAggregateOutputType = {
-  id: number | null
-}
-
-export type PlanningVariantsSumAggregateOutputType = {
-  id: bigint | null
-}
-
 export type PlanningVariantsMinAggregateOutputType = {
-  id: bigint | null
+  id: string | null
   planningSessionId: string | null
 }
 
 export type PlanningVariantsMaxAggregateOutputType = {
-  id: bigint | null
+  id: string | null
   planningSessionId: string | null
 }
 
@@ -55,14 +45,6 @@ export type PlanningVariantsCountAggregateOutputType = {
   _all: number
 }
 
-
-export type PlanningVariantsAvgAggregateInputType = {
-  id?: true
-}
-
-export type PlanningVariantsSumAggregateInputType = {
-  id?: true
-}
 
 export type PlanningVariantsMinAggregateInputType = {
   id?: true
@@ -123,18 +105,6 @@ export type PlanningVariantsAggregateArgs<ExtArgs extends runtime.Types.Extensio
   /**
    * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
    * 
-   * Select which fields to average
-  **/
-  _avg?: PlanningVariantsAvgAggregateInputType
-  /**
-   * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
-   * 
-   * Select which fields to sum
-  **/
-  _sum?: PlanningVariantsSumAggregateInputType
-  /**
-   * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
-   * 
    * Select which fields to find the minimum value
   **/
   _min?: PlanningVariantsMinAggregateInputType
@@ -165,14 +135,12 @@ export type PlanningVariantsGroupByArgs<ExtArgs extends runtime.Types.Extensions
   take?: number
   skip?: number
   _count?: PlanningVariantsCountAggregateInputType | true
-  _avg?: PlanningVariantsAvgAggregateInputType
-  _sum?: PlanningVariantsSumAggregateInputType
   _min?: PlanningVariantsMinAggregateInputType
   _max?: PlanningVariantsMaxAggregateInputType
 }
 
 export type PlanningVariantsGroupByOutputType = {
-  id: bigint
+  id: string
   hooks: string[]
   bodyA_messages: string[]
   bodyB_messages: string[]
@@ -180,8 +148,6 @@ export type PlanningVariantsGroupByOutputType = {
   ctas: string[]
   planningSessionId: string
   _count: PlanningVariantsCountAggregateOutputType | null
-  _avg: PlanningVariantsAvgAggregateOutputType | null
-  _sum: PlanningVariantsSumAggregateOutputType | null
   _min: PlanningVariantsMinAggregateOutputType | null
   _max: PlanningVariantsMaxAggregateOutputType | null
 }
@@ -205,7 +171,7 @@ export type PlanningVariantsWhereInput = {
   AND?: Prisma.PlanningVariantsWhereInput | Prisma.PlanningVariantsWhereInput[]
   OR?: Prisma.PlanningVariantsWhereInput[]
   NOT?: Prisma.PlanningVariantsWhereInput | Prisma.PlanningVariantsWhereInput[]
-  id?: Prisma.BigIntFilter<"PlanningVariants"> | bigint | number
+  id?: Prisma.StringFilter<"PlanningVariants"> | string
   hooks?: Prisma.StringNullableListFilter<"PlanningVariants">
   bodyA_messages?: Prisma.StringNullableListFilter<"PlanningVariants">
   bodyB_messages?: Prisma.StringNullableListFilter<"PlanningVariants">
@@ -227,7 +193,7 @@ export type PlanningVariantsOrderByWithRelationInput = {
 }
 
 export type PlanningVariantsWhereUniqueInput = Prisma.AtLeast<{
-  id?: bigint | number
+  id?: string
   planningSessionId?: string
   AND?: Prisma.PlanningVariantsWhereInput | Prisma.PlanningVariantsWhereInput[]
   OR?: Prisma.PlanningVariantsWhereInput[]
@@ -249,17 +215,15 @@ export type PlanningVariantsOrderByWithAggregationInput = {
   ctas?: Prisma.SortOrder
   planningSessionId?: Prisma.SortOrder
   _count?: Prisma.PlanningVariantsCountOrderByAggregateInput
-  _avg?: Prisma.PlanningVariantsAvgOrderByAggregateInput
   _max?: Prisma.PlanningVariantsMaxOrderByAggregateInput
   _min?: Prisma.PlanningVariantsMinOrderByAggregateInput
-  _sum?: Prisma.PlanningVariantsSumOrderByAggregateInput
 }
 
 export type PlanningVariantsScalarWhereWithAggregatesInput = {
   AND?: Prisma.PlanningVariantsScalarWhereWithAggregatesInput | Prisma.PlanningVariantsScalarWhereWithAggregatesInput[]
   OR?: Prisma.PlanningVariantsScalarWhereWithAggregatesInput[]
   NOT?: Prisma.PlanningVariantsScalarWhereWithAggregatesInput | Prisma.PlanningVariantsScalarWhereWithAggregatesInput[]
-  id?: Prisma.BigIntWithAggregatesFilter<"PlanningVariants"> | bigint | number
+  id?: Prisma.StringWithAggregatesFilter<"PlanningVariants"> | string
   hooks?: Prisma.StringNullableListFilter<"PlanningVariants">
   bodyA_messages?: Prisma.StringNullableListFilter<"PlanningVariants">
   bodyB_messages?: Prisma.StringNullableListFilter<"PlanningVariants">
@@ -269,7 +233,7 @@ export type PlanningVariantsScalarWhereWithAggregatesInput = {
 }
 
 export type PlanningVariantsCreateInput = {
-  id?: bigint | number
+  id?: string
   hooks?: Prisma.PlanningVariantsCreatehooksInput | string[]
   bodyA_messages?: Prisma.PlanningVariantsCreatebodyA_messagesInput | string[]
   bodyB_messages?: Prisma.PlanningVariantsCreatebodyB_messagesInput | string[]
@@ -279,7 +243,7 @@ export type PlanningVariantsCreateInput = {
 }
 
 export type PlanningVariantsUncheckedCreateInput = {
-  id?: bigint | number
+  id?: string
   hooks?: Prisma.PlanningVariantsCreatehooksInput | string[]
   bodyA_messages?: Prisma.PlanningVariantsCreatebodyA_messagesInput | string[]
   bodyB_messages?: Prisma.PlanningVariantsCreatebodyB_messagesInput | string[]
@@ -289,7 +253,7 @@ export type PlanningVariantsUncheckedCreateInput = {
 }
 
 export type PlanningVariantsUpdateInput = {
-  id?: Prisma.BigIntFieldUpdateOperationsInput | bigint | number
+  id?: Prisma.StringFieldUpdateOperationsInput | string
   hooks?: Prisma.PlanningVariantsUpdatehooksInput | string[]
   bodyA_messages?: Prisma.PlanningVariantsUpdatebodyA_messagesInput | string[]
   bodyB_messages?: Prisma.PlanningVariantsUpdatebodyB_messagesInput | string[]
@@ -299,7 +263,7 @@ export type PlanningVariantsUpdateInput = {
 }
 
 export type PlanningVariantsUncheckedUpdateInput = {
-  id?: Prisma.BigIntFieldUpdateOperationsInput | bigint | number
+  id?: Prisma.StringFieldUpdateOperationsInput | string
   hooks?: Prisma.PlanningVariantsUpdatehooksInput | string[]
   bodyA_messages?: Prisma.PlanningVariantsUpdatebodyA_messagesInput | string[]
   bodyB_messages?: Prisma.PlanningVariantsUpdatebodyB_messagesInput | string[]
@@ -309,7 +273,7 @@ export type PlanningVariantsUncheckedUpdateInput = {
 }
 
 export type PlanningVariantsCreateManyInput = {
-  id?: bigint | number
+  id?: string
   hooks?: Prisma.PlanningVariantsCreatehooksInput | string[]
   bodyA_messages?: Prisma.PlanningVariantsCreatebodyA_messagesInput | string[]
   bodyB_messages?: Prisma.PlanningVariantsCreatebodyB_messagesInput | string[]
@@ -319,7 +283,7 @@ export type PlanningVariantsCreateManyInput = {
 }
 
 export type PlanningVariantsUpdateManyMutationInput = {
-  id?: Prisma.BigIntFieldUpdateOperationsInput | bigint | number
+  id?: Prisma.StringFieldUpdateOperationsInput | string
   hooks?: Prisma.PlanningVariantsUpdatehooksInput | string[]
   bodyA_messages?: Prisma.PlanningVariantsUpdatebodyA_messagesInput | string[]
   bodyB_messages?: Prisma.PlanningVariantsUpdatebodyB_messagesInput | string[]
@@ -328,7 +292,7 @@ export type PlanningVariantsUpdateManyMutationInput = {
 }
 
 export type PlanningVariantsUncheckedUpdateManyInput = {
-  id?: Prisma.BigIntFieldUpdateOperationsInput | bigint | number
+  id?: Prisma.StringFieldUpdateOperationsInput | string
   hooks?: Prisma.PlanningVariantsUpdatehooksInput | string[]
   bodyA_messages?: Prisma.PlanningVariantsUpdatebodyA_messagesInput | string[]
   bodyB_messages?: Prisma.PlanningVariantsUpdatebodyB_messagesInput | string[]
@@ -352,10 +316,6 @@ export type PlanningVariantsCountOrderByAggregateInput = {
   planningSessionId?: Prisma.SortOrder
 }
 
-export type PlanningVariantsAvgOrderByAggregateInput = {
-  id?: Prisma.SortOrder
-}
-
 export type PlanningVariantsMaxOrderByAggregateInput = {
   id?: Prisma.SortOrder
   planningSessionId?: Prisma.SortOrder
@@ -364,10 +324,6 @@ export type PlanningVariantsMaxOrderByAggregateInput = {
 export type PlanningVariantsMinOrderByAggregateInput = {
   id?: Prisma.SortOrder
   planningSessionId?: Prisma.SortOrder
-}
-
-export type PlanningVariantsSumOrderByAggregateInput = {
-  id?: Prisma.SortOrder
 }
 
 export type PlanningVariantsCreateNestedOneWithoutPlanningSessionInput = {
@@ -448,7 +404,7 @@ export type PlanningVariantsUpdatectasInput = {
 }
 
 export type PlanningVariantsCreateWithoutPlanningSessionInput = {
-  id?: bigint | number
+  id?: string
   hooks?: Prisma.PlanningVariantsCreatehooksInput | string[]
   bodyA_messages?: Prisma.PlanningVariantsCreatebodyA_messagesInput | string[]
   bodyB_messages?: Prisma.PlanningVariantsCreatebodyB_messagesInput | string[]
@@ -457,7 +413,7 @@ export type PlanningVariantsCreateWithoutPlanningSessionInput = {
 }
 
 export type PlanningVariantsUncheckedCreateWithoutPlanningSessionInput = {
-  id?: bigint | number
+  id?: string
   hooks?: Prisma.PlanningVariantsCreatehooksInput | string[]
   bodyA_messages?: Prisma.PlanningVariantsCreatebodyA_messagesInput | string[]
   bodyB_messages?: Prisma.PlanningVariantsCreatebodyB_messagesInput | string[]
@@ -482,7 +438,7 @@ export type PlanningVariantsUpdateToOneWithWhereWithoutPlanningSessionInput = {
 }
 
 export type PlanningVariantsUpdateWithoutPlanningSessionInput = {
-  id?: Prisma.BigIntFieldUpdateOperationsInput | bigint | number
+  id?: Prisma.StringFieldUpdateOperationsInput | string
   hooks?: Prisma.PlanningVariantsUpdatehooksInput | string[]
   bodyA_messages?: Prisma.PlanningVariantsUpdatebodyA_messagesInput | string[]
   bodyB_messages?: Prisma.PlanningVariantsUpdatebodyB_messagesInput | string[]
@@ -491,7 +447,7 @@ export type PlanningVariantsUpdateWithoutPlanningSessionInput = {
 }
 
 export type PlanningVariantsUncheckedUpdateWithoutPlanningSessionInput = {
-  id?: Prisma.BigIntFieldUpdateOperationsInput | bigint | number
+  id?: Prisma.StringFieldUpdateOperationsInput | string
   hooks?: Prisma.PlanningVariantsUpdatehooksInput | string[]
   bodyA_messages?: Prisma.PlanningVariantsUpdatebodyA_messagesInput | string[]
   bodyB_messages?: Prisma.PlanningVariantsUpdatebodyB_messagesInput | string[]
@@ -561,7 +517,7 @@ export type $PlanningVariantsPayload<ExtArgs extends runtime.Types.Extensions.In
     PlanningSession: Prisma.$PlanningSessionPayload<ExtArgs>
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
-    id: bigint
+    id: string
     hooks: string[]
     bodyA_messages: string[]
     bodyB_messages: string[]
@@ -992,7 +948,7 @@ export interface Prisma__PlanningVariantsClient<T, Null = never, ExtArgs extends
  * Fields of the PlanningVariants model
  */
 export interface PlanningVariantsFieldRefs {
-  readonly id: Prisma.FieldRef<"PlanningVariants", 'BigInt'>
+  readonly id: Prisma.FieldRef<"PlanningVariants", 'String'>
   readonly hooks: Prisma.FieldRef<"PlanningVariants", 'String[]'>
   readonly bodyA_messages: Prisma.FieldRef<"PlanningVariants", 'String[]'>
   readonly bodyB_messages: Prisma.FieldRef<"PlanningVariants", 'String[]'>

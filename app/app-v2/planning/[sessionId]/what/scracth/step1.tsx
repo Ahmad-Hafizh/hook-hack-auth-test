@@ -2,8 +2,8 @@ import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Spinner } from '@/components/ui/spinner';
 import React from 'react';
-import { submitStep1Scratch } from '../hooks/useFetchApi';
 import { useParams } from 'next/navigation';
+import { submitStep1Scratch } from '../hooks/useFetchAPINext';
 
 const Step1Scratch = ({ onNext, onSetKeywords }: { onNext: () => void; onSetKeywords: (keywords: any) => void }) => {
   const { sessionId } = useParams();
@@ -22,7 +22,7 @@ const Step1Scratch = ({ onNext, onSetKeywords }: { onNext: () => void; onSetKeyw
         </div>
       </div>
       <div className="flex justify-end">
-        <Button className="border-2 border-rose-600 bg-rose-600  hover:bg-rose-500 text-white px-4 py-2" onClick={() => submitStep1Scratch({ url, onSetKeywords, onNext, setLoading })} disabled={loading}>
+        <Button className="border-2 border-rose-600 bg-rose-600  hover:bg-rose-500 text-white px-4 py-2" onClick={() => submitStep1Scratch({ url, onSetKeywords, onNext, setLoading, sessionId: sessionId as string })} disabled={loading}>
           {loading && <Spinner className="w-3 h-3" />} 次に​進む
         </Button>
       </div>

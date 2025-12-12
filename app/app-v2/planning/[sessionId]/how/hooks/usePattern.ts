@@ -84,6 +84,7 @@ export const generatePatternCombinations = (elements: IElements): IPattern[] => 
       strong_point_3: combination[5],
       logo: 'https://example.com/',
     },
+    bgm: '',
   }));
 };
 
@@ -104,10 +105,10 @@ export const calculateValuePattern = (elements: IElements, category: keyof IElem
   );
 };
 
-export const onElementValueChange = ({ category, value, elements, setElements }: { category: keyof IElements; value: string[]; elements: IElements; setElements: React.Dispatch<React.SetStateAction<IElements>> }) => {
+export const onElementValueChange = ({ category, value, elements, onSetElements }: { category: keyof IElements; value: string[]; elements: IElements; onSetElements: (elements: IElements) => void }) => {
   // Always allow deselecting (reducing selections)
   if (value.length < elements[category].length) {
-    setElements({ ...elements, [category]: value });
+    onSetElements({ ...elements, [category]: value });
     return;
   }
 
@@ -117,7 +118,7 @@ export const onElementValueChange = ({ category, value, elements, setElements }:
   if (value.length <= 2) {
     const predictedPatternCount = calculateValuePattern(elements, category, value);
     if (predictedPatternCount <= 10) {
-      setElements({ ...elements, [category]: value });
+      onSetElements({ ...elements, [category]: value });
     }
   }
 };

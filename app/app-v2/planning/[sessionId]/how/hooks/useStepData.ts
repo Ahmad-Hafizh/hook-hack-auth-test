@@ -101,5 +101,24 @@ export const useStepData = () => {
 
   const [selectedTemplateId, setSelectedTemplateId] = useState<string>('');
 
-  return { plan, setPlan, variants, setVariants, elements, setElements, patternCount, setPatternCount, patternCombinations, setPatternCombinations, rendersCreatomate, setRendersCreatomate, selectedTemplateId, setSelectedTemplateId };
+  const [jobId, setJobId] = useState<string>('');
+
+  return {
+    plan,
+    setPlan,
+    variants,
+    setVariants,
+    elements,
+    setElements,
+    patternCount,
+    setPatternCount,
+    patternCombinations,
+    setPatternCombinations,
+    rendersCreatomate,
+    setRendersCreatomate,
+    selectedTemplateId,
+    setSelectedTemplateId,
+    jobId,
+    setJobId,
+  };
 };

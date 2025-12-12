@@ -1,26 +1,18 @@
 import { Button } from '@/components/ui/button';
 import { Spinner } from '@/components/ui/spinner';
 import React from 'react';
-import { submitStep2 } from '../hooks/useFetchApi';
+import { submitStep2 } from '../hooks/useFetchAPINext';
 import { Label } from '@/components/ui/label';
 import { RadioGroup, RadioGroupItem } from '@/components/ui/radio-group';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
-import { IVariants } from '../hooks/useStepData';
+import { useParams } from 'next/navigation';
+import { useDataContext } from '../hooks/useDataContext';
 
-const Step2 = ({
-  onNext,
-  setSelectedTemplateId,
-  selectedTemplateId,
-  setVariants,
-  variants,
-}: {
-  onNext: () => void;
-  setSelectedTemplateId: React.Dispatch<React.SetStateAction<string>>;
-  selectedTemplateId: string;
-  setVariants: React.Dispatch<React.SetStateAction<any>>;
-  variants: IVariants;
-}) => {
+const Step2 = ({ onNext }: { onNext: () => void }) => {
   const [loading, setLoading] = React.useState(false);
+  const { sessionId } = useParams();
+  const [selectedTemplateId, setSelectedTemplateId] = React.useState<string>('');
+  const { onSetJobId } = useDataContext();
 
   const templatesCreatomateList = [
     {
@@ -62,11 +54,11 @@ const Step2 = ({
       </RadioGroup>
       <div className="flex justify-end">
         <Button
-          onClick={() => submitStep2({ setLoading, onNext, setVariants, variants, selectedTemplateId })}
+          onClick={() => submitStep2({ setLoading, onNext, selectedTemplateId, sessionId: sessionId as string, onSetJobId })}
           disabled={loading || selectedTemplateId === ''}
           className="border-2 border-rose-600 bg-rose-600  hover:bg-rose-500 text-white px-4 py-2"
         >
-          {loading && <Spinner />}
+          {loading && <Spinner className="w-4 h-4" />}
           次に​進む
         </Button>
       </div>

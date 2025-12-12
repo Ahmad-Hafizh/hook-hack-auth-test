@@ -2,27 +2,11 @@
 import React from 'react';
 import callApi from '@/config/axios/axios';
 import { useRouter } from 'next/navigation';
+import { getSessionId } from '../hooks/fetchAPI';
 
 const SwitchPage = () => {
   const [loading, setLoading] = React.useState(false);
   const router = useRouter();
-
-  const getSessionId = async ({ page }: { page: string }) => {
-    setLoading(true);
-    try {
-      const { data } = await callApi.post('/app-v2/planning/switch', {
-        page,
-      });
-
-      if (data.sessionId) {
-        router.push(`/app-v2/planning/${data.sessionId}/what`);
-        setLoading(false);
-      }
-    } catch (error) {
-      console.log(error);
-      setLoading(false);
-    }
-  };
 
   return (
     <div className="flex w-full flex-col justify-center items-center h-full gap-20">
@@ -35,7 +19,7 @@ const SwitchPage = () => {
           <div
             className={`rounded-xl text-center flex flex-col justify-center items-center w-[200px] h-[200px] hover:border-black hover:shadow hover:font-bold transition-all border-gray-300 border-2 ${loading ? 'pointer-events-none opacity-50' : 'cursor-pointer'}`}
             onClick={() => {
-              getSessionId({ page: 'what_scratch' });
+              getSessionId({ page: 'what_scratch', setLoading, router });
             }}
           >
             <p className="w-8/12">競合他社の​調査を​始める​</p>
@@ -43,7 +27,7 @@ const SwitchPage = () => {
           <div
             className={`rounded-xl text-center flex flex-col justify-center items-center w-[200px] h-[200px] hover:border-black hover:shadow hover:font-bold transition-all border-gray-300 border-2 leading-normal ${loading ? 'pointer-events-none opacity-50' : 'cursor-pointer'}`}
             onClick={() => {
-              getSessionId({ page: 'what_skip' });
+              getSessionId({ page: 'what_skip', setLoading, router });
             }}
           >
             <p className="w-8/12">調査したい​競合3社の​LPの​URLを​すでに​ご存じの​方は​こちら</p>

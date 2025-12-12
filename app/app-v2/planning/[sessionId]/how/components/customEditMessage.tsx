@@ -22,7 +22,7 @@ const CustomEditMessage = ({ value, onVariantChange, index, title }: { value: st
             }
           }}
         >
-          {isEditing ? <Edit className="w-4 h-4" /> : <Save className="w-4 h-4" />}
+          {isEditing ? <Save className="w-4 h-4" /> : <Edit className="w-4 h-4" />}
         </div>
       </div>
     </div>

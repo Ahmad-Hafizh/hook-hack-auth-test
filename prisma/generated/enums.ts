@@ -10,7 +10,6 @@
 */
 
 export const PlanningPages = {
-  switch: 'switch',
   what_scratch: 'what_scratch',
   what_skip: 'what_skip',
   how: 'how',

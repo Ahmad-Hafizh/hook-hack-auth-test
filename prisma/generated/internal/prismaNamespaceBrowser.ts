@@ -178,7 +178,6 @@ export const PlanningSessionScalarFieldEnum = {
   sessionToken: 'sessionToken',
   finishedAt: 'finishedAt',
   lastPage: 'lastPage',
-  lastStep: 'lastStep',
   product: 'product',
   userId: 'userId',
   competitors: 'competitors',

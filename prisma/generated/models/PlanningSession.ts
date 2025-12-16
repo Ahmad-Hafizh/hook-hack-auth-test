@@ -20,18 +20,8 @@ export type PlanningSessionModel = runtime.Types.Result.DefaultSelection<Prisma.
 
 export type AggregatePlanningSession = {
   _count: PlanningSessionCountAggregateOutputType | null
-  _avg: PlanningSessionAvgAggregateOutputType | null
-  _sum: PlanningSessionSumAggregateOutputType | null
   _min: PlanningSessionMinAggregateOutputType | null
   _max: PlanningSessionMaxAggregateOutputType | null
-}
-
-export type PlanningSessionAvgAggregateOutputType = {
-  lastStep: number | null
-}
-
-export type PlanningSessionSumAggregateOutputType = {
-  lastStep: number | null
 }
 
 export type PlanningSessionMinAggregateOutputType = {
@@ -39,7 +29,6 @@ export type PlanningSessionMinAggregateOutputType = {
   sessionToken: string | null
   finishedAt: Date | null
   lastPage: $Enums.PlanningPages | null
-  lastStep: number | null
   product: string | null
   userId: string | null
   keyword: string | null
@@ -50,7 +39,6 @@ export type PlanningSessionMaxAggregateOutputType = {
   sessionToken: string | null
   finishedAt: Date | null
   lastPage: $Enums.PlanningPages | null
-  lastStep: number | null
   product: string | null
   userId: string | null
   keyword: string | null
@@ -61,7 +49,6 @@ export type PlanningSessionCountAggregateOutputType = {
   sessionToken: number
   finishedAt: number
   lastPage: number
-  lastStep: number
   product: number
   userId: number
   competitors: number
@@ -70,20 +57,11 @@ export type PlanningSessionCountAggregateOutputType = {
 }
 
 
-export type PlanningSessionAvgAggregateInputType = {
-  lastStep?: true
-}
-
-export type PlanningSessionSumAggregateInputType = {
-  lastStep?: true
-}
-
 export type PlanningSessionMinAggregateInputType = {
   id?: true
   sessionToken?: true
   finishedAt?: true
   lastPage?: true
-  lastStep?: true
   product?: true
   userId?: true
   keyword?: true
@@ -94,7 +72,6 @@ export type PlanningSessionMaxAggregateInputType = {
   sessionToken?: true
   finishedAt?: true
   lastPage?: true
-  lastStep?: true
   product?: true
   userId?: true
   keyword?: true
@@ -105,7 +82,6 @@ export type PlanningSessionCountAggregateInputType = {
   sessionToken?: true
   finishedAt?: true
   lastPage?: true
-  lastStep?: true
   product?: true
   userId?: true
   competitors?: true
@@ -151,18 +127,6 @@ export type PlanningSessionAggregateArgs<ExtArgs extends runtime.Types.Extension
   /**
    * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
    * 
-   * Select which fields to average
-  **/
-  _avg?: PlanningSessionAvgAggregateInputType
-  /**
-   * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
-   * 
-   * Select which fields to sum
-  **/
-  _sum?: PlanningSessionSumAggregateInputType
-  /**
-   * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
-   * 
    * Select which fields to find the minimum value
   **/
   _min?: PlanningSessionMinAggregateInputType
@@ -193,8 +157,6 @@ export type PlanningSessionGroupByArgs<ExtArgs extends runtime.Types.Extensions.
   take?: number
   skip?: number
   _count?: PlanningSessionCountAggregateInputType | true
-  _avg?: PlanningSessionAvgAggregateInputType
-  _sum?: PlanningSessionSumAggregateInputType
   _min?: PlanningSessionMinAggregateInputType
   _max?: PlanningSessionMaxAggregateInputType
 }
@@ -204,14 +166,11 @@ export type PlanningSessionGroupByOutputType = {
   sessionToken: string | null
   finishedAt: Date | null
   lastPage: $Enums.PlanningPages | null
-  lastStep: number | null
   product: string | null
   userId: string
   competitors: string[]
   keyword: string | null
   _count: PlanningSessionCountAggregateOutputType | null
-  _avg: PlanningSessionAvgAggregateOutputType | null
-  _sum: PlanningSessionSumAggregateOutputType | null
   _min: PlanningSessionMinAggregateOutputType | null
   _max: PlanningSessionMaxAggregateOutputType | null
 }
@@ -239,7 +198,6 @@ export type PlanningSessionWhereInput = {
   sessionToken?: Prisma.StringNullableFilter<"PlanningSession"> | string | null
   finishedAt?: Prisma.DateTimeNullableFilter<"PlanningSession"> | Date | string | null
   lastPage?: Prisma.EnumPlanningPagesNullableFilter<"PlanningSession"> | $Enums.PlanningPages | null
-  lastStep?: Prisma.IntNullableFilter<"PlanningSession"> | number | null
   product?: Prisma.StringNullableFilter<"PlanningSession"> | string | null
   userId?: Prisma.StringFilter<"PlanningSession"> | string
   competitors?: Prisma.StringNullableListFilter<"PlanningSession">
@@ -257,7 +215,6 @@ export type PlanningSessionOrderByWithRelationInput = {
   sessionToken?: Prisma.SortOrderInput | Prisma.SortOrder
   finishedAt?: Prisma.SortOrderInput | Prisma.SortOrder
   lastPage?: Prisma.SortOrderInput | Prisma.SortOrder
-  lastStep?: Prisma.SortOrderInput | Prisma.SortOrder
   product?: Prisma.SortOrderInput | Prisma.SortOrder
   userId?: Prisma.SortOrder
   competitors?: Prisma.SortOrder
@@ -278,7 +235,6 @@ export type PlanningSessionWhereUniqueInput = Prisma.AtLeast<{
   NOT?: Prisma.PlanningSessionWhereInput | Prisma.PlanningSessionWhereInput[]
   finishedAt?: Prisma.DateTimeNullableFilter<"PlanningSession"> | Date | string | null
   lastPage?: Prisma.EnumPlanningPagesNullableFilter<"PlanningSession"> | $Enums.PlanningPages | null
-  lastStep?: Prisma.IntNullableFilter<"PlanningSession"> | number | null
   product?: Prisma.StringNullableFilter<"PlanningSession"> | string | null
   userId?: Prisma.StringFilter<"PlanningSession"> | string
   competitors?: Prisma.StringNullableListFilter<"PlanningSession">
@@ -296,16 +252,13 @@ export type PlanningSessionOrderByWithAggregationInput = {
   sessionToken?: Prisma.SortOrderInput | Prisma.SortOrder
   finishedAt?: Prisma.SortOrderInput | Prisma.SortOrder
   lastPage?: Prisma.SortOrderInput | Prisma.SortOrder
-  lastStep?: Prisma.SortOrderInput | Prisma.SortOrder
   product?: Prisma.SortOrderInput | Prisma.SortOrder
   userId?: Prisma.SortOrder
   competitors?: Prisma.SortOrder
   keyword?: Prisma.SortOrderInput | Prisma.SortOrder
   _count?: Prisma.PlanningSessionCountOrderByAggregateInput
-  _avg?: Prisma.PlanningSessionAvgOrderByAggregateInput
   _max?: Prisma.PlanningSessionMaxOrderByAggregateInput
   _min?: Prisma.PlanningSessionMinOrderByAggregateInput
-  _sum?: Prisma.PlanningSessionSumOrderByAggregateInput
 }
 
 export type PlanningSessionScalarWhereWithAggregatesInput = {
@@ -316,7 +269,6 @@ export type PlanningSessionScalarWhereWithAggregatesInput = {
   sessionToken?: Prisma.StringNullableWithAggregatesFilter<"PlanningSession"> | string | null
   finishedAt?: Prisma.DateTimeNullableWithAggregatesFilter<"PlanningSession"> | Date | string | null
   lastPage?: Prisma.EnumPlanningPagesNullableWithAggregatesFilter<"PlanningSession"> | $Enums.PlanningPages | null
-  lastStep?: Prisma.IntNullableWithAggregatesFilter<"PlanningSession"> | number | null
   product?: Prisma.StringNullableWithAggregatesFilter<"PlanningSession"> | string | null
   userId?: Prisma.StringWithAggregatesFilter<"PlanningSession"> | string
   competitors?: Prisma.StringNullableListFilter<"PlanningSession">
@@ -328,7 +280,6 @@ export type PlanningSessionCreateInput = {
   sessionToken?: string | null
   finishedAt?: Date | string | null
   lastPage?: $Enums.PlanningPages | null
-  lastStep?: number | null
   product?: string | null
   competitors?: Prisma.PlanningSessionCreatecompetitorsInput | string[]
   keyword?: string | null
@@ -345,7 +296,6 @@ export type PlanningSessionUncheckedCreateInput = {
   sessionToken?: string | null
   finishedAt?: Date | string | null
   lastPage?: $Enums.PlanningPages | null
-  lastStep?: number | null
   product?: string | null
   userId: string
   competitors?: Prisma.PlanningSessionCreatecompetitorsInput | string[]
@@ -362,7 +312,6 @@ export type PlanningSessionUpdateInput = {
   sessionToken?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   finishedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   lastPage?: Prisma.NullableEnumPlanningPagesFieldUpdateOperationsInput | $Enums.PlanningPages | null
-  lastStep?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   product?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   competitors?: Prisma.PlanningSessionUpdatecompetitorsInput | string[]
   keyword?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -379,7 +328,6 @@ export type PlanningSessionUncheckedUpdateInput = {
   sessionToken?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   finishedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   lastPage?: Prisma.NullableEnumPlanningPagesFieldUpdateOperationsInput | $Enums.PlanningPages | null
-  lastStep?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   product?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   userId?: Prisma.StringFieldUpdateOperationsInput | string
   competitors?: Prisma.PlanningSessionUpdatecompetitorsInput | string[]
@@ -396,7 +344,6 @@ export type PlanningSessionCreateManyInput = {
   sessionToken?: string | null
   finishedAt?: Date | string | null
   lastPage?: $Enums.PlanningPages | null
-  lastStep?: number | null
   product?: string | null
   userId: string
   competitors?: Prisma.PlanningSessionCreatecompetitorsInput | string[]
@@ -408,7 +355,6 @@ export type PlanningSessionUpdateManyMutationInput = {
   sessionToken?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   finishedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   lastPage?: Prisma.NullableEnumPlanningPagesFieldUpdateOperationsInput | $Enums.PlanningPages | null
-  lastStep?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   product?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   competitors?: Prisma.PlanningSessionUpdatecompetitorsInput | string[]
   keyword?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -419,7 +365,6 @@ export type PlanningSessionUncheckedUpdateManyInput = {
   sessionToken?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   finishedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   lastPage?: Prisma.NullableEnumPlanningPagesFieldUpdateOperationsInput | $Enums.PlanningPages | null
-  lastStep?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   product?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   userId?: Prisma.StringFieldUpdateOperationsInput | string
   competitors?: Prisma.PlanningSessionUpdatecompetitorsInput | string[]
@@ -449,15 +394,10 @@ export type PlanningSessionCountOrderByAggregateInput = {
   sessionToken?: Prisma.SortOrder
   finishedAt?: Prisma.SortOrder
   lastPage?: Prisma.SortOrder
-  lastStep?: Prisma.SortOrder
   product?: Prisma.SortOrder
   userId?: Prisma.SortOrder
   competitors?: Prisma.SortOrder
   keyword?: Prisma.SortOrder
-}
-
-export type PlanningSessionAvgOrderByAggregateInput = {
-  lastStep?: Prisma.SortOrder
 }
 
 export type PlanningSessionMaxOrderByAggregateInput = {
@@ -465,7 +405,6 @@ export type PlanningSessionMaxOrderByAggregateInput = {
   sessionToken?: Prisma.SortOrder
   finishedAt?: Prisma.SortOrder
   lastPage?: Prisma.SortOrder
-  lastStep?: Prisma.SortOrder
   product?: Prisma.SortOrder
   userId?: Prisma.SortOrder
   keyword?: Prisma.SortOrder
@@ -476,14 +415,9 @@ export type PlanningSessionMinOrderByAggregateInput = {
   sessionToken?: Prisma.SortOrder
   finishedAt?: Prisma.SortOrder
   lastPage?: Prisma.SortOrder
-  lastStep?: Prisma.SortOrder
   product?: Prisma.SortOrder
   userId?: Prisma.SortOrder
   keyword?: Prisma.SortOrder
-}
-
-export type PlanningSessionSumOrderByAggregateInput = {
-  lastStep?: Prisma.SortOrder
 }
 
 export type PlanningSessionScalarRelationFilter = {
@@ -625,7 +559,6 @@ export type PlanningSessionCreateWithoutUserInput = {
   sessionToken?: string | null
   finishedAt?: Date | string | null
   lastPage?: $Enums.PlanningPages | null
-  lastStep?: number | null
   product?: string | null
   competitors?: Prisma.PlanningSessionCreatecompetitorsInput | string[]
   keyword?: string | null
@@ -641,7 +574,6 @@ export type PlanningSessionUncheckedCreateWithoutUserInput = {
   sessionToken?: string | null
   finishedAt?: Date | string | null
   lastPage?: $Enums.PlanningPages | null
-  lastStep?: number | null
   product?: string | null
   competitors?: Prisma.PlanningSessionCreatecompetitorsInput | string[]
   keyword?: string | null
@@ -686,7 +618,6 @@ export type PlanningSessionScalarWhereInput = {
   sessionToken?: Prisma.StringNullableFilter<"PlanningSession"> | string | null
   finishedAt?: Prisma.DateTimeNullableFilter<"PlanningSession"> | Date | string | null
   lastPage?: Prisma.EnumPlanningPagesNullableFilter<"PlanningSession"> | $Enums.PlanningPages | null
-  lastStep?: Prisma.IntNullableFilter<"PlanningSession"> | number | null
   product?: Prisma.StringNullableFilter<"PlanningSession"> | string | null
   userId?: Prisma.StringFilter<"PlanningSession"> | string
   competitors?: Prisma.StringNullableListFilter<"PlanningSession">
@@ -698,7 +629,6 @@ export type PlanningSessionCreateWithoutCreativeBriefInput = {
   sessionToken?: string | null
   finishedAt?: Date | string | null
   lastPage?: $Enums.PlanningPages | null
-  lastStep?: number | null
   product?: string | null
   competitors?: Prisma.PlanningSessionCreatecompetitorsInput | string[]
   keyword?: string | null
@@ -714,7 +644,6 @@ export type PlanningSessionUncheckedCreateWithoutCreativeBriefInput = {
   sessionToken?: string | null
   finishedAt?: Date | string | null
   lastPage?: $Enums.PlanningPages | null
-  lastStep?: number | null
   product?: string | null
   userId: string
   competitors?: Prisma.PlanningSessionCreatecompetitorsInput | string[]
@@ -746,7 +675,6 @@ export type PlanningSessionUpdateWithoutCreativeBriefInput = {
   sessionToken?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   finishedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   lastPage?: Prisma.NullableEnumPlanningPagesFieldUpdateOperationsInput | $Enums.PlanningPages | null
-  lastStep?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   product?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   competitors?: Prisma.PlanningSessionUpdatecompetitorsInput | string[]
   keyword?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -762,7 +690,6 @@ export type PlanningSessionUncheckedUpdateWithoutCreativeBriefInput = {
   sessionToken?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   finishedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   lastPage?: Prisma.NullableEnumPlanningPagesFieldUpdateOperationsInput | $Enums.PlanningPages | null
-  lastStep?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   product?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   userId?: Prisma.StringFieldUpdateOperationsInput | string
   competitors?: Prisma.PlanningSessionUpdatecompetitorsInput | string[]
@@ -778,7 +705,6 @@ export type PlanningSessionCreateWithoutPlanningPlansInput = {
   sessionToken?: string | null
   finishedAt?: Date | string | null
   lastPage?: $Enums.PlanningPages | null
-  lastStep?: number | null
   product?: string | null
   competitors?: Prisma.PlanningSessionCreatecompetitorsInput | string[]
   keyword?: string | null
@@ -794,7 +720,6 @@ export type PlanningSessionUncheckedCreateWithoutPlanningPlansInput = {
   sessionToken?: string | null
   finishedAt?: Date | string | null
   lastPage?: $Enums.PlanningPages | null
-  lastStep?: number | null
   product?: string | null
   userId: string
   competitors?: Prisma.PlanningSessionCreatecompetitorsInput | string[]
@@ -826,7 +751,6 @@ export type PlanningSessionUpdateWithoutPlanningPlansInput = {
   sessionToken?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   finishedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   lastPage?: Prisma.NullableEnumPlanningPagesFieldUpdateOperationsInput | $Enums.PlanningPages | null
-  lastStep?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   product?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   competitors?: Prisma.PlanningSessionUpdatecompetitorsInput | string[]
   keyword?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -842,7 +766,6 @@ export type PlanningSessionUncheckedUpdateWithoutPlanningPlansInput = {
   sessionToken?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   finishedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   lastPage?: Prisma.NullableEnumPlanningPagesFieldUpdateOperationsInput | $Enums.PlanningPages | null
-  lastStep?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   product?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   userId?: Prisma.StringFieldUpdateOperationsInput | string
   competitors?: Prisma.PlanningSessionUpdatecompetitorsInput | string[]
@@ -858,7 +781,6 @@ export type PlanningSessionCreateWithoutPlanningVariantsInput = {
   sessionToken?: string | null
   finishedAt?: Date | string | null
   lastPage?: $Enums.PlanningPages | null
-  lastStep?: number | null
   product?: string | null
   competitors?: Prisma.PlanningSessionCreatecompetitorsInput | string[]
   keyword?: string | null
@@ -874,7 +796,6 @@ export type PlanningSessionUncheckedCreateWithoutPlanningVariantsInput = {
   sessionToken?: string | null
   finishedAt?: Date | string | null
   lastPage?: $Enums.PlanningPages | null
-  lastStep?: number | null
   product?: string | null
   userId: string
   competitors?: Prisma.PlanningSessionCreatecompetitorsInput | string[]
@@ -906,7 +827,6 @@ export type PlanningSessionUpdateWithoutPlanningVariantsInput = {
   sessionToken?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   finishedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   lastPage?: Prisma.NullableEnumPlanningPagesFieldUpdateOperationsInput | $Enums.PlanningPages | null
-  lastStep?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   product?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   competitors?: Prisma.PlanningSessionUpdatecompetitorsInput | string[]
   keyword?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -922,7 +842,6 @@ export type PlanningSessionUncheckedUpdateWithoutPlanningVariantsInput = {
   sessionToken?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   finishedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   lastPage?: Prisma.NullableEnumPlanningPagesFieldUpdateOperationsInput | $Enums.PlanningPages | null
-  lastStep?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   product?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   userId?: Prisma.StringFieldUpdateOperationsInput | string
   competitors?: Prisma.PlanningSessionUpdatecompetitorsInput | string[]
@@ -938,7 +857,6 @@ export type PlanningSessionCreateWithoutRenderedVideosInput = {
   sessionToken?: string | null
   finishedAt?: Date | string | null
   lastPage?: $Enums.PlanningPages | null
-  lastStep?: number | null
   product?: string | null
   competitors?: Prisma.PlanningSessionCreatecompetitorsInput | string[]
   keyword?: string | null
@@ -954,7 +872,6 @@ export type PlanningSessionUncheckedCreateWithoutRenderedVideosInput = {
   sessionToken?: string | null
   finishedAt?: Date | string | null
   lastPage?: $Enums.PlanningPages | null
-  lastStep?: number | null
   product?: string | null
   userId: string
   competitors?: Prisma.PlanningSessionCreatecompetitorsInput | string[]
@@ -986,7 +903,6 @@ export type PlanningSessionUpdateWithoutRenderedVideosInput = {
   sessionToken?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   finishedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   lastPage?: Prisma.NullableEnumPlanningPagesFieldUpdateOperationsInput | $Enums.PlanningPages | null
-  lastStep?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   product?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   competitors?: Prisma.PlanningSessionUpdatecompetitorsInput | string[]
   keyword?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -1002,7 +918,6 @@ export type PlanningSessionUncheckedUpdateWithoutRenderedVideosInput = {
   sessionToken?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   finishedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   lastPage?: Prisma.NullableEnumPlanningPagesFieldUpdateOperationsInput | $Enums.PlanningPages | null
-  lastStep?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   product?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   userId?: Prisma.StringFieldUpdateOperationsInput | string
   competitors?: Prisma.PlanningSessionUpdatecompetitorsInput | string[]
@@ -1018,7 +933,6 @@ export type PlanningSessionCreateWithoutAdsInput = {
   sessionToken?: string | null
   finishedAt?: Date | string | null
   lastPage?: $Enums.PlanningPages | null
-  lastStep?: number | null
   product?: string | null
   competitors?: Prisma.PlanningSessionCreatecompetitorsInput | string[]
   keyword?: string | null
@@ -1034,7 +948,6 @@ export type PlanningSessionUncheckedCreateWithoutAdsInput = {
   sessionToken?: string | null
   finishedAt?: Date | string | null
   lastPage?: $Enums.PlanningPages | null
-  lastStep?: number | null
   product?: string | null
   userId: string
   competitors?: Prisma.PlanningSessionCreatecompetitorsInput | string[]
@@ -1066,7 +979,6 @@ export type PlanningSessionUpdateWithoutAdsInput = {
   sessionToken?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   finishedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   lastPage?: Prisma.NullableEnumPlanningPagesFieldUpdateOperationsInput | $Enums.PlanningPages | null
-  lastStep?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   product?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   competitors?: Prisma.PlanningSessionUpdatecompetitorsInput | string[]
   keyword?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -1082,7 +994,6 @@ export type PlanningSessionUncheckedUpdateWithoutAdsInput = {
   sessionToken?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   finishedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   lastPage?: Prisma.NullableEnumPlanningPagesFieldUpdateOperationsInput | $Enums.PlanningPages | null
-  lastStep?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   product?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   userId?: Prisma.StringFieldUpdateOperationsInput | string
   competitors?: Prisma.PlanningSessionUpdatecompetitorsInput | string[]
@@ -1098,7 +1009,6 @@ export type PlanningSessionCreateManyUserInput = {
   sessionToken?: string | null
   finishedAt?: Date | string | null
   lastPage?: $Enums.PlanningPages | null
-  lastStep?: number | null
   product?: string | null
   competitors?: Prisma.PlanningSessionCreatecompetitorsInput | string[]
   keyword?: string | null
@@ -1109,7 +1019,6 @@ export type PlanningSessionUpdateWithoutUserInput = {
   sessionToken?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   finishedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   lastPage?: Prisma.NullableEnumPlanningPagesFieldUpdateOperationsInput | $Enums.PlanningPages | null
-  lastStep?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   product?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   competitors?: Prisma.PlanningSessionUpdatecompetitorsInput | string[]
   keyword?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -1125,7 +1034,6 @@ export type PlanningSessionUncheckedUpdateWithoutUserInput = {
   sessionToken?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   finishedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   lastPage?: Prisma.NullableEnumPlanningPagesFieldUpdateOperationsInput | $Enums.PlanningPages | null
-  lastStep?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   product?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   competitors?: Prisma.PlanningSessionUpdatecompetitorsInput | string[]
   keyword?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -1141,7 +1049,6 @@ export type PlanningSessionUncheckedUpdateManyWithoutUserInput = {
   sessionToken?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   finishedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   lastPage?: Prisma.NullableEnumPlanningPagesFieldUpdateOperationsInput | $Enums.PlanningPages | null
-  lastStep?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   product?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   competitors?: Prisma.PlanningSessionUpdatecompetitorsInput | string[]
   keyword?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -1192,7 +1099,6 @@ export type PlanningSessionSelect<ExtArgs extends runtime.Types.Extensions.Inter
   sessionToken?: boolean
   finishedAt?: boolean
   lastPage?: boolean
-  lastStep?: boolean
   product?: boolean
   userId?: boolean
   competitors?: boolean
@@ -1211,7 +1117,6 @@ export type PlanningSessionSelectCreateManyAndReturn<ExtArgs extends runtime.Typ
   sessionToken?: boolean
   finishedAt?: boolean
   lastPage?: boolean
-  lastStep?: boolean
   product?: boolean
   userId?: boolean
   competitors?: boolean
@@ -1224,7 +1129,6 @@ export type PlanningSessionSelectUpdateManyAndReturn<ExtArgs extends runtime.Typ
   sessionToken?: boolean
   finishedAt?: boolean
   lastPage?: boolean
-  lastStep?: boolean
   product?: boolean
   userId?: boolean
   competitors?: boolean
@@ -1237,14 +1141,13 @@ export type PlanningSessionSelectScalar = {
   sessionToken?: boolean
   finishedAt?: boolean
   lastPage?: boolean
-  lastStep?: boolean
   product?: boolean
   userId?: boolean
   competitors?: boolean
   keyword?: boolean
 }
 
-export type PlanningSessionOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "sessionToken" | "finishedAt" | "lastPage" | "lastStep" | "product" | "userId" | "competitors" | "keyword", ExtArgs["result"]["planningSession"]>
+export type PlanningSessionOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "sessionToken" | "finishedAt" | "lastPage" | "product" | "userId" | "competitors" | "keyword", ExtArgs["result"]["planningSession"]>
 export type PlanningSessionInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   ads?: boolean | Prisma.PlanningSession$adsArgs<ExtArgs>
   creativeBrief?: boolean | Prisma.PlanningSession$creativeBriefArgs<ExtArgs>
@@ -1276,7 +1179,6 @@ export type $PlanningSessionPayload<ExtArgs extends runtime.Types.Extensions.Int
     sessionToken: string | null
     finishedAt: Date | null
     lastPage: $Enums.PlanningPages | null
-    lastStep: number | null
     product: string | null
     userId: string
     competitors: string[]
@@ -1714,7 +1616,6 @@ export interface PlanningSessionFieldRefs {
   readonly sessionToken: Prisma.FieldRef<"PlanningSession", 'String'>
   readonly finishedAt: Prisma.FieldRef<"PlanningSession", 'DateTime'>
   readonly lastPage: Prisma.FieldRef<"PlanningSession", 'PlanningPages'>
-  readonly lastStep: Prisma.FieldRef<"PlanningSession", 'Int'>
   readonly product: Prisma.FieldRef<"PlanningSession", 'String'>
   readonly userId: Prisma.FieldRef<"PlanningSession", 'String'>
   readonly competitors: Prisma.FieldRef<"PlanningSession", 'String[]'>

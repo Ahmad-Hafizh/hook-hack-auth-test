@@ -8,10 +8,11 @@ export async function POST(req: NextRequest) {
     const body = await req.json();
     const { sessionId, budget } = body;
 
-    // const checkResult: { valid: boolean; response?: NextResponse } = await checkPageStep(sessionId, 'how', 1);
-    // if (!checkResult.valid) {
-    //   return checkResult.response;
-    // }
+    const checkResult: { valid: boolean; response?: NextResponse } =
+      await checkPageStep(sessionId, "how");
+    if (!checkResult.valid) {
+      return checkResult.response;
+    }
 
     const session = await prisma.planningSession.findUnique({
       where: { id: sessionId },

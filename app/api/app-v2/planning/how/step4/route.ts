@@ -8,10 +8,11 @@ export async function POST(request: Request) {
     const body = await request.json();
     const { sessionId, patternCombinations } = body;
 
-    // const checkResult: { valid: boolean; response?: NextResponse } = await checkPageStep(sessionId, 'how', 2);
-    // if (!checkResult.valid) {
-    //   return checkResult.response;
-    // }
+    const checkResult: { valid: boolean; response?: NextResponse } =
+      await checkPageStep(sessionId, "how");
+    if (!checkResult.valid) {
+      return checkResult.response;
+    }
 
     const { data } = await callAppV2Api.post("/v1/creatomate/renders", {
       template_id: "f9a7fdef-4311-4b0c-942a-6f3f00a353dd",

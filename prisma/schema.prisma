@@ -98,7 +98,7 @@ model PlanningSession {
   sessionToken     String?           @unique
   finishedAt       DateTime?         @db.Timestamptz(6)
   lastPage         PlanningPages?
-  lastStep         Int?
+  // lastStep         Int?
   product          String?
   userId           String
   competitors      String[]
@@ -178,7 +178,6 @@ model GoogleAdsCredential {
 }
 
 enum PlanningPages {
-  switch
   what_scratch
   what_skip
   how

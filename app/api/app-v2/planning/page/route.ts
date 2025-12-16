@@ -1,5 +1,4 @@
 import { prisma } from "@/config/prisma/prisma";
-import { getAuth } from "@clerk/nextjs/server";
 import { NextRequest, NextResponse } from "next/server";
 
 export async function GET(req: NextRequest) {
@@ -11,6 +10,9 @@ export async function GET(req: NextRequest) {
       where: {
         id: sessionId || "",
       },
+      select: {
+        lastPage: true,
+      },
     });
 
     if (!session) {
@@ -18,11 +20,10 @@ export async function GET(req: NextRequest) {
     }
 
     return NextResponse.json(
-      { message: "Page found", page: session.lastPage },
+      { message: "Step is valid", page: session.lastPage },
       { status: 200 }
     );
   } catch (error) {
-    console.log(error);
     return NextResponse.json(
       { error: "Internal Server Error" },
       { status: 500 }

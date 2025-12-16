@@ -2,11 +2,23 @@ import callAppV2Api from "@/config/axios/axiosAppV2";
 import { prisma } from "@/config/prisma/prisma";
 import { NextRequest, NextResponse } from "next/server";
 import { checkPageStep } from "../../utils/checkPageStep";
+import { checkUserSession } from "../../utils/checkUserSession";
 
 export async function POST(req: NextRequest) {
   try {
     const body = await req.json();
     const { sessionId, competitors } = body;
+
+    const { valid } = await checkUserSession(sessionId);
+    if (!valid) {
+      return NextResponse.json(
+        {
+          error: "Unauthorized or invalid session",
+          redirect: "/app-v2/planning/what",
+        },
+        { status: 401, statusText: "invalid" }
+      );
+    }
 
     const checkResult: { valid: boolean; response?: NextResponse } =
       await checkPageStep(sessionId, "what_scratch");

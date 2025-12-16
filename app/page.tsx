@@ -1,3 +1,4 @@
+"use client";
 import Navbar from "@/components/navbar";
 import Hero from "@/components/landingpage/hero";
 import TrustedBy from "@/components/landingpage/trusted-by";

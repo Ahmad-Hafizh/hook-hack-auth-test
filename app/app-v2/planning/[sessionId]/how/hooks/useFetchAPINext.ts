@@ -1,5 +1,6 @@
 import callAppV2Api from "@/config/axios/axiosAppV2";
 import callApi from "@/config/axios/axios";
+import { redirect } from "next/navigation";
 
 export const submitStep1 = async ({
   setLoading,
@@ -24,7 +25,12 @@ export const submitStep1 = async ({
     onSetPlan(data.plan);
     onNext();
   } catch (error) {
-    console.error("Error submitting Step 1:", error);
+    const { status, statusText } = (error as any).response || {};
+    if (status == 401 && statusText == "invalid") {
+      redirect("/app-v2/planning/what");
+    } else {
+      console.error("Error submitting Step 1:", error);
+    }
   } finally {
     setLoading(false);
   }
@@ -53,7 +59,12 @@ export const submitStep2 = async ({
     onSetJobId(data.job_id);
     onNext();
   } catch (error) {
-    console.error("Error submitting Step 2:", error);
+    const { status, statusText } = (error as any).response || {};
+    if (status == 401 && statusText == "invalid") {
+      redirect("/app-v2/planning/what");
+    } else {
+      console.error("Error submitting Step 2:", error);
+    }
   } finally {
     setLoading(false);
   }
@@ -92,7 +103,12 @@ export const submitStep3 = async ({
     console.log("called");
     onNext();
   } catch (error) {
-    console.error("Error submitting Step 3:", error);
+    const { status, statusText } = (error as any).response || {};
+    if (status == 401 && statusText == "invalid") {
+      redirect("/app-v2/planning/what");
+    } else {
+      console.error("Error submitting Step 3:", error);
+    }
   } finally {
     setLoading(false);
   }
@@ -134,7 +150,12 @@ export const submitStep4 = async ({
     // onSetRendersCreatomate(data.renders);
     onNext();
   } catch (error) {
-    console.error("Error submitting Step 4:", error);
+    const { status, statusText } = (error as any).response || {};
+    if (status == 401 && statusText == "invalid") {
+      redirect("/app-v2/planning/what");
+    } else {
+      console.error("Error submitting Step 4:", error);
+    }
   } finally {
     setLoading(false);
   }

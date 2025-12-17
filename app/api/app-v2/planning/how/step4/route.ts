@@ -8,7 +8,7 @@ export async function POST(request: Request) {
     const body = await request.json();
     const { sessionId, patternCombinations } = body;
 
-    const checkResult: { valid: boolean; response?: NextResponse } = await checkPageStep(sessionId, 'how', 2);
+    const checkResult: { valid: boolean; response?: NextResponse } = await checkPageStep(sessionId, 'how', 4);
     if (!checkResult.valid) {
       return checkResult.response;
     }

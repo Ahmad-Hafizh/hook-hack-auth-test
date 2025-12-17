@@ -1,0 +1,55 @@
+import callAppV2Api from '@/config/axios/axiosAppV2';
+import { prisma } from '@/config/prisma/prisma';
+import { NextRequest, NextResponse } from 'next/server';
+
+export async function POST(req: NextRequest) {
+  try {
+    const body = await req.json();
+    const { sessionId, exclude_domains } = body;
+
+    const session = await prisma.planningSession.findUnique({
+      where: { id: sessionId },
+    });
+
+    if (!session) {
+      return NextResponse.json({ error: 'Invalid session' }, { status: 400 });
+    }
+
+    // call websites endpoint
+    const websitesResp = await callAppV2Api.post('/v1/websites', {
+      keywords: [session.keyword],
+      limit: 5,
+      exclude_domains,
+    });
+    const websites = websitesResp?.data;
+    if (!websites || !Array.isArray(websites.websites)) {
+      throw new Error('Invalid websites response from v1/websites');
+    }
+
+    const urls = websites.websites.map((website: any) => website.url).filter(Boolean);
+    if (urls.length === 0) {
+      throw new Error('No website URLs returned for screenshot generation');
+    }
+
+    // call screenshots endpoint
+    const visualsResp = await callAppV2Api.post('/v1/websites/screenshot', {
+      urls,
+    });
+    const visuals = visualsResp?.data;
+    if (!visuals || !Array.isArray(visuals.items)) {
+      throw new Error('Invalid visuals response from v1/websites/screenshot');
+    }
+
+    // Build visuals array to return
+    const visualsUrls = visuals.items.map((item: any) => ({
+      url: item.url,
+      screenshot_url: item.screenshot?.link ?? null,
+      title: item.title ?? null,
+      meta_description: item.meta_description ?? null,
+    }));
+
+    return NextResponse.json({ message: 'Success', key_visuals: visualsUrls }, { status: 200 });
+  } catch (error) {
+    return NextResponse.json({ error: 'Error' }, { status: 500 });
+  }
+}

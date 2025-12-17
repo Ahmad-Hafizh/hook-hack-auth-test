@@ -13,7 +13,7 @@ export async function POST(req: NextRequest) {
       return checkResult.response;
     }
 
-    const { data } = await callAppV2Api.post('/v1/key-message', {
+    const { data: key_message } = await callAppV2Api.post('/v1/key-message', {
       competitors,
       provider: 'openai',
       language: 'en',
@@ -26,10 +26,11 @@ export async function POST(req: NextRequest) {
       where: { id: sessionId },
       data: {
         lastStep: 4,
+        competitors: competitors.map((c: any) => c.url),
       },
     });
 
-    return NextResponse.json({ message: 'Success', data }, { status: 200 });
+    return NextResponse.json({ message: 'Success', key_message }, { status: 200 });
   } catch (error) {
     return NextResponse.json({ error: 'Error' }, { status: 500 });
   }

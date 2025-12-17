@@ -59,7 +59,9 @@ export const ModelName = {
   PlanningSession: 'PlanningSession',
   CreativeBrief: 'CreativeBrief',
   PlanningPlan: 'PlanningPlan',
-  RenderedVideo: 'RenderedVideo'
+  PlanningVariants: 'PlanningVariants',
+  RenderedVideo: 'RenderedVideo',
+  Ads: 'Ads'
 } as const
 
 export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -177,6 +179,8 @@ export const PlanningSessionScalarFieldEnum = {
   lastPage: 'lastPage',
   lastStep: 'lastStep',
   product: 'product',
+  keyword: 'keyword',
+  competitors: 'competitors',
   userId: 'userId'
 } as const
 
@@ -203,20 +207,51 @@ export const PlanningPlanScalarFieldEnum = {
   platform: 'platform',
   target_impressions_per_video: 'target_impressions_per_video',
   typical_cpm: 'typical_cpm',
+  budget: 'budget',
+  template_id: 'template_id',
   planningSessionId: 'planningSessionId'
 } as const
 
 export type PlanningPlanScalarFieldEnum = (typeof PlanningPlanScalarFieldEnum)[keyof typeof PlanningPlanScalarFieldEnum]
 
 
+export const PlanningVariantsScalarFieldEnum = {
+  id: 'id',
+  hooks: 'hooks',
+  bodyA_messages: 'bodyA_messages',
+  bodyB_messages: 'bodyB_messages',
+  bodyC_messages: 'bodyC_messages',
+  ctas: 'ctas',
+  planningSessionId: 'planningSessionId'
+} as const
+
+export type PlanningVariantsScalarFieldEnum = (typeof PlanningVariantsScalarFieldEnum)[keyof typeof PlanningVariantsScalarFieldEnum]
+
+
 export const RenderedVideoScalarFieldEnum = {
   id: 'id',
   videoUrl: 'videoUrl',
   createdAt: 'createdAt',
+  hook: 'hook',
+  bodyAMessage: 'bodyAMessage',
+  bodyBMessage: 'bodyBMessage',
+  bodyCMessage: 'bodyCMessage',
+  cta: 'cta',
   planningSessionId: 'planningSessionId'
 } as const
 
 export type RenderedVideoScalarFieldEnum = (typeof RenderedVideoScalarFieldEnum)[keyof typeof RenderedVideoScalarFieldEnum]
+
+
+export const AdsScalarFieldEnum = {
+  id: 'id',
+  adUrl: 'adUrl',
+  createdAt: 'createdAt',
+  performance: 'performance',
+  planningSessionId: 'planningSessionId'
+} as const
+
+export type AdsScalarFieldEnum = (typeof AdsScalarFieldEnum)[keyof typeof AdsScalarFieldEnum]
 
 
 export const SortOrder = {

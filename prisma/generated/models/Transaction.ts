@@ -27,19 +27,17 @@ export type AggregateTransaction = {
 }
 
 export type TransactionAvgAggregateOutputType = {
-  id: number | null
   amount: number | null
   quantity: number | null
 }
 
 export type TransactionSumAggregateOutputType = {
-  id: bigint | null
   amount: number | null
   quantity: number | null
 }
 
 export type TransactionMinAggregateOutputType = {
-  id: bigint | null
+  id: string | null
   userId: string | null
   amount: number | null
   quantity: number | null
@@ -51,7 +49,7 @@ export type TransactionMinAggregateOutputType = {
 }
 
 export type TransactionMaxAggregateOutputType = {
-  id: bigint | null
+  id: string | null
   userId: string | null
   amount: number | null
   quantity: number | null
@@ -77,13 +75,11 @@ export type TransactionCountAggregateOutputType = {
 
 
 export type TransactionAvgAggregateInputType = {
-  id?: true
   amount?: true
   quantity?: true
 }
 
 export type TransactionSumAggregateInputType = {
-  id?: true
   amount?: true
   quantity?: true
 }
@@ -212,7 +208,7 @@ export type TransactionGroupByArgs<ExtArgs extends runtime.Types.Extensions.Inte
 }
 
 export type TransactionGroupByOutputType = {
-  id: bigint
+  id: string
   userId: string
   amount: number
   quantity: number
@@ -247,7 +243,7 @@ export type TransactionWhereInput = {
   AND?: Prisma.TransactionWhereInput | Prisma.TransactionWhereInput[]
   OR?: Prisma.TransactionWhereInput[]
   NOT?: Prisma.TransactionWhereInput | Prisma.TransactionWhereInput[]
-  id?: Prisma.BigIntFilter<"Transaction"> | bigint | number
+  id?: Prisma.StringFilter<"Transaction"> | string
   userId?: Prisma.StringFilter<"Transaction"> | string
   amount?: Prisma.IntFilter<"Transaction"> | number
   quantity?: Prisma.IntFilter<"Transaction"> | number
@@ -273,7 +269,7 @@ export type TransactionOrderByWithRelationInput = {
 }
 
 export type TransactionWhereUniqueInput = Prisma.AtLeast<{
-  id?: bigint | number
+  id?: string
   stripeSessionId?: string
   AND?: Prisma.TransactionWhereInput | Prisma.TransactionWhereInput[]
   OR?: Prisma.TransactionWhereInput[]
@@ -309,7 +305,7 @@ export type TransactionScalarWhereWithAggregatesInput = {
   AND?: Prisma.TransactionScalarWhereWithAggregatesInput | Prisma.TransactionScalarWhereWithAggregatesInput[]
   OR?: Prisma.TransactionScalarWhereWithAggregatesInput[]
   NOT?: Prisma.TransactionScalarWhereWithAggregatesInput | Prisma.TransactionScalarWhereWithAggregatesInput[]
-  id?: Prisma.BigIntWithAggregatesFilter<"Transaction"> | bigint | number
+  id?: Prisma.StringWithAggregatesFilter<"Transaction"> | string
   userId?: Prisma.StringWithAggregatesFilter<"Transaction"> | string
   amount?: Prisma.IntWithAggregatesFilter<"Transaction"> | number
   quantity?: Prisma.IntWithAggregatesFilter<"Transaction"> | number
@@ -321,7 +317,7 @@ export type TransactionScalarWhereWithAggregatesInput = {
 }
 
 export type TransactionCreateInput = {
-  id?: bigint | number
+  id?: string
   amount: number
   quantity: number
   stripeSessionId: string
@@ -333,7 +329,7 @@ export type TransactionCreateInput = {
 }
 
 export type TransactionUncheckedCreateInput = {
-  id?: bigint | number
+  id?: string
   userId: string
   amount: number
   quantity: number
@@ -345,7 +341,7 @@ export type TransactionUncheckedCreateInput = {
 }
 
 export type TransactionUpdateInput = {
-  id?: Prisma.BigIntFieldUpdateOperationsInput | bigint | number
+  id?: Prisma.StringFieldUpdateOperationsInput | string
   amount?: Prisma.IntFieldUpdateOperationsInput | number
   quantity?: Prisma.IntFieldUpdateOperationsInput | number
   stripeSessionId?: Prisma.StringFieldUpdateOperationsInput | string
@@ -357,7 +353,7 @@ export type TransactionUpdateInput = {
 }
 
 export type TransactionUncheckedUpdateInput = {
-  id?: Prisma.BigIntFieldUpdateOperationsInput | bigint | number
+  id?: Prisma.StringFieldUpdateOperationsInput | string
   userId?: Prisma.StringFieldUpdateOperationsInput | string
   amount?: Prisma.IntFieldUpdateOperationsInput | number
   quantity?: Prisma.IntFieldUpdateOperationsInput | number
@@ -369,7 +365,7 @@ export type TransactionUncheckedUpdateInput = {
 }
 
 export type TransactionCreateManyInput = {
-  id?: bigint | number
+  id?: string
   userId: string
   amount: number
   quantity: number
@@ -381,7 +377,7 @@ export type TransactionCreateManyInput = {
 }
 
 export type TransactionUpdateManyMutationInput = {
-  id?: Prisma.BigIntFieldUpdateOperationsInput | bigint | number
+  id?: Prisma.StringFieldUpdateOperationsInput | string
   amount?: Prisma.IntFieldUpdateOperationsInput | number
   quantity?: Prisma.IntFieldUpdateOperationsInput | number
   stripeSessionId?: Prisma.StringFieldUpdateOperationsInput | string
@@ -392,7 +388,7 @@ export type TransactionUpdateManyMutationInput = {
 }
 
 export type TransactionUncheckedUpdateManyInput = {
-  id?: Prisma.BigIntFieldUpdateOperationsInput | bigint | number
+  id?: Prisma.StringFieldUpdateOperationsInput | string
   userId?: Prisma.StringFieldUpdateOperationsInput | string
   amount?: Prisma.IntFieldUpdateOperationsInput | number
   quantity?: Prisma.IntFieldUpdateOperationsInput | number
@@ -426,7 +422,6 @@ export type TransactionCountOrderByAggregateInput = {
 }
 
 export type TransactionAvgOrderByAggregateInput = {
-  id?: Prisma.SortOrder
   amount?: Prisma.SortOrder
   quantity?: Prisma.SortOrder
 }
@@ -456,7 +451,6 @@ export type TransactionMinOrderByAggregateInput = {
 }
 
 export type TransactionSumOrderByAggregateInput = {
-  id?: Prisma.SortOrder
   amount?: Prisma.SortOrder
   quantity?: Prisma.SortOrder
 }
@@ -504,7 +498,7 @@ export type TransactionUncheckedUpdateManyWithoutUserNestedInput = {
 }
 
 export type TransactionCreateWithoutUserInput = {
-  id?: bigint | number
+  id?: string
   amount: number
   quantity: number
   stripeSessionId: string
@@ -515,7 +509,7 @@ export type TransactionCreateWithoutUserInput = {
 }
 
 export type TransactionUncheckedCreateWithoutUserInput = {
-  id?: bigint | number
+  id?: string
   amount: number
   quantity: number
   stripeSessionId: string
@@ -555,7 +549,7 @@ export type TransactionScalarWhereInput = {
   AND?: Prisma.TransactionScalarWhereInput | Prisma.TransactionScalarWhereInput[]
   OR?: Prisma.TransactionScalarWhereInput[]
   NOT?: Prisma.TransactionScalarWhereInput | Prisma.TransactionScalarWhereInput[]
-  id?: Prisma.BigIntFilter<"Transaction"> | bigint | number
+  id?: Prisma.StringFilter<"Transaction"> | string
   userId?: Prisma.StringFilter<"Transaction"> | string
   amount?: Prisma.IntFilter<"Transaction"> | number
   quantity?: Prisma.IntFilter<"Transaction"> | number
@@ -567,7 +561,7 @@ export type TransactionScalarWhereInput = {
 }
 
 export type TransactionCreateManyUserInput = {
-  id?: bigint | number
+  id?: string
   amount: number
   quantity: number
   stripeSessionId: string
@@ -578,7 +572,7 @@ export type TransactionCreateManyUserInput = {
 }
 
 export type TransactionUpdateWithoutUserInput = {
-  id?: Prisma.BigIntFieldUpdateOperationsInput | bigint | number
+  id?: Prisma.StringFieldUpdateOperationsInput | string
   amount?: Prisma.IntFieldUpdateOperationsInput | number
   quantity?: Prisma.IntFieldUpdateOperationsInput | number
   stripeSessionId?: Prisma.StringFieldUpdateOperationsInput | string
@@ -589,7 +583,7 @@ export type TransactionUpdateWithoutUserInput = {
 }
 
 export type TransactionUncheckedUpdateWithoutUserInput = {
-  id?: Prisma.BigIntFieldUpdateOperationsInput | bigint | number
+  id?: Prisma.StringFieldUpdateOperationsInput | string
   amount?: Prisma.IntFieldUpdateOperationsInput | number
   quantity?: Prisma.IntFieldUpdateOperationsInput | number
   stripeSessionId?: Prisma.StringFieldUpdateOperationsInput | string
@@ -600,7 +594,7 @@ export type TransactionUncheckedUpdateWithoutUserInput = {
 }
 
 export type TransactionUncheckedUpdateManyWithoutUserInput = {
-  id?: Prisma.BigIntFieldUpdateOperationsInput | bigint | number
+  id?: Prisma.StringFieldUpdateOperationsInput | string
   amount?: Prisma.IntFieldUpdateOperationsInput | number
   quantity?: Prisma.IntFieldUpdateOperationsInput | number
   stripeSessionId?: Prisma.StringFieldUpdateOperationsInput | string
@@ -680,7 +674,7 @@ export type $TransactionPayload<ExtArgs extends runtime.Types.Extensions.Interna
     user: Prisma.$UserPayload<ExtArgs>
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
-    id: bigint
+    id: string
     userId: string
     amount: number
     quantity: number
@@ -1113,7 +1107,7 @@ export interface Prisma__TransactionClient<T, Null = never, ExtArgs extends runt
  * Fields of the Transaction model
  */
 export interface TransactionFieldRefs {
-  readonly id: Prisma.FieldRef<"Transaction", 'BigInt'>
+  readonly id: Prisma.FieldRef<"Transaction", 'String'>
   readonly userId: Prisma.FieldRef<"Transaction", 'String'>
   readonly amount: Prisma.FieldRef<"Transaction", 'Int'>
   readonly quantity: Prisma.FieldRef<"Transaction", 'Int'>

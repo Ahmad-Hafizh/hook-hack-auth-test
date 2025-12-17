@@ -22,7 +22,7 @@ export async function POST(req: NextRequest) {
 
     await prisma.creativeBrief.create({
       data: {
-        planningSessionId: session.id,
+        planningSessionId: sessionId,
         keyMessages: key_message,
         strongPoints: strong_points,
       },

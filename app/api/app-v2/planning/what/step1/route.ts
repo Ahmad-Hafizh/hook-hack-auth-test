@@ -8,9 +8,9 @@ export async function POST(req: NextRequest) {
     const body = await req.json();
     const { product, sessionId } = body;
 
-    const checkResult: { valid: boolean; response?: NextResponse } = await checkPageStep(sessionId, 'what_scratch', 1);
-    if (!checkResult.valid) {
-      return checkResult.response;
+    const checkPage: { valid: boolean; response?: NextResponse } = await checkPageStep(sessionId, 'what_scratch', 1);
+    if (!checkPage.valid) {
+      return checkPage.response;
     }
 
     const { data } = await callAppV2Api.post('/v1/keywords', {
@@ -22,12 +22,13 @@ export async function POST(req: NextRequest) {
     await prisma.planningSession.update({
       where: { id: sessionId },
       data: {
+        lastPage: 'what_scratch',
         lastStep: 2,
         product: product,
       },
     });
 
-    return NextResponse.json({ message: 'Success', data }, { status: 200 });
+    return NextResponse.json({ message: 'Success', keywords: data.keywords }, { status: 200 });
   } catch (error) {
     return NextResponse.json({ error: 'Error' }, { status: 500 });
   }

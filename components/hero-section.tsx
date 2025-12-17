@@ -9,7 +9,7 @@ export function HeroSection() {
         className="absolute inset-0 bg-cover bg-center bg-no-repeat"
         style={{ backgroundImage: "url(/newlpbg.gif)" }}
       ></div>
-      <div className="relative max-w-3/4 mx-auto px-4 md:px-6 py-12 lg:pb-36 lg:pt-44 lg:px-56 z-10">
+      <div className="relative max-w-3/4 mx-auto px-4 md:px-6 py-12 lg:pb-36 lg:pt-40 lg:px-56 z-10">
         <div className="grid lg:grid-cols-2 gap-0 items-center">
           <div>
             <h1
@@ -72,9 +72,9 @@ export function HeroSection() {
           </div>
 
           <div className="relative flex justify-center lg:justify-end">
-            <div className="w-full max-w-3xl md:max-w-4xl lg:max-w-full">
+            <div className="w-full max-w-3xl md:max-w-4xl lg:max-w-full lg:-mt-10">
               <img
-                src="/Untitled design (3).gif"
+                src="/mainhero.gif"
                 alt="Laptop showing HookHack interface"
                 className="w-full h-auto rounded-lg"
               />

@@ -49,22 +49,55 @@ export function HighlightFeatureProcess() {
   const isHovering = hoveredTab !== null;
 
   return (
-    <section className="pb-20 pt-10 bg-white">
-      <div className="max-w-6xl mx-auto px-4 md:px-6 lg:px-8">
+    <section className="pb-20 pt-10 bg-[#fcfcfc]">
+      <div className="max-w-7xl mx-auto px-4 md:px-6 lg:px-8">
         {/* Title */}
         <h2
-          className="text-3xl md:text-4xl font-bold text-center text-[#2C9FB8] mb-12"
+          className="text-3xl md:text-4xl font-bold text-center text-[#2C9FB8] mb-3"
           style={{ lineHeight: "1.6" }}
         >
-          <span className="relative inline-flex items-center gap-2">
+          <span className="relative inline-block">
             {/* <img src="/5.png" alt="" className="h-6 md:h-9 w-auto mt-1" /> */}
             HookHackとは
-            <br />
-            高速な動画PDCAで、成果につながる動画を 作成するツールです。
             {/* <img src="/6.png" alt="" className="h-6 md:h-9 w-auto mt-1" /> */}
-            {/* <span className="absolute -bottom-4 left-5 w-full h-1 bg-yellow-400"></span> */}
+            <span className="absolute -bottom-2 left-0 right-0 h-1 bg-yellow-400"></span>
           </span>
         </h2>
+
+        <h3 className="text-center text-lg md:text-xl lg:text-lg text-[#333] my-10">
+          自社と他社のLPを元にターゲット顧客のインサイト案を発散
+          <br />
+          絞り込んだ訴求で複数の動画を制作して
+          <br />
+          顧客が反応する訴求を発掘する動画マーケティングツールです
+          <br />
+          動画から得られたインサイトはLP改修にも活かせます
+          <br />
+        </h3>
+
+        {/* Video Container */}
+        <div className="mb-8 max-w-full mx-auto my-10">
+          <div
+            className={` overflow-hidden transition-all duration-300 ease-in-out ${
+              isHovering
+                ? "rounded-2xl border-[#2C9FB8] bg-[#f0fdfd]"
+                : "rounded-xl border-gray-200"
+            }`}
+          >
+            <div
+              key={activeTab}
+              className={`relative w-full transition-all duration-500 ease-in-out ${
+                isTransitioning ? "opacity-0 scale-95" : "opacity-100 scale-100"
+              }`}
+            >
+              <img
+                src="/figma.gif"
+                alt={`${activeTab} video`}
+                className="w-full h-auto object-contain"
+              />
+            </div>
+          </div>
+        </div>
 
         {/* Description Text */}
         {/* <div className="text-center mb-12 space-y-2">
@@ -82,32 +115,8 @@ export function HighlightFeatureProcess() {
           </p>
         </div> */}
 
-        {/* Video Container */}
-        <div className="mb-8">
-          <div
-            className={`bg-white border shadow-md overflow-hidden transition-all duration-300 ease-in-out ${
-              isHovering
-                ? "rounded-2xl border-[#2C9FB8] bg-[#f0fdfd]"
-                : "rounded-xl border-gray-200"
-            }`}
-          >
-            <div
-              key={activeTab}
-              className={`relative w-full aspect-video transition-all duration-500 ease-in-out ${
-                isTransitioning ? "opacity-0 scale-95" : "opacity-100 scale-100"
-              }`}
-            >
-              <img
-                src={currentContent.video}
-                alt={`${activeTab} video`}
-                className="w-full h-full object-contain rounded-lg"
-              />
-            </div>
-          </div>
-        </div>
-
         {/* Tab Menu */}
-        <div className="flex flex-wrap justify-center gap-4 md:gap-3 lg:gap-12 mb-4">
+        {/* <div className="flex flex-wrap justify-center gap-4 md:gap-3 lg:gap-12 mb-4">
           {(["PLAN", "DO", "CHECK", "ACTION"] as TabType[]).map((tab) => {
             const isActive = activeTab === tab;
             const hoverColors: Record<TabType, string> = {
@@ -136,10 +145,10 @@ export function HighlightFeatureProcess() {
               </button>
             );
           })}
-        </div>
+        </div> */}
 
         {/* Description Below Tabs */}
-        <div className="text-center">
+        {/* <div className="text-center">
           <p
             key={activeTab}
             className={`text-[#333] text-sm md:text-base lg:text-xl transition-all duration-500 ease-in-out inline-block ${
@@ -150,7 +159,7 @@ export function HighlightFeatureProcess() {
           >
             {currentContent.description}
           </p>
-        </div>
+        </div> */}
       </div>
     </section>
   );

@@ -9,7 +9,7 @@ import { UserInput } from "@/components/steps/UserInput";
 import { SelectComment } from "@/components/steps/SelectComment";
 import { SelectHook } from "@/components/steps/SelectHook";
 import { StructureGenerator } from "./steps/StructureGenerator";
-import { useAuth } from "@clerk/nextjs";
+// Temporarily disabled Clerk to fix build
 import callApi from "@/config/axios/axios";
 import ReactDOM from "react-dom";
 import { Switch as ProductionSwitch } from "@/components/steps/Switch";
@@ -99,7 +99,9 @@ export function MultiStepForm({
   resumeData = null,
   initialStep = 1,
 }: MultiStepFormProps) {
-  const { userId } = useAuth();
+  // Temporarily disabled Clerk - using mock userId
+  // const { userId } = useAuth();
+  const userId = "mock-user-id";
   const [currentStep, setCurrentStep] = useState(initialStep);
   const [projectId, setProjectId] = useState<string | null>(null);
   const [userInputData, setUserInputData] = useState<FormData>({

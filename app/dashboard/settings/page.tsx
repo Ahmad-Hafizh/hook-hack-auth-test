@@ -2,6 +2,9 @@
 import { Home, Folder, CreditCard, List, Settings } from "lucide-react";
 import { TestboardLayout } from "../components/layout";
 
+export const dynamic = 'force-dynamic';
+export const runtime = 'nodejs';
+
 const navMain = [
   {
     title: "Overview",

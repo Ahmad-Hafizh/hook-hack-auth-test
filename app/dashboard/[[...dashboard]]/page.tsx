@@ -4,6 +4,9 @@ import { TestboardLayout } from "../components/layout";
 import OverviewPage from "../components/pages/overview";
 import React from "react";
 
+export const dynamic = 'force-dynamic';
+export const runtime = 'nodejs';
+
 const navMain = [
   {
     title: "Overview",

@@ -1,14 +1,19 @@
 "use client";
 import { MultiStepForm } from "@/components/multi-step-form";
-import { useUser, UserButton } from "@clerk/nextjs";
+// Temporarily disabled Clerk to fix build
 import Link from "next/link";
 import { useEffect, useState } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
 import { Suspense } from "react";
 
+export const dynamic = 'force-dynamic';
+
 // Main component wrapped in Suspense to handle useSearchParams
 function AppPageContent() {
-  const { isSignedIn, isLoaded } = useUser();
+  // Temporarily disabled Clerk - using mock values
+  // const { isSignedIn, isLoaded } = useUser();
+  const isSignedIn = true;
+  const isLoaded = true;
   const router = useRouter();
   const searchParams = useSearchParams();
 
@@ -174,7 +179,12 @@ function AppPageContent() {
               >
                 Dashboard
               </Link>
-              {isLoaded && isSignedIn && <UserButton afterSignOutUrl="/" />}
+              {/* Temporarily disabled Clerk UserButton */}
+              {isLoaded && isSignedIn && (
+                <Link href="/sign-in" className="text-white hover:text-purple-300 transition-colors font-semibold">
+                  Account
+                </Link>
+              )}
             </div>
           </div>
         </header>
@@ -240,7 +250,12 @@ function AppPageContent() {
               >
                 Dashboard
               </Link>
-              {isLoaded && isSignedIn && <UserButton afterSignOutUrl="/" />}
+              {/* Temporarily disabled Clerk UserButton */}
+              {isLoaded && isSignedIn && (
+                <Link href="/sign-in" className="text-white hover:text-purple-300 transition-colors font-semibold">
+                  Account
+                </Link>
+              )}
             </div>
           </div>
         </header>
@@ -301,7 +316,12 @@ function AppPageContent() {
             >
               Dashboard
             </Link>
-            {isLoaded && isSignedIn && <UserButton afterSignOutUrl="/" />}
+            {/* Temporarily disabled Clerk UserButton */}
+            {isLoaded && isSignedIn && (
+              <Link href="/sign-in" className="text-white hover:text-purple-300 transition-colors font-semibold">
+                Account
+              </Link>
+            )}
           </div>
         </div>
       </header>

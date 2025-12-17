@@ -3,6 +3,9 @@ import { Home, Folder, CreditCard, List, Settings } from "lucide-react";
 import { TestboardLayout } from "../components/layout";
 import ProjectsPage from "../components/pages/projects";
 
+export const dynamic = 'force-dynamic';
+export const runtime = 'nodejs';
+
 const navMain = [
   {
     title: "Overview",

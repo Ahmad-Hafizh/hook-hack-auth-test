@@ -29,7 +29,7 @@ export function LogoCarousel() {
 
   return (
     <section className="bg-[#00c8c8] py-4">
-      <div className="max-w-7xl mx-auto px-4">
+      <div className="max-w-7xl mx-auto px-4 md:px-6 lg:px-8">
         <div className="flex items-center justify-center gap-4 flex-wrap md:flex-nowrap">
           <p className="text-white font-bold whitespace-nowrap flex items-center gap-2">
             <span className="text-[#ffd93d]">✨</span>

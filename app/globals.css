@@ -92,11 +92,16 @@
   * {
     @apply border-border;
   }
+  html {
+    scroll-behavior: smooth;
+    scroll-padding-top: 80px; /* Offset for sticky header */
+  }
   body {
     @apply bg-background text-foreground;
+    font-family: var(--font-noto-sans-jp), var(--font-jp), 'Noto Sans JP', sans-serif;
   }
   .font-noto-sans-jp {
-    font-family: var(--font-noto-sans-jp), sans-serif;
+    font-family: var(--font-noto-sans-jp), var(--font-jp), 'Noto Sans JP', sans-serif;
   }
 }
 

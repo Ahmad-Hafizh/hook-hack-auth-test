@@ -27,7 +27,7 @@ export function CaseStudiesSection() {
 
   return (
     <section className="py-20 bg-white">
-      <div className="max-w-6xl mx-auto px-4">
+      <div className="max-w-6xl mx-auto px-4 md:px-6 lg:px-8">
         <h2 className="text-2xl md:text-3xl font-bold text-center mb-4">導入事例紹介</h2>
         <div className="w-16 h-1 bg-[#00c8c8] mx-auto mb-12"></div>
 
@@ -59,7 +59,7 @@ export function CaseStudiesSection() {
         </div>
 
         <div className="text-center mt-8">
-          <button className="border-2 border-[#00c8c8] text-[#00c8c8] px-8 py-3 rounded-full font-bold hover:bg-[#00c8c8] hover:text-white transition-colors">
+          <button className="bg-gradient-to-r from-[#0093c8] to-[#1deec8] hover:from-[#0099a8] hover:to-[#00b399] text-white px-8 py-3 rounded-full font-bold transition-all">
             導入事例をもっと見る
           </button>
         </div>

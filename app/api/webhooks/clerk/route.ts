@@ -1,10 +1,8 @@
 import { Webhook } from "svix";
 import { headers } from "next/headers";
 import { WebhookEvent } from "@clerk/nextjs/server";
-import { PrismaClient } from "../../../../lib/generated/prisma";
+import { prisma } from "@/config/prisma/prisma";
 import { sendOnboardingEmailWithResend } from "@/lib/resendService";
-
-const prisma = new PrismaClient();
 
 // Log the webhook endpoint address
 console.log("[Clerk Webhook] Listening at /api/webhooks/clerk");

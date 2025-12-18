@@ -1,12 +1,31 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Search, Filter, Play, Clock, Eye, TrendingUp } from "lucide-react";
+import callApi from "@/config/axios/axios";
 
 const SelectAdsPage = () => {
   const [selectedAds, setSelectedAds] = useState<number[]>([]);
   const [searchQuery, setSearchQuery] = useState("");
   const [filterCategory, setFilterCategory] = useState("all");
+  const [isLoading, setIsLoading] = useState(false);
+
+  const getAds = async () => {
+    // Fetch ads from backend or API
+    setIsLoading(true);
+    try {
+      const { data } = await callApi.get("/app-v2/analytics/ads");
+      console.log(data);
+    } catch (error) {
+      console.error("Error fetching ads:", error);
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
+  useEffect(() => {
+    getAds();
+  }, []);
 
   const ads = [
     {

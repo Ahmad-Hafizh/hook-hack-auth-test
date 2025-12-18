@@ -1,3 +1,4 @@
+import callAppV2Api from "@/config/axios/axiosAppV2";
 import { prisma } from "@/config/prisma/prisma";
 import { createClient } from "@/lib/supabase/server";
 import { NextRequest, NextResponse } from "next/server";
@@ -12,7 +13,7 @@ export async function GET(request: NextRequest) {
     const { error, data } = await supabase.auth.exchangeCodeForSession(code);
 
     if (!error) {
-      await prisma.user.upsert({
+      const user = await prisma.user.upsert({
         where: { userId: data.session.user.id },
         update: {},
         create: {
@@ -26,6 +27,21 @@ export async function GET(request: NextRequest) {
         },
       });
 
+      const adsCredential = await prisma.googleAdsCredential.findUnique({
+        where: { userId: user.id },
+      });
+
+      if (!adsCredential) {
+        const { data } = await callAppV2Api.get("/v1/google-ads/oauth-url", {
+          headers: {
+            "X-User-id": user.id,
+          },
+        });
+
+        return NextResponse.redirect(data.url);
+      }
+
+      // Redirect the user to the next page
       const forwardedHost = request.headers.get("x-forwarded-host"); // original origin before load balancer
       const isLocalEnv = process.env.NODE_ENV === "development";
       if (isLocalEnv) {

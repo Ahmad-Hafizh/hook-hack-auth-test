@@ -1,70 +1,87 @@
-import { Download, ArrowUp } from "lucide-react"
+"use client";
+
+import { motion } from "framer-motion";
 
 export function HeroSection() {
   return (
-    <section className="relative bg-gradient-to-br from-white via-white to-[#e8fafa] overflow-hidden">
-      <div className="max-w-7xl mx-auto px-4 py-12 lg:py-20">
-        <div className="grid lg:grid-cols-2 gap-8 items-center">
+    <section id="hero" className="relative overflow-hidden">
+      <div
+        className="absolute inset-0 bg-cover bg-center bg-no-repeat"
+        style={{ backgroundImage: "url(/newlpbg.gif)" }}
+      ></div>
+      <div className="relative max-w-3/4 mx-auto px-4 md:px-6 py-12 lg:pb-36 lg:pt-40 lg:px-56 z-10">
+        <div className="grid lg:grid-cols-2 gap-0 items-center">
           <div>
-            <h1 className="text-3xl md:text-4xl lg:text-5xl font-bold leading-tight text-[#333] mb-6">
-              <span className="text-[#00c8c8]">作るだけで終わらない</span>
-              <br />
-              動画制作ツールの決定版
+            <h1
+              className="text-3xl md:text-4xl lg:text-[50px] xl:text-[60px] font-bold text-[#2C9FB8] mb-7"
+              style={{ lineHeight: "1.2" }}
+            >
+              動画広告をLPから
+              <br className="mx-10 " />
+              5分で制作
             </h1>
-            <p className="text-[#666] text-lg mb-8">
-              企画・制作・成果振り返りまで
-              <br />
-              一気通貫で支援するから、成果につながる
+
+            <p className="text-[#3d3d3d] text-xl mb-2">
+              競合分析を元に簡単操作・省工数で
+              <span className="relative inline-block px-1">
+                <span className="absolute bottom-0 left-0 right-0 h-1/2 bg-[#FFFF65]"></span>
+                <span className="relative text-[#041D22] font-bold">
+                  顧客が反応する
+                </span>
+              </span>
+            </p>
+            <p className="text-[#3d3d3d] text-xl mb-8">
+              動画を制作出稿データから
+              <span className="relative inline-block px-1">
+                <span className="absolute bottom-0 left-0 right-0 h-1/2 bg-[#FFFF65]"></span>
+                <span className="relative text-[#041D22] font-bold">
+                  成果につながる訴求
+                </span>
+              </span>
+              を発掘
             </p>
 
-            <div className="flex flex-wrap gap-8 mb-8">
-              <div className="flex items-center gap-2">
-                <span className="text-sm text-[#666]">広告CVR*1</span>
-                <span className="text-3xl font-bold text-[#00c8c8]">3.5</span>
-                <span className="text-[#00c8c8]">倍</span>
-                <ArrowUp className="w-4 h-4 text-[#f5a623]" />
-              </div>
-              <div className="flex items-center gap-2 border-l border-[#ddd] pl-8">
-                <span className="text-sm text-[#666]">サイト流入数*2</span>
-                <span className="text-3xl font-bold text-[#00c8c8]">2</span>
-                <span className="text-[#00c8c8]">倍</span>
-                <ArrowUp className="w-4 h-4 text-[#f5a623]" />
-              </div>
-              <div className="flex items-center gap-2 border-l border-[#ddd] pl-8">
-                <span className="text-sm text-[#666]">サイト滞在時間*3</span>
-                <span className="text-3xl font-bold text-[#00c8c8]">1.28</span>
-                <span className="text-[#00c8c8]">倍</span>
-                <ArrowUp className="w-4 h-4 text-[#f5a623]" />
-              </div>
-            </div>
+            <motion.button
+              className="bg-gradient-to-r from-[#0093c8] to-[#1deec8] hover:from-[#0099a8] hover:to-[#00b399] text-white px-16 py-4 rounded-full lg:text-2xl xl:text-3xl font-bold mb-6 shadow-lg flex items-center gap-3"
+              initial={{ y: 0 }}
+              animate={{
+                y: [0, 0, 0, 0, -3, 3, -5, 3, -2, 1, 0, 0, 0, 0],
+              }}
+              transition={{
+                duration: 2,
+                repeat: Infinity,
+                repeatType: "loop",
+                ease: "linear",
+                times: [
+                  0, 0.15, 0.3, 0.4, 0.45, 0.5, 0.55, 0.6, 0.65, 0.7, 0.75, 0.8,
+                  0.9, 1,
+                ],
+              }}
+            >
+              <span>1週間無料 | 今すぐ制作する</span>
+              <img
+                src="/Untitled design (6).png"
+                alt=""
+                className="h-8 w-auto"
+              />
+            </motion.button>
 
-            <button className="bg-[#00c8c8] hover:bg-[#00b0b0] text-white px-8 py-4 rounded-full text-lg font-bold transition-colors flex items-center gap-2 shadow-lg">
-              資料ダウンロードする（無料）
-              <Download className="w-5 h-5" />
-            </button>
-
-            <p className="text-xs text-[#999] mt-4 leading-relaxed">
-              ※1株式会社ワンスター株式会社様：「静止画広告」と「LetroStudioで制作した動画広告」の成果を比較した結果（平均値）
-              <br />
-              ※2新日本カレンダー株式会社様：「LetroStudioで制作した動画」でストーリーズ投稿を始める前後1ヶ月のInstagram経由サイトセッション数を比較した結果
-              <br />
-              ※3株式会社アイダ設計様：「LetroStudioで制作した動画」を視聴する前後の物件ページ滞在時間を比較した結果（最大値）
+            <p className="text-md text-red-600 mb-6 ml-16">
+              ※ご希望者には30分の製品説明会を実施します
             </p>
           </div>
 
-          <div className="relative">
-            <div className="bg-white rounded-2xl shadow-2xl p-4 transform lg:rotate-[-2deg]">
-              <img src="/laptop-showing-video-editing-software-interface-wi.jpg" alt="LetroStudio インターフェース" className="w-full rounded-lg" />
-            </div>
-            <div className="absolute -right-4 top-1/4 w-20 h-32">
-              <img src="/smartphone-showing-social-media-video-content.jpg" alt="モバイル表示" className="w-full rounded-lg shadow-lg" />
-            </div>
-            <div className="absolute -bottom-4 -right-8 hidden lg:block">
-              <img src="/friendly-asian-businesswoman-smiling-cutout.jpg" alt="サポートスタッフ" className="w-36" />
+          <div className="relative flex justify-center lg:justify-end">
+            <div className="w-full max-w-3xl md:max-w-4xl lg:max-w-full lg:-mt-10">
+              <img
+                src="/mainhero.gif"
+                alt="Laptop showing HookHack interface"
+                className="w-full h-auto rounded-lg"
+              />
             </div>
           </div>
         </div>
       </div>
     </section>
-  )
+  );
 }

@@ -3,7 +3,7 @@ export function LPCopyFooter() {
 
   return (
     <footer className="bg-white py-12 border-t border-[#eee]">
-      <div className="max-w-6xl mx-auto px-4">
+      <div className="max-w-6xl mx-auto px-4 md:px-6 lg:px-8">
         <div className="flex flex-wrap items-center justify-center gap-8 mb-8">
           {partners.map((partner, index) => (
             <div key={index} className="text-[#999] font-bold">

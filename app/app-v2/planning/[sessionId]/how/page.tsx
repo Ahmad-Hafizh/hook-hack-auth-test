@@ -5,12 +5,12 @@ import TopHorizontalProgress from "../what/components/topHorizontalProgress";
 import Step2 from "./steps/step2";
 import Step3 from "./steps/step3";
 import Step4 from "./steps/step4";
-import { useStep } from "../../hooks/useStep";
 import { DataContextProvider } from "./hooks/useDataContext";
 import { useParams, useRouter } from "next/navigation";
+import { usePlannningContext } from "@/app/app-v2/hooks/plannningContext";
 
 const PlanningHowPage = () => {
-  const { step, onStep } = useStep(5);
+  const { step, onStep, onChangePage } = usePlannningContext();
   const router = useRouter();
   const { sessionId } = useParams();
 
@@ -31,7 +31,10 @@ const PlanningHowPage = () => {
       id: 4,
       page: (
         <Step4
-          onNext={() => router.push(`/app-v2/planning/${sessionId}/generation`)}
+          onNext={() => {
+            onChangePage("generation");
+            router.push(`/app-v2/planning/${sessionId}/generation`);
+          }}
         />
       ),
     },

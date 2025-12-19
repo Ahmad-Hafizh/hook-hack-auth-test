@@ -46,6 +46,11 @@ export async function POST(req: NextRequest) {
       data: renderedVideoData,
     });
 
+    await prisma.planningSession.update({
+      where: { id: sessionId },
+      data: { lastPage: "generation" },
+    });
+
     return NextResponse.json({ message: "Success" }, { status: 200 });
   } catch (error) {
     return NextResponse.json({ error: "Error" }, { status: 500 });

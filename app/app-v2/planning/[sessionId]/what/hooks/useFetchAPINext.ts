@@ -1,6 +1,6 @@
 import callApi from "@/config/axios/axios";
-import { IKeyVisual } from "./useStepData";
 import { redirect } from "next/navigation";
+import { IKeyVisuals } from "./planningWhatDataContext";
 
 export const submitStep1Scratch = async ({
   sessionId,
@@ -85,7 +85,7 @@ export const getMoreVisuals = async ({
 }: {
   setLoadingGenerate: (loading: boolean) => void;
   onSetKeyVisuals: (visuals: any[]) => void;
-  keyVisuals: IKeyVisual[];
+  keyVisuals: IKeyVisuals[];
   sessionId: string;
 }) => {
   setLoadingGenerate(true);
@@ -110,14 +110,14 @@ export const getMoreVisuals = async ({
 export const submitStep3 = async ({
   selectedVisuals,
   keyVisuals,
-  setBriefPlanning,
+  onSetBriefPlanning,
   onNext,
   setLoadingSubmit,
   sessionId,
 }: {
   selectedVisuals: string[];
   keyVisuals: any[];
-  setBriefPlanning: (briefPlanning: any) => void;
+  onSetBriefPlanning: (briefPlanning: any) => void;
   onNext: () => void;
   setLoadingSubmit: (loading: boolean) => void;
   sessionId: string;
@@ -152,7 +152,7 @@ export const submitStep3 = async ({
       redirect("/app-v2/planning/what");
     }
 
-    setBriefPlanning({
+    onSetBriefPlanning({
       user: data.key_message.user
         ? data.key_message.user
         : { key_message: "", strong_points: [] },
@@ -205,5 +205,47 @@ export const submitStep4 = async ({
     }
   } finally {
     setLoading(false);
+  }
+};
+
+export const submitStep1Skip = async ({
+  competitorUrls,
+  userUrl,
+  onSetBriefPlanning,
+  onNext,
+  setLoadingSubmit,
+  sessionId,
+}: {
+  competitorUrls: string[];
+  userUrl: string;
+  onSetBriefPlanning: (briefPlanning: any) => void;
+  onNext: () => void;
+  setLoadingSubmit: (loading: boolean) => void;
+  sessionId: string;
+}) => {
+  setLoadingSubmit(true);
+  try {
+    const competitors = competitorUrls.map((url) => {
+      return {
+        url,
+      };
+    });
+
+    const { data } = await callApi.post("/app-v2/planning/what/step1/skip", {
+      competitors,
+      user_url: userUrl,
+      sessionId,
+    });
+
+    onSetBriefPlanning({
+      user: data.user,
+      competitors: data.competitors,
+      suggestion: data.suggestion,
+    });
+    onNext();
+  } catch (error) {
+    console.error("Error submitting Step 1:", error);
+  } finally {
+    setLoadingSubmit(false);
   }
 };

@@ -1,5 +1,5 @@
-'use client';
-import { createContext, useContext, useState } from 'react';
+"use client";
+import { createContext, useContext, useState } from "react";
 
 export interface IKeywords {
   term: string;
@@ -12,22 +12,41 @@ export interface IKeyVisuals {
   meta_description: string;
 }
 
+interface IKeyStrategy {
+  key_message: string;
+  strong_points: string[];
+}
+
+export interface IBriefPlanning {
+  user: IKeyStrategy;
+  competitors: IKeyStrategy[];
+  suggestion: IKeyStrategy;
+}
+
 export const PlannningWhatDataContext = createContext({
-  keyWords: [] as IKeywords[],
+  keywords: [] as IKeywords[],
   onSetKeywords: (keywords: IKeywords[]) => {},
-  step1Form: '',
+  step1Form: "",
   onChangeStep1Form: (value: string) => {},
   keyVisuals: [] as IKeyVisuals[],
   onSetKeyVisuals: (keyVisuals: IKeyVisuals[]) => {},
+  selectedKeywords: "",
+  onSetSelectedKeywords: (value: string) => {},
+  briefPlanning: {} as IBriefPlanning,
+  onSetBriefPlanning: (briefPlanning: IBriefPlanning) => {},
 });
 
-export default function PlannningWhatDataContextProvider({ children }: { children: React.ReactNode }) {
-  const [keyWords, setKeyWords] = useState<IKeywords[]>([]);
+export default function PlannningWhatDataContextProvider({
+  children,
+}: {
+  children: React.ReactNode;
+}) {
+  const [keywords, setKeywords] = useState<IKeywords[]>([]);
   const onSetKeywords = (keywords: IKeywords[]) => {
-    setKeyWords(keywords);
+    setKeywords(keywords);
   };
 
-  const [step1Form, setStep1Form] = useState<string>('');
+  const [step1Form, setStep1Form] = useState<string>("");
   const onChangeStep1Form = (value: string) => {
     setStep1Form(value);
   };
@@ -37,7 +56,38 @@ export default function PlannningWhatDataContextProvider({ children }: { childre
     setKeyVisuals(keyVisuals);
   };
 
-  return <PlannningWhatDataContext.Provider value={{ keyWords, onSetKeywords, step1Form, onChangeStep1Form, keyVisuals, onSetKeyVisuals }}>{children}</PlannningWhatDataContext.Provider>;
+  const [selectedKeywords, setSelectedKeywords] = useState<string>("");
+  const onSetSelectedKeywords = (value: string) => {
+    setSelectedKeywords(value);
+  };
+
+  const [briefPlanning, setBriefPlanning] = useState<IBriefPlanning>({
+    user: { key_message: "", strong_points: [] },
+    competitors: [],
+    suggestion: { key_message: "", strong_points: [] },
+  });
+  const onSetBriefPlanning = (briefPlanning: IBriefPlanning) => {
+    setBriefPlanning(briefPlanning);
+  };
+
+  return (
+    <PlannningWhatDataContext.Provider
+      value={{
+        keywords,
+        onSetKeywords,
+        step1Form,
+        onChangeStep1Form,
+        keyVisuals,
+        onSetKeyVisuals,
+        selectedKeywords,
+        onSetSelectedKeywords,
+        briefPlanning,
+        onSetBriefPlanning,
+      }}
+    >
+      {children}
+    </PlannningWhatDataContext.Provider>
+  );
 }
 
 export function usePlanningWhatDataContext() {

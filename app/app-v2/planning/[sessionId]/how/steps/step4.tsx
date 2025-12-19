@@ -55,7 +55,7 @@ const Step4 = ({ onNext }: { onNext: () => void }) => {
             </div>
           </CardHeader>
           <CardContent className="p-10 pt-0 h-full flex justify-center items-center">
-            <div className="relative flex items-center h-[300px] w-[300px]">
+            <div className="relative flex items-center h-[300px] w-[300px] border rounded-xl">
               <Image
                 src={brandLogoUrl}
                 alt={`brand logo image`}
@@ -107,7 +107,7 @@ const Step4 = ({ onNext }: { onNext: () => void }) => {
             })
           }
           disabled={loading}
-          className="border-2 border-rose-600 bg-rose-600  hover:bg-rose-500 text-white px-4 py-2"
+          className="border-2 border-sky-600 bg-sky-600  hover:bg-sky-500 text-white px-4 py-2"
         >
           {loading && <Spinner className="w-3 h-3" />}
           次に​進む

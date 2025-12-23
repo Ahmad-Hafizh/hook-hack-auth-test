@@ -9,6 +9,9 @@ import Step2Skip from "./skip/step2";
 import TopHorizontalProgress from "./components/topHorizontalProgress";
 import { usePlanningWhatDataContext } from "./hooks/planningWhatDataContext";
 import { usePlannningContext } from "@/app/app-v2/hooks/plannningContext";
+import Step5 from "./scracth/step5";
+import Step6 from "./scracth/step6";
+import Step7 from "./scracth/step7";
 
 const AppPage = () => {
   const { step, onStep, page } = usePlannningContext();
@@ -64,7 +67,14 @@ const AppPage = () => {
         },
         {
           id: 4,
-          page: <Step4 briefPlanning={briefPlanning} />,
+          page: (
+            <Step4
+              briefPlanning={briefPlanning}
+              onNext={() => {
+                console.log("Next step");
+              }}
+            />
+          ),
         },
       ],
     },

@@ -51,7 +51,7 @@ const Step2 = ({ onNext }: { onNext: () => void }) => {
         {templatesCreatomateList.map((template, index) => (
           <Card
             key={index}
-            className="flex flex-col gap-4 h-full justify-center items-center "
+            className="flex flex-col gap-4 h-full justify-center items-center pb-4"
           >
             <Label htmlFor={`pattern${index + 1}`} className="">
               <CardHeader className="p-4 text-center">

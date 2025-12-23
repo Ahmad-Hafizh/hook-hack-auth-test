@@ -34,6 +34,12 @@ export const PlannningWhatDataContext = createContext({
   onSetSelectedKeywords: (value: string) => {},
   briefPlanning: {} as IBriefPlanning,
   onSetBriefPlanning: (briefPlanning: IBriefPlanning) => {},
+  step5Data: {} as any,
+  onSetStep5Data: (data: any) => {},
+  step6Data: [] as any,
+  onSetStep6Data: (data: any) => {},
+  step7Data: {} as any,
+  onSetStep7Data: (data: any) => {},
 });
 
 export default function PlannningWhatDataContextProvider({
@@ -66,8 +72,33 @@ export default function PlannningWhatDataContextProvider({
     competitors: [],
     suggestion: { key_message: "", strong_points: [] },
   });
+
   const onSetBriefPlanning = (briefPlanning: IBriefPlanning) => {
     setBriefPlanning(briefPlanning);
+  };
+
+  const [step5Data, setStep5Data] = useState<any>({
+    option1: [],
+    option2: [],
+    option3: [],
+    option4: [],
+  });
+  const onSetStep5Data = (data: any) => {
+    setStep5Data(data);
+  };
+
+  const [step6Data, setStep6Data] = useState<any>([]);
+  const onSetStep6Data = (data: any) => {
+    setStep6Data(data);
+  };
+
+  const [step7Data, setStep7Data] = useState<any>({
+    option1: [],
+    option2: [],
+    option3: [],
+  });
+  const onSetStep7Data = (data: any) => {
+    setStep7Data(data);
   };
 
   return (
@@ -83,6 +114,12 @@ export default function PlannningWhatDataContextProvider({
         onSetSelectedKeywords,
         briefPlanning,
         onSetBriefPlanning,
+        step5Data,
+        onSetStep5Data,
+        step6Data,
+        onSetStep6Data,
+        step7Data,
+        onSetStep7Data,
       }}
     >
       {children}

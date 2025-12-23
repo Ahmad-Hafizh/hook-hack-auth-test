@@ -6,10 +6,6 @@ import { usePlannningContext } from "../hooks/plannningContext";
 
 const PlanningPage = ({ children }: { children: React.ReactNode }) => {
   const path = usePathname();
-  const currentPath = path.split("/")[path.split("/").length - 1];
-  const progressValue =
-    currentPath === "what" ? 0 : currentPath === "how" ? 50 : 100;
-
   const { page, step: currentStep } = usePlannningContext();
   const pagePositionIndex =
     page === "what_scratch" || page === "what_skip"

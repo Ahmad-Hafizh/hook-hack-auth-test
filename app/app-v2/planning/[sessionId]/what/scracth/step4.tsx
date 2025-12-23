@@ -9,7 +9,13 @@ import { Spinner } from "@/components/ui/spinner";
 import { submitStep4 } from "../hooks/useFetchAPINext";
 import { IBriefPlanning } from "../hooks/planningWhatDataContext";
 
-const Step4 = ({ briefPlanning }: { briefPlanning: IBriefPlanning }) => {
+const Step4 = ({
+  briefPlanning,
+  onNext,
+}: {
+  briefPlanning: IBriefPlanning;
+  onNext: () => void;
+}) => {
   const router = useRouter();
   const { sessionId } = useParams();
   const [loading, setLoading] = React.useState(false);

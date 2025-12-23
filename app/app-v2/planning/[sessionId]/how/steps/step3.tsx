@@ -36,9 +36,29 @@ const Step3 = ({ onNext }: { onNext: () => void }) => {
     onSetPatternCount,
     onSetPatternCombinations,
     jobId,
+    selectedTemplateId,
   } = useDataContext();
 
   const { sessionId } = useParams();
+  // Determine target aspect ratio based on the selected template (video style)
+  // real estate template: 469 / 1023 (vertical)
+  // other two templates: 4 / 3
+  const selectedAspectRatio = React.useMemo(() => {
+    // Real estate template (vertical)
+    if (selectedTemplateId === "6f8e118a-703d-4b94-8534-96a2b7be7d62") {
+      return 469 / 1023;
+    }
+
+    // All other templates: 4:3 (horizontal)
+    return 4 / 3;
+  }, [selectedTemplateId]);
+
+  const aspectLabel = React.useMemo(() => {
+    if (selectedTemplateId === "6f8e118a-703d-4b94-8534-96a2b7be7d62") {
+      return "469 / 1023（縦）";
+    }
+    return "4 : 3（横）";
+  }, [selectedTemplateId]);
 
   // Use the polling query
   const {
@@ -100,6 +120,18 @@ const Step3 = ({ onNext }: { onNext: () => void }) => {
     onSetPatternCount(calculatePatternCount(elements).totalPattern);
     setIsComplete(calculatePatternCount(elements).complete);
   }, [elements]);
+
+  // Debug: observe when image variants / selections change
+  React.useEffect(() => {
+    console.log(
+      "[Step3] variants.strong_point_1_images",
+      variants.strong_point_1_images
+    );
+  }, [variants.strong_point_1_images]);
+
+  React.useEffect(() => {
+    console.log("[Step3] elements.body1Images", elements.body1Images);
+  }, [elements.body1Images]);
 
   if (loadingGenerate || isPending) {
     return (
@@ -172,9 +204,15 @@ const Step3 = ({ onNext }: { onNext: () => void }) => {
             <ElementCard
               type="image"
               title="Body 1 Images"
-              description="Aspect ratio : 9/16"
+              description={`Aspect ratio : ${aspectLabel}`}
+              aspectRatio={selectedAspectRatio}
               variant={variants.strong_point_1_images}
               onVariantChange={(value, index) => {
+                console.log("[Step3] Body1 onVariantChange", {
+                  index,
+                  oldUrl: variants.strong_point_1_images[index],
+                  newUrl: value,
+                });
                 const oldUrl = variants.strong_point_1_images[index];
 
                 // Update variants using functional state to avoid stale closures
@@ -188,6 +226,11 @@ const Step3 = ({ onNext }: { onNext: () => void }) => {
                 if (oldUrl) {
                   onSetElements((prev: any) => {
                     if (!prev.body1Images.includes(oldUrl)) return prev;
+                    console.log("[Step3] Body1 updating elements.body1Images", {
+                      before: prev.body1Images,
+                      replacing: oldUrl,
+                      with: value,
+                    });
                     return {
                       ...prev,
                       body1Images: prev.body1Images.map((url: string) =>
@@ -198,18 +241,14 @@ const Step3 = ({ onNext }: { onNext: () => void }) => {
                 }
               }}
               value={elements.body1Images}
-              onElementValueChange={(value) => {
-                // Body images should behave like a single-select:
-                // keep only the most recently selected image.
-                const lastSelected = value[value.length - 1];
-                const nextValue = lastSelected ? [lastSelected] : [];
+              onElementValueChange={(value) =>
                 onElementValueChange({
                   category: "body1Images",
-                  value: nextValue,
+                  value,
                   elements,
                   onSetElements,
-                });
-              }}
+                })
+              }
             />
             <ElementCard
               type="text"
@@ -236,7 +275,8 @@ const Step3 = ({ onNext }: { onNext: () => void }) => {
             <ElementCard
               type="image"
               title="Body 2 Images"
-              description="Aspect ratio : 9/16"
+              description={`Aspect ratio : ${aspectLabel}`}
+              aspectRatio={selectedAspectRatio}
               variant={variants.strong_point_2_images}
               onVariantChange={(value, index) => {
                 const oldUrl = variants.strong_point_2_images[index];
@@ -260,16 +300,14 @@ const Step3 = ({ onNext }: { onNext: () => void }) => {
                 }
               }}
               value={elements.body2Images}
-              onElementValueChange={(value) => {
-                const lastSelected = value[value.length - 1];
-                const nextValue = lastSelected ? [lastSelected] : [];
+              onElementValueChange={(value) =>
                 onElementValueChange({
                   category: "body2Images",
-                  value: nextValue,
+                  value,
                   elements,
                   onSetElements,
-                });
-              }}
+                })
+              }
             />
             <ElementCard
               type="text"
@@ -296,7 +334,8 @@ const Step3 = ({ onNext }: { onNext: () => void }) => {
             <ElementCard
               type="image"
               title="Body 3 Images"
-              description="Aspect ratio : 9/16"
+              description={`Aspect ratio : ${aspectLabel}`}
+              aspectRatio={selectedAspectRatio}
               variant={variants.strong_point_3_images}
               onVariantChange={(value, index) => {
                 const oldUrl = variants.strong_point_3_images[index];
@@ -320,16 +359,14 @@ const Step3 = ({ onNext }: { onNext: () => void }) => {
                 }
               }}
               value={elements.body3Images}
-              onElementValueChange={(value) => {
-                const lastSelected = value[value.length - 1];
-                const nextValue = lastSelected ? [lastSelected] : [];
+              onElementValueChange={(value) =>
                 onElementValueChange({
                   category: "body3Images",
-                  value: nextValue,
+                  value,
                   elements,
                   onSetElements,
-                });
-              }}
+                })
+              }
             />
             <ElementCard
               type="text"

@@ -17,8 +17,8 @@ import type * as Prisma from "./prismaNamespace"
 
 const config: runtime.GetPrismaClientConfig = {
   "previewFeatures": [],
-  "clientVersion": "7.0.1",
-  "engineVersion": "f09f2815f091dbba658cdcd2264306d88bb5bda6",
+  "clientVersion": "7.1.0",
+  "engineVersion": "ab635e6b9d606fa5c8fb8b1a7f909c3c3c1c98ba",
   "activeProvider": "postgresql",
   "inlineSchema": "generator client {\n  provider = \"prisma-client\"\n  output   = \"./generated\"\n}\n\ndatasource db {\n  provider = \"postgresql\"\n}\n\nmodel User {\n  id               String            @id @default(cuid())\n  userId           String            @unique\n  email            String?           @unique\n  phoneNumber      String?\n  tiktokUsername   String?\n  credit           Int               @default(0)\n  createdAt        DateTime          @default(now()) @db.Timestamptz(6)\n  updatedAt        DateTime          @updatedAt @db.Timestamptz(6)\n  firstName        String?\n  lastName         String?\n  planningSessions PlanningSession[]\n  transaction      Transaction[]\n  project          project[]\n}\n\n/// This model contains row level security and requires additional setup for migrations. Visit https://pris.ly/d/row-level-security for more info.\nmodel V2_format {\n  system_status          String   @default(\"\")\n  search_url             String?  @default(\"\")\n  scraping_brand         String?  @default(\"\")\n  scraping_industry      String?  @default(\"\")\n  scraping_caption       String?  @default(\"\")\n  scraping_landingpage   String?  @default(\"\")\n  scraping_likes         BigInt?\n  scraping_comments      BigInt?\n  scraping_shares        BigInt?\n  scraping_ctr           BigInt?\n  scraping_budget        String?  @default(\"\")\n  scraping_ctr_top       BigInt?\n  scraping_ctr_sec       Json?    @db.Json\n  scraping_cvr_top       BigInt?\n  scraping_cvr_sec       Json?    @db.Json\n  system_id              BigInt   @id @default(autoincrement())\n  search_condition       String?  @default(\"\")\n  video_product_category String?  @default(\"\")\n  video_product_details  String?  @default(\"\")\n  video_target_age       String?  @default(\"\")\n  video_target_gender    String?  @default(\"\")\n  video_content_type     String?  @default(\"\")\n  video_content_summary  String?  @default(\"\")\n  video_content_music    String?  @default(\"\")\n  video_content_speed    String?  @default(\"\")\n  video_target_details   String?  @default(\"\")\n  system_usable          Boolean?\n  video_url              String?  @default(\"\")\n}\n\n/// This model or at least one of its fields has comments in the database, and requires an additional setup for migrations: Read more: https://pris.ly/d/database-comments\n/// This model contains row level security and requires additional setup for migrations. Visit https://pris.ly/d/row-level-security for more info.\nmodel requestlist {\n  id           BigInt   @id @default(autoincrement())\n  created_at   DateTime @default(now()) @db.Timestamptz(6)\n  name         String?\n  company_name String?\n  email        String?\n  tiktok_url   String?\n}\n\n/// This model contains row level security and requires additional setup for migrations. Visit https://pris.ly/d/row-level-security for more info.\nmodel project {\n  system_userid    String\n  system_createdAt DateTime @default(now()) @db.Timestamptz(6)\n  userinput        Json?    @db.Json\n  comment          Json?    @db.Json\n  hook             Json?    @db.Json\n  hook_count       Int?     @db.SmallInt\n  content          Json?    @db.Json\n  content_count    Int?     @db.SmallInt\n  id               BigInt   @id @unique @default(autoincrement())\n  User             User     @relation(fields: [system_userid], references: [userId], onDelete: NoAction, onUpdate: NoAction)\n}\n\nmodel Transaction {\n  id              String   @id @default(cuid())\n  userId          String\n  amount          Int\n  quantity        Int\n  stripeSessionId String   @unique\n  status          String\n  type            String\n  createdAt       DateTime @default(now()) @db.Timestamptz(6)\n  updatedAt       DateTime @updatedAt @db.Timestamptz(6)\n  user            User     @relation(fields: [userId], references: [userId], onDelete: Cascade)\n}\n\nmodel PlanningSession {\n  id               String            @id @default(cuid())\n  sessionToken     String?           @unique\n  finishedAt       DateTime?         @db.Timestamptz(6)\n  lastPage         PlanningPages?\n  // lastStep         Int?\n  product          String?\n  userId           String\n  competitors      String[]\n  keyword          String?\n  ads              Ads[]\n  creativeBrief    CreativeBrief?\n  planningPlans    PlanningPlan?\n  User             User              @relation(fields: [userId], references: [id])\n  planningVariants PlanningVariants?\n  renderedVideos   RenderedVideo[]\n}\n\nmodel CreativeBrief {\n  id                String          @id @default(cuid())\n  keyMessages       String?\n  strongPoints      String[]\n  planningSessionId String          @unique\n  PlanningSession   PlanningSession @relation(fields: [planningSessionId], references: [id])\n}\n\nmodel PlanningPlan {\n  id                              String          @id @default(cuid())\n  currency                        String?\n  estimated_cost_per_video        Int?\n  recommended_min_spend_per_video Int?\n  test_term_weeks                 Int?\n  videos_per_month                Int?\n  platform                        String?\n  target_impressions_per_video    Int?\n  typical_cpm                     Int?\n  planningSessionId               String          @unique\n  budget                          Int?\n  template_id                     String?\n  PlanningSession                 PlanningSession @relation(fields: [planningSessionId], references: [id])\n}\n\nmodel PlanningVariants {\n  id                String          @id @default(cuid())\n  hooks             String[]\n  bodyA_messages    String[]\n  bodyB_messages    String[]\n  bodyC_messages    String[]\n  ctas              String[]\n  planningSessionId String          @unique\n  PlanningSession   PlanningSession @relation(fields: [planningSessionId], references: [id])\n}\n\nmodel RenderedVideo {\n  id                String          @id @default(cuid())\n  videoUrl          String\n  createdAt         DateTime        @default(now()) @db.Timestamptz(6)\n  planningSessionId String\n  bodyAMessage      String?\n  bodyBMessage      String?\n  bodyCMessage      String?\n  cta               String?\n  hook              String?\n  PlanningSession   PlanningSession @relation(fields: [planningSessionId], references: [id])\n}\n\nmodel Ads {\n  id                String          @id @default(cuid())\n  adUrl             String\n  createdAt         DateTime        @default(now()) @db.Timestamptz(6)\n  performance       Json?           @db.Json\n  planningSessionId String\n  PlanningSession   PlanningSession @relation(fields: [planningSessionId], references: [id])\n}\n\nmodel GoogleAdsCredential {\n  id           String    @id @default(dbgenerated(\"(gen_random_uuid())::text\"))\n  userId       String    @unique\n  refreshToken String\n  customerIds  String[]\n  createdAt    DateTime? @default(now()) @db.Timestamptz(6)\n  updatedAt    DateTime? @default(now()) @db.Timestamptz(6)\n}\n\nenum PlanningPages {\n  what_scratch\n  what_skip\n  how\n  generation\n}\n",
   "runtimeDataModel": {
@@ -62,7 +62,7 @@ export interface PrismaClientConstructor {
    * const users = await prisma.user.findMany()
    * ```
    * 
-   * Read more in our [docs](https://www.prisma.io/docs/reference/tools-and-interfaces/prisma-client).
+   * Read more in our [docs](https://pris.ly/d/client).
    */
 
   new <
@@ -84,7 +84,7 @@ export interface PrismaClientConstructor {
  * const users = await prisma.user.findMany()
  * ```
  * 
- * Read more in our [docs](https://www.prisma.io/docs/reference/tools-and-interfaces/prisma-client).
+ * Read more in our [docs](https://pris.ly/d/client).
  */
 
 export interface PrismaClient<
@@ -113,7 +113,7 @@ export interface PrismaClient<
    * const result = await prisma.$executeRaw`UPDATE User SET cool = ${true} WHERE email = ${'user@email.com'};`
    * ```
    *
-   * Read more in our [docs](https://www.prisma.io/docs/reference/tools-and-interfaces/prisma-client/raw-database-access).
+   * Read more in our [docs](https://pris.ly/d/raw-queries).
    */
   $executeRaw<T = unknown>(query: TemplateStringsArray | Prisma.Sql, ...values: any[]): Prisma.PrismaPromise<number>;
 
@@ -125,7 +125,7 @@ export interface PrismaClient<
    * const result = await prisma.$executeRawUnsafe('UPDATE User SET cool = $1 WHERE email = $2 ;', true, 'user@email.com')
    * ```
    *
-   * Read more in our [docs](https://www.prisma.io/docs/reference/tools-and-interfaces/prisma-client/raw-database-access).
+   * Read more in our [docs](https://pris.ly/d/raw-queries).
    */
   $executeRawUnsafe<T = unknown>(query: string, ...values: any[]): Prisma.PrismaPromise<number>;
 
@@ -136,7 +136,7 @@ export interface PrismaClient<
    * const result = await prisma.$queryRaw`SELECT * FROM User WHERE id = ${1} OR email = ${'user@email.com'};`
    * ```
    *
-   * Read more in our [docs](https://www.prisma.io/docs/reference/tools-and-interfaces/prisma-client/raw-database-access).
+   * Read more in our [docs](https://pris.ly/d/raw-queries).
    */
   $queryRaw<T = unknown>(query: TemplateStringsArray | Prisma.Sql, ...values: any[]): Prisma.PrismaPromise<T>;
 
@@ -148,7 +148,7 @@ export interface PrismaClient<
    * const result = await prisma.$queryRawUnsafe('SELECT * FROM User WHERE id = $1 OR email = $2;', 1, 'user@email.com')
    * ```
    *
-   * Read more in our [docs](https://www.prisma.io/docs/reference/tools-and-interfaces/prisma-client/raw-database-access).
+   * Read more in our [docs](https://pris.ly/d/raw-queries).
    */
   $queryRawUnsafe<T = unknown>(query: string, ...values: any[]): Prisma.PrismaPromise<T>;
 

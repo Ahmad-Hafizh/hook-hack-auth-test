@@ -1,0 +1,300 @@
+import callAppV2Api from "@/config/axios/axiosAppV2";
+import { IVariants } from "../../[sessionId]/how/hooks/useDataContext";
+
+export const submitStep1 = async ({
+  setLoading,
+  onNext,
+  budget,
+  setPlan,
+}: {
+  setLoading: (loading: boolean) => void;
+  onNext: () => void;
+  budget: number;
+  setPlan: React.Dispatch<React.SetStateAction<any>>;
+}) => {
+  setLoading(true);
+  try {
+    const { data } = await callAppV2Api.post("/v1/video-tests/plan", {
+      monthly_budget: budget,
+      currency: "JPY",
+      test_term_weeks: 4,
+      strong_points: ["string"],
+      provider: "openai",
+      language: "en",
+    });
+
+    setPlan(data.plan);
+    onNext();
+  } catch (error) {
+    console.error("Error submitting Step 1:", error);
+  } finally {
+    setLoading(false);
+  }
+};
+
+export const submitStep2 = async ({
+  setLoading,
+  onNext,
+  selectedTemplateId,
+  setVariants,
+  variants,
+}: {
+  setLoading: (loading: boolean) => void;
+  onNext: () => void;
+  selectedTemplateId: string;
+  setVariants: React.Dispatch<React.SetStateAction<any>>;
+  variants: IVariants;
+}) => {
+  setLoading(true);
+  try {
+    const templatesCreatomateModification = [
+      {
+        template_id: "6f8e118a-703d-4b94-8534-96a2b7be7d62",
+        images: {
+          logo: "https://creatomate.com/files/assets/00e591b1-a5fe-4bd1-9bd9-2cdb153f2815",
+          strong_point_3:
+            "https://creatomate.com/files/assets/1bef6dab-2715-45af-a1ae-e90419d45602",
+          strong_point_2:
+            "https://creatomate.com/files/assets/6917ecf0-b3a9-4b33-a1c7-15a9311e7b01",
+          strong_point_1:
+            "https://creatomate.com/files/assets/362b4df1-ce41-4734-93af-ecf66c03ce83",
+          background_music:
+            "https://creatomate.com/files/assets/117e3505-bef8-41a8-a899-2b4423d36b95",
+        },
+      },
+      {
+        template_id: "ca63102c-c78f-43c9-98d6-1c718dfe6ed1",
+        images: {
+          logo: "https://creatomate.com/files/assets/bdda27db-4b19-49e0-a225-3c9f2aef86dd",
+          strong_point_3:
+            "https://creatomate.com/files/assets/07cc4791-65e0-4465-b35f-f269d9f09471",
+          strong_point_2:
+            "https://creatomate.com/files/assets/7247814a-5b26-4e5e-a3d3-6432a807e865",
+          strong_point_1:
+            "https://creatomate.com/files/assets/b72b689d-732b-4548-bbd4-4daa31ad0136",
+          background_music:
+            "https://creatomate.com/files/assets/744d800a-221f-475e-a12a-3523a70756c4",
+        },
+      },
+      {
+        template_id: "f9a7fdef-4311-4b0c-942a-6f3f00a353dd",
+        images: {
+          strong_point_3:
+            "https://creatomate.com/files/assets/e970eb78-4392-4a92-9d05-5bc15faef826",
+          strong_point_2:
+            "https://creatomate.com/files/assets/ae60778b-6206-4482-8fec-f852950613b4",
+          strong_point_1:
+            "https://creatomate.com/files/assets/82f444bc-b767-47f3-a14c-1a8065a2c0ca",
+          logo: "https://creatomate.com/files/assets/cb997f73-277c-47d8-8688-ea0e6462761d",
+          background_music:
+            "https://creatomate.com/files/assets/7f091315-a1eb-4b81-b564-88362b984ce9",
+        },
+      },
+    ];
+
+    const selectedTemplateData = templatesCreatomateModification.find(
+      (t) => t.template_id === selectedTemplateId
+    );
+
+    setVariants({
+      ...variants,
+      strong_point_1_images: [
+        ...variants.strong_point_1_images,
+        selectedTemplateData?.images.strong_point_1,
+      ],
+      strong_point_2_images: [
+        ...variants.strong_point_2_images,
+        selectedTemplateData?.images.strong_point_2,
+      ],
+      strong_point_3_images: [
+        ...variants.strong_point_3_images,
+        selectedTemplateData?.images.strong_point_3,
+      ],
+      background_music: [
+        "https://creatomate.com/files/assets/117e3505-bef8-41a8-a899-2b4423d36b95",
+        "https://creatomate.com/files/assets/744d800a-221f-475e-a12a-3523a70756c4",
+        "https://creatomate.com/files/assets/7f091315-a1eb-4b81-b564-88362b984ce9",
+      ],
+      brand_logo: selectedTemplateData?.images.logo || "",
+    });
+    onNext();
+  } catch (error) {
+    console.error("Error submitting Step 2:", error);
+  } finally {
+    setLoading(false);
+  }
+};
+
+export const generateVariants = async ({
+  setJobId,
+}: {
+  setJobId: React.Dispatch<React.SetStateAction<string | null>>;
+}) => {
+  try {
+    const { key_message, strong_points } = JSON.parse(
+      localStorage.getItem("planning-what-data") || "{}"
+    );
+    const { data } = await callAppV2Api.post("/v1/video/main-content/async", {
+      key_message: key_message,
+      strong_points: strong_points,
+      provider: "openai",
+      language: "en",
+    });
+    // setVariants({ ...variants, ...data.variants });
+    setJobId(data.job_id);
+    return data.job_id;
+  } catch (error) {
+    console.error("Error generating variants:", error);
+  }
+};
+
+export const getJobResult = async ({ jobId }: { jobId: string }) => {
+  try {
+    const { data } = await callAppV2Api.get(
+      `/v1/video/main-content/async/${jobId}`
+    );
+    return data;
+  } catch (error) {
+    console.log(error);
+  }
+};
+// export const generateVariants = async ({ setLoadingGenerate, setVariants, variants }: { setLoadingGenerate: (loading: boolean) => void; setVariants: React.Dispatch<React.SetStateAction<IVariants>>; variants: IVariants }) => {
+//   setLoadingGenerate(true);
+//   try {
+//     const { key_message, strong_points } = JSON.parse(localStorage.getItem('planning-what-data') || '{}');
+//     const { data } = await callAppV2Api.post('/v1/video/main-content', {
+//       key_message: key_message,
+//       strong_points: strong_points,
+//       provider: 'openai',
+//       language: 'en',
+//     });
+//     setVariants({ ...variants, ...data.variants });
+//   } catch (error) {
+//     console.error('Error generating variants:', error);
+//   } finally {
+//     setLoadingGenerate(false);
+//   }
+// };
+
+export const submitStep3 = async ({
+  setLoading,
+  onNext,
+}: {
+  setLoading: (loading: boolean) => void;
+  onNext: () => void;
+}) => {
+  setLoading(true);
+  try {
+    setTimeout(() => {}, 1000);
+    console.log("called");
+    onNext();
+  } catch (error) {
+    console.error("Error submitting Step 3:", error);
+  } finally {
+    setLoading(false);
+  }
+};
+
+export const submitStep4 = async ({
+  setLoading,
+  onNext,
+  patternCombinations,
+  setRendersCreatomate,
+  brandLogoUrl,
+  selectedTemplateId,
+  bgm,
+}: {
+  setLoading: (loading: boolean) => void;
+  onNext: () => void;
+  patternCombinations: any[];
+  setRendersCreatomate: (renders: any[]) => void;
+  brandLogoUrl: string | null;
+  selectedTemplateId: string;
+  bgm: string;
+}) => {
+  setLoading(true);
+  try {
+    const videos = patternCombinations.map((pattern) => ({
+      ...pattern,
+      images: {
+        ...pattern.images,
+        logo: brandLogoUrl || "https://example.com/default-logo.png",
+      },
+      bgm,
+    }));
+
+    // Debug preview to verify that we are preparing the correct image URLs and bgm
+    console.log("[submitStep4] payload preview", {
+      selectedTemplateId,
+      totalVideos: videos.length,
+      firstVideo: videos[0],
+      body3ImagesPerVideo: videos.map((v, idx) => ({
+        index: idx,
+        strong_point_3_image: v.images?.strong_point_3,
+      })),
+    });
+
+    // NOTE:
+    // Although the API accepts an array in `videos`, in practice only the first
+    // entry is rendered. To guarantee one render per pattern, we loop and call
+    // the endpoint once per video.
+    const allRenders: any[] = [];
+
+    for (let index = 0; index < videos.length; index++) {
+      const video = videos[index];
+
+      console.log(
+        "[submitStep4] calling /v1/creatomate/renders for video index",
+        index,
+        {
+          strong_point_1_image: video.images?.strong_point_1,
+          strong_point_2_image: video.images?.strong_point_2,
+          strong_point_3_image: video.images?.strong_point_3,
+        }
+      );
+
+      const { data } = await callAppV2Api.post("/v1/creatomate/renders", {
+        template_id: selectedTemplateId,
+        videos: [video],
+        provider: "creatomate",
+      });
+
+      if (Array.isArray(data?.renders)) {
+        allRenders.push(...data.renders);
+      }
+    }
+
+    setRendersCreatomate(allRenders);
+    onNext();
+  } catch (error) {
+    console.error("Error submitting Step 4:", error);
+  } finally {
+    setLoading(false);
+  }
+};
+
+export const uploadImage = async ({
+  file,
+  onUploadImage,
+}: {
+  file: File;
+  onUploadImage: (url: string) => void;
+}) => {
+  try {
+    const formData = new FormData();
+    formData.append("file", file);
+    const { data } = await callAppV2Api.post("/v1/assets/images", formData, {
+      headers: {
+        "Content-Type": "multipart/form-data",
+      },
+    });
+
+    console.log("[uploadImage] response", {
+      url: data?.url,
+    });
+
+    onUploadImage(data.url);
+  } catch (error) {
+    console.log("[uploadImage] error", error);
+  }
+};

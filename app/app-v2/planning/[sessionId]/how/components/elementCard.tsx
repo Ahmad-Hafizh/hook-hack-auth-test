@@ -85,7 +85,7 @@ const ElementCard = ({
                     disabled={!value}
                   />
                   <div
-                    className={`text-base relative w-[300px] aspect-[${aspectStyle || "4/3"}]`}
+                    className={`text-base relative w-[300px] aspect-[${aspectStyle}]`}
                   >
                     <Image
                       src={value}

@@ -40,26 +40,19 @@ const Step3 = ({ onNext }: { onNext: () => void }) => {
   } = useDataContext();
 
   const { sessionId } = useParams();
-
-  // Determine target aspect ratio based on the selected template (video style)
-  // real estate template: 469 / 1023 (vertical)
-  // other two templates: 4 / 3
-  const selectedAspectRatio = React.useMemo(() => {
-    if (selectedTemplateId === "6f8e118a-703d-4b94-8534-96a2b7be7d62") {
-      return {
-        aspectRatio: 469 / 1023,
-        aspectLabel: "469 / 1023（縦）",
-        aspectStyle: "469/1023",
-      };
-    }
-
-    // All other templates: 4:3 (horizontal)
-    return {
-      aspectRatio: 4 / 3,
-      aspectLabel: "4 / 3（横）",
-      aspectStyle: "4/3",
-    };
-  }, [selectedTemplateId]);
+  const [aspectRatio, setAspectRatio] = React.useState<{
+    aspectRatio: number;
+    aspectLabel: string;
+    aspectStyle: string;
+  }>(
+    selectedTemplateId === "6f8e118a-703d-4b94-8534-96a2b7be7d62"
+      ? {
+          aspectRatio: 469 / 1023,
+          aspectLabel: "469 / 1023（縦）",
+          aspectStyle: "469/1023",
+        }
+      : { aspectRatio: 4 / 3, aspectLabel: "4 / 3（横）", aspectStyle: "4/3" }
+  );
 
   // Use the polling query
   const {
@@ -193,9 +186,9 @@ const Step3 = ({ onNext }: { onNext: () => void }) => {
             <ElementCard
               type="image"
               title="Body 1 Images"
-              description={`Aspect ratio : ${selectedAspectRatio.aspectLabel}`}
-              aspectRatio={selectedAspectRatio.aspectRatio}
-              aspectStyle={selectedAspectRatio.aspectStyle}
+              description={`Aspect ratio : ${aspectRatio.aspectLabel}`}
+              aspectRatio={aspectRatio.aspectRatio}
+              aspectStyle={aspectRatio.aspectStyle}
               variant={variants.strong_point_1_images}
               onVariantChange={(value, index) => {
                 const variantCopy = [...variants.strong_point_1_images];
@@ -257,9 +250,9 @@ const Step3 = ({ onNext }: { onNext: () => void }) => {
             <ElementCard
               type="image"
               title="Body 2 Images"
-              description={`Aspect ratio : ${selectedAspectRatio.aspectLabel}`}
-              aspectRatio={selectedAspectRatio.aspectRatio}
-              aspectStyle={selectedAspectRatio.aspectStyle}
+              description={`Aspect ratio : ${aspectRatio.aspectLabel}`}
+              aspectRatio={aspectRatio.aspectRatio}
+              aspectStyle={aspectRatio.aspectStyle}
               variant={variants.strong_point_2_images}
               onVariantChange={(value, index) => {
                 const variantCopy = [...variants.strong_point_2_images];
@@ -318,9 +311,9 @@ const Step3 = ({ onNext }: { onNext: () => void }) => {
             <ElementCard
               type="image"
               title="Body 3 Images"
-              description={`Aspect ratio : ${selectedAspectRatio.aspectLabel}`}
-              aspectRatio={selectedAspectRatio.aspectRatio}
-              aspectStyle={selectedAspectRatio.aspectStyle}
+              description={`Aspect ratio : ${aspectRatio.aspectLabel}`}
+              aspectRatio={aspectRatio.aspectRatio}
+              aspectStyle={aspectRatio.aspectStyle}
               variant={variants.strong_point_3_images}
               onVariantChange={(value, index) => {
                 const variantCopy = [...variants.strong_point_3_images];

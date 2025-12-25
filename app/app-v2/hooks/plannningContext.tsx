@@ -2,7 +2,7 @@
 import { Spinner } from "@/components/ui/spinner";
 import callApi from "@/config/axios/axios";
 import { set } from "date-fns";
-import { useParams } from "next/navigation";
+import { useParams, useRouter } from "next/navigation";
 import React from "react";
 import { useState, useEffect } from "react";
 
@@ -18,6 +18,7 @@ export default function PlannningContextProvider({
 }: {
   children: React.ReactNode;
 }) {
+  const router = useRouter();
   const pagesList = {
     what_scratch: 4,
     what_skip: 2,
@@ -39,6 +40,7 @@ export default function PlannningContextProvider({
 
       if (data.page) {
         setPage(data.page || "what_scratch");
+        router.replace(`/app-v2/planning/${sessionId}/${data.page}`);
       }
     } catch (error) {
       console.log(error);
@@ -73,7 +75,7 @@ export default function PlannningContextProvider({
 
   if (loading) {
     return (
-      <div className="flex justify-center items-center h-full gap-4">
+      <div className="flex justify-center items-center h-screen gap-4">
         <Spinner />
         Loading...
       </div>

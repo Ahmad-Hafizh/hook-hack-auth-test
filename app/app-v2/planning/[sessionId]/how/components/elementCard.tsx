@@ -21,6 +21,7 @@ const ElementCard = ({
   title,
   description,
   aspectRatio,
+  aspectStyle,
 }: {
   type: string;
   variant: any[];
@@ -30,6 +31,7 @@ const ElementCard = ({
   title: string;
   description?: string;
   aspectRatio?: number;
+  aspectStyle?: string;
 }) => {
   if (type === "text") {
     return (
@@ -82,12 +84,14 @@ const ElementCard = ({
                     value={value}
                     disabled={!value}
                   />
-                  <div className="text-base relative w-[300px] aspect-video ">
+                  <div
+                    className={`text-base relative w-[300px] aspect-[${aspectStyle || "4/3"}]`}
+                  >
                     <Image
                       src={value}
                       alt={title}
                       fill
-                      className="border rounded-sm absolute object-fill"
+                      className={`border rounded-sm absolute object-contain `}
                     />
                     <div className="top-2 right-2 absolute">
                       <UploadImageButton

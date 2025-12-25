@@ -17,9 +17,9 @@ import { useDataContext } from "../hooks/useDataContext";
 const Step2 = ({ onNext }: { onNext: () => void }) => {
   const [loading, setLoading] = React.useState(false);
   const { sessionId } = useParams();
-  const [selectedTemplateId, setSelectedTemplateId] =
-    React.useState<string>("");
-  const { onSetJobId } = useDataContext();
+
+  const { onSetJobId, onSetSelectedTemplateId, selectedTemplateId } =
+    useDataContext();
 
   const templatesCreatomateList = [
     {
@@ -45,7 +45,7 @@ const Step2 = ({ onNext }: { onNext: () => void }) => {
       </div>
       <RadioGroup
         className="flex gap-20 justify-center items-center "
-        onValueChange={(value) => setSelectedTemplateId(value)}
+        onValueChange={(value) => onSetSelectedTemplateId(value)}
         value={selectedTemplateId}
       >
         {templatesCreatomateList.map((template, index) => (

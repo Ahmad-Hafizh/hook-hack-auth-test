@@ -26,8 +26,19 @@ export async function POST(req: NextRequest) {
       return checkResult.response;
     }
 
+    const session = await prisma.planningSession.findUnique({
+      where: { id: sessionId },
+      select: {
+        planningPlans: {
+          select: {
+            template_id: true,
+          },
+        },
+      },
+    });
+
     const { data } = await callAppV2Api.post("/v1/creatomate/renders", {
-      template_id: "f9a7fdef-4311-4b0c-942a-6f3f00a353dd",
+      template_id: session?.planningPlans?.template_id,
       videos: patternCombinations,
       provider: "creatomate",
     });

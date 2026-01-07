@@ -26,12 +26,12 @@ export type AggregatePlanningVariants = {
 
 export type PlanningVariantsMinAggregateOutputType = {
   id: string | null
-  planningSessionId: string | null
+  pdca_session_id: string | null
 }
 
 export type PlanningVariantsMaxAggregateOutputType = {
   id: string | null
-  planningSessionId: string | null
+  pdca_session_id: string | null
 }
 
 export type PlanningVariantsCountAggregateOutputType = {
@@ -41,19 +41,19 @@ export type PlanningVariantsCountAggregateOutputType = {
   bodyB_messages: number
   bodyC_messages: number
   ctas: number
-  planningSessionId: number
+  pdca_session_id: number
   _all: number
 }
 
 
 export type PlanningVariantsMinAggregateInputType = {
   id?: true
-  planningSessionId?: true
+  pdca_session_id?: true
 }
 
 export type PlanningVariantsMaxAggregateInputType = {
   id?: true
-  planningSessionId?: true
+  pdca_session_id?: true
 }
 
 export type PlanningVariantsCountAggregateInputType = {
@@ -63,7 +63,7 @@ export type PlanningVariantsCountAggregateInputType = {
   bodyB_messages?: true
   bodyC_messages?: true
   ctas?: true
-  planningSessionId?: true
+  pdca_session_id?: true
   _all?: true
 }
 
@@ -146,7 +146,7 @@ export type PlanningVariantsGroupByOutputType = {
   bodyB_messages: string[]
   bodyC_messages: string[]
   ctas: string[]
-  planningSessionId: string
+  pdca_session_id: string
   _count: PlanningVariantsCountAggregateOutputType | null
   _min: PlanningVariantsMinAggregateOutputType | null
   _max: PlanningVariantsMaxAggregateOutputType | null
@@ -177,8 +177,8 @@ export type PlanningVariantsWhereInput = {
   bodyB_messages?: Prisma.StringNullableListFilter<"PlanningVariants">
   bodyC_messages?: Prisma.StringNullableListFilter<"PlanningVariants">
   ctas?: Prisma.StringNullableListFilter<"PlanningVariants">
-  planningSessionId?: Prisma.StringFilter<"PlanningVariants"> | string
-  PlanningSession?: Prisma.XOR<Prisma.PlanningSessionScalarRelationFilter, Prisma.PlanningSessionWhereInput>
+  pdca_session_id?: Prisma.StringFilter<"PlanningVariants"> | string
+  PDCA_Session?: Prisma.XOR<Prisma.PDCASessionScalarRelationFilter, Prisma.PDCASessionWhereInput>
 }
 
 export type PlanningVariantsOrderByWithRelationInput = {
@@ -188,13 +188,13 @@ export type PlanningVariantsOrderByWithRelationInput = {
   bodyB_messages?: Prisma.SortOrder
   bodyC_messages?: Prisma.SortOrder
   ctas?: Prisma.SortOrder
-  planningSessionId?: Prisma.SortOrder
-  PlanningSession?: Prisma.PlanningSessionOrderByWithRelationInput
+  pdca_session_id?: Prisma.SortOrder
+  PDCA_Session?: Prisma.PDCASessionOrderByWithRelationInput
 }
 
 export type PlanningVariantsWhereUniqueInput = Prisma.AtLeast<{
   id?: string
-  planningSessionId?: string
+  pdca_session_id?: string
   AND?: Prisma.PlanningVariantsWhereInput | Prisma.PlanningVariantsWhereInput[]
   OR?: Prisma.PlanningVariantsWhereInput[]
   NOT?: Prisma.PlanningVariantsWhereInput | Prisma.PlanningVariantsWhereInput[]
@@ -203,8 +203,8 @@ export type PlanningVariantsWhereUniqueInput = Prisma.AtLeast<{
   bodyB_messages?: Prisma.StringNullableListFilter<"PlanningVariants">
   bodyC_messages?: Prisma.StringNullableListFilter<"PlanningVariants">
   ctas?: Prisma.StringNullableListFilter<"PlanningVariants">
-  PlanningSession?: Prisma.XOR<Prisma.PlanningSessionScalarRelationFilter, Prisma.PlanningSessionWhereInput>
-}, "id" | "planningSessionId">
+  PDCA_Session?: Prisma.XOR<Prisma.PDCASessionScalarRelationFilter, Prisma.PDCASessionWhereInput>
+}, "id" | "pdca_session_id">
 
 export type PlanningVariantsOrderByWithAggregationInput = {
   id?: Prisma.SortOrder
@@ -213,7 +213,7 @@ export type PlanningVariantsOrderByWithAggregationInput = {
   bodyB_messages?: Prisma.SortOrder
   bodyC_messages?: Prisma.SortOrder
   ctas?: Prisma.SortOrder
-  planningSessionId?: Prisma.SortOrder
+  pdca_session_id?: Prisma.SortOrder
   _count?: Prisma.PlanningVariantsCountOrderByAggregateInput
   _max?: Prisma.PlanningVariantsMaxOrderByAggregateInput
   _min?: Prisma.PlanningVariantsMinOrderByAggregateInput
@@ -229,7 +229,7 @@ export type PlanningVariantsScalarWhereWithAggregatesInput = {
   bodyB_messages?: Prisma.StringNullableListFilter<"PlanningVariants">
   bodyC_messages?: Prisma.StringNullableListFilter<"PlanningVariants">
   ctas?: Prisma.StringNullableListFilter<"PlanningVariants">
-  planningSessionId?: Prisma.StringWithAggregatesFilter<"PlanningVariants"> | string
+  pdca_session_id?: Prisma.StringWithAggregatesFilter<"PlanningVariants"> | string
 }
 
 export type PlanningVariantsCreateInput = {
@@ -239,7 +239,7 @@ export type PlanningVariantsCreateInput = {
   bodyB_messages?: Prisma.PlanningVariantsCreatebodyB_messagesInput | string[]
   bodyC_messages?: Prisma.PlanningVariantsCreatebodyC_messagesInput | string[]
   ctas?: Prisma.PlanningVariantsCreatectasInput | string[]
-  PlanningSession: Prisma.PlanningSessionCreateNestedOneWithoutPlanningVariantsInput
+  PDCA_Session: Prisma.PDCASessionCreateNestedOneWithoutPlanningVariantsInput
 }
 
 export type PlanningVariantsUncheckedCreateInput = {
@@ -249,7 +249,7 @@ export type PlanningVariantsUncheckedCreateInput = {
   bodyB_messages?: Prisma.PlanningVariantsCreatebodyB_messagesInput | string[]
   bodyC_messages?: Prisma.PlanningVariantsCreatebodyC_messagesInput | string[]
   ctas?: Prisma.PlanningVariantsCreatectasInput | string[]
-  planningSessionId: string
+  pdca_session_id: string
 }
 
 export type PlanningVariantsUpdateInput = {
@@ -259,7 +259,7 @@ export type PlanningVariantsUpdateInput = {
   bodyB_messages?: Prisma.PlanningVariantsUpdatebodyB_messagesInput | string[]
   bodyC_messages?: Prisma.PlanningVariantsUpdatebodyC_messagesInput | string[]
   ctas?: Prisma.PlanningVariantsUpdatectasInput | string[]
-  PlanningSession?: Prisma.PlanningSessionUpdateOneRequiredWithoutPlanningVariantsNestedInput
+  PDCA_Session?: Prisma.PDCASessionUpdateOneRequiredWithoutPlanningVariantsNestedInput
 }
 
 export type PlanningVariantsUncheckedUpdateInput = {
@@ -269,7 +269,7 @@ export type PlanningVariantsUncheckedUpdateInput = {
   bodyB_messages?: Prisma.PlanningVariantsUpdatebodyB_messagesInput | string[]
   bodyC_messages?: Prisma.PlanningVariantsUpdatebodyC_messagesInput | string[]
   ctas?: Prisma.PlanningVariantsUpdatectasInput | string[]
-  planningSessionId?: Prisma.StringFieldUpdateOperationsInput | string
+  pdca_session_id?: Prisma.StringFieldUpdateOperationsInput | string
 }
 
 export type PlanningVariantsCreateManyInput = {
@@ -279,7 +279,7 @@ export type PlanningVariantsCreateManyInput = {
   bodyB_messages?: Prisma.PlanningVariantsCreatebodyB_messagesInput | string[]
   bodyC_messages?: Prisma.PlanningVariantsCreatebodyC_messagesInput | string[]
   ctas?: Prisma.PlanningVariantsCreatectasInput | string[]
-  planningSessionId: string
+  pdca_session_id: string
 }
 
 export type PlanningVariantsUpdateManyMutationInput = {
@@ -298,7 +298,7 @@ export type PlanningVariantsUncheckedUpdateManyInput = {
   bodyB_messages?: Prisma.PlanningVariantsUpdatebodyB_messagesInput | string[]
   bodyC_messages?: Prisma.PlanningVariantsUpdatebodyC_messagesInput | string[]
   ctas?: Prisma.PlanningVariantsUpdatectasInput | string[]
-  planningSessionId?: Prisma.StringFieldUpdateOperationsInput | string
+  pdca_session_id?: Prisma.StringFieldUpdateOperationsInput | string
 }
 
 export type PlanningVariantsNullableScalarRelationFilter = {
@@ -313,49 +313,49 @@ export type PlanningVariantsCountOrderByAggregateInput = {
   bodyB_messages?: Prisma.SortOrder
   bodyC_messages?: Prisma.SortOrder
   ctas?: Prisma.SortOrder
-  planningSessionId?: Prisma.SortOrder
+  pdca_session_id?: Prisma.SortOrder
 }
 
 export type PlanningVariantsMaxOrderByAggregateInput = {
   id?: Prisma.SortOrder
-  planningSessionId?: Prisma.SortOrder
+  pdca_session_id?: Prisma.SortOrder
 }
 
 export type PlanningVariantsMinOrderByAggregateInput = {
   id?: Prisma.SortOrder
-  planningSessionId?: Prisma.SortOrder
+  pdca_session_id?: Prisma.SortOrder
 }
 
-export type PlanningVariantsCreateNestedOneWithoutPlanningSessionInput = {
-  create?: Prisma.XOR<Prisma.PlanningVariantsCreateWithoutPlanningSessionInput, Prisma.PlanningVariantsUncheckedCreateWithoutPlanningSessionInput>
-  connectOrCreate?: Prisma.PlanningVariantsCreateOrConnectWithoutPlanningSessionInput
+export type PlanningVariantsCreateNestedOneWithoutPDCA_SessionInput = {
+  create?: Prisma.XOR<Prisma.PlanningVariantsCreateWithoutPDCA_SessionInput, Prisma.PlanningVariantsUncheckedCreateWithoutPDCA_SessionInput>
+  connectOrCreate?: Prisma.PlanningVariantsCreateOrConnectWithoutPDCA_SessionInput
   connect?: Prisma.PlanningVariantsWhereUniqueInput
 }
 
-export type PlanningVariantsUncheckedCreateNestedOneWithoutPlanningSessionInput = {
-  create?: Prisma.XOR<Prisma.PlanningVariantsCreateWithoutPlanningSessionInput, Prisma.PlanningVariantsUncheckedCreateWithoutPlanningSessionInput>
-  connectOrCreate?: Prisma.PlanningVariantsCreateOrConnectWithoutPlanningSessionInput
+export type PlanningVariantsUncheckedCreateNestedOneWithoutPDCA_SessionInput = {
+  create?: Prisma.XOR<Prisma.PlanningVariantsCreateWithoutPDCA_SessionInput, Prisma.PlanningVariantsUncheckedCreateWithoutPDCA_SessionInput>
+  connectOrCreate?: Prisma.PlanningVariantsCreateOrConnectWithoutPDCA_SessionInput
   connect?: Prisma.PlanningVariantsWhereUniqueInput
 }
 
-export type PlanningVariantsUpdateOneWithoutPlanningSessionNestedInput = {
-  create?: Prisma.XOR<Prisma.PlanningVariantsCreateWithoutPlanningSessionInput, Prisma.PlanningVariantsUncheckedCreateWithoutPlanningSessionInput>
-  connectOrCreate?: Prisma.PlanningVariantsCreateOrConnectWithoutPlanningSessionInput
-  upsert?: Prisma.PlanningVariantsUpsertWithoutPlanningSessionInput
+export type PlanningVariantsUpdateOneWithoutPDCA_SessionNestedInput = {
+  create?: Prisma.XOR<Prisma.PlanningVariantsCreateWithoutPDCA_SessionInput, Prisma.PlanningVariantsUncheckedCreateWithoutPDCA_SessionInput>
+  connectOrCreate?: Prisma.PlanningVariantsCreateOrConnectWithoutPDCA_SessionInput
+  upsert?: Prisma.PlanningVariantsUpsertWithoutPDCA_SessionInput
   disconnect?: Prisma.PlanningVariantsWhereInput | boolean
   delete?: Prisma.PlanningVariantsWhereInput | boolean
   connect?: Prisma.PlanningVariantsWhereUniqueInput
-  update?: Prisma.XOR<Prisma.XOR<Prisma.PlanningVariantsUpdateToOneWithWhereWithoutPlanningSessionInput, Prisma.PlanningVariantsUpdateWithoutPlanningSessionInput>, Prisma.PlanningVariantsUncheckedUpdateWithoutPlanningSessionInput>
+  update?: Prisma.XOR<Prisma.XOR<Prisma.PlanningVariantsUpdateToOneWithWhereWithoutPDCA_SessionInput, Prisma.PlanningVariantsUpdateWithoutPDCA_SessionInput>, Prisma.PlanningVariantsUncheckedUpdateWithoutPDCA_SessionInput>
 }
 
-export type PlanningVariantsUncheckedUpdateOneWithoutPlanningSessionNestedInput = {
-  create?: Prisma.XOR<Prisma.PlanningVariantsCreateWithoutPlanningSessionInput, Prisma.PlanningVariantsUncheckedCreateWithoutPlanningSessionInput>
-  connectOrCreate?: Prisma.PlanningVariantsCreateOrConnectWithoutPlanningSessionInput
-  upsert?: Prisma.PlanningVariantsUpsertWithoutPlanningSessionInput
+export type PlanningVariantsUncheckedUpdateOneWithoutPDCA_SessionNestedInput = {
+  create?: Prisma.XOR<Prisma.PlanningVariantsCreateWithoutPDCA_SessionInput, Prisma.PlanningVariantsUncheckedCreateWithoutPDCA_SessionInput>
+  connectOrCreate?: Prisma.PlanningVariantsCreateOrConnectWithoutPDCA_SessionInput
+  upsert?: Prisma.PlanningVariantsUpsertWithoutPDCA_SessionInput
   disconnect?: Prisma.PlanningVariantsWhereInput | boolean
   delete?: Prisma.PlanningVariantsWhereInput | boolean
   connect?: Prisma.PlanningVariantsWhereUniqueInput
-  update?: Prisma.XOR<Prisma.XOR<Prisma.PlanningVariantsUpdateToOneWithWhereWithoutPlanningSessionInput, Prisma.PlanningVariantsUpdateWithoutPlanningSessionInput>, Prisma.PlanningVariantsUncheckedUpdateWithoutPlanningSessionInput>
+  update?: Prisma.XOR<Prisma.XOR<Prisma.PlanningVariantsUpdateToOneWithWhereWithoutPDCA_SessionInput, Prisma.PlanningVariantsUpdateWithoutPDCA_SessionInput>, Prisma.PlanningVariantsUncheckedUpdateWithoutPDCA_SessionInput>
 }
 
 export type PlanningVariantsCreatehooksInput = {
@@ -403,7 +403,7 @@ export type PlanningVariantsUpdatectasInput = {
   push?: string | string[]
 }
 
-export type PlanningVariantsCreateWithoutPlanningSessionInput = {
+export type PlanningVariantsCreateWithoutPDCA_SessionInput = {
   id?: string
   hooks?: Prisma.PlanningVariantsCreatehooksInput | string[]
   bodyA_messages?: Prisma.PlanningVariantsCreatebodyA_messagesInput | string[]
@@ -412,7 +412,7 @@ export type PlanningVariantsCreateWithoutPlanningSessionInput = {
   ctas?: Prisma.PlanningVariantsCreatectasInput | string[]
 }
 
-export type PlanningVariantsUncheckedCreateWithoutPlanningSessionInput = {
+export type PlanningVariantsUncheckedCreateWithoutPDCA_SessionInput = {
   id?: string
   hooks?: Prisma.PlanningVariantsCreatehooksInput | string[]
   bodyA_messages?: Prisma.PlanningVariantsCreatebodyA_messagesInput | string[]
@@ -421,23 +421,23 @@ export type PlanningVariantsUncheckedCreateWithoutPlanningSessionInput = {
   ctas?: Prisma.PlanningVariantsCreatectasInput | string[]
 }
 
-export type PlanningVariantsCreateOrConnectWithoutPlanningSessionInput = {
+export type PlanningVariantsCreateOrConnectWithoutPDCA_SessionInput = {
   where: Prisma.PlanningVariantsWhereUniqueInput
-  create: Prisma.XOR<Prisma.PlanningVariantsCreateWithoutPlanningSessionInput, Prisma.PlanningVariantsUncheckedCreateWithoutPlanningSessionInput>
+  create: Prisma.XOR<Prisma.PlanningVariantsCreateWithoutPDCA_SessionInput, Prisma.PlanningVariantsUncheckedCreateWithoutPDCA_SessionInput>
 }
 
-export type PlanningVariantsUpsertWithoutPlanningSessionInput = {
-  update: Prisma.XOR<Prisma.PlanningVariantsUpdateWithoutPlanningSessionInput, Prisma.PlanningVariantsUncheckedUpdateWithoutPlanningSessionInput>
-  create: Prisma.XOR<Prisma.PlanningVariantsCreateWithoutPlanningSessionInput, Prisma.PlanningVariantsUncheckedCreateWithoutPlanningSessionInput>
+export type PlanningVariantsUpsertWithoutPDCA_SessionInput = {
+  update: Prisma.XOR<Prisma.PlanningVariantsUpdateWithoutPDCA_SessionInput, Prisma.PlanningVariantsUncheckedUpdateWithoutPDCA_SessionInput>
+  create: Prisma.XOR<Prisma.PlanningVariantsCreateWithoutPDCA_SessionInput, Prisma.PlanningVariantsUncheckedCreateWithoutPDCA_SessionInput>
   where?: Prisma.PlanningVariantsWhereInput
 }
 
-export type PlanningVariantsUpdateToOneWithWhereWithoutPlanningSessionInput = {
+export type PlanningVariantsUpdateToOneWithWhereWithoutPDCA_SessionInput = {
   where?: Prisma.PlanningVariantsWhereInput
-  data: Prisma.XOR<Prisma.PlanningVariantsUpdateWithoutPlanningSessionInput, Prisma.PlanningVariantsUncheckedUpdateWithoutPlanningSessionInput>
+  data: Prisma.XOR<Prisma.PlanningVariantsUpdateWithoutPDCA_SessionInput, Prisma.PlanningVariantsUncheckedUpdateWithoutPDCA_SessionInput>
 }
 
-export type PlanningVariantsUpdateWithoutPlanningSessionInput = {
+export type PlanningVariantsUpdateWithoutPDCA_SessionInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   hooks?: Prisma.PlanningVariantsUpdatehooksInput | string[]
   bodyA_messages?: Prisma.PlanningVariantsUpdatebodyA_messagesInput | string[]
@@ -446,7 +446,7 @@ export type PlanningVariantsUpdateWithoutPlanningSessionInput = {
   ctas?: Prisma.PlanningVariantsUpdatectasInput | string[]
 }
 
-export type PlanningVariantsUncheckedUpdateWithoutPlanningSessionInput = {
+export type PlanningVariantsUncheckedUpdateWithoutPDCA_SessionInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   hooks?: Prisma.PlanningVariantsUpdatehooksInput | string[]
   bodyA_messages?: Prisma.PlanningVariantsUpdatebodyA_messagesInput | string[]
@@ -464,8 +464,8 @@ export type PlanningVariantsSelect<ExtArgs extends runtime.Types.Extensions.Inte
   bodyB_messages?: boolean
   bodyC_messages?: boolean
   ctas?: boolean
-  planningSessionId?: boolean
-  PlanningSession?: boolean | Prisma.PlanningSessionDefaultArgs<ExtArgs>
+  pdca_session_id?: boolean
+  PDCA_Session?: boolean | Prisma.PDCASessionDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["planningVariants"]>
 
 export type PlanningVariantsSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
@@ -475,8 +475,8 @@ export type PlanningVariantsSelectCreateManyAndReturn<ExtArgs extends runtime.Ty
   bodyB_messages?: boolean
   bodyC_messages?: boolean
   ctas?: boolean
-  planningSessionId?: boolean
-  PlanningSession?: boolean | Prisma.PlanningSessionDefaultArgs<ExtArgs>
+  pdca_session_id?: boolean
+  PDCA_Session?: boolean | Prisma.PDCASessionDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["planningVariants"]>
 
 export type PlanningVariantsSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
@@ -486,8 +486,8 @@ export type PlanningVariantsSelectUpdateManyAndReturn<ExtArgs extends runtime.Ty
   bodyB_messages?: boolean
   bodyC_messages?: boolean
   ctas?: boolean
-  planningSessionId?: boolean
-  PlanningSession?: boolean | Prisma.PlanningSessionDefaultArgs<ExtArgs>
+  pdca_session_id?: boolean
+  PDCA_Session?: boolean | Prisma.PDCASessionDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["planningVariants"]>
 
 export type PlanningVariantsSelectScalar = {
@@ -497,24 +497,24 @@ export type PlanningVariantsSelectScalar = {
   bodyB_messages?: boolean
   bodyC_messages?: boolean
   ctas?: boolean
-  planningSessionId?: boolean
+  pdca_session_id?: boolean
 }
 
-export type PlanningVariantsOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "hooks" | "bodyA_messages" | "bodyB_messages" | "bodyC_messages" | "ctas" | "planningSessionId", ExtArgs["result"]["planningVariants"]>
+export type PlanningVariantsOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "hooks" | "bodyA_messages" | "bodyB_messages" | "bodyC_messages" | "ctas" | "pdca_session_id", ExtArgs["result"]["planningVariants"]>
 export type PlanningVariantsInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  PlanningSession?: boolean | Prisma.PlanningSessionDefaultArgs<ExtArgs>
+  PDCA_Session?: boolean | Prisma.PDCASessionDefaultArgs<ExtArgs>
 }
 export type PlanningVariantsIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  PlanningSession?: boolean | Prisma.PlanningSessionDefaultArgs<ExtArgs>
+  PDCA_Session?: boolean | Prisma.PDCASessionDefaultArgs<ExtArgs>
 }
 export type PlanningVariantsIncludeUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  PlanningSession?: boolean | Prisma.PlanningSessionDefaultArgs<ExtArgs>
+  PDCA_Session?: boolean | Prisma.PDCASessionDefaultArgs<ExtArgs>
 }
 
 export type $PlanningVariantsPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   name: "PlanningVariants"
   objects: {
-    PlanningSession: Prisma.$PlanningSessionPayload<ExtArgs>
+    PDCA_Session: Prisma.$PDCASessionPayload<ExtArgs>
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: string
@@ -523,7 +523,7 @@ export type $PlanningVariantsPayload<ExtArgs extends runtime.Types.Extensions.In
     bodyB_messages: string[]
     bodyC_messages: string[]
     ctas: string[]
-    planningSessionId: string
+    pdca_session_id: string
   }, ExtArgs["result"]["planningVariants"]>
   composites: {}
 }
@@ -918,7 +918,7 @@ readonly fields: PlanningVariantsFieldRefs;
  */
 export interface Prisma__PlanningVariantsClient<T, Null = never, ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
   readonly [Symbol.toStringTag]: "PrismaPromise"
-  PlanningSession<T extends Prisma.PlanningSessionDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.PlanningSessionDefaultArgs<ExtArgs>>): Prisma.Prisma__PlanningSessionClient<runtime.Types.Result.GetResult<Prisma.$PlanningSessionPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+  PDCA_Session<T extends Prisma.PDCASessionDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.PDCASessionDefaultArgs<ExtArgs>>): Prisma.Prisma__PDCASessionClient<runtime.Types.Result.GetResult<Prisma.$PDCASessionPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
    * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -954,7 +954,7 @@ export interface PlanningVariantsFieldRefs {
   readonly bodyB_messages: Prisma.FieldRef<"PlanningVariants", 'String[]'>
   readonly bodyC_messages: Prisma.FieldRef<"PlanningVariants", 'String[]'>
   readonly ctas: Prisma.FieldRef<"PlanningVariants", 'String[]'>
-  readonly planningSessionId: Prisma.FieldRef<"PlanningVariants", 'String'>
+  readonly pdca_session_id: Prisma.FieldRef<"PlanningVariants", 'String'>
 }
     
 

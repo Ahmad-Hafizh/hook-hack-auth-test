@@ -18,15 +18,23 @@ export async function POST(req: NextRequest) {
       return NextResponse.json({ error: "User not found" }, { status: 404 });
     }
 
-    const session = await prisma.planningSession.create({
+    const pdca = await prisma.pDCA.create({
       data: {
-        lastPage: page || "what_scratch",
+        id: crypto.randomUUID(),
         userId: user?.id!,
       },
     });
 
+    const pdcaSession = await prisma.pDCASession.create({
+      data: {
+        id: `${pdca.id}_pdca-1`,
+        pdca_id: pdca.id,
+        lastPage: page,
+      },
+    });
+
     return NextResponse.json(
-      { message: "Session created", sessionId: session.id },
+      { message: "Session created", session_id: pdcaSession.id },
       { status: 201 }
     );
   } catch (error) {

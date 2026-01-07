@@ -43,13 +43,13 @@ export const KeywordSelectionStep: React.FC<KeywordSelectionStepProps> = ({
             variant="elevated"
             className="animate-fade-in-up min-h-[400px] flex flex-col justify-between"
           >
-            <KeywordSelector
+            {/* <KeywordSelector
               keywords={keywords}
               selectedKeywords={selectedKeywords}
               onSelectionChange={setSelectedKeywords}
               maxSelection={maxSelection}
               label="あなたのプロダクト/サービスに当てはまるキーワードを選択してください"
-            />
+            /> */}
 
             <NavigationButtons
               onBack={onBack}

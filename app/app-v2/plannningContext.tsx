@@ -1,7 +1,7 @@
 "use client";
 import { Spinner } from "@/components/ui/spinner";
 import callApi from "@/config/axios/axios";
-import { set } from "date-fns";
+
 import { useParams, useRouter } from "next/navigation";
 import React from "react";
 import { useState, useEffect } from "react";
@@ -20,7 +20,7 @@ export default function PlannningContextProvider({
 }) {
   const router = useRouter();
   const pagesList = {
-    what_scratch: 4,
+    what_scratch: 7,
     what_skip: 2,
     how: 4,
     generation: 0,
@@ -38,8 +38,13 @@ export default function PlannningContextProvider({
         `/app-v2/planning/what?sessionId=${sessionId}`
       );
 
-      if (data.page) {
-        setPage(data.page || "what_scratch");
+      if (data.page.startsWith("what")) {
+        setPage(data.page);
+        router.replace(
+          `/app-v2/planning/${sessionId}/${data.page.split("_")[0]}`
+        );
+      } else {
+        setPage(data.page);
         router.replace(`/app-v2/planning/${sessionId}/${data.page}`);
       }
     } catch (error) {

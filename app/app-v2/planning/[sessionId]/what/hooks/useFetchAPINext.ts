@@ -178,12 +178,14 @@ export const submitStep4 = async ({
   onNext,
   setLoading,
   sessionId,
+  competitorsMatrix,
 }: {
   keyMessage: string;
   strongPoints: string[];
   onNext: () => void;
   setLoading: (loading: boolean) => void;
   sessionId: string;
+  competitorsMatrix: any;
 }) => {
   setLoading(true);
   try {
@@ -191,6 +193,7 @@ export const submitStep4 = async ({
       key_message: keyMessage,
       strong_points: strongPoints,
       sessionId,
+      competitorsMatrix,
     });
     if (statusText == "invalid") {
       redirect("/app-v2/planning/what");

@@ -44,15 +44,20 @@ export type project = Prisma.projectModel
  */
 export type Transaction = Prisma.TransactionModel
 /**
- * Model PlanningSession
+ * Model PDCA
  * 
  */
-export type PlanningSession = Prisma.PlanningSessionModel
+export type PDCA = Prisma.PDCAModel
 /**
- * Model CreativeBrief
+ * Model PDCASession
  * 
  */
-export type CreativeBrief = Prisma.CreativeBriefModel
+export type PDCASession = Prisma.PDCASessionModel
+/**
+ * Model CompetitorMatrix
+ * 
+ */
+export type CompetitorMatrix = Prisma.CompetitorMatrixModel
 /**
  * Model PlanningPlan
  * 

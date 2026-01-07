@@ -40,6 +40,3 @@ export type { LPURLInputStepProps } from "./LPURLInputStep";
 
 export { KeywordSelectionStep } from "./KeywordSelectionStep";
 export type { KeywordSelectionStepProps } from "./KeywordSelectionStep";
-
-export { VisualSelectionStep } from "./VisualSelectionStep";
-export type { VisualSelectionStepProps } from "./VisualSelectionStep";

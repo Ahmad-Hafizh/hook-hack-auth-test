@@ -5,7 +5,7 @@ export async function checkPageStep(
   sessionId: string,
   expectedPage: string
 ): Promise<{ valid: boolean; response?: NextResponse }> {
-  const isExist = await prisma.planningSession.findUnique({
+  const isExist = await prisma.pDCASession.findUnique({
     where: { id: sessionId },
     select: {
       lastPage: true,

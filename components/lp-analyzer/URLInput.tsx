@@ -1,6 +1,6 @@
 import React from "react";
-import { Icon } from "./Icon";
 import { cn } from "@/lib/utils";
+import { Link2 } from "lucide-react";
 
 export interface URLInputProps extends React.InputHTMLAttributes<HTMLInputElement> {
   label?: string;
@@ -28,7 +28,7 @@ export const URLInput = React.forwardRef<HTMLInputElement, URLInputProps>(
 
         <div className="relative w-full">
           <div className="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none">
-            <Icon name="link" size="md" className="text-text-muted" />
+            <Link2 className="text-gray-400 w-5 h-5" />
           </div>
 
           <input

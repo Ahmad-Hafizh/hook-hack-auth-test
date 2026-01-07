@@ -60,7 +60,7 @@ export async function POST(req: NextRequest) {
       meta_description: item.meta_description ?? null,
     }));
 
-    await prisma.planningSession.update({
+    await prisma.pDCASession.update({
       where: { id: sessionId },
       data: {
         keyword: keywords[0] || "",

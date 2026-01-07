@@ -1,49 +1,27 @@
-import React, { useState } from "react";
+import React from "react";
 import { cn } from "@/lib/utils";
+import { ToggleGroup, ToggleGroupItem } from "@/components/ui/toggle-group";
 
 export interface KeywordOption {
-  value: string;
-  label: string;
+  term: string;
+  reason?: string;
 }
 
 export interface KeywordSelectorProps {
   keywords: KeywordOption[];
-  selectedKeywords?: string[];
-  onSelectionChange?: (selectedKeywords: string[]) => void;
-  maxSelection?: number;
+  selectedKeywords: string;
+  onSelectionChange: (value: string) => void;
   label?: string;
   className?: string;
 }
 
 export const KeywordSelector: React.FC<KeywordSelectorProps> = ({
   keywords,
-  selectedKeywords = [],
+  selectedKeywords,
   onSelectionChange,
-  maxSelection,
   label,
   className,
 }) => {
-  const [selected, setSelected] = useState<string[]>(selectedKeywords);
-
-  const handleToggle = (value: string) => {
-    let newSelected: string[];
-
-    if (selected.includes(value)) {
-      newSelected = selected.filter((k) => k !== value);
-    } else {
-      if (maxSelection && selected.length >= maxSelection) {
-        return;
-      }
-      newSelected = [...selected, value];
-    }
-
-    setSelected(newSelected);
-
-    if (onSelectionChange) {
-      onSelectionChange(newSelected);
-    }
-  };
-
   return (
     <div className={cn("flex-1 flex flex-col w-full", className)}>
       {label && (
@@ -52,27 +30,28 @@ export const KeywordSelector: React.FC<KeywordSelectorProps> = ({
         </label>
       )}
 
-      <div className="grid grid-cols-2 md:grid-cols-4 gap-4 w-full">
-        {keywords.map((keyword) => {
-          const isSelected = selected.includes(keyword.value);
-
-          return (
-            <button
-              key={keyword.value}
-              type="button"
-              onClick={() => handleToggle(keyword.value)}
-              className={cn(
-                "px-4 py-3 border rounded-lg text-sm font-medium transition-all text-center",
-                isSelected
-                  ? "border-primary text-primary bg-accent-soft/30"
-                  : "border-border-light text-text-main hover:border-primary hover:text-primary hover:bg-accent-soft/30"
-              )}
-            >
-              {keyword.label}
-            </button>
-          );
-        })}
-      </div>
+      <ToggleGroup
+        type="single"
+        variant={"outline"}
+        className="grid grid-cols-2 md:grid-cols-4 gap-4 w-full"
+        onValueChange={(value) => {
+          onSelectionChange(value);
+        }}
+        value={selectedKeywords}
+      >
+        {keywords.map((keyword, index) => (
+          <ToggleGroupItem
+            key={index}
+            value={keyword.term}
+            className="
+            px-4 py-3 border rounded-lg text-sm font-medium transition-all text-center
+            
+            data-[state=on]:font-bold data-[state=on]:border-cyan-600  data-[state=on]:bg-white bg-white data-[state=on]:text-cyan-600 "
+          >
+            {keyword.term}
+          </ToggleGroupItem>
+        ))}
+      </ToggleGroup>
     </div>
   );
 };

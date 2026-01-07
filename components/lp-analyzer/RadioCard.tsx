@@ -6,8 +6,8 @@ export interface RadioCardProps {
   name: string;
   value: string;
   icon: React.ReactNode;
-  title: string;
-  description: string;
+  title: string | React.ReactNode;
+  description: string | React.ReactNode;
   checked?: boolean;
   onChange?: (value: string) => void;
   className?: string;
@@ -32,7 +32,7 @@ export const RadioCard: React.FC<RadioCardProps> = ({
   return (
     <label
       className={cn(
-        "group relative flex flex-col items-center justify-center p-8 md:p-10 cursor-pointer rounded-xl border-2 border-border-light hover:border-primary hover:bg-accent-soft/10 hover:shadow-md transition-all duration-300 h-full",
+        `group relative flex flex-col items-center justify-center p-8 md:p-10 cursor-pointer rounded-xl border-2 border-border-light hover:border-cyan-600 hover:shadow-md transition-all duration-300 h-full ${checked ? "border-cyan-600 shadow-md" : ""}`,
         className
       )}
     >
@@ -53,15 +53,15 @@ export const RadioCard: React.FC<RadioCardProps> = ({
         {title}
       </h4>
 
-      <p className="text-sm text-text-muted text-center leading-relaxed">
+      <p className="text-sm text-gray-400 text-center leading-relaxed">
         {description}
       </p>
 
-      <div className="mt-6 w-5 h-5 rounded-full border border-slate-300 flex items-center justify-center peer-checked:border-primary peer-checked:bg-primary transition-colors">
+      <div className="mt-6 w-5 h-5 rounded-full border border-slate-300 flex items-center justify-center peer-checked:border-cyan-600 peer-checked:bg-cyan-600 transition-colors">
         <div className="w-2.5 h-2.5 rounded-full bg-white opacity-0 peer-checked:opacity-100 transition-opacity"></div>
       </div>
 
-      <div className="absolute inset-0 rounded-xl border-2 border-transparent peer-checked:border-primary peer-checked:bg-accent-soft/30 pointer-events-none transition-colors"></div>
+      {/* <div className="absolute inset-0 rounded-xl border-2 border-transparent peer-checked:border-cyan-600  pointer-events-none transition-colors"></div> */}
     </label>
   );
 };

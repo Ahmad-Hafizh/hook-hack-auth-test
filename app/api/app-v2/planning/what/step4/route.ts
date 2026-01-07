@@ -6,7 +6,7 @@ import { checkUserSession } from "../../utils/checkUserSession";
 export async function POST(req: NextRequest) {
   try {
     const body = await req.json();
-    const { sessionId, key_message, strong_points } = body;
+    const { sessionId, key_message, strong_points, competitorsMatrix } = body;
 
     const { valid } = await checkUserSession(sessionId);
     if (!valid) {
@@ -25,25 +25,26 @@ export async function POST(req: NextRequest) {
       return checkResult.response;
     }
 
-    const session = await prisma.planningSession.update({
+    const session = await prisma.pDCASession.findUnique({
       where: { id: sessionId },
-      data: {
-        lastPage: "how",
-      },
     });
 
-    await prisma.creativeBrief.create({
+    if (!session) {
+      return NextResponse.json({ error: "Session not found" }, { status: 404 });
+    }
+
+    await prisma.competitorMatrix.create({
       data: {
-        planningSessionId: sessionId,
+        pdca_session_id: sessionId,
         keyMessages: key_message,
         strongPoints: strong_points,
+        competitorsMatrix: competitorsMatrix,
       },
     });
 
     return NextResponse.json(
       {
         message: "Success",
-        url: `${process.env.NEXT_PUBLIC_APP_V2_URL}/planning/how`,
       },
       { status: 200 }
     );

@@ -26,7 +26,7 @@ export async function POST(req: NextRequest) {
       return checkResult.response;
     }
 
-    const session = await prisma.planningSession.findUnique({
+    const session = await prisma.pDCASession.findUnique({
       where: { id: sessionId },
       select: {
         planningPlans: {
@@ -57,7 +57,7 @@ export async function POST(req: NextRequest) {
       data: renderedVideoData,
     });
 
-    await prisma.planningSession.update({
+    await prisma.pDCASession.update({
       where: { id: sessionId },
       data: { lastPage: "generation" },
     });

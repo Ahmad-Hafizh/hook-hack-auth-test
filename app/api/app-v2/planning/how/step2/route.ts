@@ -26,8 +26,8 @@ export async function POST(req: NextRequest) {
       return checkResult.response;
     }
 
-    const creativeBrief = await prisma.creativeBrief.findUnique({
-      where: { planningSessionId: sessionId },
+    const creativeBrief = await prisma.competitorMatrix.findUnique({
+      where: { pdca_session_id: sessionId },
     });
 
     const { data } = await callAppV2Api.post("/v1/video/main-content/async", {
@@ -38,7 +38,7 @@ export async function POST(req: NextRequest) {
     });
 
     await prisma.planningPlan.update({
-      where: { planningSessionId: sessionId },
+      where: { pdca_session_id: sessionId },
       data: {
         template_id: template_id,
       },

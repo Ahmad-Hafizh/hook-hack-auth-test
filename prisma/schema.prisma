@@ -123,8 +123,6 @@ model PDCASession {
   ads              Ads[]
   competitor_matrix CompetitorMatrix?
   planningPlans    PlanningPlan?
-
- 
   planningVariants PlanningVariants?
   renderedVideos   RenderedVideo[]
 
@@ -135,9 +133,11 @@ model CompetitorMatrix {
   id                String          @id @default(cuid())
   keyMessages       String?
   strongPoints      String[]
-        
+
+  competitorsMatrix Json
+
   pdca_session_id String          @unique
-  pdca_session   PDCASession   @relation(fields: [pdca_session_id], references: [id])
+  pdca_session   PDCASession @relation(fields: [pdca_session_id], references: [id])
 
   @@map("competitor_matrix")
 }

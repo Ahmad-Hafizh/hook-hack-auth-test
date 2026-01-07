@@ -35,7 +35,7 @@ export async function POST(req: NextRequest) {
       tone: "professional",
     });
 
-    await prisma.planningSession.update({
+    await prisma.pDCASession.update({
       where: { id: sessionId },
       data: {
         competitors: competitors.map((c: any) => c.url),

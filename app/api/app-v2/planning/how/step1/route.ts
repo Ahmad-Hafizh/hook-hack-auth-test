@@ -26,22 +26,22 @@ export async function POST(req: NextRequest) {
       return checkResult.response;
     }
 
-    const session = await prisma.planningSession.findUnique({
+    const session = await prisma.pDCASession.findUnique({
       where: { id: sessionId },
-      include: { creativeBrief: true },
+      include: { competitor_matrix: true },
     });
 
     const { data } = await callAppV2Api.post("/v1/video-tests/plan", {
       monthly_budget: budget,
       currency: "JPY",
       test_term_weeks: 4,
-      strong_points: session?.creativeBrief?.strongPoints || ["string"],
+      strong_points: session?.competitor_matrix?.strongPoints || ["string"],
       provider: "openai",
       language: "en",
     });
 
     await prisma.planningPlan.upsert({
-      where: { planningSessionId: sessionId },
+      where: { pdca_session_id: sessionId },
       update: {
         currency: data.plan.currency,
         estimated_cost_per_video: data.plan.estimated_cost_per_video,
@@ -56,7 +56,7 @@ export async function POST(req: NextRequest) {
         budget,
       },
       create: {
-        planningSessionId: sessionId,
+        pdca_session_id: sessionId,
         currency: data.plan.currency,
         estimated_cost_per_video: data.plan.estimated_cost_per_video,
         test_term_weeks: data.plan.test_term_weeks,

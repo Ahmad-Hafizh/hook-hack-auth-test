@@ -32,7 +32,7 @@ export async function POST(req: NextRequest) {
       max_keywords: 12,
     });
 
-    await prisma.planningSession.update({
+    await prisma.pDCASession.update({
       where: { id: sessionId },
       data: {
         lastPage: "what_scratch",

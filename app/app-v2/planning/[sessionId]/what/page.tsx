@@ -8,7 +8,7 @@ import Step1Skip from "./skip/step1";
 import Step2Skip from "./skip/step2";
 import TopHorizontalProgress from "./components/topHorizontalProgress";
 import { usePlanningWhatDataContext } from "./hooks/planningWhatDataContext";
-import { usePlannningContext } from "@/app/app-v2/hooks/plannningContext";
+import { usePlannningContext } from "@/app/app-v2/plannningContext";
 import Step5 from "./scracth/step5";
 import Step6 from "./scracth/step6";
 import Step7 from "./scracth/step7";
@@ -71,10 +71,22 @@ const AppPage = () => {
             <Step4
               briefPlanning={briefPlanning}
               onNext={() => {
-                console.log("Next step");
+                onStep(5);
               }}
             />
           ),
+        },
+        {
+          id: 5,
+          page: <Step5 onNext={() => onStep(6)} />,
+        },
+        {
+          id: 6,
+          page: <Step6 onNext={() => onStep(7)} />,
+        },
+        {
+          id: 7,
+          page: <Step7 />,
         },
       ],
     },
@@ -102,10 +114,10 @@ const AppPage = () => {
     <div className="h-full w-full py-10 flex flex-col items-center">
       {(currentWhatPage == "scratch" || currentWhatPage == "skip") && (
         <>
-          <TopHorizontalProgress
+          {/* <TopHorizontalProgress
             pageStep={pages[currentWhatPage].steps.length}
             step={step}
-          />
+          /> */}
 
           {/* Current Step Content */}
           {pages[currentWhatPage].steps[step - 1]?.page}

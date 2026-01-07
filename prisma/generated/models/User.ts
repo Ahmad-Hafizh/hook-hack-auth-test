@@ -256,9 +256,9 @@ export type UserWhereInput = {
   updatedAt?: Prisma.DateTimeFilter<"User"> | Date | string
   firstName?: Prisma.StringNullableFilter<"User"> | string | null
   lastName?: Prisma.StringNullableFilter<"User"> | string | null
-  planningSessions?: Prisma.PlanningSessionListRelationFilter
   transaction?: Prisma.TransactionListRelationFilter
   project?: Prisma.ProjectListRelationFilter
+  pdcas?: Prisma.PDCAListRelationFilter
 }
 
 export type UserOrderByWithRelationInput = {
@@ -272,9 +272,9 @@ export type UserOrderByWithRelationInput = {
   updatedAt?: Prisma.SortOrder
   firstName?: Prisma.SortOrderInput | Prisma.SortOrder
   lastName?: Prisma.SortOrderInput | Prisma.SortOrder
-  planningSessions?: Prisma.PlanningSessionOrderByRelationAggregateInput
   transaction?: Prisma.TransactionOrderByRelationAggregateInput
   project?: Prisma.projectOrderByRelationAggregateInput
+  pdcas?: Prisma.PDCAOrderByRelationAggregateInput
 }
 
 export type UserWhereUniqueInput = Prisma.AtLeast<{
@@ -291,9 +291,9 @@ export type UserWhereUniqueInput = Prisma.AtLeast<{
   updatedAt?: Prisma.DateTimeFilter<"User"> | Date | string
   firstName?: Prisma.StringNullableFilter<"User"> | string | null
   lastName?: Prisma.StringNullableFilter<"User"> | string | null
-  planningSessions?: Prisma.PlanningSessionListRelationFilter
   transaction?: Prisma.TransactionListRelationFilter
   project?: Prisma.ProjectListRelationFilter
+  pdcas?: Prisma.PDCAListRelationFilter
 }, "id" | "userId" | "email">
 
 export type UserOrderByWithAggregationInput = {
@@ -341,9 +341,9 @@ export type UserCreateInput = {
   updatedAt?: Date | string
   firstName?: string | null
   lastName?: string | null
-  planningSessions?: Prisma.PlanningSessionCreateNestedManyWithoutUserInput
   transaction?: Prisma.TransactionCreateNestedManyWithoutUserInput
   project?: Prisma.projectCreateNestedManyWithoutUserInput
+  pdcas?: Prisma.PDCACreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateInput = {
@@ -357,9 +357,9 @@ export type UserUncheckedCreateInput = {
   updatedAt?: Date | string
   firstName?: string | null
   lastName?: string | null
-  planningSessions?: Prisma.PlanningSessionUncheckedCreateNestedManyWithoutUserInput
   transaction?: Prisma.TransactionUncheckedCreateNestedManyWithoutUserInput
   project?: Prisma.projectUncheckedCreateNestedManyWithoutUserInput
+  pdcas?: Prisma.PDCAUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserUpdateInput = {
@@ -373,9 +373,9 @@ export type UserUpdateInput = {
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   firstName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   lastName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  planningSessions?: Prisma.PlanningSessionUpdateManyWithoutUserNestedInput
   transaction?: Prisma.TransactionUpdateManyWithoutUserNestedInput
   project?: Prisma.projectUpdateManyWithoutUserNestedInput
+  pdcas?: Prisma.PDCAUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateInput = {
@@ -389,9 +389,9 @@ export type UserUncheckedUpdateInput = {
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   firstName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   lastName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  planningSessions?: Prisma.PlanningSessionUncheckedUpdateManyWithoutUserNestedInput
   transaction?: Prisma.TransactionUncheckedUpdateManyWithoutUserNestedInput
   project?: Prisma.projectUncheckedUpdateManyWithoutUserNestedInput
+  pdcas?: Prisma.PDCAUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserCreateManyInput = {
@@ -533,18 +533,18 @@ export type UserUpdateOneRequiredWithoutTransactionNestedInput = {
   update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutTransactionInput, Prisma.UserUpdateWithoutTransactionInput>, Prisma.UserUncheckedUpdateWithoutTransactionInput>
 }
 
-export type UserCreateNestedOneWithoutPlanningSessionsInput = {
-  create?: Prisma.XOR<Prisma.UserCreateWithoutPlanningSessionsInput, Prisma.UserUncheckedCreateWithoutPlanningSessionsInput>
-  connectOrCreate?: Prisma.UserCreateOrConnectWithoutPlanningSessionsInput
+export type UserCreateNestedOneWithoutPdcasInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutPdcasInput, Prisma.UserUncheckedCreateWithoutPdcasInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutPdcasInput
   connect?: Prisma.UserWhereUniqueInput
 }
 
-export type UserUpdateOneRequiredWithoutPlanningSessionsNestedInput = {
-  create?: Prisma.XOR<Prisma.UserCreateWithoutPlanningSessionsInput, Prisma.UserUncheckedCreateWithoutPlanningSessionsInput>
-  connectOrCreate?: Prisma.UserCreateOrConnectWithoutPlanningSessionsInput
-  upsert?: Prisma.UserUpsertWithoutPlanningSessionsInput
+export type UserUpdateOneRequiredWithoutPdcasNestedInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutPdcasInput, Prisma.UserUncheckedCreateWithoutPdcasInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutPdcasInput
+  upsert?: Prisma.UserUpsertWithoutPdcasInput
   connect?: Prisma.UserWhereUniqueInput
-  update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutPlanningSessionsInput, Prisma.UserUpdateWithoutPlanningSessionsInput>, Prisma.UserUncheckedUpdateWithoutPlanningSessionsInput>
+  update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutPdcasInput, Prisma.UserUpdateWithoutPdcasInput>, Prisma.UserUncheckedUpdateWithoutPdcasInput>
 }
 
 export type UserCreateWithoutProjectInput = {
@@ -558,8 +558,8 @@ export type UserCreateWithoutProjectInput = {
   updatedAt?: Date | string
   firstName?: string | null
   lastName?: string | null
-  planningSessions?: Prisma.PlanningSessionCreateNestedManyWithoutUserInput
   transaction?: Prisma.TransactionCreateNestedManyWithoutUserInput
+  pdcas?: Prisma.PDCACreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutProjectInput = {
@@ -573,8 +573,8 @@ export type UserUncheckedCreateWithoutProjectInput = {
   updatedAt?: Date | string
   firstName?: string | null
   lastName?: string | null
-  planningSessions?: Prisma.PlanningSessionUncheckedCreateNestedManyWithoutUserInput
   transaction?: Prisma.TransactionUncheckedCreateNestedManyWithoutUserInput
+  pdcas?: Prisma.PDCAUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutProjectInput = {
@@ -604,8 +604,8 @@ export type UserUpdateWithoutProjectInput = {
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   firstName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   lastName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  planningSessions?: Prisma.PlanningSessionUpdateManyWithoutUserNestedInput
   transaction?: Prisma.TransactionUpdateManyWithoutUserNestedInput
+  pdcas?: Prisma.PDCAUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutProjectInput = {
@@ -619,8 +619,8 @@ export type UserUncheckedUpdateWithoutProjectInput = {
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   firstName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   lastName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  planningSessions?: Prisma.PlanningSessionUncheckedUpdateManyWithoutUserNestedInput
   transaction?: Prisma.TransactionUncheckedUpdateManyWithoutUserNestedInput
+  pdcas?: Prisma.PDCAUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserCreateWithoutTransactionInput = {
@@ -634,8 +634,8 @@ export type UserCreateWithoutTransactionInput = {
   updatedAt?: Date | string
   firstName?: string | null
   lastName?: string | null
-  planningSessions?: Prisma.PlanningSessionCreateNestedManyWithoutUserInput
   project?: Prisma.projectCreateNestedManyWithoutUserInput
+  pdcas?: Prisma.PDCACreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutTransactionInput = {
@@ -649,8 +649,8 @@ export type UserUncheckedCreateWithoutTransactionInput = {
   updatedAt?: Date | string
   firstName?: string | null
   lastName?: string | null
-  planningSessions?: Prisma.PlanningSessionUncheckedCreateNestedManyWithoutUserInput
   project?: Prisma.projectUncheckedCreateNestedManyWithoutUserInput
+  pdcas?: Prisma.PDCAUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutTransactionInput = {
@@ -680,8 +680,8 @@ export type UserUpdateWithoutTransactionInput = {
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   firstName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   lastName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  planningSessions?: Prisma.PlanningSessionUpdateManyWithoutUserNestedInput
   project?: Prisma.projectUpdateManyWithoutUserNestedInput
+  pdcas?: Prisma.PDCAUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutTransactionInput = {
@@ -695,11 +695,11 @@ export type UserUncheckedUpdateWithoutTransactionInput = {
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   firstName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   lastName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  planningSessions?: Prisma.PlanningSessionUncheckedUpdateManyWithoutUserNestedInput
   project?: Prisma.projectUncheckedUpdateManyWithoutUserNestedInput
+  pdcas?: Prisma.PDCAUncheckedUpdateManyWithoutUserNestedInput
 }
 
-export type UserCreateWithoutPlanningSessionsInput = {
+export type UserCreateWithoutPdcasInput = {
   id?: string
   userId: string
   email?: string | null
@@ -714,7 +714,7 @@ export type UserCreateWithoutPlanningSessionsInput = {
   project?: Prisma.projectCreateNestedManyWithoutUserInput
 }
 
-export type UserUncheckedCreateWithoutPlanningSessionsInput = {
+export type UserUncheckedCreateWithoutPdcasInput = {
   id?: string
   userId: string
   email?: string | null
@@ -729,23 +729,23 @@ export type UserUncheckedCreateWithoutPlanningSessionsInput = {
   project?: Prisma.projectUncheckedCreateNestedManyWithoutUserInput
 }
 
-export type UserCreateOrConnectWithoutPlanningSessionsInput = {
+export type UserCreateOrConnectWithoutPdcasInput = {
   where: Prisma.UserWhereUniqueInput
-  create: Prisma.XOR<Prisma.UserCreateWithoutPlanningSessionsInput, Prisma.UserUncheckedCreateWithoutPlanningSessionsInput>
+  create: Prisma.XOR<Prisma.UserCreateWithoutPdcasInput, Prisma.UserUncheckedCreateWithoutPdcasInput>
 }
 
-export type UserUpsertWithoutPlanningSessionsInput = {
-  update: Prisma.XOR<Prisma.UserUpdateWithoutPlanningSessionsInput, Prisma.UserUncheckedUpdateWithoutPlanningSessionsInput>
-  create: Prisma.XOR<Prisma.UserCreateWithoutPlanningSessionsInput, Prisma.UserUncheckedCreateWithoutPlanningSessionsInput>
+export type UserUpsertWithoutPdcasInput = {
+  update: Prisma.XOR<Prisma.UserUpdateWithoutPdcasInput, Prisma.UserUncheckedUpdateWithoutPdcasInput>
+  create: Prisma.XOR<Prisma.UserCreateWithoutPdcasInput, Prisma.UserUncheckedCreateWithoutPdcasInput>
   where?: Prisma.UserWhereInput
 }
 
-export type UserUpdateToOneWithWhereWithoutPlanningSessionsInput = {
+export type UserUpdateToOneWithWhereWithoutPdcasInput = {
   where?: Prisma.UserWhereInput
-  data: Prisma.XOR<Prisma.UserUpdateWithoutPlanningSessionsInput, Prisma.UserUncheckedUpdateWithoutPlanningSessionsInput>
+  data: Prisma.XOR<Prisma.UserUpdateWithoutPdcasInput, Prisma.UserUncheckedUpdateWithoutPdcasInput>
 }
 
-export type UserUpdateWithoutPlanningSessionsInput = {
+export type UserUpdateWithoutPdcasInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   userId?: Prisma.StringFieldUpdateOperationsInput | string
   email?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -760,7 +760,7 @@ export type UserUpdateWithoutPlanningSessionsInput = {
   project?: Prisma.projectUpdateManyWithoutUserNestedInput
 }
 
-export type UserUncheckedUpdateWithoutPlanningSessionsInput = {
+export type UserUncheckedUpdateWithoutPdcasInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   userId?: Prisma.StringFieldUpdateOperationsInput | string
   email?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -781,15 +781,15 @@ export type UserUncheckedUpdateWithoutPlanningSessionsInput = {
  */
 
 export type UserCountOutputType = {
-  planningSessions: number
   transaction: number
   project: number
+  pdcas: number
 }
 
 export type UserCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  planningSessions?: boolean | UserCountOutputTypeCountPlanningSessionsArgs
   transaction?: boolean | UserCountOutputTypeCountTransactionArgs
   project?: boolean | UserCountOutputTypeCountProjectArgs
+  pdcas?: boolean | UserCountOutputTypeCountPdcasArgs
 }
 
 /**
@@ -800,13 +800,6 @@ export type UserCountOutputTypeDefaultArgs<ExtArgs extends runtime.Types.Extensi
    * Select specific fields to fetch from the UserCountOutputType
    */
   select?: Prisma.UserCountOutputTypeSelect<ExtArgs> | null
-}
-
-/**
- * UserCountOutputType without action
- */
-export type UserCountOutputTypeCountPlanningSessionsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  where?: Prisma.PlanningSessionWhereInput
 }
 
 /**
@@ -823,6 +816,13 @@ export type UserCountOutputTypeCountProjectArgs<ExtArgs extends runtime.Types.Ex
   where?: Prisma.projectWhereInput
 }
 
+/**
+ * UserCountOutputType without action
+ */
+export type UserCountOutputTypeCountPdcasArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.PDCAWhereInput
+}
+
 
 export type UserSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
@@ -835,9 +835,9 @@ export type UserSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = r
   updatedAt?: boolean
   firstName?: boolean
   lastName?: boolean
-  planningSessions?: boolean | Prisma.User$planningSessionsArgs<ExtArgs>
   transaction?: boolean | Prisma.User$transactionArgs<ExtArgs>
   project?: boolean | Prisma.User$projectArgs<ExtArgs>
+  pdcas?: boolean | Prisma.User$pdcasArgs<ExtArgs>
   _count?: boolean | Prisma.UserCountOutputTypeDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["user"]>
 
@@ -882,9 +882,9 @@ export type UserSelectScalar = {
 
 export type UserOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "userId" | "email" | "phoneNumber" | "tiktokUsername" | "credit" | "createdAt" | "updatedAt" | "firstName" | "lastName", ExtArgs["result"]["user"]>
 export type UserInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  planningSessions?: boolean | Prisma.User$planningSessionsArgs<ExtArgs>
   transaction?: boolean | Prisma.User$transactionArgs<ExtArgs>
   project?: boolean | Prisma.User$projectArgs<ExtArgs>
+  pdcas?: boolean | Prisma.User$pdcasArgs<ExtArgs>
   _count?: boolean | Prisma.UserCountOutputTypeDefaultArgs<ExtArgs>
 }
 export type UserIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {}
@@ -893,9 +893,9 @@ export type UserIncludeUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensi
 export type $UserPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   name: "User"
   objects: {
-    planningSessions: Prisma.$PlanningSessionPayload<ExtArgs>[]
     transaction: Prisma.$TransactionPayload<ExtArgs>[]
     project: Prisma.$projectPayload<ExtArgs>[]
+    pdcas: Prisma.$PDCAPayload<ExtArgs>[]
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: string
@@ -1302,9 +1302,9 @@ readonly fields: UserFieldRefs;
  */
 export interface Prisma__UserClient<T, Null = never, ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
   readonly [Symbol.toStringTag]: "PrismaPromise"
-  planningSessions<T extends Prisma.User$planningSessionsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$planningSessionsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$PlanningSessionPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   transaction<T extends Prisma.User$transactionArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$transactionArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$TransactionPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   project<T extends Prisma.User$projectArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$projectArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$projectPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  pdcas<T extends Prisma.User$pdcasArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$pdcasArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$PDCAPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
    * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -1732,30 +1732,6 @@ export type UserDeleteManyArgs<ExtArgs extends runtime.Types.Extensions.Internal
 }
 
 /**
- * User.planningSessions
- */
-export type User$planningSessionsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  /**
-   * Select specific fields to fetch from the PlanningSession
-   */
-  select?: Prisma.PlanningSessionSelect<ExtArgs> | null
-  /**
-   * Omit specific fields from the PlanningSession
-   */
-  omit?: Prisma.PlanningSessionOmit<ExtArgs> | null
-  /**
-   * Choose, which related nodes to fetch as well
-   */
-  include?: Prisma.PlanningSessionInclude<ExtArgs> | null
-  where?: Prisma.PlanningSessionWhereInput
-  orderBy?: Prisma.PlanningSessionOrderByWithRelationInput | Prisma.PlanningSessionOrderByWithRelationInput[]
-  cursor?: Prisma.PlanningSessionWhereUniqueInput
-  take?: number
-  skip?: number
-  distinct?: Prisma.PlanningSessionScalarFieldEnum | Prisma.PlanningSessionScalarFieldEnum[]
-}
-
-/**
  * User.transaction
  */
 export type User$transactionArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
@@ -1801,6 +1777,30 @@ export type User$projectArgs<ExtArgs extends runtime.Types.Extensions.InternalAr
   take?: number
   skip?: number
   distinct?: Prisma.ProjectScalarFieldEnum | Prisma.ProjectScalarFieldEnum[]
+}
+
+/**
+ * User.pdcas
+ */
+export type User$pdcasArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the PDCA
+   */
+  select?: Prisma.PDCASelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the PDCA
+   */
+  omit?: Prisma.PDCAOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.PDCAInclude<ExtArgs> | null
+  where?: Prisma.PDCAWhereInput
+  orderBy?: Prisma.PDCAOrderByWithRelationInput | Prisma.PDCAOrderByWithRelationInput[]
+  cursor?: Prisma.PDCAWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.PDCAScalarFieldEnum | Prisma.PDCAScalarFieldEnum[]
 }
 
 /**

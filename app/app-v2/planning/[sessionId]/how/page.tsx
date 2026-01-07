@@ -7,7 +7,7 @@ import Step3 from "./steps/step3";
 import Step4 from "./steps/step4";
 import { DataContextProvider } from "./hooks/useDataContext";
 import { useParams, useRouter } from "next/navigation";
-import { usePlannningContext } from "@/app/app-v2/hooks/plannningContext";
+import { usePlannningContext } from "@/app/app-v2/plannningContext";
 
 const PlanningHowPage = () => {
   const { step, onStep, onChangePage } = usePlannningContext();

@@ -2,6 +2,7 @@ import { prisma } from "@/config/prisma/prisma";
 import { createClient } from "@/lib/supabase/server";
 
 export async function checkUserSession(sessionId: string) {
+  const pdca_id = sessionId.split("_pdca")[0];
   const supabase = await createClient();
   const {
     data: { user },
@@ -24,11 +25,11 @@ export async function checkUserSession(sessionId: string) {
     };
   }
 
-  const session = await prisma.planningSession.findUnique({
-    where: { id: sessionId, userId: userDb.id },
+  const pdca = await prisma.pDCA.findUnique({
+    where: { id: pdca_id, userId: userDb.id },
   });
 
-  if (!session) {
+  if (!pdca) {
     return {
       valid: false,
     };

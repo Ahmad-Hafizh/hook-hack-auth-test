@@ -57,7 +57,7 @@ export async function POST(req: NextRequest) {
         },
       ];
 
-      const session = await prisma.planningSession.findUnique({
+      const session = await prisma.pDCASession.findUnique({
         where: { id: sessionId },
         select: {
           planningPlans: {
@@ -81,7 +81,7 @@ export async function POST(req: NextRequest) {
       } = variants;
 
       await prisma.planningVariants.upsert({
-        where: { planningSessionId: sessionId },
+        where: { pdca_session_id: sessionId },
         update: {
           hooks,
           bodyA_messages: strong_point_1_messages,
@@ -90,7 +90,7 @@ export async function POST(req: NextRequest) {
           ctas,
         },
         create: {
-          planningSessionId: sessionId,
+          pdca_session_id: sessionId,
           hooks,
           bodyA_messages: strong_point_1_messages,
           bodyB_messages: strong_point_2_messages,

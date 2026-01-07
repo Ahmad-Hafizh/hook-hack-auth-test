@@ -1,5 +1,5 @@
 import React from "react";
-import PlannningContextProvider from "./hooks/plannningContext";
+import PlannningContextProvider from "./plannningContext";
 
 const AppV2Layout = ({ children }: { children: React.ReactNode }) => {
   return <PlannningContextProvider>{children}</PlannningContextProvider>;

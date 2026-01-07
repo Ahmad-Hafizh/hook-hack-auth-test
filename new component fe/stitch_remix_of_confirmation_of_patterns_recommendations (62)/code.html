@@ -1,0 +1,462 @@
+<!DOCTYPE html>
+<html lang="ja"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>LPアナライザー - 競合マトリクス</title>
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700;900&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: "#0093b4",
+                        "primary-hover": "#007a92",
+                        "background-light": "#ffffff",
+                        "surface-light": "#ffffff",
+                        "surface-subtle": "#f8fafc",
+                        "border-light": "#e2e8f0",
+                        "text-main": "#1e293b",
+                        "text-muted": "#64748b",
+                        "background-dark": "#0f1f23",
+                        "accent-soft": "#e0f2f7"
+                    },
+                    fontFamily: {
+                        display: "Inter",
+                        sans: ["Noto Sans JP", "sans-serif"]
+                    },
+                    borderRadius: {
+                        DEFAULT: "0.25rem",
+                        lg: "0.5rem",
+                        xl: "0.75rem",
+                        full: "9999px"
+                    },
+                    boxShadow: {
+                        soft: "0 4px 6px -1px rgba(0, 0, 0, 0.05), 0 2px 4px -1px rgba(0, 0, 0, 0.03)"
+                    }
+                }
+            }
+        };
+</script>
+<style type="text/tailwindcss">
+    @layer utilities {
+        .animate-fade-in-up { animation: fadeInUp 0.5s ease-out; }
+        .scrollbar-thin::-webkit-scrollbar { height: 8px; width: 8px; }
+        .scrollbar-thin::-webkit-scrollbar-track { background: transparent; }
+        .scrollbar-thin::-webkit-scrollbar-thumb { background-color: #cbd5e1; border-radius: 20px; }
+    }
+    @keyframes fadeInUp { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+</style>
+</head>
+<body class="bg-surface-light text-text-main font-sans transition-colors duration-200 min-h-screen flex flex-col overflow-x-hidden antialiased">
+<main class="flex-1 w-full max-w-[100%] px-4 py-8 md:px-8 flex flex-col">
+<div class="mb-6 animate-fade-in-up flex flex-col md:flex-row md:items-end justify-between gap-4 max-w-[1800px] mx-auto w-full">
+<div>
+<h1 class="text-2xl md:text-3xl font-bold tracking-tight text-text-main mb-2">競合マトリクス</h1>
+<p class="text-sm text-text-muted">AI分析による競合3社の統合サマリーと、自社LPの差別化構成案を編集・確認します。</p>
+</div>
+<div class="flex flex-wrap gap-4 text-xs font-medium text-text-muted bg-surface-subtle px-3 py-1.5 rounded-lg border border-border-light">
+<div class="flex items-center gap-1.5">
+<span class="w-2 h-2 rounded-full bg-primary"></span>
+<span>編集可能エリア</span>
+</div>
+<div class="flex items-center gap-1.5">
+<span class="w-2 h-2 rounded-full bg-indigo-500"></span>
+<span>AI自動生成 (編集可)</span>
+</div>
+<div class="flex items-center gap-1.5">
+<span class="w-2 h-2 rounded-full bg-slate-400"></span>
+<span>競合データ (参照)</span>
+</div>
+</div>
+</div>
+<div class="w-full overflow-x-auto scrollbar-thin pb-6 flex-1">
+<div class="flex gap-6 px-1 min-w-max items-start">
+<div class="flex flex-col gap-3 group w-[400px]">
+<div class="bg-white p-4 rounded-xl shadow-sm relative overflow-hidden flex-none h-[70px] flex flex-col justify-center">
+<div class="absolute top-0 left-0 w-full h-1 bg-primary"></div>
+<div class="flex items-center justify-between">
+<h3 class="font-bold text-lg text-text-main flex items-center gap-2">
+                            自社LP
+                            <span class="bg-primary/10 text-primary text-[10px] px-2 py-0.5 rounded-full font-bold">Target</span>
+</h3>
+</div>
+</div>
+<div class="bg-white p-5 rounded-xl border border-border-light shadow-soft flex flex-col gap-6 h-full min-h-[860px]">
+<div class="flex flex-col gap-6 h-full">
+<div class="flex flex-col gap-2">
+<div class="flex justify-between items-start mb-1 h-[48px]">
+<label class="text-sm font-bold text-text-main flex items-center gap-2 pt-1">
+<span class="material-symbols-outlined text-primary text-base">campaign</span>
+                                        キーメッセージ
+                                    </label>
+<div class="flex flex-col items-end gap-1.5">
+<div class="flex rounded overflow-hidden border border-border-light bg-surface-subtle">
+<button class="px-2 py-0.5 text-[10px] bg-white text-text-main font-medium shadow-sm border-r border-border-light">機能</button>
+<button class="px-2 py-0.5 text-[10px] text-text-muted hover:bg-white/50">情緒</button>
+</div>
+<div class="flex rounded overflow-hidden border border-border-light bg-surface-subtle">
+<button class="px-2 py-0.5 text-[10px] text-text-muted hover:bg-white/50 border-r border-border-light">プロセス</button>
+<button class="px-2 py-0.5 text-[10px] bg-white text-text-main font-medium shadow-sm">結果</button>
+</div>
+</div>
+</div>
+<textarea class="w-full text-sm p-3 rounded-lg border border-border-light bg-surface-subtle focus:bg-white focus:ring-1 focus:ring-primary focus:border-primary transition-all resize-none text-text-main leading-relaxed h-[110px]">業界No.1の精度で、動画広告のPDCAを加速させる。</textarea>
+</div>
+<div class="flex flex-col gap-2">
+<div class="flex justify-between items-start mb-1 h-[48px]">
+<label class="text-sm font-bold text-text-main flex items-center gap-2 pt-1">
+<span class="w-5 h-5 rounded-full bg-slate-100 flex items-center justify-center text-[10px] font-bold text-slate-500">1</span>
+                                        特徴 1
+                                    </label>
+<div class="flex flex-col items-end gap-1.5">
+<div class="flex rounded overflow-hidden border border-border-light bg-surface-subtle">
+<button class="px-2 py-0.5 text-[10px] bg-white text-text-main font-medium shadow-sm border-r border-border-light">機能</button>
+<button class="px-2 py-0.5 text-[10px] text-text-muted hover:bg-white/50">情緒</button>
+</div>
+<div class="flex rounded overflow-hidden border border-border-light bg-surface-subtle">
+<button class="px-2 py-0.5 text-[10px] bg-white text-text-main font-medium shadow-sm border-r border-border-light">プロセス</button>
+<button class="px-2 py-0.5 text-[10px] text-text-muted hover:bg-white/50">結果</button>
+</div>
+</div>
+</div>
+<textarea class="w-full text-sm p-3 rounded-lg border border-border-light bg-surface-subtle focus:bg-white focus:ring-1 focus:ring-primary focus:border-primary transition-all resize-none text-text-main leading-relaxed h-[84px]">AIによる自動分析機能</textarea>
+</div>
+<div class="flex flex-col gap-2">
+<div class="flex justify-between items-start mb-1 h-[48px]">
+<label class="text-sm font-bold text-text-main flex items-center gap-2 pt-1">
+<span class="w-5 h-5 rounded-full bg-slate-100 flex items-center justify-center text-[10px] font-bold text-slate-500">2</span>
+                                        特徴 2
+                                    </label>
+<div class="flex flex-col items-end gap-1.5">
+<div class="flex rounded overflow-hidden border border-border-light bg-surface-subtle">
+<button class="px-2 py-0.5 text-[10px] text-text-muted hover:bg-white/50 border-r border-border-light">機能</button>
+<button class="px-2 py-0.5 text-[10px] bg-white text-text-main font-medium shadow-sm">情緒</button>
+</div>
+<div class="flex rounded overflow-hidden border border-border-light bg-surface-subtle">
+<button class="px-2 py-0.5 text-[10px] text-text-muted hover:bg-white/50 border-r border-border-light">プロセス</button>
+<button class="px-2 py-0.5 text-[10px] bg-white text-text-main font-medium shadow-sm">結果</button>
+</div>
+</div>
+</div>
+<textarea class="w-full text-sm p-3 rounded-lg border border-border-light bg-surface-subtle focus:bg-white focus:ring-1 focus:ring-primary focus:border-primary transition-all resize-none text-text-main leading-relaxed h-[84px]">直感的な操作性</textarea>
+</div>
+<div class="flex flex-col gap-2">
+<div class="flex justify-between items-start mb-1 h-[48px]">
+<label class="text-sm font-bold text-text-main flex items-center gap-2 pt-1">
+<span class="w-5 h-5 rounded-full bg-slate-100 flex items-center justify-center text-[10px] font-bold text-slate-500">3</span>
+                                        特徴 3
+                                    </label>
+<div class="flex flex-col items-end gap-1.5">
+<div class="flex rounded overflow-hidden border border-border-light bg-surface-subtle">
+<button class="px-2 py-0.5 text-[10px] bg-white text-text-main font-medium shadow-sm border-r border-border-light">機能</button>
+<button class="px-2 py-0.5 text-[10px] text-text-muted hover:bg-white/50">情緒</button>
+</div>
+<div class="flex rounded overflow-hidden border border-border-light bg-surface-subtle">
+<button class="px-2 py-0.5 text-[10px] text-text-muted hover:bg-white/50 border-r border-border-light">プロセス</button>
+<button class="px-2 py-0.5 text-[10px] bg-white text-text-main font-medium shadow-sm">結果</button>
+</div>
+</div>
+</div>
+<textarea class="w-full text-sm p-3 rounded-lg border border-border-light bg-surface-subtle focus:bg-white focus:ring-1 focus:ring-primary focus:border-primary transition-all resize-none text-text-main leading-relaxed h-[84px]">24時間サポート体制</textarea>
+</div>
+<div class="flex flex-col gap-2">
+<div class="flex justify-between items-start mb-1 h-[48px]">
+<label class="text-sm font-bold text-text-main flex items-center gap-2 pt-1">
+<span class="material-symbols-outlined text-primary text-base">touch_app</span>
+                                        CTA
+                                    </label>
+<div class="flex flex-col items-end gap-1.5">
+<div class="flex rounded overflow-hidden border border-border-light bg-surface-subtle">
+<button class="px-2 py-0.5 text-[10px] bg-white text-text-main font-medium shadow-sm border-r border-border-light">機能</button>
+<button class="px-2 py-0.5 text-[10px] text-text-muted hover:bg-white/50">情緒</button>
+</div>
+<div class="flex rounded overflow-hidden border border-border-light bg-surface-subtle">
+<button class="px-2 py-0.5 text-[10px] bg-white text-text-main font-medium shadow-sm border-r border-border-light">プロセス</button>
+<button class="px-2 py-0.5 text-[10px] text-text-muted hover:bg-white/50">結果</button>
+</div>
+</div>
+</div>
+<input class="w-full text-sm p-3 rounded-lg border border-border-light bg-surface-subtle focus:bg-white focus:ring-1 focus:ring-primary focus:border-primary transition-all text-text-main h-[46px]" type="text" value="無料デモを予約する"/>
+</div>
+</div>
+</div>
+</div>
+<div class="flex flex-col gap-3 group w-[400px]">
+<div class="bg-white p-4 rounded-xl shadow-sm relative overflow-hidden flex-none h-[70px] flex flex-col justify-center">
+<div class="absolute top-0 left-0 w-full h-1 bg-indigo-400"></div>
+<div class="flex items-center justify-between">
+<h3 class="font-bold text-lg text-text-main flex items-center gap-2">
+                            競合AIサマリー
+                            <span class="bg-indigo-50 text-indigo-600 text-[10px] px-2 py-0.5 rounded-full font-bold border border-indigo-100">3社統合分析</span>
+</h3>
+</div>
+</div>
+<div class="bg-white p-5 rounded-xl border border-border-light shadow-soft flex flex-col gap-6 h-full min-h-[860px]">
+<div class="flex flex-col gap-6 h-full">
+<div class="flex flex-col gap-2">
+<div class="flex justify-between items-start mb-1 h-[48px]">
+<label class="text-sm font-bold text-text-main flex items-center gap-2 pt-1">
+<span class="material-symbols-outlined text-indigo-500 text-base">auto_awesome</span>
+                                        キーメッセージ
+                                    </label>
+<div class="flex flex-col items-end gap-1.5">
+<div class="flex rounded overflow-hidden border border-border-light bg-surface-subtle">
+<button class="px-2 py-0.5 text-[10px] bg-white text-text-main font-medium shadow-sm border-r border-border-light">機能</button>
+<button class="px-2 py-0.5 text-[10px] text-text-muted hover:bg-white/50">情緒</button>
+</div>
+<div class="flex rounded overflow-hidden border border-border-light bg-surface-subtle">
+<button class="px-2 py-0.5 text-[10px] text-text-muted hover:bg-white/50 border-r border-border-light">プロセス</button>
+<button class="px-2 py-0.5 text-[10px] bg-white text-text-main font-medium shadow-sm">結果</button>
+</div>
+</div>
+</div>
+<textarea class="w-full text-sm p-3 rounded-lg border border-border-light bg-surface-subtle focus:bg-white focus:ring-1 focus:ring-primary focus:border-primary transition-all resize-none text-text-main leading-relaxed h-[110px]">低コスト・短納期で、誰でもプロ品質の動画制作を実現。共感を呼ぶストーリーテリングもお任せ。</textarea>
+</div>
+<div class="flex flex-col gap-2">
+<div class="flex justify-between items-start mb-1 h-[48px]">
+<label class="text-sm font-bold text-text-main flex items-center gap-2 pt-1">
+<span class="w-5 h-5 rounded-full bg-indigo-50 flex items-center justify-center text-[10px] font-bold text-indigo-500">1</span>
+                                        特徴 1
+                                    </label>
+<div class="flex flex-col items-end gap-1.5">
+<div class="flex rounded overflow-hidden border border-border-light bg-surface-subtle">
+<button class="px-2 py-0.5 text-[10px] bg-white text-text-main font-medium shadow-sm border-r border-border-light">機能</button>
+<button class="px-2 py-0.5 text-[10px] text-text-muted hover:bg-white/50">情緒</button>
+</div>
+<div class="flex rounded overflow-hidden border border-border-light bg-surface-subtle">
+<button class="px-2 py-0.5 text-[10px] bg-white text-text-main font-medium shadow-sm border-r border-border-light">プロセス</button>
+<button class="px-2 py-0.5 text-[10px] text-text-muted hover:bg-white/50">結果</button>
+</div>
+</div>
+</div>
+<textarea class="w-full text-sm p-3 rounded-lg border border-border-light bg-surface-subtle focus:bg-white focus:ring-1 focus:ring-primary focus:border-primary transition-all resize-none text-text-main leading-relaxed h-[84px]">豊富なテンプレートとAI生成機能</textarea>
+</div>
+<div class="flex flex-col gap-2">
+<div class="flex justify-between items-start mb-1 h-[48px]">
+<label class="text-sm font-bold text-text-main flex items-center gap-2 pt-1">
+<span class="w-5 h-5 rounded-full bg-indigo-50 flex items-center justify-center text-[10px] font-bold text-indigo-500">2</span>
+                                        特徴 2
+                                    </label>
+<div class="flex flex-col items-end gap-1.5">
+<div class="flex rounded overflow-hidden border border-border-light bg-surface-subtle">
+<button class="px-2 py-0.5 text-[10px] text-text-muted hover:bg-white/50 border-r border-border-light">機能</button>
+<button class="px-2 py-0.5 text-[10px] bg-white text-text-main font-medium shadow-sm">情緒</button>
+</div>
+<div class="flex rounded overflow-hidden border border-border-light bg-surface-subtle">
+<button class="px-2 py-0.5 text-[10px] text-text-muted hover:bg-white/50 border-r border-border-light">プロセス</button>
+<button class="px-2 py-0.5 text-[10px] bg-white text-text-main font-medium shadow-sm">結果</button>
+</div>
+</div>
+</div>
+<textarea class="w-full text-sm p-3 rounded-lg border border-border-light bg-surface-subtle focus:bg-white focus:ring-1 focus:ring-primary focus:border-primary transition-all resize-none text-text-main leading-relaxed h-[84px]">プロ監修のストーリー構成と高品質な撮影</textarea>
+</div>
+<div class="flex flex-col gap-2">
+<div class="flex justify-between items-start mb-1 h-[48px]">
+<label class="text-sm font-bold text-text-main flex items-center gap-2 pt-1">
+<span class="w-5 h-5 rounded-full bg-indigo-50 flex items-center justify-center text-[10px] font-bold text-indigo-500">3</span>
+                                        特徴 3
+                                    </label>
+<div class="flex flex-col items-end gap-1.5">
+<div class="flex rounded overflow-hidden border border-border-light bg-surface-subtle">
+<button class="px-2 py-0.5 text-[10px] bg-white text-text-main font-medium shadow-sm border-r border-border-light">機能</button>
+<button class="px-2 py-0.5 text-[10px] text-text-muted hover:bg-white/50">情緒</button>
+</div>
+<div class="flex rounded overflow-hidden border border-border-light bg-surface-subtle">
+<button class="px-2 py-0.5 text-[10px] text-text-muted hover:bg-white/50 border-r border-border-light">プロセス</button>
+<button class="px-2 py-0.5 text-[10px] bg-white text-text-main font-medium shadow-sm">結果</button>
+</div>
+</div>
+</div>
+<textarea class="w-full text-sm p-3 rounded-lg border border-border-light bg-surface-subtle focus:bg-white focus:ring-1 focus:ring-primary focus:border-primary transition-all resize-none text-text-main leading-relaxed h-[84px]">クラウド完結で最短即日納品</textarea>
+</div>
+<div class="flex flex-col gap-2">
+<div class="flex justify-between items-start mb-1 h-[48px]">
+<label class="text-sm font-bold text-text-main flex items-center gap-2 pt-1">
+<span class="material-symbols-outlined text-indigo-500 text-base">touch_app</span>
+                                        CTA
+                                    </label>
+<div class="flex flex-col items-end gap-1.5">
+<div class="flex rounded overflow-hidden border border-border-light bg-surface-subtle">
+<button class="px-2 py-0.5 text-[10px] bg-white text-text-main font-medium shadow-sm border-r border-border-light">機能</button>
+<button class="px-2 py-0.5 text-[10px] text-text-muted hover:bg-white/50">情緒</button>
+</div>
+<div class="flex rounded overflow-hidden border border-border-light bg-surface-subtle">
+<button class="px-2 py-0.5 text-[10px] bg-white text-text-main font-medium shadow-sm border-r border-border-light">プロセス</button>
+<button class="px-2 py-0.5 text-[10px] text-text-muted hover:bg-white/50">結果</button>
+</div>
+</div>
+</div>
+<input class="w-full text-sm p-3 rounded-lg border border-border-light bg-surface-subtle focus:bg-white focus:ring-1 focus:ring-primary focus:border-primary transition-all text-text-main h-[46px]" type="text" value="無料トライアル / 資料請求"/>
+</div>
+</div>
+</div>
+</div>
+<div class="flex flex-col gap-3 w-[700px]">
+<div class="bg-surface-subtle p-3 rounded-xl flex-none h-[70px] flex flex-col justify-center">
+<div class="flex items-center justify-between px-2">
+<h3 class="font-bold text-lg text-text-muted flex items-center gap-2">
+                            競合詳細データ
+                        </h3>
+<span class="text-xs text-text-muted/60 bg-white px-2 py-1 rounded border border-border-light">参照用 (編集不可)</span>
+</div>
+</div>
+<div class="bg-slate-50 p-5 rounded-xl border border-border-light flex flex-row gap-4 h-full min-h-[860px]">
+<div class="flex-1 flex flex-col gap-6 border-r border-border-light/50 pr-4 last:border-0 last:pr-0">
+<div class="flex flex-col gap-2">
+<div class="flex justify-between items-start mb-1 h-[48px]">
+<span class="text-xs font-bold text-text-muted pt-2">キーメッセージ</span>
+<div class="flex gap-1 pt-0.5">
+<span class="text-[9px] px-1.5 py-0.5 bg-white border border-slate-200 rounded text-slate-500 h-fit">機能</span>
+<span class="text-[9px] px-1.5 py-0.5 bg-white border border-slate-200 rounded text-slate-500 h-fit">結果</span>
+</div>
+</div>
+<p class="text-xs text-text-main p-3 leading-relaxed h-[110px] overflow-y-auto">誰でも簡単に、3分で動画広告を作成。コストを1/10に。</p>
+</div>
+<div class="flex flex-col gap-2">
+<div class="flex justify-between items-start mb-1 h-[48px]">
+<span class="text-xs font-bold text-text-muted pt-2">特徴 1</span>
+<div class="flex gap-1 pt-0.5">
+<span class="text-[9px] px-1.5 py-0.5 bg-white border border-slate-200 rounded text-slate-500 h-fit">機能</span>
+<span class="text-[9px] px-1.5 py-0.5 bg-white border border-slate-200 rounded text-slate-500 h-fit">プロセス</span>
+</div>
+</div>
+<p class="text-xs text-text-main p-3 h-[84px] overflow-y-auto">5000種類以上のテンプレート</p>
+</div>
+<div class="flex flex-col gap-2">
+<div class="flex justify-between items-start mb-1 h-[48px]">
+<span class="text-xs font-bold text-text-muted pt-2">特徴 2</span>
+<div class="flex gap-1 pt-0.5">
+<span class="text-[9px] px-1.5 py-0.5 bg-white border border-slate-200 rounded text-slate-500 h-fit">機能</span>
+<span class="text-[9px] px-1.5 py-0.5 bg-white border border-slate-200 rounded text-slate-500 h-fit">結果</span>
+</div>
+</div>
+<p class="text-xs text-text-main p-3 h-[84px] overflow-y-auto">パワポ感覚のUI</p>
+</div>
+<div class="flex flex-col gap-2">
+<div class="flex justify-between items-start mb-1 h-[48px]">
+<span class="text-xs font-bold text-text-muted pt-2">特徴 3</span>
+<div class="flex gap-1 pt-0.5">
+<span class="text-[9px] px-1.5 py-0.5 bg-white border border-slate-200 rounded text-slate-500 h-fit">機能</span>
+</div>
+</div>
+<p class="text-xs text-text-main p-3 h-[84px] overflow-y-auto">スマホアプリ対応</p>
+</div>
+<div class="flex flex-col gap-2">
+<div class="flex justify-between items-start mb-1 h-[48px]">
+<span class="text-xs font-bold text-text-muted pt-2">CTA</span>
+</div>
+<p class="text-xs text-text-main px-3 font-medium h-[46px] flex items-center">無料で始める</p>
+</div>
+</div>
+<div class="flex-1 flex flex-col gap-6 border-r border-border-light/50 pr-4 last:border-0 last:pr-0">
+<div class="flex flex-col gap-2">
+<div class="flex justify-between items-start mb-1 h-[48px]">
+<span class="text-xs font-bold text-text-muted pt-2">キーメッセージ</span>
+<div class="flex gap-1 pt-0.5">
+<span class="text-[9px] px-1.5 py-0.5 bg-white border border-slate-200 rounded text-slate-500 h-fit">情緒</span>
+<span class="text-[9px] px-1.5 py-0.5 bg-white border border-slate-200 rounded text-slate-500 h-fit">結果</span>
+</div>
+</div>
+<p class="text-xs text-text-main p-3 leading-relaxed h-[110px] overflow-y-auto">映画のようなクオリティを、あなたのビジネスに。</p>
+</div>
+<div class="flex flex-col gap-2">
+<div class="flex justify-between items-start mb-1 h-[48px]">
+<span class="text-xs font-bold text-text-muted pt-2">特徴 1</span>
+<div class="flex gap-1 pt-0.5">
+<span class="text-[9px] px-1.5 py-0.5 bg-white border border-slate-200 rounded text-slate-500 h-fit">プロセス</span>
+</div>
+</div>
+<p class="text-xs text-text-main p-3 h-[84px] overflow-y-auto">専属クリエイター担当制</p>
+</div>
+<div class="flex flex-col gap-2">
+<div class="flex justify-between items-start mb-1 h-[48px]">
+<span class="text-xs font-bold text-text-muted pt-2">特徴 2</span>
+<div class="flex gap-1 pt-0.5">
+<span class="text-[9px] px-1.5 py-0.5 bg-white border border-slate-200 rounded text-slate-500 h-fit">情緒</span>
+</div>
+</div>
+<p class="text-xs text-text-main p-3 h-[84px] overflow-y-auto">シネマティックな表現力</p>
+</div>
+<div class="flex flex-col gap-2">
+<div class="flex justify-between items-start mb-1 h-[48px]">
+<span class="text-xs font-bold text-text-muted pt-2">特徴 3</span>
+<div class="flex gap-1 pt-0.5">
+<span class="text-[9px] px-1.5 py-0.5 bg-white border border-slate-200 rounded text-slate-500 h-fit">機能</span>
+</div>
+</div>
+<p class="text-xs text-text-main p-3 h-[84px] overflow-y-auto">ドローン空撮対応</p>
+</div>
+<div class="flex flex-col gap-2">
+<div class="flex justify-between items-start mb-1 h-[48px]">
+<span class="text-xs font-bold text-text-muted pt-2">CTA</span>
+</div>
+<p class="text-xs text-text-main px-3 font-medium h-[46px] flex items-center">制作相談（無料）</p>
+</div>
+</div>
+<div class="flex-1 flex flex-col gap-6 pr-0">
+<div class="flex flex-col gap-2">
+<div class="flex justify-between items-start mb-1 h-[48px]">
+<span class="text-xs font-bold text-text-muted pt-2">キーメッセージ</span>
+<div class="flex gap-1 pt-0.5">
+<span class="text-[9px] px-1.5 py-0.5 bg-white border border-slate-200 rounded text-slate-500 h-fit">機能</span>
+<span class="text-[9px] px-1.5 py-0.5 bg-white border border-slate-200 rounded text-slate-500 h-fit">結果</span>
+</div>
+</div>
+<p class="text-xs text-text-main p-3 leading-relaxed h-[110px] overflow-y-auto">AIが自動で編集。最短10分で納品。</p>
+</div>
+<div class="flex flex-col gap-2">
+<div class="flex justify-between items-start mb-1 h-[48px]">
+<span class="text-xs font-bold text-text-muted pt-2">特徴 1</span>
+<div class="flex gap-1 pt-0.5">
+<span class="text-[9px] px-1.5 py-0.5 bg-white border border-slate-200 rounded text-slate-500 h-fit">機能</span>
+</div>
+</div>
+<p class="text-xs text-text-main p-3 h-[84px] overflow-y-auto">完全自動生成エンジン</p>
+</div>
+<div class="flex flex-col gap-2">
+<div class="flex justify-between items-start mb-1 h-[48px]">
+<span class="text-xs font-bold text-text-muted pt-2">特徴 2</span>
+<div class="flex gap-1 pt-0.5">
+<span class="text-[9px] px-1.5 py-0.5 bg-white border border-slate-200 rounded text-slate-500 h-fit">プロセス</span>
+</div>
+</div>
+<p class="text-xs text-text-main p-3 h-[84px] overflow-y-auto">URLから動画生成</p>
+</div>
+<div class="flex flex-col gap-2">
+<div class="flex justify-between items-start mb-1 h-[48px]">
+<span class="text-xs font-bold text-text-muted pt-2">特徴 3</span>
+<div class="flex gap-1 pt-0.5">
+<span class="text-[9px] px-1.5 py-0.5 bg-white border border-slate-200 rounded text-slate-500 h-fit">機能</span>
+<span class="text-[9px] px-1.5 py-0.5 bg-white border border-slate-200 rounded text-slate-500 h-fit">結果</span>
+</div>
+</div>
+<p class="text-xs text-text-main p-3 h-[84px] overflow-y-auto">チャットサポート24h</p>
+</div>
+<div class="flex flex-col gap-2">
+<div class="flex justify-between items-start mb-1 h-[48px]">
+<span class="text-xs font-bold text-text-muted pt-2">CTA</span>
+</div>
+<p class="text-xs text-text-main px-3 font-medium h-[46px] flex items-center">今すぐ作成する</p>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="flex flex-col items-center gap-6 mt-2 w-full pb-8">
+<div class="flex flex-col-reverse sm:flex-row items-center justify-center gap-4 w-full sm:w-auto">
+<button class="px-6 py-2.5 rounded-lg text-sm font-medium text-text-muted hover:text-primary transition-colors w-full sm:w-auto flex items-center justify-center bg-transparent border-0 outline-none shadow-none">
+                戻る
+            </button>
+<button class="w-full sm:w-auto px-10 py-3 rounded-lg text-sm font-bold text-white bg-primary hover:bg-primary-hover transition-all shadow-lg shadow-primary/20 flex items-center justify-center gap-2 group">
+<span>次へ進む</span>
+<span class="material-symbols-outlined text-[18px] group-hover:translate-x-1 transition-transform">arrow_forward</span>
+</button>
+</div>
+</div>
+</main>
+</body></html>

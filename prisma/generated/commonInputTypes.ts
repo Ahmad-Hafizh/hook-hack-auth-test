@@ -375,6 +375,23 @@ export type JsonWithAggregatesFilterBase<$PrismaModel = never> = {
   _max?: Prisma.NestedJsonFilter<$PrismaModel>
 }
 
+export type EnumValueOrganizationCategoryFilter<$PrismaModel = never> = {
+  equals?: $Enums.ValueOrganizationCategory | Prisma.EnumValueOrganizationCategoryFieldRefInput<$PrismaModel>
+  in?: $Enums.ValueOrganizationCategory[] | Prisma.ListEnumValueOrganizationCategoryFieldRefInput<$PrismaModel>
+  notIn?: $Enums.ValueOrganizationCategory[] | Prisma.ListEnumValueOrganizationCategoryFieldRefInput<$PrismaModel>
+  not?: Prisma.NestedEnumValueOrganizationCategoryFilter<$PrismaModel> | $Enums.ValueOrganizationCategory
+}
+
+export type EnumValueOrganizationCategoryWithAggregatesFilter<$PrismaModel = never> = {
+  equals?: $Enums.ValueOrganizationCategory | Prisma.EnumValueOrganizationCategoryFieldRefInput<$PrismaModel>
+  in?: $Enums.ValueOrganizationCategory[] | Prisma.ListEnumValueOrganizationCategoryFieldRefInput<$PrismaModel>
+  notIn?: $Enums.ValueOrganizationCategory[] | Prisma.ListEnumValueOrganizationCategoryFieldRefInput<$PrismaModel>
+  not?: Prisma.NestedEnumValueOrganizationCategoryWithAggregatesFilter<$PrismaModel> | $Enums.ValueOrganizationCategory
+  _count?: Prisma.NestedIntFilter<$PrismaModel>
+  _min?: Prisma.NestedEnumValueOrganizationCategoryFilter<$PrismaModel>
+  _max?: Prisma.NestedEnumValueOrganizationCategoryFilter<$PrismaModel>
+}
+
 export type NestedStringFilter<$PrismaModel = never> = {
   equals?: string | Prisma.StringFieldRefInput<$PrismaModel>
   in?: string[] | Prisma.ListStringFieldRefInput<$PrismaModel>
@@ -693,6 +710,23 @@ export type NestedJsonFilterBase<$PrismaModel = never> = {
   gt?: runtime.InputJsonValue | Prisma.JsonFieldRefInput<$PrismaModel>
   gte?: runtime.InputJsonValue | Prisma.JsonFieldRefInput<$PrismaModel>
   not?: runtime.InputJsonValue | Prisma.JsonFieldRefInput<$PrismaModel> | Prisma.JsonNullValueFilter
+}
+
+export type NestedEnumValueOrganizationCategoryFilter<$PrismaModel = never> = {
+  equals?: $Enums.ValueOrganizationCategory | Prisma.EnumValueOrganizationCategoryFieldRefInput<$PrismaModel>
+  in?: $Enums.ValueOrganizationCategory[] | Prisma.ListEnumValueOrganizationCategoryFieldRefInput<$PrismaModel>
+  notIn?: $Enums.ValueOrganizationCategory[] | Prisma.ListEnumValueOrganizationCategoryFieldRefInput<$PrismaModel>
+  not?: Prisma.NestedEnumValueOrganizationCategoryFilter<$PrismaModel> | $Enums.ValueOrganizationCategory
+}
+
+export type NestedEnumValueOrganizationCategoryWithAggregatesFilter<$PrismaModel = never> = {
+  equals?: $Enums.ValueOrganizationCategory | Prisma.EnumValueOrganizationCategoryFieldRefInput<$PrismaModel>
+  in?: $Enums.ValueOrganizationCategory[] | Prisma.ListEnumValueOrganizationCategoryFieldRefInput<$PrismaModel>
+  notIn?: $Enums.ValueOrganizationCategory[] | Prisma.ListEnumValueOrganizationCategoryFieldRefInput<$PrismaModel>
+  not?: Prisma.NestedEnumValueOrganizationCategoryWithAggregatesFilter<$PrismaModel> | $Enums.ValueOrganizationCategory
+  _count?: Prisma.NestedIntFilter<$PrismaModel>
+  _min?: Prisma.NestedEnumValueOrganizationCategoryFilter<$PrismaModel>
+  _max?: Prisma.NestedEnumValueOrganizationCategoryFilter<$PrismaModel>
 }
 
 

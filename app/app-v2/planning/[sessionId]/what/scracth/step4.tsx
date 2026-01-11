@@ -1,31 +1,20 @@
 "use client";
 import { Button } from "@/components/ui/button";
 import React from "react";
-import KeyMessageCard from "../components/keyMessageCard";
-import { useParams, useRouter } from "next/navigation";
+import { useParams } from "next/navigation";
 import { RadioGroup } from "@/components/ui/radio-group";
 
 import { Spinner } from "@/components/ui/spinner";
 import { submitStep4 } from "../hooks/useFetchAPINext";
-import { IBriefPlanning } from "../hooks/planningWhatDataContext";
-import {
-  CompetitiveCard,
-  CompetitorDetailColumn,
-  FeatureField,
-  FeatureToggleGroup,
-} from "@/components/lp-analyzer/CompetitiveMatrixCard";
+import { usePlanningWhatDataContext } from "../hooks/planningWhatDataContext";
 import { Card, PageHeader } from "@/components/lp-analyzer";
 import { ArrowRight } from "lucide-react";
 import CompetitiveMatrix from "../components/competitiveMatrix";
 
-const Step4 = ({
-  briefPlanning,
-  onNext,
-}: {
-  briefPlanning: IBriefPlanning;
-  onNext: () => void;
-}) => {
-  const router = useRouter();
+const Step4 = ({ onNext }: { onNext: () => void }) => {
+  const { briefPlanning, onSetValueOrganization } =
+    usePlanningWhatDataContext();
+
   const { sessionId } = useParams();
   const [loading, setLoading] = React.useState(false);
   const [selectedOption, setSelectedOption] = React.useState("your-company");
@@ -43,6 +32,11 @@ const Step4 = ({
 
   const [suggestionKeyMessage, setSuggestionKeyMessage] =
     React.useState<string>(briefPlanning.suggestion.key_message);
+
+  const [submitProgress, setSubmitProgress] = React.useState({
+    percent: 0,
+    message: "",
+  });
 
   return (
     <div className="flex-1 w-full max-w-6xl mx-auto px-4 py-12 md:px-8 flex flex-col justify-center h-full items-start">
@@ -102,12 +96,30 @@ const Step4 = ({
                 className="bg-cyan-600 hover:bg-cyan-700"
                 size={"lg"}
                 disabled={loading}
-                onClick={() => {}}
+                onClick={() =>
+                  submitStep4({
+                    keyMessage:
+                      selectedOption === "your-company"
+                        ? keyMessage
+                        : suggestionKeyMessage,
+                    strongPoints:
+                      selectedOption === "your-company"
+                        ? strongPoints
+                        : suggestionStrongPoints,
+                    onSetLoading: (loading) => setLoading(loading),
+                    sessionId: sessionId as string,
+                    competitorsMatrix: briefPlanning.competitors,
+                    onSetSubmitProgress: (progress, message) =>
+                      setSubmitProgress({ percent: progress, message }),
+                    onSetValueOrganization,
+                    onNext,
+                  })
+                }
               >
                 {loading ? (
                   <>
                     <Spinner className="h-4 w-4" />
-                    読み込み中...
+                    {submitProgress.percent}% {submitProgress.message}
                   </>
                 ) : (
                   <>

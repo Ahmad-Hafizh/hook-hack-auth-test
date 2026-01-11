@@ -196,10 +196,13 @@ export type PDCASessionWhereInput = {
   keyword?: Prisma.StringNullableFilter<"PDCASession"> | string | null
   pdca?: Prisma.XOR<Prisma.PDCAScalarRelationFilter, Prisma.PDCAWhereInput>
   ads?: Prisma.AdsListRelationFilter
-  competitor_matrix?: Prisma.XOR<Prisma.CompetitorMatrixNullableScalarRelationFilter, Prisma.CompetitorMatrixWhereInput> | null
   planningPlans?: Prisma.XOR<Prisma.PlanningPlanNullableScalarRelationFilter, Prisma.PlanningPlanWhereInput> | null
   planningVariants?: Prisma.XOR<Prisma.PlanningVariantsNullableScalarRelationFilter, Prisma.PlanningVariantsWhereInput> | null
   renderedVideos?: Prisma.RenderedVideoListRelationFilter
+  competitor_matrix?: Prisma.XOR<Prisma.CompetitorMatrixNullableScalarRelationFilter, Prisma.CompetitorMatrixWhereInput> | null
+  value_organization?: Prisma.ValueOrganizationListRelationFilter
+  desire_organization?: Prisma.DesireOrganizationListRelationFilter
+  positioning_patterns?: Prisma.PositioningPatternsListRelationFilter
 }
 
 export type PDCASessionOrderByWithRelationInput = {
@@ -212,10 +215,13 @@ export type PDCASessionOrderByWithRelationInput = {
   keyword?: Prisma.SortOrderInput | Prisma.SortOrder
   pdca?: Prisma.PDCAOrderByWithRelationInput
   ads?: Prisma.AdsOrderByRelationAggregateInput
-  competitor_matrix?: Prisma.CompetitorMatrixOrderByWithRelationInput
   planningPlans?: Prisma.PlanningPlanOrderByWithRelationInput
   planningVariants?: Prisma.PlanningVariantsOrderByWithRelationInput
   renderedVideos?: Prisma.RenderedVideoOrderByRelationAggregateInput
+  competitor_matrix?: Prisma.CompetitorMatrixOrderByWithRelationInput
+  value_organization?: Prisma.ValueOrganizationOrderByRelationAggregateInput
+  desire_organization?: Prisma.DesireOrganizationOrderByRelationAggregateInput
+  positioning_patterns?: Prisma.PositioningPatternsOrderByRelationAggregateInput
 }
 
 export type PDCASessionWhereUniqueInput = Prisma.AtLeast<{
@@ -231,10 +237,13 @@ export type PDCASessionWhereUniqueInput = Prisma.AtLeast<{
   keyword?: Prisma.StringNullableFilter<"PDCASession"> | string | null
   pdca?: Prisma.XOR<Prisma.PDCAScalarRelationFilter, Prisma.PDCAWhereInput>
   ads?: Prisma.AdsListRelationFilter
-  competitor_matrix?: Prisma.XOR<Prisma.CompetitorMatrixNullableScalarRelationFilter, Prisma.CompetitorMatrixWhereInput> | null
   planningPlans?: Prisma.XOR<Prisma.PlanningPlanNullableScalarRelationFilter, Prisma.PlanningPlanWhereInput> | null
   planningVariants?: Prisma.XOR<Prisma.PlanningVariantsNullableScalarRelationFilter, Prisma.PlanningVariantsWhereInput> | null
   renderedVideos?: Prisma.RenderedVideoListRelationFilter
+  competitor_matrix?: Prisma.XOR<Prisma.CompetitorMatrixNullableScalarRelationFilter, Prisma.CompetitorMatrixWhereInput> | null
+  value_organization?: Prisma.ValueOrganizationListRelationFilter
+  desire_organization?: Prisma.DesireOrganizationListRelationFilter
+  positioning_patterns?: Prisma.PositioningPatternsListRelationFilter
 }, "id">
 
 export type PDCASessionOrderByWithAggregationInput = {
@@ -272,10 +281,13 @@ export type PDCASessionCreateInput = {
   keyword?: string | null
   pdca: Prisma.PDCACreateNestedOneWithoutPdcasessionsInput
   ads?: Prisma.AdsCreateNestedManyWithoutPDCA_SessionInput
-  competitor_matrix?: Prisma.CompetitorMatrixCreateNestedOneWithoutPdca_sessionInput
   planningPlans?: Prisma.PlanningPlanCreateNestedOneWithoutPDCA_SessionInput
   planningVariants?: Prisma.PlanningVariantsCreateNestedOneWithoutPDCA_SessionInput
   renderedVideos?: Prisma.RenderedVideoCreateNestedManyWithoutPDCA_SessionInput
+  competitor_matrix?: Prisma.CompetitorMatrixCreateNestedOneWithoutPdca_sessionInput
+  value_organization?: Prisma.ValueOrganizationCreateNestedManyWithoutPdca_sessionInput
+  desire_organization?: Prisma.DesireOrganizationCreateNestedManyWithoutPdca_sessionInput
+  positioning_patterns?: Prisma.PositioningPatternsCreateNestedManyWithoutPDCA_SessionInput
 }
 
 export type PDCASessionUncheckedCreateInput = {
@@ -287,10 +299,13 @@ export type PDCASessionUncheckedCreateInput = {
   competitors?: Prisma.PDCASessionCreatecompetitorsInput | string[]
   keyword?: string | null
   ads?: Prisma.AdsUncheckedCreateNestedManyWithoutPDCA_SessionInput
-  competitor_matrix?: Prisma.CompetitorMatrixUncheckedCreateNestedOneWithoutPdca_sessionInput
   planningPlans?: Prisma.PlanningPlanUncheckedCreateNestedOneWithoutPDCA_SessionInput
   planningVariants?: Prisma.PlanningVariantsUncheckedCreateNestedOneWithoutPDCA_SessionInput
   renderedVideos?: Prisma.RenderedVideoUncheckedCreateNestedManyWithoutPDCA_SessionInput
+  competitor_matrix?: Prisma.CompetitorMatrixUncheckedCreateNestedOneWithoutPdca_sessionInput
+  value_organization?: Prisma.ValueOrganizationUncheckedCreateNestedManyWithoutPdca_sessionInput
+  desire_organization?: Prisma.DesireOrganizationUncheckedCreateNestedManyWithoutPdca_sessionInput
+  positioning_patterns?: Prisma.PositioningPatternsUncheckedCreateNestedManyWithoutPDCA_SessionInput
 }
 
 export type PDCASessionUpdateInput = {
@@ -302,10 +317,13 @@ export type PDCASessionUpdateInput = {
   keyword?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   pdca?: Prisma.PDCAUpdateOneRequiredWithoutPdcasessionsNestedInput
   ads?: Prisma.AdsUpdateManyWithoutPDCA_SessionNestedInput
-  competitor_matrix?: Prisma.CompetitorMatrixUpdateOneWithoutPdca_sessionNestedInput
   planningPlans?: Prisma.PlanningPlanUpdateOneWithoutPDCA_SessionNestedInput
   planningVariants?: Prisma.PlanningVariantsUpdateOneWithoutPDCA_SessionNestedInput
   renderedVideos?: Prisma.RenderedVideoUpdateManyWithoutPDCA_SessionNestedInput
+  competitor_matrix?: Prisma.CompetitorMatrixUpdateOneWithoutPdca_sessionNestedInput
+  value_organization?: Prisma.ValueOrganizationUpdateManyWithoutPdca_sessionNestedInput
+  desire_organization?: Prisma.DesireOrganizationUpdateManyWithoutPdca_sessionNestedInput
+  positioning_patterns?: Prisma.PositioningPatternsUpdateManyWithoutPDCA_SessionNestedInput
 }
 
 export type PDCASessionUncheckedUpdateInput = {
@@ -317,10 +335,13 @@ export type PDCASessionUncheckedUpdateInput = {
   competitors?: Prisma.PDCASessionUpdatecompetitorsInput | string[]
   keyword?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   ads?: Prisma.AdsUncheckedUpdateManyWithoutPDCA_SessionNestedInput
-  competitor_matrix?: Prisma.CompetitorMatrixUncheckedUpdateOneWithoutPdca_sessionNestedInput
   planningPlans?: Prisma.PlanningPlanUncheckedUpdateOneWithoutPDCA_SessionNestedInput
   planningVariants?: Prisma.PlanningVariantsUncheckedUpdateOneWithoutPDCA_SessionNestedInput
   renderedVideos?: Prisma.RenderedVideoUncheckedUpdateManyWithoutPDCA_SessionNestedInput
+  competitor_matrix?: Prisma.CompetitorMatrixUncheckedUpdateOneWithoutPdca_sessionNestedInput
+  value_organization?: Prisma.ValueOrganizationUncheckedUpdateManyWithoutPdca_sessionNestedInput
+  desire_organization?: Prisma.DesireOrganizationUncheckedUpdateManyWithoutPdca_sessionNestedInput
+  positioning_patterns?: Prisma.PositioningPatternsUncheckedUpdateManyWithoutPDCA_SessionNestedInput
 }
 
 export type PDCASessionCreateManyInput = {
@@ -476,6 +497,48 @@ export type PDCASessionUpdateOneRequiredWithoutCompetitor_matrixNestedInput = {
   update?: Prisma.XOR<Prisma.XOR<Prisma.PDCASessionUpdateToOneWithWhereWithoutCompetitor_matrixInput, Prisma.PDCASessionUpdateWithoutCompetitor_matrixInput>, Prisma.PDCASessionUncheckedUpdateWithoutCompetitor_matrixInput>
 }
 
+export type PDCASessionCreateNestedOneWithoutValue_organizationInput = {
+  create?: Prisma.XOR<Prisma.PDCASessionCreateWithoutValue_organizationInput, Prisma.PDCASessionUncheckedCreateWithoutValue_organizationInput>
+  connectOrCreate?: Prisma.PDCASessionCreateOrConnectWithoutValue_organizationInput
+  connect?: Prisma.PDCASessionWhereUniqueInput
+}
+
+export type PDCASessionUpdateOneRequiredWithoutValue_organizationNestedInput = {
+  create?: Prisma.XOR<Prisma.PDCASessionCreateWithoutValue_organizationInput, Prisma.PDCASessionUncheckedCreateWithoutValue_organizationInput>
+  connectOrCreate?: Prisma.PDCASessionCreateOrConnectWithoutValue_organizationInput
+  upsert?: Prisma.PDCASessionUpsertWithoutValue_organizationInput
+  connect?: Prisma.PDCASessionWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.PDCASessionUpdateToOneWithWhereWithoutValue_organizationInput, Prisma.PDCASessionUpdateWithoutValue_organizationInput>, Prisma.PDCASessionUncheckedUpdateWithoutValue_organizationInput>
+}
+
+export type PDCASessionCreateNestedOneWithoutDesire_organizationInput = {
+  create?: Prisma.XOR<Prisma.PDCASessionCreateWithoutDesire_organizationInput, Prisma.PDCASessionUncheckedCreateWithoutDesire_organizationInput>
+  connectOrCreate?: Prisma.PDCASessionCreateOrConnectWithoutDesire_organizationInput
+  connect?: Prisma.PDCASessionWhereUniqueInput
+}
+
+export type PDCASessionUpdateOneRequiredWithoutDesire_organizationNestedInput = {
+  create?: Prisma.XOR<Prisma.PDCASessionCreateWithoutDesire_organizationInput, Prisma.PDCASessionUncheckedCreateWithoutDesire_organizationInput>
+  connectOrCreate?: Prisma.PDCASessionCreateOrConnectWithoutDesire_organizationInput
+  upsert?: Prisma.PDCASessionUpsertWithoutDesire_organizationInput
+  connect?: Prisma.PDCASessionWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.PDCASessionUpdateToOneWithWhereWithoutDesire_organizationInput, Prisma.PDCASessionUpdateWithoutDesire_organizationInput>, Prisma.PDCASessionUncheckedUpdateWithoutDesire_organizationInput>
+}
+
+export type PDCASessionCreateNestedOneWithoutPositioning_patternsInput = {
+  create?: Prisma.XOR<Prisma.PDCASessionCreateWithoutPositioning_patternsInput, Prisma.PDCASessionUncheckedCreateWithoutPositioning_patternsInput>
+  connectOrCreate?: Prisma.PDCASessionCreateOrConnectWithoutPositioning_patternsInput
+  connect?: Prisma.PDCASessionWhereUniqueInput
+}
+
+export type PDCASessionUpdateOneRequiredWithoutPositioning_patternsNestedInput = {
+  create?: Prisma.XOR<Prisma.PDCASessionCreateWithoutPositioning_patternsInput, Prisma.PDCASessionUncheckedCreateWithoutPositioning_patternsInput>
+  connectOrCreate?: Prisma.PDCASessionCreateOrConnectWithoutPositioning_patternsInput
+  upsert?: Prisma.PDCASessionUpsertWithoutPositioning_patternsInput
+  connect?: Prisma.PDCASessionWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.PDCASessionUpdateToOneWithWhereWithoutPositioning_patternsInput, Prisma.PDCASessionUpdateWithoutPositioning_patternsInput>, Prisma.PDCASessionUncheckedUpdateWithoutPositioning_patternsInput>
+}
+
 export type PDCASessionCreateNestedOneWithoutPlanningPlansInput = {
   create?: Prisma.XOR<Prisma.PDCASessionCreateWithoutPlanningPlansInput, Prisma.PDCASessionUncheckedCreateWithoutPlanningPlansInput>
   connectOrCreate?: Prisma.PDCASessionCreateOrConnectWithoutPlanningPlansInput
@@ -540,10 +603,13 @@ export type PDCASessionCreateWithoutPdcaInput = {
   competitors?: Prisma.PDCASessionCreatecompetitorsInput | string[]
   keyword?: string | null
   ads?: Prisma.AdsCreateNestedManyWithoutPDCA_SessionInput
-  competitor_matrix?: Prisma.CompetitorMatrixCreateNestedOneWithoutPdca_sessionInput
   planningPlans?: Prisma.PlanningPlanCreateNestedOneWithoutPDCA_SessionInput
   planningVariants?: Prisma.PlanningVariantsCreateNestedOneWithoutPDCA_SessionInput
   renderedVideos?: Prisma.RenderedVideoCreateNestedManyWithoutPDCA_SessionInput
+  competitor_matrix?: Prisma.CompetitorMatrixCreateNestedOneWithoutPdca_sessionInput
+  value_organization?: Prisma.ValueOrganizationCreateNestedManyWithoutPdca_sessionInput
+  desire_organization?: Prisma.DesireOrganizationCreateNestedManyWithoutPdca_sessionInput
+  positioning_patterns?: Prisma.PositioningPatternsCreateNestedManyWithoutPDCA_SessionInput
 }
 
 export type PDCASessionUncheckedCreateWithoutPdcaInput = {
@@ -554,10 +620,13 @@ export type PDCASessionUncheckedCreateWithoutPdcaInput = {
   competitors?: Prisma.PDCASessionCreatecompetitorsInput | string[]
   keyword?: string | null
   ads?: Prisma.AdsUncheckedCreateNestedManyWithoutPDCA_SessionInput
-  competitor_matrix?: Prisma.CompetitorMatrixUncheckedCreateNestedOneWithoutPdca_sessionInput
   planningPlans?: Prisma.PlanningPlanUncheckedCreateNestedOneWithoutPDCA_SessionInput
   planningVariants?: Prisma.PlanningVariantsUncheckedCreateNestedOneWithoutPDCA_SessionInput
   renderedVideos?: Prisma.RenderedVideoUncheckedCreateNestedManyWithoutPDCA_SessionInput
+  competitor_matrix?: Prisma.CompetitorMatrixUncheckedCreateNestedOneWithoutPdca_sessionInput
+  value_organization?: Prisma.ValueOrganizationUncheckedCreateNestedManyWithoutPdca_sessionInput
+  desire_organization?: Prisma.DesireOrganizationUncheckedCreateNestedManyWithoutPdca_sessionInput
+  positioning_patterns?: Prisma.PositioningPatternsUncheckedCreateNestedManyWithoutPDCA_SessionInput
 }
 
 export type PDCASessionCreateOrConnectWithoutPdcaInput = {
@@ -611,6 +680,9 @@ export type PDCASessionCreateWithoutCompetitor_matrixInput = {
   planningPlans?: Prisma.PlanningPlanCreateNestedOneWithoutPDCA_SessionInput
   planningVariants?: Prisma.PlanningVariantsCreateNestedOneWithoutPDCA_SessionInput
   renderedVideos?: Prisma.RenderedVideoCreateNestedManyWithoutPDCA_SessionInput
+  value_organization?: Prisma.ValueOrganizationCreateNestedManyWithoutPdca_sessionInput
+  desire_organization?: Prisma.DesireOrganizationCreateNestedManyWithoutPdca_sessionInput
+  positioning_patterns?: Prisma.PositioningPatternsCreateNestedManyWithoutPDCA_SessionInput
 }
 
 export type PDCASessionUncheckedCreateWithoutCompetitor_matrixInput = {
@@ -625,6 +697,9 @@ export type PDCASessionUncheckedCreateWithoutCompetitor_matrixInput = {
   planningPlans?: Prisma.PlanningPlanUncheckedCreateNestedOneWithoutPDCA_SessionInput
   planningVariants?: Prisma.PlanningVariantsUncheckedCreateNestedOneWithoutPDCA_SessionInput
   renderedVideos?: Prisma.RenderedVideoUncheckedCreateNestedManyWithoutPDCA_SessionInput
+  value_organization?: Prisma.ValueOrganizationUncheckedCreateNestedManyWithoutPdca_sessionInput
+  desire_organization?: Prisma.DesireOrganizationUncheckedCreateNestedManyWithoutPdca_sessionInput
+  positioning_patterns?: Prisma.PositioningPatternsUncheckedCreateNestedManyWithoutPDCA_SessionInput
 }
 
 export type PDCASessionCreateOrConnectWithoutCompetitor_matrixInput = {
@@ -655,6 +730,9 @@ export type PDCASessionUpdateWithoutCompetitor_matrixInput = {
   planningPlans?: Prisma.PlanningPlanUpdateOneWithoutPDCA_SessionNestedInput
   planningVariants?: Prisma.PlanningVariantsUpdateOneWithoutPDCA_SessionNestedInput
   renderedVideos?: Prisma.RenderedVideoUpdateManyWithoutPDCA_SessionNestedInput
+  value_organization?: Prisma.ValueOrganizationUpdateManyWithoutPdca_sessionNestedInput
+  desire_organization?: Prisma.DesireOrganizationUpdateManyWithoutPdca_sessionNestedInput
+  positioning_patterns?: Prisma.PositioningPatternsUpdateManyWithoutPDCA_SessionNestedInput
 }
 
 export type PDCASessionUncheckedUpdateWithoutCompetitor_matrixInput = {
@@ -669,6 +747,261 @@ export type PDCASessionUncheckedUpdateWithoutCompetitor_matrixInput = {
   planningPlans?: Prisma.PlanningPlanUncheckedUpdateOneWithoutPDCA_SessionNestedInput
   planningVariants?: Prisma.PlanningVariantsUncheckedUpdateOneWithoutPDCA_SessionNestedInput
   renderedVideos?: Prisma.RenderedVideoUncheckedUpdateManyWithoutPDCA_SessionNestedInput
+  value_organization?: Prisma.ValueOrganizationUncheckedUpdateManyWithoutPdca_sessionNestedInput
+  desire_organization?: Prisma.DesireOrganizationUncheckedUpdateManyWithoutPdca_sessionNestedInput
+  positioning_patterns?: Prisma.PositioningPatternsUncheckedUpdateManyWithoutPDCA_SessionNestedInput
+}
+
+export type PDCASessionCreateWithoutValue_organizationInput = {
+  id: string
+  finishedAt?: Date | string | null
+  lastPage?: $Enums.PlanningPages | null
+  product?: string | null
+  competitors?: Prisma.PDCASessionCreatecompetitorsInput | string[]
+  keyword?: string | null
+  pdca: Prisma.PDCACreateNestedOneWithoutPdcasessionsInput
+  ads?: Prisma.AdsCreateNestedManyWithoutPDCA_SessionInput
+  planningPlans?: Prisma.PlanningPlanCreateNestedOneWithoutPDCA_SessionInput
+  planningVariants?: Prisma.PlanningVariantsCreateNestedOneWithoutPDCA_SessionInput
+  renderedVideos?: Prisma.RenderedVideoCreateNestedManyWithoutPDCA_SessionInput
+  competitor_matrix?: Prisma.CompetitorMatrixCreateNestedOneWithoutPdca_sessionInput
+  desire_organization?: Prisma.DesireOrganizationCreateNestedManyWithoutPdca_sessionInput
+  positioning_patterns?: Prisma.PositioningPatternsCreateNestedManyWithoutPDCA_SessionInput
+}
+
+export type PDCASessionUncheckedCreateWithoutValue_organizationInput = {
+  id: string
+  pdca_id: string
+  finishedAt?: Date | string | null
+  lastPage?: $Enums.PlanningPages | null
+  product?: string | null
+  competitors?: Prisma.PDCASessionCreatecompetitorsInput | string[]
+  keyword?: string | null
+  ads?: Prisma.AdsUncheckedCreateNestedManyWithoutPDCA_SessionInput
+  planningPlans?: Prisma.PlanningPlanUncheckedCreateNestedOneWithoutPDCA_SessionInput
+  planningVariants?: Prisma.PlanningVariantsUncheckedCreateNestedOneWithoutPDCA_SessionInput
+  renderedVideos?: Prisma.RenderedVideoUncheckedCreateNestedManyWithoutPDCA_SessionInput
+  competitor_matrix?: Prisma.CompetitorMatrixUncheckedCreateNestedOneWithoutPdca_sessionInput
+  desire_organization?: Prisma.DesireOrganizationUncheckedCreateNestedManyWithoutPdca_sessionInput
+  positioning_patterns?: Prisma.PositioningPatternsUncheckedCreateNestedManyWithoutPDCA_SessionInput
+}
+
+export type PDCASessionCreateOrConnectWithoutValue_organizationInput = {
+  where: Prisma.PDCASessionWhereUniqueInput
+  create: Prisma.XOR<Prisma.PDCASessionCreateWithoutValue_organizationInput, Prisma.PDCASessionUncheckedCreateWithoutValue_organizationInput>
+}
+
+export type PDCASessionUpsertWithoutValue_organizationInput = {
+  update: Prisma.XOR<Prisma.PDCASessionUpdateWithoutValue_organizationInput, Prisma.PDCASessionUncheckedUpdateWithoutValue_organizationInput>
+  create: Prisma.XOR<Prisma.PDCASessionCreateWithoutValue_organizationInput, Prisma.PDCASessionUncheckedCreateWithoutValue_organizationInput>
+  where?: Prisma.PDCASessionWhereInput
+}
+
+export type PDCASessionUpdateToOneWithWhereWithoutValue_organizationInput = {
+  where?: Prisma.PDCASessionWhereInput
+  data: Prisma.XOR<Prisma.PDCASessionUpdateWithoutValue_organizationInput, Prisma.PDCASessionUncheckedUpdateWithoutValue_organizationInput>
+}
+
+export type PDCASessionUpdateWithoutValue_organizationInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  finishedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  lastPage?: Prisma.NullableEnumPlanningPagesFieldUpdateOperationsInput | $Enums.PlanningPages | null
+  product?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  competitors?: Prisma.PDCASessionUpdatecompetitorsInput | string[]
+  keyword?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  pdca?: Prisma.PDCAUpdateOneRequiredWithoutPdcasessionsNestedInput
+  ads?: Prisma.AdsUpdateManyWithoutPDCA_SessionNestedInput
+  planningPlans?: Prisma.PlanningPlanUpdateOneWithoutPDCA_SessionNestedInput
+  planningVariants?: Prisma.PlanningVariantsUpdateOneWithoutPDCA_SessionNestedInput
+  renderedVideos?: Prisma.RenderedVideoUpdateManyWithoutPDCA_SessionNestedInput
+  competitor_matrix?: Prisma.CompetitorMatrixUpdateOneWithoutPdca_sessionNestedInput
+  desire_organization?: Prisma.DesireOrganizationUpdateManyWithoutPdca_sessionNestedInput
+  positioning_patterns?: Prisma.PositioningPatternsUpdateManyWithoutPDCA_SessionNestedInput
+}
+
+export type PDCASessionUncheckedUpdateWithoutValue_organizationInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  pdca_id?: Prisma.StringFieldUpdateOperationsInput | string
+  finishedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  lastPage?: Prisma.NullableEnumPlanningPagesFieldUpdateOperationsInput | $Enums.PlanningPages | null
+  product?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  competitors?: Prisma.PDCASessionUpdatecompetitorsInput | string[]
+  keyword?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  ads?: Prisma.AdsUncheckedUpdateManyWithoutPDCA_SessionNestedInput
+  planningPlans?: Prisma.PlanningPlanUncheckedUpdateOneWithoutPDCA_SessionNestedInput
+  planningVariants?: Prisma.PlanningVariantsUncheckedUpdateOneWithoutPDCA_SessionNestedInput
+  renderedVideos?: Prisma.RenderedVideoUncheckedUpdateManyWithoutPDCA_SessionNestedInput
+  competitor_matrix?: Prisma.CompetitorMatrixUncheckedUpdateOneWithoutPdca_sessionNestedInput
+  desire_organization?: Prisma.DesireOrganizationUncheckedUpdateManyWithoutPdca_sessionNestedInput
+  positioning_patterns?: Prisma.PositioningPatternsUncheckedUpdateManyWithoutPDCA_SessionNestedInput
+}
+
+export type PDCASessionCreateWithoutDesire_organizationInput = {
+  id: string
+  finishedAt?: Date | string | null
+  lastPage?: $Enums.PlanningPages | null
+  product?: string | null
+  competitors?: Prisma.PDCASessionCreatecompetitorsInput | string[]
+  keyword?: string | null
+  pdca: Prisma.PDCACreateNestedOneWithoutPdcasessionsInput
+  ads?: Prisma.AdsCreateNestedManyWithoutPDCA_SessionInput
+  planningPlans?: Prisma.PlanningPlanCreateNestedOneWithoutPDCA_SessionInput
+  planningVariants?: Prisma.PlanningVariantsCreateNestedOneWithoutPDCA_SessionInput
+  renderedVideos?: Prisma.RenderedVideoCreateNestedManyWithoutPDCA_SessionInput
+  competitor_matrix?: Prisma.CompetitorMatrixCreateNestedOneWithoutPdca_sessionInput
+  value_organization?: Prisma.ValueOrganizationCreateNestedManyWithoutPdca_sessionInput
+  positioning_patterns?: Prisma.PositioningPatternsCreateNestedManyWithoutPDCA_SessionInput
+}
+
+export type PDCASessionUncheckedCreateWithoutDesire_organizationInput = {
+  id: string
+  pdca_id: string
+  finishedAt?: Date | string | null
+  lastPage?: $Enums.PlanningPages | null
+  product?: string | null
+  competitors?: Prisma.PDCASessionCreatecompetitorsInput | string[]
+  keyword?: string | null
+  ads?: Prisma.AdsUncheckedCreateNestedManyWithoutPDCA_SessionInput
+  planningPlans?: Prisma.PlanningPlanUncheckedCreateNestedOneWithoutPDCA_SessionInput
+  planningVariants?: Prisma.PlanningVariantsUncheckedCreateNestedOneWithoutPDCA_SessionInput
+  renderedVideos?: Prisma.RenderedVideoUncheckedCreateNestedManyWithoutPDCA_SessionInput
+  competitor_matrix?: Prisma.CompetitorMatrixUncheckedCreateNestedOneWithoutPdca_sessionInput
+  value_organization?: Prisma.ValueOrganizationUncheckedCreateNestedManyWithoutPdca_sessionInput
+  positioning_patterns?: Prisma.PositioningPatternsUncheckedCreateNestedManyWithoutPDCA_SessionInput
+}
+
+export type PDCASessionCreateOrConnectWithoutDesire_organizationInput = {
+  where: Prisma.PDCASessionWhereUniqueInput
+  create: Prisma.XOR<Prisma.PDCASessionCreateWithoutDesire_organizationInput, Prisma.PDCASessionUncheckedCreateWithoutDesire_organizationInput>
+}
+
+export type PDCASessionUpsertWithoutDesire_organizationInput = {
+  update: Prisma.XOR<Prisma.PDCASessionUpdateWithoutDesire_organizationInput, Prisma.PDCASessionUncheckedUpdateWithoutDesire_organizationInput>
+  create: Prisma.XOR<Prisma.PDCASessionCreateWithoutDesire_organizationInput, Prisma.PDCASessionUncheckedCreateWithoutDesire_organizationInput>
+  where?: Prisma.PDCASessionWhereInput
+}
+
+export type PDCASessionUpdateToOneWithWhereWithoutDesire_organizationInput = {
+  where?: Prisma.PDCASessionWhereInput
+  data: Prisma.XOR<Prisma.PDCASessionUpdateWithoutDesire_organizationInput, Prisma.PDCASessionUncheckedUpdateWithoutDesire_organizationInput>
+}
+
+export type PDCASessionUpdateWithoutDesire_organizationInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  finishedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  lastPage?: Prisma.NullableEnumPlanningPagesFieldUpdateOperationsInput | $Enums.PlanningPages | null
+  product?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  competitors?: Prisma.PDCASessionUpdatecompetitorsInput | string[]
+  keyword?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  pdca?: Prisma.PDCAUpdateOneRequiredWithoutPdcasessionsNestedInput
+  ads?: Prisma.AdsUpdateManyWithoutPDCA_SessionNestedInput
+  planningPlans?: Prisma.PlanningPlanUpdateOneWithoutPDCA_SessionNestedInput
+  planningVariants?: Prisma.PlanningVariantsUpdateOneWithoutPDCA_SessionNestedInput
+  renderedVideos?: Prisma.RenderedVideoUpdateManyWithoutPDCA_SessionNestedInput
+  competitor_matrix?: Prisma.CompetitorMatrixUpdateOneWithoutPdca_sessionNestedInput
+  value_organization?: Prisma.ValueOrganizationUpdateManyWithoutPdca_sessionNestedInput
+  positioning_patterns?: Prisma.PositioningPatternsUpdateManyWithoutPDCA_SessionNestedInput
+}
+
+export type PDCASessionUncheckedUpdateWithoutDesire_organizationInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  pdca_id?: Prisma.StringFieldUpdateOperationsInput | string
+  finishedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  lastPage?: Prisma.NullableEnumPlanningPagesFieldUpdateOperationsInput | $Enums.PlanningPages | null
+  product?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  competitors?: Prisma.PDCASessionUpdatecompetitorsInput | string[]
+  keyword?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  ads?: Prisma.AdsUncheckedUpdateManyWithoutPDCA_SessionNestedInput
+  planningPlans?: Prisma.PlanningPlanUncheckedUpdateOneWithoutPDCA_SessionNestedInput
+  planningVariants?: Prisma.PlanningVariantsUncheckedUpdateOneWithoutPDCA_SessionNestedInput
+  renderedVideos?: Prisma.RenderedVideoUncheckedUpdateManyWithoutPDCA_SessionNestedInput
+  competitor_matrix?: Prisma.CompetitorMatrixUncheckedUpdateOneWithoutPdca_sessionNestedInput
+  value_organization?: Prisma.ValueOrganizationUncheckedUpdateManyWithoutPdca_sessionNestedInput
+  positioning_patterns?: Prisma.PositioningPatternsUncheckedUpdateManyWithoutPDCA_SessionNestedInput
+}
+
+export type PDCASessionCreateWithoutPositioning_patternsInput = {
+  id: string
+  finishedAt?: Date | string | null
+  lastPage?: $Enums.PlanningPages | null
+  product?: string | null
+  competitors?: Prisma.PDCASessionCreatecompetitorsInput | string[]
+  keyword?: string | null
+  pdca: Prisma.PDCACreateNestedOneWithoutPdcasessionsInput
+  ads?: Prisma.AdsCreateNestedManyWithoutPDCA_SessionInput
+  planningPlans?: Prisma.PlanningPlanCreateNestedOneWithoutPDCA_SessionInput
+  planningVariants?: Prisma.PlanningVariantsCreateNestedOneWithoutPDCA_SessionInput
+  renderedVideos?: Prisma.RenderedVideoCreateNestedManyWithoutPDCA_SessionInput
+  competitor_matrix?: Prisma.CompetitorMatrixCreateNestedOneWithoutPdca_sessionInput
+  value_organization?: Prisma.ValueOrganizationCreateNestedManyWithoutPdca_sessionInput
+  desire_organization?: Prisma.DesireOrganizationCreateNestedManyWithoutPdca_sessionInput
+}
+
+export type PDCASessionUncheckedCreateWithoutPositioning_patternsInput = {
+  id: string
+  pdca_id: string
+  finishedAt?: Date | string | null
+  lastPage?: $Enums.PlanningPages | null
+  product?: string | null
+  competitors?: Prisma.PDCASessionCreatecompetitorsInput | string[]
+  keyword?: string | null
+  ads?: Prisma.AdsUncheckedCreateNestedManyWithoutPDCA_SessionInput
+  planningPlans?: Prisma.PlanningPlanUncheckedCreateNestedOneWithoutPDCA_SessionInput
+  planningVariants?: Prisma.PlanningVariantsUncheckedCreateNestedOneWithoutPDCA_SessionInput
+  renderedVideos?: Prisma.RenderedVideoUncheckedCreateNestedManyWithoutPDCA_SessionInput
+  competitor_matrix?: Prisma.CompetitorMatrixUncheckedCreateNestedOneWithoutPdca_sessionInput
+  value_organization?: Prisma.ValueOrganizationUncheckedCreateNestedManyWithoutPdca_sessionInput
+  desire_organization?: Prisma.DesireOrganizationUncheckedCreateNestedManyWithoutPdca_sessionInput
+}
+
+export type PDCASessionCreateOrConnectWithoutPositioning_patternsInput = {
+  where: Prisma.PDCASessionWhereUniqueInput
+  create: Prisma.XOR<Prisma.PDCASessionCreateWithoutPositioning_patternsInput, Prisma.PDCASessionUncheckedCreateWithoutPositioning_patternsInput>
+}
+
+export type PDCASessionUpsertWithoutPositioning_patternsInput = {
+  update: Prisma.XOR<Prisma.PDCASessionUpdateWithoutPositioning_patternsInput, Prisma.PDCASessionUncheckedUpdateWithoutPositioning_patternsInput>
+  create: Prisma.XOR<Prisma.PDCASessionCreateWithoutPositioning_patternsInput, Prisma.PDCASessionUncheckedCreateWithoutPositioning_patternsInput>
+  where?: Prisma.PDCASessionWhereInput
+}
+
+export type PDCASessionUpdateToOneWithWhereWithoutPositioning_patternsInput = {
+  where?: Prisma.PDCASessionWhereInput
+  data: Prisma.XOR<Prisma.PDCASessionUpdateWithoutPositioning_patternsInput, Prisma.PDCASessionUncheckedUpdateWithoutPositioning_patternsInput>
+}
+
+export type PDCASessionUpdateWithoutPositioning_patternsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  finishedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  lastPage?: Prisma.NullableEnumPlanningPagesFieldUpdateOperationsInput | $Enums.PlanningPages | null
+  product?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  competitors?: Prisma.PDCASessionUpdatecompetitorsInput | string[]
+  keyword?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  pdca?: Prisma.PDCAUpdateOneRequiredWithoutPdcasessionsNestedInput
+  ads?: Prisma.AdsUpdateManyWithoutPDCA_SessionNestedInput
+  planningPlans?: Prisma.PlanningPlanUpdateOneWithoutPDCA_SessionNestedInput
+  planningVariants?: Prisma.PlanningVariantsUpdateOneWithoutPDCA_SessionNestedInput
+  renderedVideos?: Prisma.RenderedVideoUpdateManyWithoutPDCA_SessionNestedInput
+  competitor_matrix?: Prisma.CompetitorMatrixUpdateOneWithoutPdca_sessionNestedInput
+  value_organization?: Prisma.ValueOrganizationUpdateManyWithoutPdca_sessionNestedInput
+  desire_organization?: Prisma.DesireOrganizationUpdateManyWithoutPdca_sessionNestedInput
+}
+
+export type PDCASessionUncheckedUpdateWithoutPositioning_patternsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  pdca_id?: Prisma.StringFieldUpdateOperationsInput | string
+  finishedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  lastPage?: Prisma.NullableEnumPlanningPagesFieldUpdateOperationsInput | $Enums.PlanningPages | null
+  product?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  competitors?: Prisma.PDCASessionUpdatecompetitorsInput | string[]
+  keyword?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  ads?: Prisma.AdsUncheckedUpdateManyWithoutPDCA_SessionNestedInput
+  planningPlans?: Prisma.PlanningPlanUncheckedUpdateOneWithoutPDCA_SessionNestedInput
+  planningVariants?: Prisma.PlanningVariantsUncheckedUpdateOneWithoutPDCA_SessionNestedInput
+  renderedVideos?: Prisma.RenderedVideoUncheckedUpdateManyWithoutPDCA_SessionNestedInput
+  competitor_matrix?: Prisma.CompetitorMatrixUncheckedUpdateOneWithoutPdca_sessionNestedInput
+  value_organization?: Prisma.ValueOrganizationUncheckedUpdateManyWithoutPdca_sessionNestedInput
+  desire_organization?: Prisma.DesireOrganizationUncheckedUpdateManyWithoutPdca_sessionNestedInput
 }
 
 export type PDCASessionCreateWithoutPlanningPlansInput = {
@@ -680,9 +1013,12 @@ export type PDCASessionCreateWithoutPlanningPlansInput = {
   keyword?: string | null
   pdca: Prisma.PDCACreateNestedOneWithoutPdcasessionsInput
   ads?: Prisma.AdsCreateNestedManyWithoutPDCA_SessionInput
-  competitor_matrix?: Prisma.CompetitorMatrixCreateNestedOneWithoutPdca_sessionInput
   planningVariants?: Prisma.PlanningVariantsCreateNestedOneWithoutPDCA_SessionInput
   renderedVideos?: Prisma.RenderedVideoCreateNestedManyWithoutPDCA_SessionInput
+  competitor_matrix?: Prisma.CompetitorMatrixCreateNestedOneWithoutPdca_sessionInput
+  value_organization?: Prisma.ValueOrganizationCreateNestedManyWithoutPdca_sessionInput
+  desire_organization?: Prisma.DesireOrganizationCreateNestedManyWithoutPdca_sessionInput
+  positioning_patterns?: Prisma.PositioningPatternsCreateNestedManyWithoutPDCA_SessionInput
 }
 
 export type PDCASessionUncheckedCreateWithoutPlanningPlansInput = {
@@ -694,9 +1030,12 @@ export type PDCASessionUncheckedCreateWithoutPlanningPlansInput = {
   competitors?: Prisma.PDCASessionCreatecompetitorsInput | string[]
   keyword?: string | null
   ads?: Prisma.AdsUncheckedCreateNestedManyWithoutPDCA_SessionInput
-  competitor_matrix?: Prisma.CompetitorMatrixUncheckedCreateNestedOneWithoutPdca_sessionInput
   planningVariants?: Prisma.PlanningVariantsUncheckedCreateNestedOneWithoutPDCA_SessionInput
   renderedVideos?: Prisma.RenderedVideoUncheckedCreateNestedManyWithoutPDCA_SessionInput
+  competitor_matrix?: Prisma.CompetitorMatrixUncheckedCreateNestedOneWithoutPdca_sessionInput
+  value_organization?: Prisma.ValueOrganizationUncheckedCreateNestedManyWithoutPdca_sessionInput
+  desire_organization?: Prisma.DesireOrganizationUncheckedCreateNestedManyWithoutPdca_sessionInput
+  positioning_patterns?: Prisma.PositioningPatternsUncheckedCreateNestedManyWithoutPDCA_SessionInput
 }
 
 export type PDCASessionCreateOrConnectWithoutPlanningPlansInput = {
@@ -724,9 +1063,12 @@ export type PDCASessionUpdateWithoutPlanningPlansInput = {
   keyword?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   pdca?: Prisma.PDCAUpdateOneRequiredWithoutPdcasessionsNestedInput
   ads?: Prisma.AdsUpdateManyWithoutPDCA_SessionNestedInput
-  competitor_matrix?: Prisma.CompetitorMatrixUpdateOneWithoutPdca_sessionNestedInput
   planningVariants?: Prisma.PlanningVariantsUpdateOneWithoutPDCA_SessionNestedInput
   renderedVideos?: Prisma.RenderedVideoUpdateManyWithoutPDCA_SessionNestedInput
+  competitor_matrix?: Prisma.CompetitorMatrixUpdateOneWithoutPdca_sessionNestedInput
+  value_organization?: Prisma.ValueOrganizationUpdateManyWithoutPdca_sessionNestedInput
+  desire_organization?: Prisma.DesireOrganizationUpdateManyWithoutPdca_sessionNestedInput
+  positioning_patterns?: Prisma.PositioningPatternsUpdateManyWithoutPDCA_SessionNestedInput
 }
 
 export type PDCASessionUncheckedUpdateWithoutPlanningPlansInput = {
@@ -738,9 +1080,12 @@ export type PDCASessionUncheckedUpdateWithoutPlanningPlansInput = {
   competitors?: Prisma.PDCASessionUpdatecompetitorsInput | string[]
   keyword?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   ads?: Prisma.AdsUncheckedUpdateManyWithoutPDCA_SessionNestedInput
-  competitor_matrix?: Prisma.CompetitorMatrixUncheckedUpdateOneWithoutPdca_sessionNestedInput
   planningVariants?: Prisma.PlanningVariantsUncheckedUpdateOneWithoutPDCA_SessionNestedInput
   renderedVideos?: Prisma.RenderedVideoUncheckedUpdateManyWithoutPDCA_SessionNestedInput
+  competitor_matrix?: Prisma.CompetitorMatrixUncheckedUpdateOneWithoutPdca_sessionNestedInput
+  value_organization?: Prisma.ValueOrganizationUncheckedUpdateManyWithoutPdca_sessionNestedInput
+  desire_organization?: Prisma.DesireOrganizationUncheckedUpdateManyWithoutPdca_sessionNestedInput
+  positioning_patterns?: Prisma.PositioningPatternsUncheckedUpdateManyWithoutPDCA_SessionNestedInput
 }
 
 export type PDCASessionCreateWithoutPlanningVariantsInput = {
@@ -752,9 +1097,12 @@ export type PDCASessionCreateWithoutPlanningVariantsInput = {
   keyword?: string | null
   pdca: Prisma.PDCACreateNestedOneWithoutPdcasessionsInput
   ads?: Prisma.AdsCreateNestedManyWithoutPDCA_SessionInput
-  competitor_matrix?: Prisma.CompetitorMatrixCreateNestedOneWithoutPdca_sessionInput
   planningPlans?: Prisma.PlanningPlanCreateNestedOneWithoutPDCA_SessionInput
   renderedVideos?: Prisma.RenderedVideoCreateNestedManyWithoutPDCA_SessionInput
+  competitor_matrix?: Prisma.CompetitorMatrixCreateNestedOneWithoutPdca_sessionInput
+  value_organization?: Prisma.ValueOrganizationCreateNestedManyWithoutPdca_sessionInput
+  desire_organization?: Prisma.DesireOrganizationCreateNestedManyWithoutPdca_sessionInput
+  positioning_patterns?: Prisma.PositioningPatternsCreateNestedManyWithoutPDCA_SessionInput
 }
 
 export type PDCASessionUncheckedCreateWithoutPlanningVariantsInput = {
@@ -766,9 +1114,12 @@ export type PDCASessionUncheckedCreateWithoutPlanningVariantsInput = {
   competitors?: Prisma.PDCASessionCreatecompetitorsInput | string[]
   keyword?: string | null
   ads?: Prisma.AdsUncheckedCreateNestedManyWithoutPDCA_SessionInput
-  competitor_matrix?: Prisma.CompetitorMatrixUncheckedCreateNestedOneWithoutPdca_sessionInput
   planningPlans?: Prisma.PlanningPlanUncheckedCreateNestedOneWithoutPDCA_SessionInput
   renderedVideos?: Prisma.RenderedVideoUncheckedCreateNestedManyWithoutPDCA_SessionInput
+  competitor_matrix?: Prisma.CompetitorMatrixUncheckedCreateNestedOneWithoutPdca_sessionInput
+  value_organization?: Prisma.ValueOrganizationUncheckedCreateNestedManyWithoutPdca_sessionInput
+  desire_organization?: Prisma.DesireOrganizationUncheckedCreateNestedManyWithoutPdca_sessionInput
+  positioning_patterns?: Prisma.PositioningPatternsUncheckedCreateNestedManyWithoutPDCA_SessionInput
 }
 
 export type PDCASessionCreateOrConnectWithoutPlanningVariantsInput = {
@@ -796,9 +1147,12 @@ export type PDCASessionUpdateWithoutPlanningVariantsInput = {
   keyword?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   pdca?: Prisma.PDCAUpdateOneRequiredWithoutPdcasessionsNestedInput
   ads?: Prisma.AdsUpdateManyWithoutPDCA_SessionNestedInput
-  competitor_matrix?: Prisma.CompetitorMatrixUpdateOneWithoutPdca_sessionNestedInput
   planningPlans?: Prisma.PlanningPlanUpdateOneWithoutPDCA_SessionNestedInput
   renderedVideos?: Prisma.RenderedVideoUpdateManyWithoutPDCA_SessionNestedInput
+  competitor_matrix?: Prisma.CompetitorMatrixUpdateOneWithoutPdca_sessionNestedInput
+  value_organization?: Prisma.ValueOrganizationUpdateManyWithoutPdca_sessionNestedInput
+  desire_organization?: Prisma.DesireOrganizationUpdateManyWithoutPdca_sessionNestedInput
+  positioning_patterns?: Prisma.PositioningPatternsUpdateManyWithoutPDCA_SessionNestedInput
 }
 
 export type PDCASessionUncheckedUpdateWithoutPlanningVariantsInput = {
@@ -810,9 +1164,12 @@ export type PDCASessionUncheckedUpdateWithoutPlanningVariantsInput = {
   competitors?: Prisma.PDCASessionUpdatecompetitorsInput | string[]
   keyword?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   ads?: Prisma.AdsUncheckedUpdateManyWithoutPDCA_SessionNestedInput
-  competitor_matrix?: Prisma.CompetitorMatrixUncheckedUpdateOneWithoutPdca_sessionNestedInput
   planningPlans?: Prisma.PlanningPlanUncheckedUpdateOneWithoutPDCA_SessionNestedInput
   renderedVideos?: Prisma.RenderedVideoUncheckedUpdateManyWithoutPDCA_SessionNestedInput
+  competitor_matrix?: Prisma.CompetitorMatrixUncheckedUpdateOneWithoutPdca_sessionNestedInput
+  value_organization?: Prisma.ValueOrganizationUncheckedUpdateManyWithoutPdca_sessionNestedInput
+  desire_organization?: Prisma.DesireOrganizationUncheckedUpdateManyWithoutPdca_sessionNestedInput
+  positioning_patterns?: Prisma.PositioningPatternsUncheckedUpdateManyWithoutPDCA_SessionNestedInput
 }
 
 export type PDCASessionCreateWithoutRenderedVideosInput = {
@@ -824,9 +1181,12 @@ export type PDCASessionCreateWithoutRenderedVideosInput = {
   keyword?: string | null
   pdca: Prisma.PDCACreateNestedOneWithoutPdcasessionsInput
   ads?: Prisma.AdsCreateNestedManyWithoutPDCA_SessionInput
-  competitor_matrix?: Prisma.CompetitorMatrixCreateNestedOneWithoutPdca_sessionInput
   planningPlans?: Prisma.PlanningPlanCreateNestedOneWithoutPDCA_SessionInput
   planningVariants?: Prisma.PlanningVariantsCreateNestedOneWithoutPDCA_SessionInput
+  competitor_matrix?: Prisma.CompetitorMatrixCreateNestedOneWithoutPdca_sessionInput
+  value_organization?: Prisma.ValueOrganizationCreateNestedManyWithoutPdca_sessionInput
+  desire_organization?: Prisma.DesireOrganizationCreateNestedManyWithoutPdca_sessionInput
+  positioning_patterns?: Prisma.PositioningPatternsCreateNestedManyWithoutPDCA_SessionInput
 }
 
 export type PDCASessionUncheckedCreateWithoutRenderedVideosInput = {
@@ -838,9 +1198,12 @@ export type PDCASessionUncheckedCreateWithoutRenderedVideosInput = {
   competitors?: Prisma.PDCASessionCreatecompetitorsInput | string[]
   keyword?: string | null
   ads?: Prisma.AdsUncheckedCreateNestedManyWithoutPDCA_SessionInput
-  competitor_matrix?: Prisma.CompetitorMatrixUncheckedCreateNestedOneWithoutPdca_sessionInput
   planningPlans?: Prisma.PlanningPlanUncheckedCreateNestedOneWithoutPDCA_SessionInput
   planningVariants?: Prisma.PlanningVariantsUncheckedCreateNestedOneWithoutPDCA_SessionInput
+  competitor_matrix?: Prisma.CompetitorMatrixUncheckedCreateNestedOneWithoutPdca_sessionInput
+  value_organization?: Prisma.ValueOrganizationUncheckedCreateNestedManyWithoutPdca_sessionInput
+  desire_organization?: Prisma.DesireOrganizationUncheckedCreateNestedManyWithoutPdca_sessionInput
+  positioning_patterns?: Prisma.PositioningPatternsUncheckedCreateNestedManyWithoutPDCA_SessionInput
 }
 
 export type PDCASessionCreateOrConnectWithoutRenderedVideosInput = {
@@ -868,9 +1231,12 @@ export type PDCASessionUpdateWithoutRenderedVideosInput = {
   keyword?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   pdca?: Prisma.PDCAUpdateOneRequiredWithoutPdcasessionsNestedInput
   ads?: Prisma.AdsUpdateManyWithoutPDCA_SessionNestedInput
-  competitor_matrix?: Prisma.CompetitorMatrixUpdateOneWithoutPdca_sessionNestedInput
   planningPlans?: Prisma.PlanningPlanUpdateOneWithoutPDCA_SessionNestedInput
   planningVariants?: Prisma.PlanningVariantsUpdateOneWithoutPDCA_SessionNestedInput
+  competitor_matrix?: Prisma.CompetitorMatrixUpdateOneWithoutPdca_sessionNestedInput
+  value_organization?: Prisma.ValueOrganizationUpdateManyWithoutPdca_sessionNestedInput
+  desire_organization?: Prisma.DesireOrganizationUpdateManyWithoutPdca_sessionNestedInput
+  positioning_patterns?: Prisma.PositioningPatternsUpdateManyWithoutPDCA_SessionNestedInput
 }
 
 export type PDCASessionUncheckedUpdateWithoutRenderedVideosInput = {
@@ -882,9 +1248,12 @@ export type PDCASessionUncheckedUpdateWithoutRenderedVideosInput = {
   competitors?: Prisma.PDCASessionUpdatecompetitorsInput | string[]
   keyword?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   ads?: Prisma.AdsUncheckedUpdateManyWithoutPDCA_SessionNestedInput
-  competitor_matrix?: Prisma.CompetitorMatrixUncheckedUpdateOneWithoutPdca_sessionNestedInput
   planningPlans?: Prisma.PlanningPlanUncheckedUpdateOneWithoutPDCA_SessionNestedInput
   planningVariants?: Prisma.PlanningVariantsUncheckedUpdateOneWithoutPDCA_SessionNestedInput
+  competitor_matrix?: Prisma.CompetitorMatrixUncheckedUpdateOneWithoutPdca_sessionNestedInput
+  value_organization?: Prisma.ValueOrganizationUncheckedUpdateManyWithoutPdca_sessionNestedInput
+  desire_organization?: Prisma.DesireOrganizationUncheckedUpdateManyWithoutPdca_sessionNestedInput
+  positioning_patterns?: Prisma.PositioningPatternsUncheckedUpdateManyWithoutPDCA_SessionNestedInput
 }
 
 export type PDCASessionCreateWithoutAdsInput = {
@@ -895,10 +1264,13 @@ export type PDCASessionCreateWithoutAdsInput = {
   competitors?: Prisma.PDCASessionCreatecompetitorsInput | string[]
   keyword?: string | null
   pdca: Prisma.PDCACreateNestedOneWithoutPdcasessionsInput
-  competitor_matrix?: Prisma.CompetitorMatrixCreateNestedOneWithoutPdca_sessionInput
   planningPlans?: Prisma.PlanningPlanCreateNestedOneWithoutPDCA_SessionInput
   planningVariants?: Prisma.PlanningVariantsCreateNestedOneWithoutPDCA_SessionInput
   renderedVideos?: Prisma.RenderedVideoCreateNestedManyWithoutPDCA_SessionInput
+  competitor_matrix?: Prisma.CompetitorMatrixCreateNestedOneWithoutPdca_sessionInput
+  value_organization?: Prisma.ValueOrganizationCreateNestedManyWithoutPdca_sessionInput
+  desire_organization?: Prisma.DesireOrganizationCreateNestedManyWithoutPdca_sessionInput
+  positioning_patterns?: Prisma.PositioningPatternsCreateNestedManyWithoutPDCA_SessionInput
 }
 
 export type PDCASessionUncheckedCreateWithoutAdsInput = {
@@ -909,10 +1281,13 @@ export type PDCASessionUncheckedCreateWithoutAdsInput = {
   product?: string | null
   competitors?: Prisma.PDCASessionCreatecompetitorsInput | string[]
   keyword?: string | null
-  competitor_matrix?: Prisma.CompetitorMatrixUncheckedCreateNestedOneWithoutPdca_sessionInput
   planningPlans?: Prisma.PlanningPlanUncheckedCreateNestedOneWithoutPDCA_SessionInput
   planningVariants?: Prisma.PlanningVariantsUncheckedCreateNestedOneWithoutPDCA_SessionInput
   renderedVideos?: Prisma.RenderedVideoUncheckedCreateNestedManyWithoutPDCA_SessionInput
+  competitor_matrix?: Prisma.CompetitorMatrixUncheckedCreateNestedOneWithoutPdca_sessionInput
+  value_organization?: Prisma.ValueOrganizationUncheckedCreateNestedManyWithoutPdca_sessionInput
+  desire_organization?: Prisma.DesireOrganizationUncheckedCreateNestedManyWithoutPdca_sessionInput
+  positioning_patterns?: Prisma.PositioningPatternsUncheckedCreateNestedManyWithoutPDCA_SessionInput
 }
 
 export type PDCASessionCreateOrConnectWithoutAdsInput = {
@@ -939,10 +1314,13 @@ export type PDCASessionUpdateWithoutAdsInput = {
   competitors?: Prisma.PDCASessionUpdatecompetitorsInput | string[]
   keyword?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   pdca?: Prisma.PDCAUpdateOneRequiredWithoutPdcasessionsNestedInput
-  competitor_matrix?: Prisma.CompetitorMatrixUpdateOneWithoutPdca_sessionNestedInput
   planningPlans?: Prisma.PlanningPlanUpdateOneWithoutPDCA_SessionNestedInput
   planningVariants?: Prisma.PlanningVariantsUpdateOneWithoutPDCA_SessionNestedInput
   renderedVideos?: Prisma.RenderedVideoUpdateManyWithoutPDCA_SessionNestedInput
+  competitor_matrix?: Prisma.CompetitorMatrixUpdateOneWithoutPdca_sessionNestedInput
+  value_organization?: Prisma.ValueOrganizationUpdateManyWithoutPdca_sessionNestedInput
+  desire_organization?: Prisma.DesireOrganizationUpdateManyWithoutPdca_sessionNestedInput
+  positioning_patterns?: Prisma.PositioningPatternsUpdateManyWithoutPDCA_SessionNestedInput
 }
 
 export type PDCASessionUncheckedUpdateWithoutAdsInput = {
@@ -953,10 +1331,13 @@ export type PDCASessionUncheckedUpdateWithoutAdsInput = {
   product?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   competitors?: Prisma.PDCASessionUpdatecompetitorsInput | string[]
   keyword?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  competitor_matrix?: Prisma.CompetitorMatrixUncheckedUpdateOneWithoutPdca_sessionNestedInput
   planningPlans?: Prisma.PlanningPlanUncheckedUpdateOneWithoutPDCA_SessionNestedInput
   planningVariants?: Prisma.PlanningVariantsUncheckedUpdateOneWithoutPDCA_SessionNestedInput
   renderedVideos?: Prisma.RenderedVideoUncheckedUpdateManyWithoutPDCA_SessionNestedInput
+  competitor_matrix?: Prisma.CompetitorMatrixUncheckedUpdateOneWithoutPdca_sessionNestedInput
+  value_organization?: Prisma.ValueOrganizationUncheckedUpdateManyWithoutPdca_sessionNestedInput
+  desire_organization?: Prisma.DesireOrganizationUncheckedUpdateManyWithoutPdca_sessionNestedInput
+  positioning_patterns?: Prisma.PositioningPatternsUncheckedUpdateManyWithoutPDCA_SessionNestedInput
 }
 
 export type PDCASessionCreateManyPdcaInput = {
@@ -976,10 +1357,13 @@ export type PDCASessionUpdateWithoutPdcaInput = {
   competitors?: Prisma.PDCASessionUpdatecompetitorsInput | string[]
   keyword?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   ads?: Prisma.AdsUpdateManyWithoutPDCA_SessionNestedInput
-  competitor_matrix?: Prisma.CompetitorMatrixUpdateOneWithoutPdca_sessionNestedInput
   planningPlans?: Prisma.PlanningPlanUpdateOneWithoutPDCA_SessionNestedInput
   planningVariants?: Prisma.PlanningVariantsUpdateOneWithoutPDCA_SessionNestedInput
   renderedVideos?: Prisma.RenderedVideoUpdateManyWithoutPDCA_SessionNestedInput
+  competitor_matrix?: Prisma.CompetitorMatrixUpdateOneWithoutPdca_sessionNestedInput
+  value_organization?: Prisma.ValueOrganizationUpdateManyWithoutPdca_sessionNestedInput
+  desire_organization?: Prisma.DesireOrganizationUpdateManyWithoutPdca_sessionNestedInput
+  positioning_patterns?: Prisma.PositioningPatternsUpdateManyWithoutPDCA_SessionNestedInput
 }
 
 export type PDCASessionUncheckedUpdateWithoutPdcaInput = {
@@ -990,10 +1374,13 @@ export type PDCASessionUncheckedUpdateWithoutPdcaInput = {
   competitors?: Prisma.PDCASessionUpdatecompetitorsInput | string[]
   keyword?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   ads?: Prisma.AdsUncheckedUpdateManyWithoutPDCA_SessionNestedInput
-  competitor_matrix?: Prisma.CompetitorMatrixUncheckedUpdateOneWithoutPdca_sessionNestedInput
   planningPlans?: Prisma.PlanningPlanUncheckedUpdateOneWithoutPDCA_SessionNestedInput
   planningVariants?: Prisma.PlanningVariantsUncheckedUpdateOneWithoutPDCA_SessionNestedInput
   renderedVideos?: Prisma.RenderedVideoUncheckedUpdateManyWithoutPDCA_SessionNestedInput
+  competitor_matrix?: Prisma.CompetitorMatrixUncheckedUpdateOneWithoutPdca_sessionNestedInput
+  value_organization?: Prisma.ValueOrganizationUncheckedUpdateManyWithoutPdca_sessionNestedInput
+  desire_organization?: Prisma.DesireOrganizationUncheckedUpdateManyWithoutPdca_sessionNestedInput
+  positioning_patterns?: Prisma.PositioningPatternsUncheckedUpdateManyWithoutPDCA_SessionNestedInput
 }
 
 export type PDCASessionUncheckedUpdateManyWithoutPdcaInput = {
@@ -1013,11 +1400,17 @@ export type PDCASessionUncheckedUpdateManyWithoutPdcaInput = {
 export type PDCASessionCountOutputType = {
   ads: number
   renderedVideos: number
+  value_organization: number
+  desire_organization: number
+  positioning_patterns: number
 }
 
 export type PDCASessionCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   ads?: boolean | PDCASessionCountOutputTypeCountAdsArgs
   renderedVideos?: boolean | PDCASessionCountOutputTypeCountRenderedVideosArgs
+  value_organization?: boolean | PDCASessionCountOutputTypeCountValue_organizationArgs
+  desire_organization?: boolean | PDCASessionCountOutputTypeCountDesire_organizationArgs
+  positioning_patterns?: boolean | PDCASessionCountOutputTypeCountPositioning_patternsArgs
 }
 
 /**
@@ -1044,6 +1437,27 @@ export type PDCASessionCountOutputTypeCountRenderedVideosArgs<ExtArgs extends ru
   where?: Prisma.RenderedVideoWhereInput
 }
 
+/**
+ * PDCASessionCountOutputType without action
+ */
+export type PDCASessionCountOutputTypeCountValue_organizationArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.ValueOrganizationWhereInput
+}
+
+/**
+ * PDCASessionCountOutputType without action
+ */
+export type PDCASessionCountOutputTypeCountDesire_organizationArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.DesireOrganizationWhereInput
+}
+
+/**
+ * PDCASessionCountOutputType without action
+ */
+export type PDCASessionCountOutputTypeCountPositioning_patternsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.PositioningPatternsWhereInput
+}
+
 
 export type PDCASessionSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
@@ -1055,10 +1469,13 @@ export type PDCASessionSelect<ExtArgs extends runtime.Types.Extensions.InternalA
   keyword?: boolean
   pdca?: boolean | Prisma.PDCADefaultArgs<ExtArgs>
   ads?: boolean | Prisma.PDCASession$adsArgs<ExtArgs>
-  competitor_matrix?: boolean | Prisma.PDCASession$competitor_matrixArgs<ExtArgs>
   planningPlans?: boolean | Prisma.PDCASession$planningPlansArgs<ExtArgs>
   planningVariants?: boolean | Prisma.PDCASession$planningVariantsArgs<ExtArgs>
   renderedVideos?: boolean | Prisma.PDCASession$renderedVideosArgs<ExtArgs>
+  competitor_matrix?: boolean | Prisma.PDCASession$competitor_matrixArgs<ExtArgs>
+  value_organization?: boolean | Prisma.PDCASession$value_organizationArgs<ExtArgs>
+  desire_organization?: boolean | Prisma.PDCASession$desire_organizationArgs<ExtArgs>
+  positioning_patterns?: boolean | Prisma.PDCASession$positioning_patternsArgs<ExtArgs>
   _count?: boolean | Prisma.PDCASessionCountOutputTypeDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["pDCASession"]>
 
@@ -1098,10 +1515,13 @@ export type PDCASessionOmit<ExtArgs extends runtime.Types.Extensions.InternalArg
 export type PDCASessionInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   pdca?: boolean | Prisma.PDCADefaultArgs<ExtArgs>
   ads?: boolean | Prisma.PDCASession$adsArgs<ExtArgs>
-  competitor_matrix?: boolean | Prisma.PDCASession$competitor_matrixArgs<ExtArgs>
   planningPlans?: boolean | Prisma.PDCASession$planningPlansArgs<ExtArgs>
   planningVariants?: boolean | Prisma.PDCASession$planningVariantsArgs<ExtArgs>
   renderedVideos?: boolean | Prisma.PDCASession$renderedVideosArgs<ExtArgs>
+  competitor_matrix?: boolean | Prisma.PDCASession$competitor_matrixArgs<ExtArgs>
+  value_organization?: boolean | Prisma.PDCASession$value_organizationArgs<ExtArgs>
+  desire_organization?: boolean | Prisma.PDCASession$desire_organizationArgs<ExtArgs>
+  positioning_patterns?: boolean | Prisma.PDCASession$positioning_patternsArgs<ExtArgs>
   _count?: boolean | Prisma.PDCASessionCountOutputTypeDefaultArgs<ExtArgs>
 }
 export type PDCASessionIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
@@ -1116,10 +1536,13 @@ export type $PDCASessionPayload<ExtArgs extends runtime.Types.Extensions.Interna
   objects: {
     pdca: Prisma.$PDCAPayload<ExtArgs>
     ads: Prisma.$AdsPayload<ExtArgs>[]
-    competitor_matrix: Prisma.$CompetitorMatrixPayload<ExtArgs> | null
     planningPlans: Prisma.$PlanningPlanPayload<ExtArgs> | null
     planningVariants: Prisma.$PlanningVariantsPayload<ExtArgs> | null
     renderedVideos: Prisma.$RenderedVideoPayload<ExtArgs>[]
+    competitor_matrix: Prisma.$CompetitorMatrixPayload<ExtArgs> | null
+    value_organization: Prisma.$ValueOrganizationPayload<ExtArgs>[]
+    desire_organization: Prisma.$DesireOrganizationPayload<ExtArgs>[]
+    positioning_patterns: Prisma.$PositioningPatternsPayload<ExtArgs>[]
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: string
@@ -1525,10 +1948,13 @@ export interface Prisma__PDCASessionClient<T, Null = never, ExtArgs extends runt
   readonly [Symbol.toStringTag]: "PrismaPromise"
   pdca<T extends Prisma.PDCADefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.PDCADefaultArgs<ExtArgs>>): Prisma.Prisma__PDCAClient<runtime.Types.Result.GetResult<Prisma.$PDCAPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
   ads<T extends Prisma.PDCASession$adsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.PDCASession$adsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$AdsPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
-  competitor_matrix<T extends Prisma.PDCASession$competitor_matrixArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.PDCASession$competitor_matrixArgs<ExtArgs>>): Prisma.Prisma__CompetitorMatrixClient<runtime.Types.Result.GetResult<Prisma.$CompetitorMatrixPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
   planningPlans<T extends Prisma.PDCASession$planningPlansArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.PDCASession$planningPlansArgs<ExtArgs>>): Prisma.Prisma__PlanningPlanClient<runtime.Types.Result.GetResult<Prisma.$PlanningPlanPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
   planningVariants<T extends Prisma.PDCASession$planningVariantsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.PDCASession$planningVariantsArgs<ExtArgs>>): Prisma.Prisma__PlanningVariantsClient<runtime.Types.Result.GetResult<Prisma.$PlanningVariantsPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
   renderedVideos<T extends Prisma.PDCASession$renderedVideosArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.PDCASession$renderedVideosArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$RenderedVideoPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  competitor_matrix<T extends Prisma.PDCASession$competitor_matrixArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.PDCASession$competitor_matrixArgs<ExtArgs>>): Prisma.Prisma__CompetitorMatrixClient<runtime.Types.Result.GetResult<Prisma.$CompetitorMatrixPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+  value_organization<T extends Prisma.PDCASession$value_organizationArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.PDCASession$value_organizationArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$ValueOrganizationPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  desire_organization<T extends Prisma.PDCASession$desire_organizationArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.PDCASession$desire_organizationArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$DesireOrganizationPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  positioning_patterns<T extends Prisma.PDCASession$positioning_patternsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.PDCASession$positioning_patternsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$PositioningPatternsPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
    * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -1985,25 +2411,6 @@ export type PDCASession$adsArgs<ExtArgs extends runtime.Types.Extensions.Interna
 }
 
 /**
- * PDCASession.competitor_matrix
- */
-export type PDCASession$competitor_matrixArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  /**
-   * Select specific fields to fetch from the CompetitorMatrix
-   */
-  select?: Prisma.CompetitorMatrixSelect<ExtArgs> | null
-  /**
-   * Omit specific fields from the CompetitorMatrix
-   */
-  omit?: Prisma.CompetitorMatrixOmit<ExtArgs> | null
-  /**
-   * Choose, which related nodes to fetch as well
-   */
-  include?: Prisma.CompetitorMatrixInclude<ExtArgs> | null
-  where?: Prisma.CompetitorMatrixWhereInput
-}
-
-/**
  * PDCASession.planningPlans
  */
 export type PDCASession$planningPlansArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
@@ -2063,6 +2470,97 @@ export type PDCASession$renderedVideosArgs<ExtArgs extends runtime.Types.Extensi
   take?: number
   skip?: number
   distinct?: Prisma.RenderedVideoScalarFieldEnum | Prisma.RenderedVideoScalarFieldEnum[]
+}
+
+/**
+ * PDCASession.competitor_matrix
+ */
+export type PDCASession$competitor_matrixArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the CompetitorMatrix
+   */
+  select?: Prisma.CompetitorMatrixSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the CompetitorMatrix
+   */
+  omit?: Prisma.CompetitorMatrixOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.CompetitorMatrixInclude<ExtArgs> | null
+  where?: Prisma.CompetitorMatrixWhereInput
+}
+
+/**
+ * PDCASession.value_organization
+ */
+export type PDCASession$value_organizationArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the ValueOrganization
+   */
+  select?: Prisma.ValueOrganizationSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the ValueOrganization
+   */
+  omit?: Prisma.ValueOrganizationOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.ValueOrganizationInclude<ExtArgs> | null
+  where?: Prisma.ValueOrganizationWhereInput
+  orderBy?: Prisma.ValueOrganizationOrderByWithRelationInput | Prisma.ValueOrganizationOrderByWithRelationInput[]
+  cursor?: Prisma.ValueOrganizationWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.ValueOrganizationScalarFieldEnum | Prisma.ValueOrganizationScalarFieldEnum[]
+}
+
+/**
+ * PDCASession.desire_organization
+ */
+export type PDCASession$desire_organizationArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the DesireOrganization
+   */
+  select?: Prisma.DesireOrganizationSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the DesireOrganization
+   */
+  omit?: Prisma.DesireOrganizationOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.DesireOrganizationInclude<ExtArgs> | null
+  where?: Prisma.DesireOrganizationWhereInput
+  orderBy?: Prisma.DesireOrganizationOrderByWithRelationInput | Prisma.DesireOrganizationOrderByWithRelationInput[]
+  cursor?: Prisma.DesireOrganizationWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.DesireOrganizationScalarFieldEnum | Prisma.DesireOrganizationScalarFieldEnum[]
+}
+
+/**
+ * PDCASession.positioning_patterns
+ */
+export type PDCASession$positioning_patternsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the PositioningPatterns
+   */
+  select?: Prisma.PositioningPatternsSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the PositioningPatterns
+   */
+  omit?: Prisma.PositioningPatternsOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.PositioningPatternsInclude<ExtArgs> | null
+  where?: Prisma.PositioningPatternsWhereInput
+  orderBy?: Prisma.PositioningPatternsOrderByWithRelationInput | Prisma.PositioningPatternsOrderByWithRelationInput[]
+  cursor?: Prisma.PositioningPatternsWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.PositioningPatternsScalarFieldEnum | Prisma.PositioningPatternsScalarFieldEnum[]
 }
 
 /**

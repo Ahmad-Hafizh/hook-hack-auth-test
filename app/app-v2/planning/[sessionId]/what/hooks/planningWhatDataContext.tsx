@@ -23,6 +23,32 @@ export interface IBriefPlanning {
   suggestion: IKeyStrategy;
 }
 
+export interface IValueOrganization {
+  id: string;
+  category: string;
+  label: string;
+  rationale: string;
+}
+
+export interface IDesire {
+  desire: string;
+  reason: string;
+  tobe: {
+    action: string;
+    judgement: string;
+    new_assumption: string;
+    old_assumption: string;
+  };
+}
+
+export interface IDesireOrganization {
+  value_id: string;
+  value_label: string;
+  value_category: string;
+  desire_1: IDesire;
+  desire_2: IDesire;
+}
+
 export const PlannningWhatDataContext = createContext({
   keywords: [] as IKeywords[],
   onSetKeywords: (keywords: IKeywords[]) => {},
@@ -40,6 +66,10 @@ export const PlannningWhatDataContext = createContext({
   onSetStep6Data: (data: any) => {},
   step7Data: {} as any,
   onSetStep7Data: (data: any) => {},
+  valueOrganization: [] as IValueOrganization[],
+  onSetValueOrganization: (data: IValueOrganization[]) => {},
+  desireOrganization: [] as IDesireOrganization[],
+  onSetDesireOrganization: (data: IDesireOrganization[]) => {},
 });
 
 export default function PlannningWhatDataContextProvider({
@@ -101,6 +131,20 @@ export default function PlannningWhatDataContextProvider({
     setStep7Data(data);
   };
 
+  const [valueOrganization, setValueOrganization] = useState<
+    IValueOrganization[]
+  >([]);
+  const onSetValueOrganization = (data: IValueOrganization[]) => {
+    setValueOrganization(data);
+  };
+
+  const [desireOrganization, setDesireOrganization] = useState<
+    IDesireOrganization[]
+  >([]);
+  const onSetDesireOrganization = (data: IDesireOrganization[]) => {
+    setDesireOrganization(data);
+  };
+
   return (
     <PlannningWhatDataContext.Provider
       value={{
@@ -120,6 +164,10 @@ export default function PlannningWhatDataContextProvider({
         onSetStep6Data,
         step7Data,
         onSetStep7Data,
+        valueOrganization,
+        onSetValueOrganization,
+        desireOrganization,
+        onSetDesireOrganization,
       }}
     >
       {children}

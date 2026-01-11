@@ -59,6 +59,9 @@ export const ModelName = {
   PDCA: 'PDCA',
   PDCASession: 'PDCASession',
   CompetitorMatrix: 'CompetitorMatrix',
+  ValueOrganization: 'ValueOrganization',
+  DesireOrganization: 'DesireOrganization',
+  PositioningPatterns: 'PositioningPatterns',
   PlanningPlan: 'PlanningPlan',
   PlanningVariants: 'PlanningVariants',
   RenderedVideo: 'RenderedVideo',
@@ -206,6 +209,50 @@ export const CompetitorMatrixScalarFieldEnum = {
 } as const
 
 export type CompetitorMatrixScalarFieldEnum = (typeof CompetitorMatrixScalarFieldEnum)[keyof typeof CompetitorMatrixScalarFieldEnum]
+
+
+export const ValueOrganizationScalarFieldEnum = {
+  id: 'id',
+  value_id: 'value_id',
+  category: 'category',
+  label: 'label',
+  rationale: 'rationale',
+  pdca_session_id: 'pdca_session_id'
+} as const
+
+export type ValueOrganizationScalarFieldEnum = (typeof ValueOrganizationScalarFieldEnum)[keyof typeof ValueOrganizationScalarFieldEnum]
+
+
+export const DesireOrganizationScalarFieldEnum = {
+  id: 'id',
+  value_id: 'value_id',
+  value_category: 'value_category',
+  value_label: 'value_label',
+  desire_1: 'desire_1',
+  desire_2: 'desire_2',
+  pdca_session_id: 'pdca_session_id'
+} as const
+
+export type DesireOrganizationScalarFieldEnum = (typeof DesireOrganizationScalarFieldEnum)[keyof typeof DesireOrganizationScalarFieldEnum]
+
+
+export const PositioningPatternsScalarFieldEnum = {
+  id: 'id',
+  pattern_number: 'pattern_number',
+  quadrant: 'quadrant',
+  quadrant_ja: 'quadrant_ja',
+  direction: 'direction',
+  direction_ja: 'direction_ja',
+  direction_reason: 'direction_reason',
+  process_description: 'process_description',
+  outcome_description: 'outcome_description',
+  one_line_promise: 'one_line_promise',
+  source_value_ids: 'source_value_ids',
+  source_tobe_ids: 'source_tobe_ids',
+  pdca_session_id: 'pdca_session_id'
+} as const
+
+export type PositioningPatternsScalarFieldEnum = (typeof PositioningPatternsScalarFieldEnum)[keyof typeof PositioningPatternsScalarFieldEnum]
 
 
 export const PlanningPlanScalarFieldEnum = {

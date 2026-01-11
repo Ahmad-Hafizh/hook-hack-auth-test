@@ -69,7 +69,6 @@ const AppPage = () => {
           id: 4,
           page: (
             <Step4
-              briefPlanning={briefPlanning}
               onNext={() => {
                 onStep(5);
               }}

@@ -9,6 +9,16 @@
 * 🟢 You can import this file directly.
 */
 
+export const ValueOrganizationCategory = {
+  people: 'people',
+  things: 'things',
+  information: 'information',
+  vibes: 'vibes'
+} as const
+
+export type ValueOrganizationCategory = (typeof ValueOrganizationCategory)[keyof typeof ValueOrganizationCategory]
+
+
 export const PlanningPages = {
   what_scratch: 'what_scratch',
   what_skip: 'what_skip',

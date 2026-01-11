@@ -2,6 +2,7 @@ import { prisma } from "@/config/prisma/prisma";
 import { NextRequest, NextResponse } from "next/server";
 import { checkPageStep } from "../../utils/checkPageStep";
 import { checkUserSession } from "../../utils/checkUserSession";
+import callAppV2Api from "@/config/axios/axiosAppV2";
 
 export async function POST(req: NextRequest) {
   try {
@@ -33,22 +34,48 @@ export async function POST(req: NextRequest) {
       return NextResponse.json({ error: "Session not found" }, { status: 404 });
     }
 
-    await prisma.competitorMatrix.create({
-      data: {
-        pdca_session_id: sessionId,
-        keyMessages: key_message,
-        strongPoints: strong_points,
-        competitorsMatrix: competitorsMatrix,
-      },
-    });
+    // await prisma.competitorMatrix.create({
+    //   data: {
+    //     pdca_session_id: sessionId,
+    //     keyMessages: key_message,
+    //     strongPoints: strong_points,
+    //     competitorsMatrix: competitorsMatrix,
+    //   },
+    // });
+
+    // const { data } = await callAppV2Api.post("/v1/value-organization", {
+    //   user: {
+    //     url: "https://example.com/",
+    //     key_message: key_message,
+    //     strong_points: strong_points,
+    //   },
+    //   competitors: competitorsMatrix,
+    //   provider: "openai",
+    //   language: "ja",
+    //   reasoning_effort: "high",
+    // });
+
+    // const value_organization = await prisma.valueOrganization.createMany({
+    //   data: data.values.map((item: any) => ({
+    //     pdca_session_id: sessionId,
+    //     value_id: item.id,
+    //     category: item.category,
+    //     label: item.label,
+    //     rationale: item.rationale,
+    //   })),
+    // });
 
     return NextResponse.json(
       {
         message: "Success",
+        // value_organization,
       },
       { status: 200 }
     );
   } catch (error) {
-    return NextResponse.json({ error: "Error" }, { status: 500 });
+    return NextResponse.json(
+      { error: "Error", details: error },
+      { status: 500 }
+    );
   }
 }

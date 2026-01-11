@@ -81,6 +81,21 @@ export type PDCASession = Prisma.PDCASessionModel
  */
 export type CompetitorMatrix = Prisma.CompetitorMatrixModel
 /**
+ * Model ValueOrganization
+ * 
+ */
+export type ValueOrganization = Prisma.ValueOrganizationModel
+/**
+ * Model DesireOrganization
+ * 
+ */
+export type DesireOrganization = Prisma.DesireOrganizationModel
+/**
+ * Model PositioningPatterns
+ * 
+ */
+export type PositioningPatterns = Prisma.PositioningPatternsModel
+/**
  * Model PlanningPlan
  * 
  */

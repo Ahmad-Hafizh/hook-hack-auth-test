@@ -8,11 +8,7 @@ export {
 } from "./competitive-matrix";
 
 // Value Organization Components (File 63)
-export {
-  ValueItem,
-  ValueCategoryCard,
-  ValueOrganizationGrid,
-} from "./ValueOrganizationCard";
+export { ValueItem, ValueCategoryCard } from "./ValueOrganizationCard";
 
 // Value Desire Mapping Components (File 64)
 export { DesireItem, ValueDesireCard } from "./ValueDesireCard";

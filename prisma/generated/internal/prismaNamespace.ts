@@ -392,6 +392,9 @@ export const ModelName = {
   PDCA: 'PDCA',
   PDCASession: 'PDCASession',
   CompetitorMatrix: 'CompetitorMatrix',
+  ValueOrganization: 'ValueOrganization',
+  DesireOrganization: 'DesireOrganization',
+  PositioningPatterns: 'PositioningPatterns',
   PlanningPlan: 'PlanningPlan',
   PlanningVariants: 'PlanningVariants',
   RenderedVideo: 'RenderedVideo',
@@ -412,7 +415,7 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
     omit: GlobalOmitOptions
   }
   meta: {
-    modelProps: "user" | "v2_format" | "requestlist" | "project" | "transaction" | "pDCA" | "pDCASession" | "competitorMatrix" | "planningPlan" | "planningVariants" | "renderedVideo" | "ads" | "googleAdsCredential"
+    modelProps: "user" | "v2_format" | "requestlist" | "project" | "transaction" | "pDCA" | "pDCASession" | "competitorMatrix" | "valueOrganization" | "desireOrganization" | "positioningPatterns" | "planningPlan" | "planningVariants" | "renderedVideo" | "ads" | "googleAdsCredential"
     txIsolationLevel: TransactionIsolationLevel
   }
   model: {
@@ -1008,6 +1011,228 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
         }
       }
     }
+    ValueOrganization: {
+      payload: Prisma.$ValueOrganizationPayload<ExtArgs>
+      fields: Prisma.ValueOrganizationFieldRefs
+      operations: {
+        findUnique: {
+          args: Prisma.ValueOrganizationFindUniqueArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ValueOrganizationPayload> | null
+        }
+        findUniqueOrThrow: {
+          args: Prisma.ValueOrganizationFindUniqueOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ValueOrganizationPayload>
+        }
+        findFirst: {
+          args: Prisma.ValueOrganizationFindFirstArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ValueOrganizationPayload> | null
+        }
+        findFirstOrThrow: {
+          args: Prisma.ValueOrganizationFindFirstOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ValueOrganizationPayload>
+        }
+        findMany: {
+          args: Prisma.ValueOrganizationFindManyArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ValueOrganizationPayload>[]
+        }
+        create: {
+          args: Prisma.ValueOrganizationCreateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ValueOrganizationPayload>
+        }
+        createMany: {
+          args: Prisma.ValueOrganizationCreateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        createManyAndReturn: {
+          args: Prisma.ValueOrganizationCreateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ValueOrganizationPayload>[]
+        }
+        delete: {
+          args: Prisma.ValueOrganizationDeleteArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ValueOrganizationPayload>
+        }
+        update: {
+          args: Prisma.ValueOrganizationUpdateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ValueOrganizationPayload>
+        }
+        deleteMany: {
+          args: Prisma.ValueOrganizationDeleteManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateMany: {
+          args: Prisma.ValueOrganizationUpdateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateManyAndReturn: {
+          args: Prisma.ValueOrganizationUpdateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ValueOrganizationPayload>[]
+        }
+        upsert: {
+          args: Prisma.ValueOrganizationUpsertArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ValueOrganizationPayload>
+        }
+        aggregate: {
+          args: Prisma.ValueOrganizationAggregateArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AggregateValueOrganization>
+        }
+        groupBy: {
+          args: Prisma.ValueOrganizationGroupByArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.ValueOrganizationGroupByOutputType>[]
+        }
+        count: {
+          args: Prisma.ValueOrganizationCountArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.ValueOrganizationCountAggregateOutputType> | number
+        }
+      }
+    }
+    DesireOrganization: {
+      payload: Prisma.$DesireOrganizationPayload<ExtArgs>
+      fields: Prisma.DesireOrganizationFieldRefs
+      operations: {
+        findUnique: {
+          args: Prisma.DesireOrganizationFindUniqueArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$DesireOrganizationPayload> | null
+        }
+        findUniqueOrThrow: {
+          args: Prisma.DesireOrganizationFindUniqueOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$DesireOrganizationPayload>
+        }
+        findFirst: {
+          args: Prisma.DesireOrganizationFindFirstArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$DesireOrganizationPayload> | null
+        }
+        findFirstOrThrow: {
+          args: Prisma.DesireOrganizationFindFirstOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$DesireOrganizationPayload>
+        }
+        findMany: {
+          args: Prisma.DesireOrganizationFindManyArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$DesireOrganizationPayload>[]
+        }
+        create: {
+          args: Prisma.DesireOrganizationCreateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$DesireOrganizationPayload>
+        }
+        createMany: {
+          args: Prisma.DesireOrganizationCreateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        createManyAndReturn: {
+          args: Prisma.DesireOrganizationCreateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$DesireOrganizationPayload>[]
+        }
+        delete: {
+          args: Prisma.DesireOrganizationDeleteArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$DesireOrganizationPayload>
+        }
+        update: {
+          args: Prisma.DesireOrganizationUpdateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$DesireOrganizationPayload>
+        }
+        deleteMany: {
+          args: Prisma.DesireOrganizationDeleteManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateMany: {
+          args: Prisma.DesireOrganizationUpdateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateManyAndReturn: {
+          args: Prisma.DesireOrganizationUpdateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$DesireOrganizationPayload>[]
+        }
+        upsert: {
+          args: Prisma.DesireOrganizationUpsertArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$DesireOrganizationPayload>
+        }
+        aggregate: {
+          args: Prisma.DesireOrganizationAggregateArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AggregateDesireOrganization>
+        }
+        groupBy: {
+          args: Prisma.DesireOrganizationGroupByArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.DesireOrganizationGroupByOutputType>[]
+        }
+        count: {
+          args: Prisma.DesireOrganizationCountArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.DesireOrganizationCountAggregateOutputType> | number
+        }
+      }
+    }
+    PositioningPatterns: {
+      payload: Prisma.$PositioningPatternsPayload<ExtArgs>
+      fields: Prisma.PositioningPatternsFieldRefs
+      operations: {
+        findUnique: {
+          args: Prisma.PositioningPatternsFindUniqueArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$PositioningPatternsPayload> | null
+        }
+        findUniqueOrThrow: {
+          args: Prisma.PositioningPatternsFindUniqueOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$PositioningPatternsPayload>
+        }
+        findFirst: {
+          args: Prisma.PositioningPatternsFindFirstArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$PositioningPatternsPayload> | null
+        }
+        findFirstOrThrow: {
+          args: Prisma.PositioningPatternsFindFirstOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$PositioningPatternsPayload>
+        }
+        findMany: {
+          args: Prisma.PositioningPatternsFindManyArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$PositioningPatternsPayload>[]
+        }
+        create: {
+          args: Prisma.PositioningPatternsCreateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$PositioningPatternsPayload>
+        }
+        createMany: {
+          args: Prisma.PositioningPatternsCreateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        createManyAndReturn: {
+          args: Prisma.PositioningPatternsCreateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$PositioningPatternsPayload>[]
+        }
+        delete: {
+          args: Prisma.PositioningPatternsDeleteArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$PositioningPatternsPayload>
+        }
+        update: {
+          args: Prisma.PositioningPatternsUpdateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$PositioningPatternsPayload>
+        }
+        deleteMany: {
+          args: Prisma.PositioningPatternsDeleteManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateMany: {
+          args: Prisma.PositioningPatternsUpdateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateManyAndReturn: {
+          args: Prisma.PositioningPatternsUpdateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$PositioningPatternsPayload>[]
+        }
+        upsert: {
+          args: Prisma.PositioningPatternsUpsertArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$PositioningPatternsPayload>
+        }
+        aggregate: {
+          args: Prisma.PositioningPatternsAggregateArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AggregatePositioningPatterns>
+        }
+        groupBy: {
+          args: Prisma.PositioningPatternsGroupByArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.PositioningPatternsGroupByOutputType>[]
+        }
+        count: {
+          args: Prisma.PositioningPatternsCountArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.PositioningPatternsCountAggregateOutputType> | number
+        }
+      }
+    }
     PlanningPlan: {
       payload: Prisma.$PlanningPlanPayload<ExtArgs>
       fields: Prisma.PlanningPlanFieldRefs
@@ -1543,6 +1768,50 @@ export const CompetitorMatrixScalarFieldEnum = {
 export type CompetitorMatrixScalarFieldEnum = (typeof CompetitorMatrixScalarFieldEnum)[keyof typeof CompetitorMatrixScalarFieldEnum]
 
 
+export const ValueOrganizationScalarFieldEnum = {
+  id: 'id',
+  value_id: 'value_id',
+  category: 'category',
+  label: 'label',
+  rationale: 'rationale',
+  pdca_session_id: 'pdca_session_id'
+} as const
+
+export type ValueOrganizationScalarFieldEnum = (typeof ValueOrganizationScalarFieldEnum)[keyof typeof ValueOrganizationScalarFieldEnum]
+
+
+export const DesireOrganizationScalarFieldEnum = {
+  id: 'id',
+  value_id: 'value_id',
+  value_category: 'value_category',
+  value_label: 'value_label',
+  desire_1: 'desire_1',
+  desire_2: 'desire_2',
+  pdca_session_id: 'pdca_session_id'
+} as const
+
+export type DesireOrganizationScalarFieldEnum = (typeof DesireOrganizationScalarFieldEnum)[keyof typeof DesireOrganizationScalarFieldEnum]
+
+
+export const PositioningPatternsScalarFieldEnum = {
+  id: 'id',
+  pattern_number: 'pattern_number',
+  quadrant: 'quadrant',
+  quadrant_ja: 'quadrant_ja',
+  direction: 'direction',
+  direction_ja: 'direction_ja',
+  direction_reason: 'direction_reason',
+  process_description: 'process_description',
+  outcome_description: 'outcome_description',
+  one_line_promise: 'one_line_promise',
+  source_value_ids: 'source_value_ids',
+  source_tobe_ids: 'source_tobe_ids',
+  pdca_session_id: 'pdca_session_id'
+} as const
+
+export type PositioningPatternsScalarFieldEnum = (typeof PositioningPatternsScalarFieldEnum)[keyof typeof PositioningPatternsScalarFieldEnum]
+
+
 export const PlanningPlanScalarFieldEnum = {
   id: 'id',
   currency: 'currency',
@@ -1758,6 +2027,20 @@ export type ListEnumPlanningPagesFieldRefInput<$PrismaModel> = FieldRefInputType
 
 
 /**
+ * Reference to a field of type 'ValueOrganizationCategory'
+ */
+export type EnumValueOrganizationCategoryFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'ValueOrganizationCategory'>
+    
+
+
+/**
+ * Reference to a field of type 'ValueOrganizationCategory[]'
+ */
+export type ListEnumValueOrganizationCategoryFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'ValueOrganizationCategory[]'>
+    
+
+
+/**
  * Reference to a field of type 'Float'
  */
 export type FloatFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Float'>
@@ -1873,6 +2156,9 @@ export type GlobalOmitConfig = {
   pDCA?: Prisma.PDCAOmit
   pDCASession?: Prisma.PDCASessionOmit
   competitorMatrix?: Prisma.CompetitorMatrixOmit
+  valueOrganization?: Prisma.ValueOrganizationOmit
+  desireOrganization?: Prisma.DesireOrganizationOmit
+  positioningPatterns?: Prisma.PositioningPatternsOmit
   planningPlan?: Prisma.PlanningPlanOmit
   planningVariants?: Prisma.PlanningVariantsOmit
   renderedVideo?: Prisma.RenderedVideoOmit

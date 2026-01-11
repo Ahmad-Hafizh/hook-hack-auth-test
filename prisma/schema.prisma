@@ -121,10 +121,14 @@ model PDCASession {
   keyword          String?
 
   ads              Ads[]
-  competitor_matrix CompetitorMatrix?
   planningPlans    PlanningPlan?
   planningVariants PlanningVariants?
   renderedVideos   RenderedVideo[]
+
+  competitor_matrix CompetitorMatrix?
+  value_organization ValueOrganization[]
+  desire_organization DesireOrganization[]
+  positioning_patterns PositioningPatterns[]
 
   @@map("pdca_session")
 }
@@ -140,6 +144,78 @@ model CompetitorMatrix {
   pdca_session   PDCASession @relation(fields: [pdca_session_id], references: [id])
 
   @@map("competitor_matrix")
+}
+
+model ValueOrganization {
+  id                String          @id @default(cuid())
+
+value_id         String
+  category       ValueOrganizationCategory
+  label         String
+  rationale      String
+
+  pdca_session_id String          @unique
+  pdca_session   PDCASession @relation(fields: [pdca_session_id], references: [id])
+
+@@map("value_organization")
+}
+
+enum ValueOrganizationCategory{
+  people
+  things
+  information
+  vibes
+}
+
+model DesireOrganization {
+  id                String          @id @default(cuid())
+value_id         String
+  value_category       String
+  value_label         String
+
+// desire options
+  desire_1 Json
+  desire_2 Json
+
+  pdca_session_id String          @unique
+  pdca_session   PDCASession @relation(fields: [pdca_session_id], references: [id])
+
+  @@map("desire_organization")
+
+// desires Desire[]
+}
+
+// model Desire {
+//   id                String          @id @default(cuid())
+
+//   desire String
+//   reason String
+//   tobe  Json
+
+//   desire_organization_id String
+//   desire_organization   DesireOrganization @relation(fields: [desire_organization_id], references: [id]) 
+// }
+
+
+model PositioningPatterns{
+  id                String          @id @default(cuid())
+
+pattern_number Int
+quadrant String
+quadrant_ja String
+direction String
+direction_ja String
+direction_reason String
+process_description String
+outcome_description String
+one_line_promise String
+source_value_ids String[]
+source_tobe_ids String[]
+
+  pdca_session_id String          @unique
+  PDCA_Session   PDCASession @relation(fields: [pdca_session_id], references: [id])
+
+  @@map("positioning_patterns")
 }
 
 model PlanningPlan {

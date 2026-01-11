@@ -1,0 +1,106 @@
+{
+  "values": [
+    {
+      "id": "P1",
+      "category": "people",
+      "label": "Empathy",
+      "rationale": "Users feel understood by the platform's support."
+    },
+    {
+      "id": "I1",
+      "category": "information",
+      "label": "Accuracy",
+      "rationale": "High precision in data analysis is mentioned repeatedly."
+    },
+    {
+      "id": "T1",
+      "category": "things",
+      "label": "Speed",
+      "rationale": "Processing is 2x faster than competitors."
+    },
+    {
+      "id": "V1",
+      "category": "vibes",
+      "label": "Modern",
+      "rationale": "UI is sleek and contemporary."
+    }
+    // ... total 12 items (3 per category)
+  ]
+}
+
+// desire organization
+{
+  "desire_tobes": [
+    {
+      "value_id": "P1",
+      "value_label": "Empathy",
+      "value_category": "people",
+      "desire_1": {
+        "desire": "belonging",
+        "reason": "Creating a community where users feel safe.",
+        "tobe": {
+          "old_assumption": "I am alone in this struggle",
+          "new_assumption": "We are in this together",
+          "judgment": "Seek connection over isolation",
+          "action": "Join the user community"
+        }
+      },
+      "desire_2": {
+        "desire": "security",
+        "reason": "Knowing support is always there.",
+        "tobe": {
+          "old_assumption": "Errors are fatal",
+          "new_assumption": "Help is always available",
+          "judgment": "Prioritize reliability",
+          "action": "Subscribe to premium support"
+        }
+      }
+    }
+    // ... total 6 items
+  ]
+}
+
+//positioning outline
+{
+  "positioning_patterns": [
+    {
+      "pattern_number": 1,
+      "quadrant": "functional × process",
+      "quadrant_ja": "機能×プロセス",
+      "direction": "convergent",
+      "direction_ja": "収束",
+      "direction_reason": "To focus on efficiency improvement.",
+      "process_description": "Streamlining the daily workflow with automation tools.",
+      "outcome_description": "Users save 2 hours per day/week.",
+      "one_line_promise": "We guarantee a 20% efficiency boost in your daily tasks.",
+      "source_value_ids": ["T1", "I1"],
+      "source_tobe_ids": ["P1_belonging"]
+    },
+    {
+      "pattern_number": 2,
+      "quadrant": "emotional × process",
+      "quadrant_ja": "情緒×プロセス",
+      "direction": "divergent",
+      "direction_ja": "発散",
+      "direction_reason": "To expand the user's creative potential.",
+      "process_description": "Providing a playground for experimentation.",
+      "outcome_description": "Users feel inspired and less anxious about failure.",
+      "one_line_promise": "Unleash your creativity without the fear of making mistakes.",
+      "source_value_ids": ["V1", "P1"],
+      "source_tobe_ids": ["P1_security"]
+    },
+    {
+      "pattern_number": 3,
+      "quadrant": "functional × outcome",
+      "quadrant_ja": "機能×結果",
+      "direction": "convergent",
+      "direction_ja": "収束",
+      "direction_reason": "To ensure targeted results.",
+      "process_description": "Using data-driven insights to guide decisions.",
+      "outcome_description": "Achieve zero error rates in reporting.",
+      "one_line_promise": "Data accuracy you can trust for critical decisions.",
+      "source_value_ids": ["I1", "T2"],
+      "source_tobe_ids": ["T1_growth"]
+    }
+  ]
+}

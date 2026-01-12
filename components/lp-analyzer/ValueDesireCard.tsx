@@ -50,11 +50,10 @@ export const DesireItem: React.FC<DesireItemProps> = ({
   return (
     <div className="bg-surface-subtle rounded-lg p-4 border border-border-light/50 flex flex-col gap-3">
       <div className="flex items-center gap-3">
-        {/* <input
-          checked={isChecked}
+        <input
           type="checkbox"
           onChange={(e) => onCheckChange?.(e.target.checked)}
-        /> */}
+        />
         <span
           className={`text-[10px] font-bold px-2 py-0.5 rounded whitespace-nowrap ${badgeClass}`}
         >
@@ -84,7 +83,7 @@ export const DesireItem: React.FC<DesireItemProps> = ({
         <div className="text-[10px] text-text-muted font-bold mb-0.5">TOBE</div>
         <TOBEField label="旧前提（卒業）" value={tobe.old_assumption} />
         <TOBEField label="新前提（当たり前）" value={tobe.new_assumption} />
-        <TOBEField label="判断" value={tobe.judgement} />
+        <TOBEField label="判断" value={tobe.judgment} />
         <TOBEField label="行動" value={tobe.action} />
       </div>
     </div>

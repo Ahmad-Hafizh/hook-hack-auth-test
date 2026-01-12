@@ -60,7 +60,6 @@ const Step5 = ({ onNext }: { onNext: () => void }) => {
                     const index = duplicate.findIndex((e) => {
                       e.id === id;
                     });
-                    console.log(index);
                     duplicate[index].label = value;
                     onSetValueOrganization(duplicate);
                   }}

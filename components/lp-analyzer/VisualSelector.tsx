@@ -96,8 +96,6 @@ export const VisualSelector: React.FC<VisualSelectorProps> = ({
     }
   };
 
-  console.log(visuals);
-
   return (
     <div className={cn("w-full", className)}>
       <div className="mb-6 flex items-center justify-between">

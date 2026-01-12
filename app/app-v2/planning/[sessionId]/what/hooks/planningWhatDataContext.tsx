@@ -35,7 +35,7 @@ export interface IDesire {
   reason: string;
   tobe: {
     action: string;
-    judgement: string;
+    judgment: string;
     new_assumption: string;
     old_assumption: string;
   };
@@ -47,6 +47,20 @@ export interface IDesireOrganization {
   value_category: string;
   desire_1: IDesire;
   desire_2: IDesire;
+}
+
+export interface IPositioningPatterns {
+  pattern_number: number;
+  quadrant: string;
+  quadrant_ja: string;
+  direction: string;
+  direction_ja: string;
+  direction_reason: string;
+  process_description: string;
+  outcome_description: string;
+  one_line_promise: string;
+  source_value_ids: string[];
+  source_tobe_ids: string[];
 }
 
 export const PlannningWhatDataContext = createContext({
@@ -70,6 +84,12 @@ export const PlannningWhatDataContext = createContext({
   onSetValueOrganization: (data: IValueOrganization[]) => {},
   desireOrganization: [] as IDesireOrganization[],
   onSetDesireOrganization: (data: IDesireOrganization[]) => {},
+  positioningPatterns: [] as IPositioningPatterns[],
+  onSetPositioningPatterns: (data: IPositioningPatterns[]) => {},
+  selectedValueOrganization: [] as string[],
+  onSetSelectedValueOrganization: (data: string[]) => {},
+  selectedTobes: [] as string[],
+  onSetSelectedTobes: (data: string[]) => {},
 });
 
 export default function PlannningWhatDataContextProvider({
@@ -145,6 +165,24 @@ export default function PlannningWhatDataContextProvider({
     setDesireOrganization(data);
   };
 
+  const [positioningPatterns, setPositioningPatterns] = useState<
+    IPositioningPatterns[]
+  >([]);
+  const onSetPositioningPatterns = (data: IPositioningPatterns[]) => {
+    setPositioningPatterns(data);
+  };
+
+  const [selectedValueOrganization, setSelectedValueOrganization] = useState<
+    string[]
+  >([]);
+  const onSetSelectedValueOrganization = (data: string[]) => {
+    setSelectedValueOrganization(data);
+  };
+  const [selectedTobes, setSelectedTobes] = useState<string[]>([]);
+  const onSetSelectedTobes = (data: string[]) => {
+    setSelectedTobes(data);
+  };
+
   return (
     <PlannningWhatDataContext.Provider
       value={{
@@ -168,6 +206,12 @@ export default function PlannningWhatDataContextProvider({
         onSetValueOrganization,
         desireOrganization,
         onSetDesireOrganization,
+        positioningPatterns,
+        onSetPositioningPatterns,
+        selectedTobes,
+        onSetSelectedTobes,
+        selectedValueOrganization,
+        onSetSelectedValueOrganization,
       }}
     >
       {children}

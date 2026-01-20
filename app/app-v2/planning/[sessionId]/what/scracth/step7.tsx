@@ -39,21 +39,21 @@ const Step7 = () => {
                   value={`${i}`}
                   functionalValues={[
                     {
-                      label: "機能x価値",
+                      label: "機能 x 価値",
                       value: "価値の説明が入ります。価値の説明が入ります。",
                     },
                     {
-                      label: "機能x価値",
+                      label: "機能 x 価値",
                       value: "価値の説明が入ります。価値の説明が入ります。",
                     },
                   ]}
                   emotionalValues={[
                     {
-                      label: "情緒x価値",
+                      label: "情緒 x 価値",
                       value: "価値の説明が入ります。価値の説明が入ります。",
                     },
                     {
-                      label: "情緒x価値",
+                      label: "情緒 x 価値",
                       value: "価値の説明が入ります。価値の説明が入ります。",
                     },
                   ]}

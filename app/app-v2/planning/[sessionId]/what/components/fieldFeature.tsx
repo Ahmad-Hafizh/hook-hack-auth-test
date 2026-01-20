@@ -113,7 +113,7 @@ const FieldFeature = ({
             </div>
           </div>
         </div>
-        <div className="p-4 h-[84px] overflow-y-scroll">
+        <div className="p-4 h-[84px] ">
           <p>{value}</p>
         </div>
       </div>

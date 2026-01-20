@@ -9,9 +9,15 @@ import { Spinner } from "@/components/ui/spinner";
 import { ArrowRight } from "lucide-react";
 
 const Step5 = ({ onNext }: { onNext: () => void }) => {
-  const { valueOrganization, onSetValueOrganization, onSetDesireOrganization } =
-    usePlanningWhatDataContext();
-  const [selectedIds, setSelectedIds] = React.useState<string[]>([]);
+  const {
+    valueOrganization,
+    onSetValueOrganization,
+    onSetDesireOrganization,
+    selectedValueOrganization,
+    onSetSelectedValueOrganization,
+    selectedMatrix,
+    briefPlanning,
+  } = usePlanningWhatDataContext();
   const [loading, setLoading] = React.useState(false);
   const [submitProgress, setSubmitProgress] = React.useState({
     percent: 0,
@@ -54,7 +60,7 @@ const Step5 = ({ onNext }: { onNext: () => void }) => {
                   key={category.id}
                   title={category.title}
                   items={category.items}
-                  selectedIds={selectedIds}
+                  selectedIds={selectedValueOrganization}
                   onValueChange={(id, value) => {
                     const duplicate = [...valueOrganization];
                     const index = duplicate.findIndex((e) => {
@@ -64,21 +70,22 @@ const Step5 = ({ onNext }: { onNext: () => void }) => {
                     onSetValueOrganization(duplicate);
                   }}
                   onCheckChange={(id, checked) => {
-                    setSelectedIds((prev) => {
-                      if (checked && selectedIds.length < 6) {
-                        const currentIds = selectedIds.filter((e) =>
-                          e.startsWith(id[0])
-                        ).length;
+                    if (checked && selectedValueOrganization.length < 6) {
+                      const currentIds = selectedValueOrganization.filter((e) =>
+                        e.startsWith(id[0]),
+                      ).length;
 
-                        if (currentIds < 2) {
-                          return [...prev, id];
-                        } else {
-                          return prev;
-                        }
-                      } else {
-                        return prev.filter((e) => e !== id);
+                      if (currentIds < 2) {
+                        onSetSelectedValueOrganization([
+                          ...selectedValueOrganization,
+                          id,
+                        ]);
                       }
-                    });
+                    } else {
+                      onSetSelectedValueOrganization(
+                        selectedValueOrganization.filter((e: any) => e !== id),
+                      );
+                    }
                   }}
                 />
               ))}
@@ -94,10 +101,10 @@ const Step5 = ({ onNext }: { onNext: () => void }) => {
               <Button
                 className="bg-cyan-600 hover:bg-cyan-700"
                 size={"lg"}
-                disabled={loading}
+                disabled={loading || selectedValueOrganization.length < 6}
                 onClick={() =>
                   submitStep5({
-                    selectedIds,
+                    selectedIds: selectedValueOrganization,
                     valueOrganization,
                     onSetLoading: (loading) => setLoading(loading),
                     onSetSubmitProcess: (percent, message) =>
@@ -108,6 +115,10 @@ const Step5 = ({ onNext }: { onNext: () => void }) => {
                     onSetDesireOrganization: (desireOrganization) =>
                       onSetDesireOrganization(desireOrganization),
                     onNext,
+                    own_lp_summary: `${selectedMatrix.key_message}, ${selectedMatrix.strong_points.join(", ")}`,
+                    competitors_summary: briefPlanning.competitors.map(
+                      (c) => `${c.key_message}, ${c.strong_points.join(", ")}`,
+                    ),
                   })
                 }
               >

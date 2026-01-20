@@ -16,8 +16,15 @@ const PlanningPage = ({ children }: { children: React.ReactNode }) => {
       page: "what",
       japanesePage: "企画​（訴求​内容）​",
       steps:
-        (page == "what_scratch"
+        page == "what_skip"
           ? [
+              "input product name or url & competitors urls",
+              "competitor matrix",
+              "organize value",
+              "organize core desire",
+              "positioning spine",
+            ]
+          : [
               "input product name or url",
               "select keyword",
               "select competitors key visuals",
@@ -25,20 +32,13 @@ const PlanningPage = ({ children }: { children: React.ReactNode }) => {
               "organize value",
               "organize core desire",
               "positioning spine",
-            ]
-          : page == "what_skip" && [
-              "input product name or url & competitors urls",
-              "competitor matrix",
-              "organize value",
-              "organize core desire",
-              "positioning spine",
-            ]) || [],
+            ],
     },
     {
       page: "how",
       japanesePage: "企画​（訴求​方法）​",
       steps: [
-        "input budget",
+        "select video duration",
         "select video style",
         "select videos variants",
         "input logo & select music style",

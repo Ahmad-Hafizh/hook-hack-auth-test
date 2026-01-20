@@ -12,7 +12,7 @@ import { ArrowRight } from "lucide-react";
 import CompetitiveMatrix from "../components/competitiveMatrix";
 
 const Step4 = ({ onNext }: { onNext: () => void }) => {
-  const { briefPlanning, onSetValueOrganization } =
+  const { briefPlanning, onSetValueOrganization, onSetSelectedMatrix } =
     usePlanningWhatDataContext();
 
   const { sessionId } = useParams();
@@ -113,6 +113,7 @@ const Step4 = ({ onNext }: { onNext: () => void }) => {
                       setSubmitProgress({ percent: progress, message }),
                     onSetValueOrganization,
                     onNext,
+                    onSetSelectedMatrix,
                   })
                 }
               >

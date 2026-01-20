@@ -9,6 +9,12 @@ import { DataContextProvider } from "./hooks/useDataContext";
 import { useParams, useRouter } from "next/navigation";
 import { usePlannningContext } from "@/app/app-v2/plannningContext";
 
+import DeliverySettingsPreview from "@/components/lp-analyzer/delivery-settings-preview";
+import Step1New from "./steps/step1new";
+import { Step2New } from "./steps/step2new";
+import { Step3New } from "./steps/step3new";
+import Step4New from "./steps/step4new";
+
 const PlanningHowPage = () => {
   const { step, onStep, onChangePage } = usePlannningContext();
   const router = useRouter();
@@ -17,33 +23,26 @@ const PlanningHowPage = () => {
   const stepList = [
     {
       id: 1,
-      page: <Step1 onNext={() => onStep(2)} />,
+      page: <Step1New onNext={() => onStep(2)} />,
     },
     {
       id: 2,
-      page: <Step2 onNext={() => onStep(3)} />,
+      page: <Step2New onNext={() => onStep(3)} />,
     },
     {
       id: 3,
-      page: <Step3 onNext={() => onStep(4)} />,
+      page: <Step3New onNext={() => onStep(4)} />,
     },
     {
       id: 4,
-      page: (
-        <Step4
-          onNext={() => {
-            onChangePage("generation");
-            router.push(`/app-v2/planning/${sessionId}/generation`);
-          }}
-        />
-      ),
+      page: <Step4New />,
     },
   ];
 
   return (
     <DataContextProvider>
       <div className="h-full w-full py-10 flex flex-col items-center">
-        <TopHorizontalProgress pageStep={stepList.length} step={step} />
+        {/* <TopHorizontalProgress pageStep={stepList.length} step={step} /> */}
         {stepList[step - 1].page}
       </div>
     </DataContextProvider>

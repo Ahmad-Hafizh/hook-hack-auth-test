@@ -28,7 +28,7 @@ export const ValueItem: React.FC<ValueItemProps> = ({
         className="flex-1 border border-border-light rounded px-3 py-2 text-sm focus:border-primary focus:ring-1 focus:ring-primary outline-none transition-colors"
         placeholder="案を入力"
         type="text"
-        value={label}
+        defaultValue={label}
         onChange={(e) => onValueChange(e.target.value)}
       />
     </div>

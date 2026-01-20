@@ -1,0 +1,280 @@
+<html lang="ja"><head>
+<meta charset="utf-8"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700;900&amp;display=swap" rel="stylesheet"/>
+<style type="text/tailwindcss">
+        @layer utilities {
+            .scrollbar-hide::-webkit-scrollbar {
+                display: none;
+            }
+            .scrollbar-hide {
+                -ms-overflow-style: none;
+                scrollbar-width: none;
+            }
+            .gs-textarea {
+                @apply w-full h-full py-1 px-1.5 text-[10px] leading-tight bg-transparent border-none focus:ring-0 focus:outline-none resize-none transition-all text-[#000000] placeholder-gray-400;
+            }
+            .gs-cell {
+                @apply border-b border-r border-border-strong relative p-0 transition-colors hover:bg-slate-100 bg-white;
+            }
+            .gs-header {
+                @apply border-b border-r border-border-strong text-left text-[10px] font-bold text-[#000000] bg-header-bg px-1 py-1.5 select-none whitespace-nowrap sticky top-0 z-50 shadow-sm leading-tight;
+            }
+            .cell-content-wrapper {
+                @apply flex h-full w-full relative;
+            }
+            .cell-image-container {
+                @apply w-full h-full p-1 flex flex-col items-center justify-center relative;
+            }
+            .mini-image-slot {
+                @apply w-10 h-10 rounded-sm border border-dashed border-gray-400 bg-slate-50 hover:border-primary hover:bg-blue-50/50 flex items-center justify-center cursor-pointer transition-all text-gray-400 hover:text-primary relative overflow-hidden;
+            }
+            .mini-image-slot.has-image {
+                @apply border-gray-300 border-solid bg-white p-0.5;
+            }
+            .roadmap-btn {
+                @apply px-2 py-1 text-[9px] border border-border-light rounded bg-white hover:bg-slate-50 transition-colors text-[#000000] text-left flex items-center gap-1.5 w-full font-medium shadow-sm hover:border-gray-400;
+            }
+        }
+    </style>
+<script id="tailwind-config">
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: "#0093b4",
+                        "primary-hover": "#007a92",
+                        "background-light": "#ffffff",
+                        "surface-light": "#ffffff",
+                        "surface-subtle": "#f8fafc",
+                        "header-bg": "#e2e8f0",
+                        "border-light": "#cbd5e1",
+                        "border-strong": "#64748b",
+                        "text-main": "#000000",
+                        "text-muted": "#000000",
+                        "accent-soft": "#e0f2f7"
+                    },
+                    fontFamily: {
+                        sans: ["Noto Sans JP", "sans-serif"]
+                    },
+                    boxShadow: {
+                        soft: "0 2px 8px -2px rgba(0, 0, 0, 0.05), 0 1px 4px -1px rgba(0, 0, 0, 0.02)",
+                        sticky: "0 1px 0 0 #64748b"
+                    }
+                }
+            }
+        };
+    </script>
+</head>
+<body class="bg-surface-subtle text-[#000000] font-sans min-h-screen flex flex-col overflow-y-auto">
+<main class="w-full max-w-[1920px] mx-auto p-4 flex flex-col items-start gap-4 text-[#000000]">
+<div class="w-full flex items-center justify-between shrink-0">
+<div>
+<h1 class="text-xl font-bold text-[#000000]">CHECK（ナビゲーション削除）</h1>
+</div>
+</div>
+<div class="w-full flex gap-4 shrink-0 h-[120px]">
+<div class="flex-[1] bg-white rounded-lg border border-border-light shadow-soft p-2 flex flex-col h-full overflow-hidden">
+<div class="flex items-center mb-1 border-b border-gray-100 pb-0.5 shrink-0">
+<h2 class="text-[10px] font-bold text-[#000000]">分析・示唆</h2>
+</div>
+<div class="flex-1 overflow-y-auto space-y-1 pr-1 scrollbar-hide">
+<div class="flex items-start gap-1.5">
+<div class="w-1 h-1 rounded-full bg-primary mt-1 shrink-0"></div>
+<p class="text-[9px] leading-tight text-[#000000]">広告2はHook保持率が45%と高く、全体平均を上回っています。このDNAをベースにした展開を推奨します。</p>
+</div>
+<div class="flex items-start gap-1.5">
+<div class="w-1 h-1 rounded-full bg-primary mt-1 shrink-0"></div>
+<p class="text-[9px] leading-tight text-[#000000]">CTA視聴維持率は良好ですが、全体的にCTRが低調です。ボタン文言の変更によるクリック誘発の検証が有効です。</p>
+</div>
+</div>
+</div>
+<div class="flex-[3] bg-white rounded-lg border border-border-light shadow-soft p-2 flex flex-col h-full overflow-hidden">
+<div class="flex items-center mb-1 border-b border-gray-100 pb-0.5 shrink-0">
+<h2 class="text-[10px] font-bold text-[#000000]">次のアクション（制作ロードマップ）</h2>
+</div>
+<div class="flex-1 grid grid-cols-3 gap-4 overflow-hidden py-0.5">
+<div class="flex flex-col border-r border-slate-200 pr-3 h-full overflow-y-auto scrollbar-hide">
+<div class="flex items-center gap-1.5 mb-1.5 shrink-0">
+<span class="w-4 h-4 rounded bg-black text-white text-[8px] flex items-center justify-center font-black">1</span>
+<h3 class="text-[9px] font-bold text-[#000000]">ステップ1: 戦略設計</h3>
+</div>
+<div class="grid grid-cols-2 gap-1.5">
+<button class="roadmap-btn">
+<span class="material-symbols-outlined text-[11px] leading-none">replay</span>
+<span>情報収集からやり直す</span>
+</button>
+<button class="roadmap-btn">
+<span class="material-symbols-outlined text-[11px] leading-none">replay</span>
+<span>競合分析からやり直す</span>
+</button>
+<button class="roadmap-btn">
+<span class="material-symbols-outlined text-[11px] leading-none">replay</span>
+<span>インサイトからやり直す</span>
+</button>
+<button class="roadmap-btn">
+<span class="material-symbols-outlined text-[11px] leading-none">replay</span>
+<span>ポジショニングからやり直す</span>
+</button>
+</div>
+</div>
+<div class="flex flex-col border-r border-slate-200 pr-3 h-full overflow-y-auto scrollbar-hide">
+<div class="flex items-center gap-1.5 mb-1.5 shrink-0">
+<span class="w-4 h-4 rounded bg-black text-white text-[8px] flex items-center justify-center font-black">2</span>
+<h3 class="text-[9px] font-bold text-[#000000]">ステップ2: クリエイティブ</h3>
+</div>
+<div class="grid grid-cols-2 gap-1.5">
+<button class="roadmap-btn">
+<span class="material-symbols-outlined text-[11px] leading-none">replay</span>
+<span>表現プランからやり直す</span>
+</button>
+<button class="roadmap-btn">
+<span class="material-symbols-outlined text-[11px] leading-none">replay</span>
+<span>バリエーション案からやり直す</span>
+</button>
+<button class="roadmap-btn">
+<span class="material-symbols-outlined text-[11px] leading-none">replay</span>
+<span>ブランディングからやり直す</span>
+</button>
+</div>
+</div>
+<div class="flex flex-col h-full overflow-y-auto scrollbar-hide">
+<div class="flex items-center gap-1.5 mb-1.5 shrink-0">
+<span class="w-4 h-4 rounded bg-black text-white text-[8px] flex items-center justify-center font-black">3</span>
+<h3 class="text-[9px] font-bold text-[#000000]">ステップ3: プロジェクト管理</h3>
+</div>
+<div class="grid grid-cols-2 gap-1.5">
+<button class="roadmap-btn">
+<span class="material-symbols-outlined text-[11px] leading-none">refresh</span>
+<span>最初からやり直す</span>
+</button>
+<button class="roadmap-btn">
+<span class="material-symbols-outlined text-[11px] leading-none">home</span>
+<span>ホーム画面に戻る</span>
+</button>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="table-wrapper w-full bg-white rounded-lg border border-border-strong shadow-soft overflow-visible relative isolate mb-8">
+<table class="w-full border-collapse text-[10px] table-fixed">
+<thead class="z-50 sticky top-0">
+<tr class="h-[32px]">
+<th class="gs-header w-[45px] shadow-[1px_1px_0_0_#64748b] text-center p-0 bg-gray-50 text-[10px] leading-none border-l-0 text-[#000000]">広告名</th>
+<th class="gs-header w-[45px] shadow-[1px_1px_0_0_#64748b] text-center p-0 bg-blue-100 text-[9px] leading-none text-[#000000]">Hook<br/>維持率</th>
+<th class="gs-header w-[60px] shadow-[1px_1px_0_0_#64748b] bg-blue-100 text-center text-[#000000]">Hook<br/>画像</th>
+<th class="gs-header w-[15%] shadow-[1px_1px_0_0_#64748b] bg-blue-100 text-[#000000]">Hook メッセージ</th>
+<th class="gs-header w-[45px] shadow-[1px_1px_0_0_#64748b] text-center p-0 bg-orange-100 text-[9px] leading-none text-[#000000]">Body1<br/>維持率</th>
+<th class="gs-header w-[60px] shadow-[1px_1px_0_0_#64748b] bg-orange-100 text-center text-[#000000]">Body1<br/>画像</th>
+<th class="gs-header w-[15%] shadow-[1px_1px_0_0_#64748b] bg-orange-100 text-[#000000]">Body1 メッセージ</th>
+<th class="gs-header w-[45px] shadow-[1px_1px_0_0_#64748b] text-center p-0 bg-purple-100 text-[9px] leading-none text-[#000000]">Body2<br/>維持率</th>
+<th class="gs-header w-[60px] shadow-[1px_1px_0_0_#64748b] bg-purple-100 text-center text-[#000000]">Body2<br/>画像</th>
+<th class="gs-header w-[15%] shadow-[1px_1px_0_0_#64748b] bg-purple-100 text-[#000000]">Body2 メッセージ</th>
+<th class="gs-header w-[45px] shadow-[1px_1px_0_0_#64748b] text-center p-0 bg-pink-100 text-[9px] leading-none text-[#000000]">CTA<br/>維持率</th>
+<th class="gs-header w-[12%] shadow-[1px_1px_0_0_#64748b] bg-pink-100 text-[#000000]">CTA メッセージ</th>
+<th class="gs-header w-[40px] shadow-[1px_1px_0_0_#64748b] text-center bg-gray-100 text-[9px] text-[#000000]">CTR</th>
+<th class="gs-header w-[40px] border-r-0 shadow-[1px_1px_0_0_#64748b] text-center bg-gray-100 text-[9px] text-[#000000]">CVR</th>
+</tr>
+</thead>
+<tbody class="text-[#000000]">
+<script>
+                        const data = [
+                            { name: "広告1", h: "42%", b1: "35%", b2: "28%", c: "18%", ctr: "1.8%", cvr: "0.5%", hook: "30代男性の悩み、これ1本で解決？驚きのスカルプケア", body1: "専門家監修の独自成分で、あなたの頭皮環境を根本から改善。", body2: "利用者の90%が満足！「抜け毛が減った」と実感の声多数。", cta: "今すぐチェック" },
+                            { name: "広告2", h: "45%", b1: "38%", b2: "30%", c: "21%", ctr: "2.1%", cvr: "0.8%", hook: "「えっ、まだ高いシャンプー使ってるの？」賢い男の選択", body1: "厳選されたオーガニック成分が毛穴の奥まで浸透。", body2: "累計販売数100万本突破！30日間の全額返金保証付き。", cta: "詳細を見る" },
+                            { name: "広告3", h: "38%", b1: "32%", b2: "25%", c: "15%", ctr: "1.5%", cvr: "0.4%", hook: "美容師がこっそり教える、自宅でできる頭皮改革", body1: "独自のマイクロバブル処方で、こびりついた皮脂汚れをごっそり洗浄。", body2: "「もっと早く使えばよかった」リピート率95%が証明する信頼の品質。", cta: "公式サイトへ" },
+                            { name: "広告4", h: "40%", b1: "33%", b2: "22%", c: "12%", ctr: "1.2%", cvr: "0.3%", hook: "鏡を見るのが楽しみに. 新習慣で手に入れる自信。", body1: "毎日のシャンプーを変えるだけで、驚きのハリ・コシを実現。", body2: "科学的根拠に基づいた成分配合で、実感力が違います。", cta: "限定特典付" },
+                            { name: "広告5", h: "31%", b1: "25%", b2: "18%", c: "10%", ctr: "0.9%", cvr: "0.2%", hook: "その髪の悩み、放置していませんか？早期ケアが鍵。", body1: "頭皮の乾燥を防ぎ、健やかな髪を育む土台作りをサポート。", body2: "SNSで話題沸騰中！多くのインフルエンサーも愛用。", cta: "購入はこちら" },
+                            { name: "広告6", h: "48%", b1: "41%", b2: "35%", c: "24%", ctr: "2.5%", cvr: "1.1%", hook: "【究極のケア】男の身だしなみは頭皮から。次世代シャンプー。", body1: "高濃度の栄養成分が、細くなった髪に力強さを与えます。", body2: "他社製品で満足できなかった方にこそ使ってほしい1本。", cta: "送料無料" },
+                            { name: "広告7", h: "29%", b1: "20%", b2: "15%", c: "8%", ctr: "0.7%", cvr: "0.1%", hook: "コスパ重視のあなたへ。プロ仕様の品質をこの価格で。", body1: "大容量ボトルで、毎日惜しみなく頭皮ケアを続けられます。", body2: "リピーター続出の秘密は、圧倒的な洗浄力と使い心地の良さ。", cta: "今すぐ試す" },
+                            { name: "広告8", h: "35%", b1: "28%", b2: "20%", c: "13%", ctr: "1.4%", cvr: "0.5%", hook: "朝のセットが決まらない？その原因は頭皮にありました。", body1: "寝癖がつきにくく、扱いやすい髪へと導く独自処方。", body2: "朝の時短にも繋がると、忙しいビジネスマンに大好評。", cta: "詳細はこちら" },
+                            { name: "広告9", h: "44%", b1: "36%", b2: "29%", c: "20%", ctr: "2.0%", cvr: "0.9%", hook: "奥さんに「若くなった？」と言わせる、秘密の頭皮ケア。", body1: "ボリュームアップ効果で、見た目の印象がガラリと変わります。", body2: "加齢による悩みに特化した、大人専用のスカルプケア。", cta: "キャンペーン中" },
+                            { name: "広告10", h: "39%", b1: "30%", b2: "23%", c: "16%", ctr: "1.6%", cvr: "0.6%", hook: "フケ・かゆみとおさらば。清潔感のある男の新常識。", body1: "有効成分が頭皮トラブルを抑制し、一日中スッキリ感が持続。", body2: "無香料・無着色。敏感肌の方でも安心して使えます。", cta: "公式HPへ" },
+                            { name: "広告11", h: "41%", b1: "34%", b2: "27%", c: "19%", ctr: "1.7%", cvr: "0.7%", hook: "衝撃の指通り。指が引っかからない喜びを実感。", body1: "トリートメント不要のオールインワン設計で、手間なくケア。", body2: "植物由来の保湿成分が、パサついた髪に潤いを与えます。", cta: "今すぐ予約" },
+                            { name: "広告12", h: "33%", b1: "27%", b2: "19%", c: "11%", ctr: "1.1%", cvr: "0.4%", hook: "「あれ、増えた？」周囲が気づくほどの圧倒的変化。", body1: "根本から立ち上がる力をサポートし、立体的なヘアスタイルへ。", body2: "モンドセレクション金賞受賞。確かな品質をお届けします。", cta: "定期購入がお得" },
+                            { name: "広告13", h: "46%", b1: "39%", b2: "32%", c: "22%", ctr: "2.3%", cvr: "1.0%", hook: "高級スパの体験を自宅で。至福のスカルプタイム。", body1: "天然アロマの香りで、1日の疲れを癒しながらケア。", body2: "自分へのご褒美に。ワンランク上のシャンプー体験を。", cta: "特別価格" },
+                            { name: "広告14", h: "37%", b1: "29%", b2: "21%", c: "14%", ctr: "1.3%", cvr: "0.5%", hook: "まだ間に合う。40代からの本格頭皮メンテ。", body1: "将来の髪のために、今できる最善の選択をしましょう。", body2: "全国の有名ヘアサロンでも導入されている実力派アイテム。", cta: "詳しく見る" },
+                            { name: "広告15", h: "43%", b1: "35%", b2: "26%", c: "17%", ctr: "1.9%", cvr: "0.8%", hook: "頭皮のベタつき、そのままでいいの？強力洗浄で解決。", body1: "皮脂吸着パウダー配合。夕方になってもベタつかない。", body2: "スポーツ後のリフレッシュにも最適。爽快な使い心地。", cta: "在庫わずか" },
+                            { name: "広告16", h: "30%", b1: "22%", b2: "16%", c: "9%", ctr: "0.8%", cvr: "0.2%", hook: "もう悩まない。プロが導き出した答えがここに。", body1: "数千人のデータから開発。日本人の髪質に合わせた設計。", body2: "まずは7日間のお試しセットから始めてみませんか？", cta: "トライアル中" },
+                            { name: "広告17", h: "49%", b1: "42%", b2: "36%", c: "25%", ctr: "2.6%", cvr: "1.2%", hook: "【速報】売れすぎて生産が追いつきません。伝説の1本。", body1: "発売直後から注文殺到。その人気の理由は圧倒的な体感速度。", body2: "「もっと早く出会いたかった」の声が続出しています。", cta: "今すぐ購入" },
+                            { name: "広告18", h: "36%", b1: "28%", b2: "22%", c: "13%", ctr: "1.4%", cvr: "0.4%", hook: "頭皮の臭い、気になりませんか？元から絶つ消臭効果。", body1: "消臭成分をナノ化して配合。気になるニオイをシャットアウト。", body2: "汗をかく季節も安心。清潔な状態を長時間キープ。", cta: "消臭ケアを検討" },
+                            { name: "広告19", h: "42%", b1: "34%", b2: "27%", c: "18%", ctr: "1.8%", cvr: "0.7%", hook: "ハリウッドセレブも注目。最新の毛髪科学アプローチ。", body1: "世界的に注目される新成分を日本初採用。常識を覆します。", body2: "年齢を感じさせない、若々しい印象を手に入れましょう。", cta: "最新情報を確認" },
+                            { name: "広告20", h: "34%", b1: "26%", b2: "19%", c: "12%", ctr: "1.2%", cvr: "0.3%", hook: "シンプルだから続く。毎日3分の新習慣スカルプケア。", body1: "これだけでOK。忙しいあなたに贈る究極のミニマルケア。", body2: "継続は力なり。3ヶ月後の自分に驚くはずです。", cta: "スタートする" }
+                        ];
+                        data.forEach((row, index) => {
+                            document.write(`
+                            <tr class="group h-[50px]">
+                                <td class="gs-cell align-middle text-center border-l-0">
+                                    <span class="font-mono text-xs font-bold text-[#000000]">${row.name}</span>
+                                </td>
+                                <td class="gs-cell align-middle text-center">
+                                    <span class="font-mono text-xs font-bold text-[#000000]">${row.h}</span>
+                                </td>
+                                <td class="gs-cell">
+                                    <div class="cell-image-container">
+                                        <div class="mini-image-slot ${index === 0 ? 'has-image' : ''} group/img">
+                                            ${index === 0 ? '<img alt="Selected" class="w-full h-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAW9HnYOP1ZfD6GpB7A5iBYvYWr61_5P1VDkC7OwdOXbHq15-wgtrHERQc9n-h7smUGRcYJowbDnUaDJcLVKz4pRshQFebXeQWSqgvj0zKUF5eCmkiVoKsfF1kvz6WRnMNJYEcxxdNHga1PZCnxx-COTeMAqUw9blNYEIF5La6s5H89VDwXmwmP4ceezwh_brmP6pKFZyAcHhGQz1FL3Okjx22ChHqAumf24E5KPY93cBF5gKxtvzv13mD55dt5cR_Gnd0ik0XGLYuC"/>' : '<span class="material-symbols-outlined text-lg group-hover/img:scale-110 transition-transform">add_photo_alternate</span>'}
+                                            <div class="absolute inset-0 bg-black/0 group-hover/img:bg-black/10 transition-colors"></div>
+                                        </div>
+                                    </div>
+                                </td>
+                                <td class="gs-cell align-top">
+                                    <div class="cell-content-wrapper">
+                                        <textarea class="gs-textarea">${row.hook}</textarea>
+                                    </div>
+                                </td>
+                                <td class="gs-cell align-middle text-center">
+                                    <span class="font-mono text-xs font-bold text-[#000000]">${row.b1}</span>
+                                </td>
+                                <td class="gs-cell">
+                                    <div class="cell-image-container">
+                                        <div class="mini-image-slot group/img">
+                                            <span class="material-symbols-outlined text-lg group-hover/img:scale-110 transition-transform">add_photo_alternate</span>
+                                        </div>
+                                    </div>
+                                </td>
+                                <td class="gs-cell align-top">
+                                    <div class="cell-content-wrapper">
+                                        <textarea class="gs-textarea">${row.body1}</textarea>
+                                    </div>
+                                </td>
+                                <td class="gs-cell align-middle text-center">
+                                    <span class="font-mono text-xs font-bold text-[#000000]">${row.b2}</span>
+                                </td>
+                                <td class="gs-cell">
+                                    <div class="cell-image-container">
+                                        <div class="mini-image-slot group/img">
+                                            <span class="material-symbols-outlined text-lg group-hover/img:scale-110 transition-transform">add_photo_alternate</span>
+                                        </div>
+                                    </div>
+                                </td>
+                                <td class="gs-cell align-top">
+                                    <div class="cell-content-wrapper">
+                                        <textarea class="gs-textarea">${row.body2}</textarea>
+                                    </div>
+                                </td>
+                                <td class="gs-cell align-middle text-center">
+                                    <span class="font-mono text-xs font-bold text-[#000000]">${row.c}</span>
+                                </td>
+                                <td class="gs-cell align-top">
+                                    <div class="cell-content-wrapper">
+                                        <textarea class="gs-textarea">${row.cta}</textarea>
+                                    </div>
+                                </td>
+                                <td class="gs-cell align-middle text-center">
+                                    <span class="font-mono text-xs font-bold text-[#000000]">${row.ctr}</span>
+                                </td>
+                                <td class="gs-cell align-middle text-center border-r-0">
+                                    <span class="font-mono text-xs font-bold text-[#000000]">${row.cvr}</span>
+                                </td>
+                            </tr>
+                            `);
+                        });
+                    </script>
+</tbody>
+</table>
+</div>
+</main>
+
+</body></html>

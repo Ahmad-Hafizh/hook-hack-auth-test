@@ -157,7 +157,7 @@ const Step3 = ({
                 <Button
                   className="bg-cyan-600 hover:bg-cyan-700"
                   size={"lg"}
-                  disabled={loading}
+                  disabled={loading || selectedVisuals.length < 3}
                   onClick={() =>
                     submitStep3({
                       selectedVisuals,

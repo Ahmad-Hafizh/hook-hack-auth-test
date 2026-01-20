@@ -1,3 +1,4 @@
+"use client";
 import React from "react";
 import {
   CustomCheckboxGroup,
@@ -6,56 +7,79 @@ import {
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { useParams, useRouter } from "next/navigation";
+import { PageHeader, Card } from "@/components/lp-analyzer";
+import { PositioningPatternCard } from "@/components/lp-analyzer/PositioningPatternCard";
+import { RadioGroup } from "@/components/ui/radio-group";
+import { usePlanningWhatDataContext } from "../hooks/planningWhatDataContext";
+import { Spinner } from "@/components/ui/spinner";
+import { ArrowRight } from "lucide-react";
 
 const Step7 = () => {
+  const { positioningPatterns } = usePlanningWhatDataContext();
+  const [selectedPattern, setSelectedPattern] = React.useState<number>(0);
+
   const router = useRouter();
   const { sessionId } = useParams();
   return (
-    <div className="px-10 h-full flex flex-col gap-20 container justify-between">
-      <div className="flex gap-20">
-        <h1 className="text-3xl">価値に​対応する​欲求の​整理</h1>
-      </div>
-      <div className="grid grid-cols-2 h-fit w-full gap-x-20 gap-y-10">
-        {Array.from({ length: 6 }).map((_, index) => (
-          <div className="flex flex-col w-ful gap-2">
-            <p className="text-xl">価​値①：​</p>
-            <div className="flex flex-col gap-2 w-full ">
-              <div className="">
-                <p className="text-lg">欲求top1</p>
-                <p className="text-sm">理由：</p>
-              </div>
-              <div className="flex gap-4 items-center w-full">
-                <Input type="checkbox" className="w-4 h-4" />
-                <div className="flex flex-col gap-2 w-full">
-                  <div className="flex flex-col items-start w-full">
-                    <p>旧​前​提​（卒業）</p>
-                    <Input defaultValue={"〇〇"} className="w-full" />
-                  </div>
-                  <div className="flex flex-col items-start w-full">
-                    <p>新前提​（当たり前）​</p>
-                    <Input defaultValue={"〇〇"} className="w-full" />
-                  </div>
-                  <div className="flex flex-col items-start w-full">
-                    <p>判断</p>
-                    <Input defaultValue={"〇〇"} className="w-full" />
-                  </div>
-                  <div className="flex flex-col items-start w-full">
-                    <p>行動の​流れ</p>
-                    <Input defaultValue={"〇〇"} className="w-full" />
-                  </div>
-                </div>
-              </div>
+    <div className="flex-1 w-full max-w-6xl mx-auto px-4 py-12 md:px-8 flex flex-col justify-center h-full items-start">
+      <PageHeader title="ポジショニング骨子" />
+      <div className="w-full">
+        <div className="flex flex-col gap-8">
+          {/* card */}
+          <RadioGroup onValueChange={(e) => setSelectedPattern(Number(e))}>
+            <div
+              className="grid grid-cols-1 lg:grid-cols-3 gap-6 flex-1 mb-12 animate-fade-in-up"
+              style={{ animationDelay: "0.1s" }}
+            >
+              {positioningPatterns.map((pattern, i) => (
+                <PositioningPatternCard
+                  pattern={i == 0 ? "A" : i == 1 ? "B" : "C"}
+                  isSelected={selectedPattern === i}
+                  promise={pattern.one_line_promise}
+                  value={`${i}`}
+                  functionalValues={[
+                    {
+                      label: "機能x価値",
+                      value: "価値の説明が入ります。価値の説明が入ります。",
+                    },
+                    {
+                      label: "機能x価値",
+                      value: "価値の説明が入ります。価値の説明が入ります。",
+                    },
+                  ]}
+                  emotionalValues={[
+                    {
+                      label: "情緒x価値",
+                      value: "価値の説明が入ります。価値の説明が入ります。",
+                    },
+                    {
+                      label: "情緒x価値",
+                      value: "価値の説明が入ります。価値の説明が入ります。",
+                    },
+                  ]}
+                  key={i}
+                />
+              ))}
             </div>
-          </div>
-        ))}
+          </RadioGroup>
+        </div>
       </div>
-      <div className="flex justify-end">
+      <div className="flex w-full justify-end mt-10 gap-4">
         <Button
-          className=" border-2 border-sky-600 bg-sky-600  hover:bg-sky-500 text-white px-4 py-2"
+          variant={"secondary"}
+          className="bg-gray-50 text-gray-500"
+          size={"lg"}
+        >
+          戻る
+        </Button>
+        <Button
+          className="bg-cyan-600 hover:bg-cyan-700"
+          size={"lg"}
           onClick={() => router.push(`/app-v2/planning/${sessionId}/how`)}
         >
-          {/* {loading && <Spinner className="w-5 h-5" />} */}
-          次に​進む
+          <>
+            次に進む <ArrowRight className="h-4 w-4" />
+          </>
         </Button>
       </div>
     </div>

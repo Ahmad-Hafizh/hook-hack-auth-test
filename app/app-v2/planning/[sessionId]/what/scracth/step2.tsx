@@ -49,7 +49,7 @@ const Step2Scratch = ({
               <Button
                 className="bg-cyan-600 hover:bg-cyan-700"
                 size={"lg"}
-                disabled={loading}
+                disabled={loading || !selectedKeywords}
                 onClick={() =>
                   submitStep2Scratch({
                     selectedKeywords,

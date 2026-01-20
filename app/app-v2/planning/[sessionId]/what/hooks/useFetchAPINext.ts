@@ -1,6 +1,10 @@
 import callApi from "@/config/axios/axios";
 import { redirect } from "next/navigation";
-import { IDesireOrganization, IKeyVisuals } from "./planningWhatDataContext";
+import {
+  IDesireOrganization,
+  IKeyVisuals,
+  IPositioningPatterns,
+} from "./planningWhatDataContext";
 import callAppV2Api from "@/config/axios/axiosAppV2";
 
 export const submitStep1Scratch = async ({
@@ -57,7 +61,7 @@ export const submitStep2Scratch = async ({
       {
         keywords: [selectedKeywords],
         sessionId,
-      }
+      },
     );
 
     if (statusText == "invalid") {
@@ -97,7 +101,7 @@ export const getMoreVisuals = async ({
       {
         exclude_domains,
         sessionId,
-      }
+      },
     );
 
     onSetKeyVisuals([...keyVisuals, ...data.key_visuals]);
@@ -126,7 +130,7 @@ export const submitStep3 = async ({
   setLoadingSubmit(true);
   try {
     const selectedVisualsData = keyVisuals.filter((keyVisual) =>
-      selectedVisuals.includes(keyVisual.url)
+      selectedVisuals.includes(keyVisual.url),
     );
     const competitors = selectedVisualsData.map((visual) => {
       return {
@@ -146,12 +150,14 @@ export const submitStep3 = async ({
       {
         competitors,
         sessionId,
-      }
+      },
     );
 
     if (statusText == "invalid") {
       redirect("/app-v2/planning/what");
     }
+
+    console.log(data);
 
     onSetBriefPlanning({
       user: data.key_message.user
@@ -182,6 +188,7 @@ export const submitStep4 = async ({
   competitorsMatrix,
   onSetSubmitProgress,
   onSetValueOrganization,
+  onSetSelectedMatrix,
 }: {
   keyMessage: string;
   strongPoints: string[];
@@ -191,9 +198,14 @@ export const submitStep4 = async ({
   competitorsMatrix: any;
   onSetSubmitProgress: (progress: number, message: string) => void;
   onSetValueOrganization: (data: any[]) => void;
+  onSetSelectedMatrix: (data: any) => void;
 }) => {
   onSetLoading(true);
   try {
+    onSetSelectedMatrix({
+      key_message: keyMessage,
+      strong_points: strongPoints,
+    });
     const { data } = await callApi.post("/app-v2/planning/what/step4", {
       key_message: keyMessage,
       strong_points: strongPoints,
@@ -224,7 +236,7 @@ export const submitStep4 = async ({
           language: "ja",
           reasoning_effort: "high",
         }),
-      }
+      },
     );
 
     const reader = response.body?.getReader();
@@ -328,6 +340,8 @@ export const submitStep1Skip = async ({
 };
 
 export const submitStep5 = async ({
+  own_lp_summary,
+  competitors_summary,
   valueOrganization,
   selectedIds,
   onSetLoading,
@@ -335,6 +349,8 @@ export const submitStep5 = async ({
   onSetSubmitProcess,
   onNext,
 }: {
+  own_lp_summary: string;
+  competitors_summary: string[];
   valueOrganization: any[];
   selectedIds: string[];
   onSetLoading: (loading: boolean) => void;
@@ -344,20 +360,6 @@ export const submitStep5 = async ({
 }) => {
   onSetLoading(true);
   try {
-    const { data } = await callAppV2Api.post(
-      "/v1/desire-organization",
-      {
-        own_lp_summary: "stringstri",
-        competitors_summary: ["string"],
-        values_12: valueOrganization,
-        selected_values_6: selectedIds,
-        provider: "openai",
-        language: "ja",
-        reasoning_effort: "high",
-      },
-      { responseType: "stream" }
-    );
-
     const response = await fetch(
       "https://hook-hack.himtalks.my.id/v1/desire-organization",
       {
@@ -366,15 +368,15 @@ export const submitStep5 = async ({
           "Content-Type": "application/json",
         },
         body: JSON.stringify({
-          own_lp_summary: "stringstri",
-          competitors_summary: ["string"],
+          own_lp_summary: own_lp_summary,
+          competitors_summary: competitors_summary,
           values_12: valueOrganization,
           selected_values_6: selectedIds,
           provider: "openai",
           language: "ja",
           reasoning_effort: "high",
         }),
-      }
+      },
     );
     const reader = response.body?.getReader();
     const decoder = new TextDecoder("utf-8");
@@ -419,6 +421,109 @@ export const submitStep5 = async ({
         const jsonData = JSON.parse(buffer.substring(6));
         if (jsonData.desire_tobes) {
           onSetDesireOrganization(jsonData.desire_tobes);
+          onNext();
+        }
+      } catch (e) {
+        console.error("Failed to parse final JSON:", buffer, e);
+      }
+    }
+  } catch (error) {
+    console.log(error);
+  } finally {
+    onSetLoading(false);
+    onSetSubmitProcess(0, "");
+  }
+};
+
+export const submitStep6 = async ({
+  own_lp_summary,
+  competitors_summary,
+  selected_values_6,
+  selected_tobe_4,
+  onSetSubmitProcess,
+  onSetPositioningPatterns,
+  onNext,
+  onSetLoading,
+}: {
+  own_lp_summary?: string;
+  competitors_summary?: string[];
+  selected_values_6?: any[];
+  selected_tobe_4?: any[];
+  onSetSubmitProcess: (percent: number, message: string) => void;
+  onSetPositioningPatterns: (data: IPositioningPatterns[]) => void;
+  onNext: () => void;
+  onSetLoading: (loading: boolean) => void;
+}) => {
+  onSetLoading(true);
+  try {
+    const response = await fetch(
+      "https://hook-hack.himtalks.my.id/v1/positioning-outline",
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          own_lp_summary: own_lp_summary,
+          competitors_summary: competitors_summary,
+          selected_values_6: selected_values_6,
+          selected_tobe_4: selected_tobe_4,
+          provider: "openai",
+          language: "ja",
+          reasoning_effort: "high",
+        }),
+      },
+    );
+
+    const reader = response.body?.getReader();
+    const decoder = new TextDecoder("utf-8");
+    let buffer = "";
+
+    while (true) {
+      const { done, value } = await reader!.read();
+      if (done) break;
+
+      const chunk = decoder.decode(value, { stream: true });
+      buffer += chunk;
+
+      const lines = buffer.split("\n");
+      buffer = lines.pop() || "";
+
+      for (const line of lines) {
+        if (line.trim().startsWith("data: ")) {
+          try {
+            const jsonData = JSON.parse(line.substring(6));
+            console.log(jsonData);
+
+            if (jsonData.percent && jsonData.message) {
+              onSetSubmitProcess(Number(jsonData.percent), jsonData.message);
+            } else if (jsonData.positioning_patterns) {
+              const positioning_patterns: IPositioningPatterns[] =
+                jsonData.positioning_patterns;
+
+              console.log(positioning_patterns);
+
+              onSetPositioningPatterns(positioning_patterns);
+              onNext();
+            }
+          } catch (e) {
+            console.error("Failed to parse JSON:", line, e);
+          }
+        }
+      }
+    }
+
+    // Process remaining buffer
+    if (buffer.trim().startsWith("data: ")) {
+      try {
+        const jsonData = JSON.parse(buffer.substring(6));
+        if (jsonData.positioning_patterns) {
+          const positioning_patterns: IPositioningPatterns[] =
+            jsonData.positioning_patterns;
+
+          console.log("final positioning patterns:", positioning_patterns);
+          onSetPositioningPatterns(positioning_patterns);
+
           onNext();
         }
       } catch (e) {

@@ -12,15 +12,15 @@ export interface IKeyVisuals {
   meta_description: string;
 }
 
-interface IKeyStrategy {
+export interface IMatrix {
   key_message: string;
   strong_points: string[];
 }
 
 export interface IBriefPlanning {
-  user: IKeyStrategy;
-  competitors: IKeyStrategy[];
-  suggestion: IKeyStrategy;
+  user: IMatrix;
+  competitors: IMatrix[];
+  suggestion: IMatrix;
 }
 
 export interface IValueOrganization {
@@ -90,6 +90,8 @@ export const PlannningWhatDataContext = createContext({
   onSetSelectedValueOrganization: (data: string[]) => {},
   selectedTobes: [] as string[],
   onSetSelectedTobes: (data: string[]) => {},
+  selectedMatrix: {} as IMatrix,
+  onSetSelectedMatrix: (data: IMatrix) => {},
 });
 
 export default function PlannningWhatDataContextProvider({
@@ -172,12 +174,21 @@ export default function PlannningWhatDataContextProvider({
     setPositioningPatterns(data);
   };
 
+  const [selectedMatrix, setSelectedMatrix] = useState<IMatrix>({
+    key_message: "",
+    strong_points: [],
+  });
+  const onSetSelectedMatrix = (data: IMatrix) => {
+    setSelectedMatrix(data);
+  };
+
   const [selectedValueOrganization, setSelectedValueOrganization] = useState<
-    string[]
+    any[]
   >([]);
-  const onSetSelectedValueOrganization = (data: string[]) => {
+  const onSetSelectedValueOrganization = (data: any[]) => {
     setSelectedValueOrganization(data);
   };
+
   const [selectedTobes, setSelectedTobes] = useState<string[]>([]);
   const onSetSelectedTobes = (data: string[]) => {
     setSelectedTobes(data);
@@ -212,6 +223,8 @@ export default function PlannningWhatDataContextProvider({
         onSetSelectedTobes,
         selectedValueOrganization,
         onSetSelectedValueOrganization,
+        selectedMatrix,
+        onSetSelectedMatrix,
       }}
     >
       {children}

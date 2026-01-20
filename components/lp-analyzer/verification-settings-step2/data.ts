@@ -1,0 +1,100 @@
+import { RowData } from "./types";
+
+export const defaultRowData: RowData[] = [
+  {
+    hook: "30代男性の悩み、これ1本で解決？驚きのスカルプケア",
+    body1:
+      "専門家監修の独自成分で、あなたの頭皮環境を根本から改善。毎日がサロン帰りの心地よさに。",
+    body2:
+      "利用者の90%が満足！「抜け毛が減った」「フケが気にならない」と実感の声多数。今なら初回限定価格。",
+    cta: "今すぐチェック",
+    hookChecked: true,
+    body1Checked: true,
+    body2Checked: true,
+    ctaChecked: true,
+  },
+  {
+    hook: "「えっ、まだ高いシャンプー使ってるの？」賢い男の選択",
+    body1:
+      "厳選されたオーガニック成分が毛穴の奥まで浸透。眠っていた頭皮の力を呼び覚まします。",
+    body2:
+      "累計販売数100万本突破！多くの男性に選ばれ続ける実力派。30日間の全額返金保証付きで安心。",
+    cta: "詳細を見る",
+    hookChecked: true,
+    body1Checked: false,
+    body2Checked: false,
+    ctaChecked: false,
+  },
+  {
+    hook: "美容師がこっそり教える、自宅でできる頭皮改革",
+    body1:
+      "独自のマイクロバブル処方で、こびりついた皮脂汚れをごっそり洗浄。驚きの爽快感を実現。",
+    body2:
+      "「もっと早く使えばよかった」リピート率95%が証明する信頼の品質。まずは2週間お試しください。",
+    cta: "公式サイトへ",
+    hookChecked: true,
+    body1Checked: false,
+    body2Checked: false,
+    ctaChecked: false,
+  },
+  {
+    hook: "毎朝のセットが決まらない...その原因、実はシャンプーかも",
+    body1:
+      "髪のハリ・コシ不足にアプローチ。使うたびに太く強い髪へ導く、次世代スカルプケア。",
+    body2:
+      "雑誌やSNSで話題沸騰中！美容家も絶賛するクオリティを、WEB限定の特別オファーでお届け。",
+    cta: "お得に購入する",
+    hookChecked: false,
+    body1Checked: false,
+    body2Checked: false,
+    ctaChecked: false,
+  },
+  {
+    hook: "【衝撃】9割の人が間違っている頭皮ケアの常識",
+    body1:
+      "頭皮の乾燥・べたつきトラブルを一本でケア。pHバランスを整え、健やかな育毛環境へ。",
+    body2:
+      "【期間限定】定期コース申し込みで初回50%OFF！さらに特製スカルプブラシをプレゼント。",
+    cta: "初回半額で試す",
+    hookChecked: false,
+    body1Checked: false,
+    body2Checked: false,
+    ctaChecked: false,
+  },
+  {
+    hook: "妻に「最近かっこよくなった？」と言われた秘密とは",
+    body1:
+      "3種の有効成分が発毛を促進。薄毛の悩みに終止符を打つ、確かな実感をあなたに。",
+    body2:
+      "愛用歴3年のユーザーが語る「変わったのは髪だけじゃない、人生だ」。あなたも体験してみませんか？",
+    cta: "在庫を確認する",
+    hookChecked: true,
+    body1Checked: false,
+    body2Checked: false,
+    ctaChecked: false,
+  },
+  {
+    hook: "初回980円で始める、男の自信を取り戻す習慣",
+    body1:
+      "ノンシリコンなのにきしまない。保湿成分たっぷりで、洗うだけでトリートメント級の仕上がり。",
+    body2:
+      "在庫残りわずか！次回の入荷は未定です。お得なキャンペーンセットは今だけのチャンス。",
+    cta: "申し込みはこちら",
+    hookChecked: true,
+    body1Checked: false,
+    body2Checked: false,
+    ctaChecked: false,
+  },
+  {
+    hook: "「もっと早く出会いたかった」リピーター続出の理由",
+    body1:
+      "ニオイの原因菌を殺菌・消毒。夕方まで続く清潔感で、至近距離でも自信が持てる。",
+    body2:
+      "お客様満足度No.1獲得！第三者機関による調査でも高評価。確かな結果を求める方へ。",
+    cta: "無料モニターに応募",
+    hookChecked: true,
+    body1Checked: false,
+    body2Checked: false,
+    ctaChecked: false,
+  },
+];

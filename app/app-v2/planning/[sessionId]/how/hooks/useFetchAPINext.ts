@@ -36,6 +36,53 @@ export const submitStep1 = async ({
   }
 };
 
+export const submitStep1New = async ({}: {}) => {
+  try {
+    const { data } = await callAppV2Api.post("/v1/video/main-content/async", {
+      key_message: "stringstri",
+      strong_points: ["string", "string", "string"],
+      video_length: "15s",
+      provider: "openai",
+      language: "en",
+      selected_values: [
+        {
+          id: "string",
+          category: "people",
+          label: "string",
+          rationale: "string",
+        },
+      ],
+      selected_tobes: [
+        {
+          id: "string",
+          value_id: "string",
+          value_label: "string",
+          desire: "security",
+          old_assumption: "string",
+          new_assumption: "string",
+          judgment: "string",
+          action: "string",
+        },
+      ],
+      positioning_pattern: {
+        pattern_number: 1,
+        quadrant: "functional × process",
+        quadrant_ja: "string",
+        direction: "convergent",
+        direction_ja: "収束",
+        direction_reason: "string",
+        process_description: "string",
+        outcome_description: "string",
+        one_line_promise: "string",
+        source_value_ids: ["string"],
+        source_tobe_ids: ["string"],
+      },
+    });
+  } catch (error) {
+    console.log(error);
+  }
+};
+
 export const submitStep2 = async ({
   setLoading,
   onNext,

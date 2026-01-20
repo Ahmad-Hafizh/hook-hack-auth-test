@@ -158,16 +158,15 @@ const CompetitiveMatrix: React.FC<CompetitiveMatrixProps> = ({
     return (
       <div className="flex flex-col gap-6 group  ">
         {/* Header */}
-        <div className="bg-white p-4 rounded-xl shadow-sm relative overflow-hidden flex-none h-[70px] flex flex-col justify-center">
-          <div className={`absolute top-0 left-0 w-full h-1 bg-sky-600`}></div>
+        <div className="bg-gray-50 p-4 rounded-xl shadow-sm relative overflow-hidden flex-none h-[70px] flex flex-col justify-center">
           <div className="flex items-center justify-between">
-            <h3 className="font-bold text-lg text-text-main flex items-center gap-2">
+            <h3 className="font-bold text-lg text-text-main flex items-center gap-2 text-gray-500">
               競合詳細データ
             </h3>
           </div>
         </div>
 
-        <div className="bg-gray-50 p-5 rounded-xl border shadow-sm flex flex-row gap-6 h-full min-h-[860px]">
+        <div className="bg-gray-50 p-5 rounded-xl border shadow-sm flex flex-row gap-6 h-full min-h-[860px] text-gray-500">
           {competitors.map((competitor, index) => (
             <div
               key={index}
@@ -193,7 +192,7 @@ const CompetitiveMatrix: React.FC<CompetitiveMatrixProps> = ({
                     bottomSelected="result"
                     value={strongPoint}
                   />
-                )
+                ),
               )}
 
               <FieldFeature

@@ -14,7 +14,7 @@ import Step6 from "./scracth/step6";
 import Step7 from "./scracth/step7";
 
 const AppPage = () => {
-  const { step, onStep, page } = usePlannningContext();
+  const { step, onStep, page, onChangePage } = usePlannningContext();
   const {
     keyVisuals,
     onSetKeyVisuals,

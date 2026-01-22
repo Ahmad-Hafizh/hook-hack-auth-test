@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html class="" lang="ja"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>LPアナライザー - 競合他社調査</title>
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700;900&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">tailwind.config = {theme: {extend: {colors: {primary: "#0093b4", "primary-hover": "#007a92", "background-light": "#ffffff", "surface-light": "#ffffff", "surface-subtle": "#f8fafc", "border-light": "#e2e8f0", "text-main": "#1e293b", "text-muted": "#64748b", "background-dark": "#0f1f23", "accent-soft": "#e0f2f7"}, fontFamily: {display: "Inter", sans: ["Noto Sans JP", "sans-serif"]}, borderRadius: {DEFAULT: "0.25rem", lg: "0.5rem", xl: "0.75rem", full: "9999px"}, boxShadow: {soft: "0 4px 6px -1px rgba(0, 0, 0, 0.05), 0 2px 4px -1px rgba(0, 0, 0, 0.03)"}}}};</script>
+<style type="text/tailwindcss">
+    @layer utilities {
+        .animate-fade-in-up {
+            animation: fadeInUp 0.5s ease-out;
+        }
+    }
+    @keyframes fadeInUp {
+        from {
+            opacity: 0;
+            transform: translateY(10px);
+        }
+        to {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
+</style>
+</head>
+<body class="bg-surface-light text-text-main font-sans transition-colors duration-200 min-h-screen flex flex-col overflow-x-hidden antialiased">
+<main class="flex-1 w-full max-w-5xl mx-auto px-4 py-12 md:px-8 flex flex-col justify-center">
+<div class="mb-10 animate-fade-in-up">
+<h1 class="text-2xl md:text-3xl font-bold tracking-tight mb-3 text-text-main">競合他社調査の開始</h1>
+</div>
+<div class="w-full">
+<div class="flex flex-col gap-8">
+<div class="bg-surface-light rounded-xl p-8 md:p-12 shadow-soft border border-border-light animate-fade-in-up">
+<div class="text-center mb-10">
+<h3 class="text-lg md:text-xl font-bold text-text-main mb-2">以下どちらかを選択してください</h3>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-8 h-full">
+<label class="group relative flex flex-col items-center justify-center p-8 md:p-10 cursor-pointer rounded-xl border-2 border-border-light hover:border-primary hover:bg-accent-soft/10 hover:shadow-md transition-all duration-300 h-full">
+<input class="peer sr-only" name="research_method" type="radio" value="search"/>
+<div class="mb-6 bg-slate-50 rounded-full p-4 group-hover:bg-white group-hover:scale-110 transition-transform duration-300 border border-slate-100 group-hover:border-primary/20">
+<span class="material-symbols-outlined text-4xl text-text-muted group-hover:text-primary transition-colors">search</span>
+</div>
+<h4 class="text-lg font-bold text-text-main text-center group-hover:text-primary transition-colors mb-3">競合他社の調査を始める</h4>
+<p class="text-sm text-text-muted text-center leading-relaxed">
+                        キーワードや業界から、リサーチすべき競合LPを探します。
+                    </p>
+<div class="mt-6 w-5 h-5 rounded-full border border-slate-300 flex items-center justify-center peer-checked:border-primary peer-checked:bg-primary transition-colors">
+<div class="w-2.5 h-2.5 rounded-full bg-white opacity-0 peer-checked:opacity-100 transition-opacity"></div>
+</div>
+<div class="absolute inset-0 rounded-xl border-2 border-transparent peer-checked:border-primary peer-checked:bg-accent-soft/30 pointer-events-none transition-colors"></div>
+</label>
+<label class="group relative flex flex-col items-center justify-center p-8 md:p-10 cursor-pointer rounded-xl border-2 border-border-light hover:border-primary hover:bg-accent-soft/10 hover:shadow-md transition-all duration-300 h-full">
+<input class="peer sr-only" name="research_method" type="radio" value="url"/>
+<div class="mb-6 bg-slate-50 rounded-full p-4 group-hover:bg-white group-hover:scale-110 transition-transform duration-300 border border-slate-100 group-hover:border-primary/20">
+<span class="material-symbols-outlined text-4xl text-text-muted group-hover:text-primary transition-colors">link</span>
+</div>
+<h4 class="text-lg font-bold text-text-main text-center group-hover:text-primary transition-colors mb-3">
+                        調査したい競合3社の<br/>LPのURLをすでにご存じの方
+                    </h4>
+<p class="text-sm text-text-muted text-center leading-relaxed">
+                        直接URLを入力して、すぐに分析を開始します。
+                    </p>
+<div class="mt-6 w-5 h-5 rounded-full border border-slate-300 flex items-center justify-center peer-checked:border-primary peer-checked:bg-primary transition-colors">
+<div class="w-2.5 h-2.5 rounded-full bg-white opacity-0 peer-checked:opacity-100 transition-opacity"></div>
+</div>
+<div class="absolute inset-0 rounded-xl border-2 border-transparent peer-checked:border-primary peer-checked:bg-accent-soft/30 pointer-events-none transition-colors"></div>
+</label>
+</div>
+<div class="flex flex-col-reverse sm:flex-row items-center justify-end gap-4 mt-12 w-full">
+<button class="w-full sm:w-auto px-6 py-3 rounded-lg text-sm font-bold text-text-muted bg-transparent hover:bg-slate-50 transition-colors border border-transparent hover:border-slate-200">
+                    戻る
+                </button>
+<button class="w-full sm:w-auto px-10 py-3 rounded-lg text-sm font-bold text-white bg-primary hover:bg-primary-hover transition-all shadow-lg shadow-primary/20 flex items-center justify-center gap-2 group disabled:opacity-50 disabled:cursor-not-allowed">
+<span>次に進む</span>
+<span class="material-symbols-outlined text-[18px] group-hover:translate-x-1 transition-transform">arrow_forward</span>
+</button>
+</div>
+</div>
+</div>
+</div></main>
+</body></html>

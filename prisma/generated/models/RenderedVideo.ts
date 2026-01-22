@@ -28,36 +28,36 @@ export type RenderedVideoMinAggregateOutputType = {
   id: string | null
   videoUrl: string | null
   createdAt: Date | null
-  hook: string | null
   bodyAMessage: string | null
   bodyBMessage: string | null
   bodyCMessage: string | null
   cta: string | null
-  planningSessionId: string | null
+  hook: string | null
+  pdca_session_id: string | null
 }
 
 export type RenderedVideoMaxAggregateOutputType = {
   id: string | null
   videoUrl: string | null
   createdAt: Date | null
-  hook: string | null
   bodyAMessage: string | null
   bodyBMessage: string | null
   bodyCMessage: string | null
   cta: string | null
-  planningSessionId: string | null
+  hook: string | null
+  pdca_session_id: string | null
 }
 
 export type RenderedVideoCountAggregateOutputType = {
   id: number
   videoUrl: number
   createdAt: number
-  hook: number
   bodyAMessage: number
   bodyBMessage: number
   bodyCMessage: number
   cta: number
-  planningSessionId: number
+  hook: number
+  pdca_session_id: number
   _all: number
 }
 
@@ -66,36 +66,36 @@ export type RenderedVideoMinAggregateInputType = {
   id?: true
   videoUrl?: true
   createdAt?: true
-  hook?: true
   bodyAMessage?: true
   bodyBMessage?: true
   bodyCMessage?: true
   cta?: true
-  planningSessionId?: true
+  hook?: true
+  pdca_session_id?: true
 }
 
 export type RenderedVideoMaxAggregateInputType = {
   id?: true
   videoUrl?: true
   createdAt?: true
-  hook?: true
   bodyAMessage?: true
   bodyBMessage?: true
   bodyCMessage?: true
   cta?: true
-  planningSessionId?: true
+  hook?: true
+  pdca_session_id?: true
 }
 
 export type RenderedVideoCountAggregateInputType = {
   id?: true
   videoUrl?: true
   createdAt?: true
-  hook?: true
   bodyAMessage?: true
   bodyBMessage?: true
   bodyCMessage?: true
   cta?: true
-  planningSessionId?: true
+  hook?: true
+  pdca_session_id?: true
   _all?: true
 }
 
@@ -175,12 +175,12 @@ export type RenderedVideoGroupByOutputType = {
   id: string
   videoUrl: string
   createdAt: Date
-  hook: string
-  bodyAMessage: string
-  bodyBMessage: string
-  bodyCMessage: string
-  cta: string
-  planningSessionId: string
+  bodyAMessage: string | null
+  bodyBMessage: string | null
+  bodyCMessage: string | null
+  cta: string | null
+  hook: string | null
+  pdca_session_id: string
   _count: RenderedVideoCountAggregateOutputType | null
   _min: RenderedVideoMinAggregateOutputType | null
   _max: RenderedVideoMaxAggregateOutputType | null
@@ -208,26 +208,26 @@ export type RenderedVideoWhereInput = {
   id?: Prisma.StringFilter<"RenderedVideo"> | string
   videoUrl?: Prisma.StringFilter<"RenderedVideo"> | string
   createdAt?: Prisma.DateTimeFilter<"RenderedVideo"> | Date | string
-  hook?: Prisma.StringFilter<"RenderedVideo"> | string
-  bodyAMessage?: Prisma.StringFilter<"RenderedVideo"> | string
-  bodyBMessage?: Prisma.StringFilter<"RenderedVideo"> | string
-  bodyCMessage?: Prisma.StringFilter<"RenderedVideo"> | string
-  cta?: Prisma.StringFilter<"RenderedVideo"> | string
-  planningSessionId?: Prisma.StringFilter<"RenderedVideo"> | string
-  PlanningSession?: Prisma.XOR<Prisma.PlanningSessionScalarRelationFilter, Prisma.PlanningSessionWhereInput>
+  bodyAMessage?: Prisma.StringNullableFilter<"RenderedVideo"> | string | null
+  bodyBMessage?: Prisma.StringNullableFilter<"RenderedVideo"> | string | null
+  bodyCMessage?: Prisma.StringNullableFilter<"RenderedVideo"> | string | null
+  cta?: Prisma.StringNullableFilter<"RenderedVideo"> | string | null
+  hook?: Prisma.StringNullableFilter<"RenderedVideo"> | string | null
+  pdca_session_id?: Prisma.StringFilter<"RenderedVideo"> | string
+  PDCA_Session?: Prisma.XOR<Prisma.PDCASessionScalarRelationFilter, Prisma.PDCASessionWhereInput>
 }
 
 export type RenderedVideoOrderByWithRelationInput = {
   id?: Prisma.SortOrder
   videoUrl?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
-  hook?: Prisma.SortOrder
-  bodyAMessage?: Prisma.SortOrder
-  bodyBMessage?: Prisma.SortOrder
-  bodyCMessage?: Prisma.SortOrder
-  cta?: Prisma.SortOrder
-  planningSessionId?: Prisma.SortOrder
-  PlanningSession?: Prisma.PlanningSessionOrderByWithRelationInput
+  bodyAMessage?: Prisma.SortOrderInput | Prisma.SortOrder
+  bodyBMessage?: Prisma.SortOrderInput | Prisma.SortOrder
+  bodyCMessage?: Prisma.SortOrderInput | Prisma.SortOrder
+  cta?: Prisma.SortOrderInput | Prisma.SortOrder
+  hook?: Prisma.SortOrderInput | Prisma.SortOrder
+  pdca_session_id?: Prisma.SortOrder
+  PDCA_Session?: Prisma.PDCASessionOrderByWithRelationInput
 }
 
 export type RenderedVideoWhereUniqueInput = Prisma.AtLeast<{
@@ -237,25 +237,25 @@ export type RenderedVideoWhereUniqueInput = Prisma.AtLeast<{
   NOT?: Prisma.RenderedVideoWhereInput | Prisma.RenderedVideoWhereInput[]
   videoUrl?: Prisma.StringFilter<"RenderedVideo"> | string
   createdAt?: Prisma.DateTimeFilter<"RenderedVideo"> | Date | string
-  hook?: Prisma.StringFilter<"RenderedVideo"> | string
-  bodyAMessage?: Prisma.StringFilter<"RenderedVideo"> | string
-  bodyBMessage?: Prisma.StringFilter<"RenderedVideo"> | string
-  bodyCMessage?: Prisma.StringFilter<"RenderedVideo"> | string
-  cta?: Prisma.StringFilter<"RenderedVideo"> | string
-  planningSessionId?: Prisma.StringFilter<"RenderedVideo"> | string
-  PlanningSession?: Prisma.XOR<Prisma.PlanningSessionScalarRelationFilter, Prisma.PlanningSessionWhereInput>
+  bodyAMessage?: Prisma.StringNullableFilter<"RenderedVideo"> | string | null
+  bodyBMessage?: Prisma.StringNullableFilter<"RenderedVideo"> | string | null
+  bodyCMessage?: Prisma.StringNullableFilter<"RenderedVideo"> | string | null
+  cta?: Prisma.StringNullableFilter<"RenderedVideo"> | string | null
+  hook?: Prisma.StringNullableFilter<"RenderedVideo"> | string | null
+  pdca_session_id?: Prisma.StringFilter<"RenderedVideo"> | string
+  PDCA_Session?: Prisma.XOR<Prisma.PDCASessionScalarRelationFilter, Prisma.PDCASessionWhereInput>
 }, "id">
 
 export type RenderedVideoOrderByWithAggregationInput = {
   id?: Prisma.SortOrder
   videoUrl?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
-  hook?: Prisma.SortOrder
-  bodyAMessage?: Prisma.SortOrder
-  bodyBMessage?: Prisma.SortOrder
-  bodyCMessage?: Prisma.SortOrder
-  cta?: Prisma.SortOrder
-  planningSessionId?: Prisma.SortOrder
+  bodyAMessage?: Prisma.SortOrderInput | Prisma.SortOrder
+  bodyBMessage?: Prisma.SortOrderInput | Prisma.SortOrder
+  bodyCMessage?: Prisma.SortOrderInput | Prisma.SortOrder
+  cta?: Prisma.SortOrderInput | Prisma.SortOrder
+  hook?: Prisma.SortOrderInput | Prisma.SortOrder
+  pdca_session_id?: Prisma.SortOrder
   _count?: Prisma.RenderedVideoCountOrderByAggregateInput
   _max?: Prisma.RenderedVideoMaxOrderByAggregateInput
   _min?: Prisma.RenderedVideoMinOrderByAggregateInput
@@ -268,95 +268,95 @@ export type RenderedVideoScalarWhereWithAggregatesInput = {
   id?: Prisma.StringWithAggregatesFilter<"RenderedVideo"> | string
   videoUrl?: Prisma.StringWithAggregatesFilter<"RenderedVideo"> | string
   createdAt?: Prisma.DateTimeWithAggregatesFilter<"RenderedVideo"> | Date | string
-  hook?: Prisma.StringWithAggregatesFilter<"RenderedVideo"> | string
-  bodyAMessage?: Prisma.StringWithAggregatesFilter<"RenderedVideo"> | string
-  bodyBMessage?: Prisma.StringWithAggregatesFilter<"RenderedVideo"> | string
-  bodyCMessage?: Prisma.StringWithAggregatesFilter<"RenderedVideo"> | string
-  cta?: Prisma.StringWithAggregatesFilter<"RenderedVideo"> | string
-  planningSessionId?: Prisma.StringWithAggregatesFilter<"RenderedVideo"> | string
+  bodyAMessage?: Prisma.StringNullableWithAggregatesFilter<"RenderedVideo"> | string | null
+  bodyBMessage?: Prisma.StringNullableWithAggregatesFilter<"RenderedVideo"> | string | null
+  bodyCMessage?: Prisma.StringNullableWithAggregatesFilter<"RenderedVideo"> | string | null
+  cta?: Prisma.StringNullableWithAggregatesFilter<"RenderedVideo"> | string | null
+  hook?: Prisma.StringNullableWithAggregatesFilter<"RenderedVideo"> | string | null
+  pdca_session_id?: Prisma.StringWithAggregatesFilter<"RenderedVideo"> | string
 }
 
 export type RenderedVideoCreateInput = {
   id?: string
   videoUrl: string
   createdAt?: Date | string
-  hook: string
-  bodyAMessage: string
-  bodyBMessage: string
-  bodyCMessage: string
-  cta: string
-  PlanningSession: Prisma.PlanningSessionCreateNestedOneWithoutRenderedVideosInput
+  bodyAMessage?: string | null
+  bodyBMessage?: string | null
+  bodyCMessage?: string | null
+  cta?: string | null
+  hook?: string | null
+  PDCA_Session: Prisma.PDCASessionCreateNestedOneWithoutRenderedVideosInput
 }
 
 export type RenderedVideoUncheckedCreateInput = {
   id?: string
   videoUrl: string
   createdAt?: Date | string
-  hook: string
-  bodyAMessage: string
-  bodyBMessage: string
-  bodyCMessage: string
-  cta: string
-  planningSessionId: string
+  bodyAMessage?: string | null
+  bodyBMessage?: string | null
+  bodyCMessage?: string | null
+  cta?: string | null
+  hook?: string | null
+  pdca_session_id: string
 }
 
 export type RenderedVideoUpdateInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   videoUrl?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  hook?: Prisma.StringFieldUpdateOperationsInput | string
-  bodyAMessage?: Prisma.StringFieldUpdateOperationsInput | string
-  bodyBMessage?: Prisma.StringFieldUpdateOperationsInput | string
-  bodyCMessage?: Prisma.StringFieldUpdateOperationsInput | string
-  cta?: Prisma.StringFieldUpdateOperationsInput | string
-  PlanningSession?: Prisma.PlanningSessionUpdateOneRequiredWithoutRenderedVideosNestedInput
+  bodyAMessage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  bodyBMessage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  bodyCMessage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  cta?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  hook?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  PDCA_Session?: Prisma.PDCASessionUpdateOneRequiredWithoutRenderedVideosNestedInput
 }
 
 export type RenderedVideoUncheckedUpdateInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   videoUrl?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  hook?: Prisma.StringFieldUpdateOperationsInput | string
-  bodyAMessage?: Prisma.StringFieldUpdateOperationsInput | string
-  bodyBMessage?: Prisma.StringFieldUpdateOperationsInput | string
-  bodyCMessage?: Prisma.StringFieldUpdateOperationsInput | string
-  cta?: Prisma.StringFieldUpdateOperationsInput | string
-  planningSessionId?: Prisma.StringFieldUpdateOperationsInput | string
+  bodyAMessage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  bodyBMessage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  bodyCMessage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  cta?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  hook?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  pdca_session_id?: Prisma.StringFieldUpdateOperationsInput | string
 }
 
 export type RenderedVideoCreateManyInput = {
   id?: string
   videoUrl: string
   createdAt?: Date | string
-  hook: string
-  bodyAMessage: string
-  bodyBMessage: string
-  bodyCMessage: string
-  cta: string
-  planningSessionId: string
+  bodyAMessage?: string | null
+  bodyBMessage?: string | null
+  bodyCMessage?: string | null
+  cta?: string | null
+  hook?: string | null
+  pdca_session_id: string
 }
 
 export type RenderedVideoUpdateManyMutationInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   videoUrl?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  hook?: Prisma.StringFieldUpdateOperationsInput | string
-  bodyAMessage?: Prisma.StringFieldUpdateOperationsInput | string
-  bodyBMessage?: Prisma.StringFieldUpdateOperationsInput | string
-  bodyCMessage?: Prisma.StringFieldUpdateOperationsInput | string
-  cta?: Prisma.StringFieldUpdateOperationsInput | string
+  bodyAMessage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  bodyBMessage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  bodyCMessage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  cta?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  hook?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
 }
 
 export type RenderedVideoUncheckedUpdateManyInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   videoUrl?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  hook?: Prisma.StringFieldUpdateOperationsInput | string
-  bodyAMessage?: Prisma.StringFieldUpdateOperationsInput | string
-  bodyBMessage?: Prisma.StringFieldUpdateOperationsInput | string
-  bodyCMessage?: Prisma.StringFieldUpdateOperationsInput | string
-  cta?: Prisma.StringFieldUpdateOperationsInput | string
-  planningSessionId?: Prisma.StringFieldUpdateOperationsInput | string
+  bodyAMessage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  bodyBMessage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  bodyCMessage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  cta?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  hook?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  pdca_session_id?: Prisma.StringFieldUpdateOperationsInput | string
 }
 
 export type RenderedVideoListRelationFilter = {
@@ -373,126 +373,126 @@ export type RenderedVideoCountOrderByAggregateInput = {
   id?: Prisma.SortOrder
   videoUrl?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
-  hook?: Prisma.SortOrder
   bodyAMessage?: Prisma.SortOrder
   bodyBMessage?: Prisma.SortOrder
   bodyCMessage?: Prisma.SortOrder
   cta?: Prisma.SortOrder
-  planningSessionId?: Prisma.SortOrder
+  hook?: Prisma.SortOrder
+  pdca_session_id?: Prisma.SortOrder
 }
 
 export type RenderedVideoMaxOrderByAggregateInput = {
   id?: Prisma.SortOrder
   videoUrl?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
-  hook?: Prisma.SortOrder
   bodyAMessage?: Prisma.SortOrder
   bodyBMessage?: Prisma.SortOrder
   bodyCMessage?: Prisma.SortOrder
   cta?: Prisma.SortOrder
-  planningSessionId?: Prisma.SortOrder
+  hook?: Prisma.SortOrder
+  pdca_session_id?: Prisma.SortOrder
 }
 
 export type RenderedVideoMinOrderByAggregateInput = {
   id?: Prisma.SortOrder
   videoUrl?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
-  hook?: Prisma.SortOrder
   bodyAMessage?: Prisma.SortOrder
   bodyBMessage?: Prisma.SortOrder
   bodyCMessage?: Prisma.SortOrder
   cta?: Prisma.SortOrder
-  planningSessionId?: Prisma.SortOrder
+  hook?: Prisma.SortOrder
+  pdca_session_id?: Prisma.SortOrder
 }
 
-export type RenderedVideoCreateNestedManyWithoutPlanningSessionInput = {
-  create?: Prisma.XOR<Prisma.RenderedVideoCreateWithoutPlanningSessionInput, Prisma.RenderedVideoUncheckedCreateWithoutPlanningSessionInput> | Prisma.RenderedVideoCreateWithoutPlanningSessionInput[] | Prisma.RenderedVideoUncheckedCreateWithoutPlanningSessionInput[]
-  connectOrCreate?: Prisma.RenderedVideoCreateOrConnectWithoutPlanningSessionInput | Prisma.RenderedVideoCreateOrConnectWithoutPlanningSessionInput[]
-  createMany?: Prisma.RenderedVideoCreateManyPlanningSessionInputEnvelope
+export type RenderedVideoCreateNestedManyWithoutPDCA_SessionInput = {
+  create?: Prisma.XOR<Prisma.RenderedVideoCreateWithoutPDCA_SessionInput, Prisma.RenderedVideoUncheckedCreateWithoutPDCA_SessionInput> | Prisma.RenderedVideoCreateWithoutPDCA_SessionInput[] | Prisma.RenderedVideoUncheckedCreateWithoutPDCA_SessionInput[]
+  connectOrCreate?: Prisma.RenderedVideoCreateOrConnectWithoutPDCA_SessionInput | Prisma.RenderedVideoCreateOrConnectWithoutPDCA_SessionInput[]
+  createMany?: Prisma.RenderedVideoCreateManyPDCA_SessionInputEnvelope
   connect?: Prisma.RenderedVideoWhereUniqueInput | Prisma.RenderedVideoWhereUniqueInput[]
 }
 
-export type RenderedVideoUncheckedCreateNestedManyWithoutPlanningSessionInput = {
-  create?: Prisma.XOR<Prisma.RenderedVideoCreateWithoutPlanningSessionInput, Prisma.RenderedVideoUncheckedCreateWithoutPlanningSessionInput> | Prisma.RenderedVideoCreateWithoutPlanningSessionInput[] | Prisma.RenderedVideoUncheckedCreateWithoutPlanningSessionInput[]
-  connectOrCreate?: Prisma.RenderedVideoCreateOrConnectWithoutPlanningSessionInput | Prisma.RenderedVideoCreateOrConnectWithoutPlanningSessionInput[]
-  createMany?: Prisma.RenderedVideoCreateManyPlanningSessionInputEnvelope
+export type RenderedVideoUncheckedCreateNestedManyWithoutPDCA_SessionInput = {
+  create?: Prisma.XOR<Prisma.RenderedVideoCreateWithoutPDCA_SessionInput, Prisma.RenderedVideoUncheckedCreateWithoutPDCA_SessionInput> | Prisma.RenderedVideoCreateWithoutPDCA_SessionInput[] | Prisma.RenderedVideoUncheckedCreateWithoutPDCA_SessionInput[]
+  connectOrCreate?: Prisma.RenderedVideoCreateOrConnectWithoutPDCA_SessionInput | Prisma.RenderedVideoCreateOrConnectWithoutPDCA_SessionInput[]
+  createMany?: Prisma.RenderedVideoCreateManyPDCA_SessionInputEnvelope
   connect?: Prisma.RenderedVideoWhereUniqueInput | Prisma.RenderedVideoWhereUniqueInput[]
 }
 
-export type RenderedVideoUpdateManyWithoutPlanningSessionNestedInput = {
-  create?: Prisma.XOR<Prisma.RenderedVideoCreateWithoutPlanningSessionInput, Prisma.RenderedVideoUncheckedCreateWithoutPlanningSessionInput> | Prisma.RenderedVideoCreateWithoutPlanningSessionInput[] | Prisma.RenderedVideoUncheckedCreateWithoutPlanningSessionInput[]
-  connectOrCreate?: Prisma.RenderedVideoCreateOrConnectWithoutPlanningSessionInput | Prisma.RenderedVideoCreateOrConnectWithoutPlanningSessionInput[]
-  upsert?: Prisma.RenderedVideoUpsertWithWhereUniqueWithoutPlanningSessionInput | Prisma.RenderedVideoUpsertWithWhereUniqueWithoutPlanningSessionInput[]
-  createMany?: Prisma.RenderedVideoCreateManyPlanningSessionInputEnvelope
+export type RenderedVideoUpdateManyWithoutPDCA_SessionNestedInput = {
+  create?: Prisma.XOR<Prisma.RenderedVideoCreateWithoutPDCA_SessionInput, Prisma.RenderedVideoUncheckedCreateWithoutPDCA_SessionInput> | Prisma.RenderedVideoCreateWithoutPDCA_SessionInput[] | Prisma.RenderedVideoUncheckedCreateWithoutPDCA_SessionInput[]
+  connectOrCreate?: Prisma.RenderedVideoCreateOrConnectWithoutPDCA_SessionInput | Prisma.RenderedVideoCreateOrConnectWithoutPDCA_SessionInput[]
+  upsert?: Prisma.RenderedVideoUpsertWithWhereUniqueWithoutPDCA_SessionInput | Prisma.RenderedVideoUpsertWithWhereUniqueWithoutPDCA_SessionInput[]
+  createMany?: Prisma.RenderedVideoCreateManyPDCA_SessionInputEnvelope
   set?: Prisma.RenderedVideoWhereUniqueInput | Prisma.RenderedVideoWhereUniqueInput[]
   disconnect?: Prisma.RenderedVideoWhereUniqueInput | Prisma.RenderedVideoWhereUniqueInput[]
   delete?: Prisma.RenderedVideoWhereUniqueInput | Prisma.RenderedVideoWhereUniqueInput[]
   connect?: Prisma.RenderedVideoWhereUniqueInput | Prisma.RenderedVideoWhereUniqueInput[]
-  update?: Prisma.RenderedVideoUpdateWithWhereUniqueWithoutPlanningSessionInput | Prisma.RenderedVideoUpdateWithWhereUniqueWithoutPlanningSessionInput[]
-  updateMany?: Prisma.RenderedVideoUpdateManyWithWhereWithoutPlanningSessionInput | Prisma.RenderedVideoUpdateManyWithWhereWithoutPlanningSessionInput[]
+  update?: Prisma.RenderedVideoUpdateWithWhereUniqueWithoutPDCA_SessionInput | Prisma.RenderedVideoUpdateWithWhereUniqueWithoutPDCA_SessionInput[]
+  updateMany?: Prisma.RenderedVideoUpdateManyWithWhereWithoutPDCA_SessionInput | Prisma.RenderedVideoUpdateManyWithWhereWithoutPDCA_SessionInput[]
   deleteMany?: Prisma.RenderedVideoScalarWhereInput | Prisma.RenderedVideoScalarWhereInput[]
 }
 
-export type RenderedVideoUncheckedUpdateManyWithoutPlanningSessionNestedInput = {
-  create?: Prisma.XOR<Prisma.RenderedVideoCreateWithoutPlanningSessionInput, Prisma.RenderedVideoUncheckedCreateWithoutPlanningSessionInput> | Prisma.RenderedVideoCreateWithoutPlanningSessionInput[] | Prisma.RenderedVideoUncheckedCreateWithoutPlanningSessionInput[]
-  connectOrCreate?: Prisma.RenderedVideoCreateOrConnectWithoutPlanningSessionInput | Prisma.RenderedVideoCreateOrConnectWithoutPlanningSessionInput[]
-  upsert?: Prisma.RenderedVideoUpsertWithWhereUniqueWithoutPlanningSessionInput | Prisma.RenderedVideoUpsertWithWhereUniqueWithoutPlanningSessionInput[]
-  createMany?: Prisma.RenderedVideoCreateManyPlanningSessionInputEnvelope
+export type RenderedVideoUncheckedUpdateManyWithoutPDCA_SessionNestedInput = {
+  create?: Prisma.XOR<Prisma.RenderedVideoCreateWithoutPDCA_SessionInput, Prisma.RenderedVideoUncheckedCreateWithoutPDCA_SessionInput> | Prisma.RenderedVideoCreateWithoutPDCA_SessionInput[] | Prisma.RenderedVideoUncheckedCreateWithoutPDCA_SessionInput[]
+  connectOrCreate?: Prisma.RenderedVideoCreateOrConnectWithoutPDCA_SessionInput | Prisma.RenderedVideoCreateOrConnectWithoutPDCA_SessionInput[]
+  upsert?: Prisma.RenderedVideoUpsertWithWhereUniqueWithoutPDCA_SessionInput | Prisma.RenderedVideoUpsertWithWhereUniqueWithoutPDCA_SessionInput[]
+  createMany?: Prisma.RenderedVideoCreateManyPDCA_SessionInputEnvelope
   set?: Prisma.RenderedVideoWhereUniqueInput | Prisma.RenderedVideoWhereUniqueInput[]
   disconnect?: Prisma.RenderedVideoWhereUniqueInput | Prisma.RenderedVideoWhereUniqueInput[]
   delete?: Prisma.RenderedVideoWhereUniqueInput | Prisma.RenderedVideoWhereUniqueInput[]
   connect?: Prisma.RenderedVideoWhereUniqueInput | Prisma.RenderedVideoWhereUniqueInput[]
-  update?: Prisma.RenderedVideoUpdateWithWhereUniqueWithoutPlanningSessionInput | Prisma.RenderedVideoUpdateWithWhereUniqueWithoutPlanningSessionInput[]
-  updateMany?: Prisma.RenderedVideoUpdateManyWithWhereWithoutPlanningSessionInput | Prisma.RenderedVideoUpdateManyWithWhereWithoutPlanningSessionInput[]
+  update?: Prisma.RenderedVideoUpdateWithWhereUniqueWithoutPDCA_SessionInput | Prisma.RenderedVideoUpdateWithWhereUniqueWithoutPDCA_SessionInput[]
+  updateMany?: Prisma.RenderedVideoUpdateManyWithWhereWithoutPDCA_SessionInput | Prisma.RenderedVideoUpdateManyWithWhereWithoutPDCA_SessionInput[]
   deleteMany?: Prisma.RenderedVideoScalarWhereInput | Prisma.RenderedVideoScalarWhereInput[]
 }
 
-export type RenderedVideoCreateWithoutPlanningSessionInput = {
+export type RenderedVideoCreateWithoutPDCA_SessionInput = {
   id?: string
   videoUrl: string
   createdAt?: Date | string
-  hook: string
-  bodyAMessage: string
-  bodyBMessage: string
-  bodyCMessage: string
-  cta: string
+  bodyAMessage?: string | null
+  bodyBMessage?: string | null
+  bodyCMessage?: string | null
+  cta?: string | null
+  hook?: string | null
 }
 
-export type RenderedVideoUncheckedCreateWithoutPlanningSessionInput = {
+export type RenderedVideoUncheckedCreateWithoutPDCA_SessionInput = {
   id?: string
   videoUrl: string
   createdAt?: Date | string
-  hook: string
-  bodyAMessage: string
-  bodyBMessage: string
-  bodyCMessage: string
-  cta: string
+  bodyAMessage?: string | null
+  bodyBMessage?: string | null
+  bodyCMessage?: string | null
+  cta?: string | null
+  hook?: string | null
 }
 
-export type RenderedVideoCreateOrConnectWithoutPlanningSessionInput = {
+export type RenderedVideoCreateOrConnectWithoutPDCA_SessionInput = {
   where: Prisma.RenderedVideoWhereUniqueInput
-  create: Prisma.XOR<Prisma.RenderedVideoCreateWithoutPlanningSessionInput, Prisma.RenderedVideoUncheckedCreateWithoutPlanningSessionInput>
+  create: Prisma.XOR<Prisma.RenderedVideoCreateWithoutPDCA_SessionInput, Prisma.RenderedVideoUncheckedCreateWithoutPDCA_SessionInput>
 }
 
-export type RenderedVideoCreateManyPlanningSessionInputEnvelope = {
-  data: Prisma.RenderedVideoCreateManyPlanningSessionInput | Prisma.RenderedVideoCreateManyPlanningSessionInput[]
+export type RenderedVideoCreateManyPDCA_SessionInputEnvelope = {
+  data: Prisma.RenderedVideoCreateManyPDCA_SessionInput | Prisma.RenderedVideoCreateManyPDCA_SessionInput[]
   skipDuplicates?: boolean
 }
 
-export type RenderedVideoUpsertWithWhereUniqueWithoutPlanningSessionInput = {
+export type RenderedVideoUpsertWithWhereUniqueWithoutPDCA_SessionInput = {
   where: Prisma.RenderedVideoWhereUniqueInput
-  update: Prisma.XOR<Prisma.RenderedVideoUpdateWithoutPlanningSessionInput, Prisma.RenderedVideoUncheckedUpdateWithoutPlanningSessionInput>
-  create: Prisma.XOR<Prisma.RenderedVideoCreateWithoutPlanningSessionInput, Prisma.RenderedVideoUncheckedCreateWithoutPlanningSessionInput>
+  update: Prisma.XOR<Prisma.RenderedVideoUpdateWithoutPDCA_SessionInput, Prisma.RenderedVideoUncheckedUpdateWithoutPDCA_SessionInput>
+  create: Prisma.XOR<Prisma.RenderedVideoCreateWithoutPDCA_SessionInput, Prisma.RenderedVideoUncheckedCreateWithoutPDCA_SessionInput>
 }
 
-export type RenderedVideoUpdateWithWhereUniqueWithoutPlanningSessionInput = {
+export type RenderedVideoUpdateWithWhereUniqueWithoutPDCA_SessionInput = {
   where: Prisma.RenderedVideoWhereUniqueInput
-  data: Prisma.XOR<Prisma.RenderedVideoUpdateWithoutPlanningSessionInput, Prisma.RenderedVideoUncheckedUpdateWithoutPlanningSessionInput>
+  data: Prisma.XOR<Prisma.RenderedVideoUpdateWithoutPDCA_SessionInput, Prisma.RenderedVideoUncheckedUpdateWithoutPDCA_SessionInput>
 }
 
-export type RenderedVideoUpdateManyWithWhereWithoutPlanningSessionInput = {
+export type RenderedVideoUpdateManyWithWhereWithoutPDCA_SessionInput = {
   where: Prisma.RenderedVideoScalarWhereInput
-  data: Prisma.XOR<Prisma.RenderedVideoUpdateManyMutationInput, Prisma.RenderedVideoUncheckedUpdateManyWithoutPlanningSessionInput>
+  data: Prisma.XOR<Prisma.RenderedVideoUpdateManyMutationInput, Prisma.RenderedVideoUncheckedUpdateManyWithoutPDCA_SessionInput>
 }
 
 export type RenderedVideoScalarWhereInput = {
@@ -502,56 +502,56 @@ export type RenderedVideoScalarWhereInput = {
   id?: Prisma.StringFilter<"RenderedVideo"> | string
   videoUrl?: Prisma.StringFilter<"RenderedVideo"> | string
   createdAt?: Prisma.DateTimeFilter<"RenderedVideo"> | Date | string
-  hook?: Prisma.StringFilter<"RenderedVideo"> | string
-  bodyAMessage?: Prisma.StringFilter<"RenderedVideo"> | string
-  bodyBMessage?: Prisma.StringFilter<"RenderedVideo"> | string
-  bodyCMessage?: Prisma.StringFilter<"RenderedVideo"> | string
-  cta?: Prisma.StringFilter<"RenderedVideo"> | string
-  planningSessionId?: Prisma.StringFilter<"RenderedVideo"> | string
+  bodyAMessage?: Prisma.StringNullableFilter<"RenderedVideo"> | string | null
+  bodyBMessage?: Prisma.StringNullableFilter<"RenderedVideo"> | string | null
+  bodyCMessage?: Prisma.StringNullableFilter<"RenderedVideo"> | string | null
+  cta?: Prisma.StringNullableFilter<"RenderedVideo"> | string | null
+  hook?: Prisma.StringNullableFilter<"RenderedVideo"> | string | null
+  pdca_session_id?: Prisma.StringFilter<"RenderedVideo"> | string
 }
 
-export type RenderedVideoCreateManyPlanningSessionInput = {
+export type RenderedVideoCreateManyPDCA_SessionInput = {
   id?: string
   videoUrl: string
   createdAt?: Date | string
-  hook: string
-  bodyAMessage: string
-  bodyBMessage: string
-  bodyCMessage: string
-  cta: string
+  bodyAMessage?: string | null
+  bodyBMessage?: string | null
+  bodyCMessage?: string | null
+  cta?: string | null
+  hook?: string | null
 }
 
-export type RenderedVideoUpdateWithoutPlanningSessionInput = {
+export type RenderedVideoUpdateWithoutPDCA_SessionInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   videoUrl?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  hook?: Prisma.StringFieldUpdateOperationsInput | string
-  bodyAMessage?: Prisma.StringFieldUpdateOperationsInput | string
-  bodyBMessage?: Prisma.StringFieldUpdateOperationsInput | string
-  bodyCMessage?: Prisma.StringFieldUpdateOperationsInput | string
-  cta?: Prisma.StringFieldUpdateOperationsInput | string
+  bodyAMessage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  bodyBMessage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  bodyCMessage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  cta?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  hook?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
 }
 
-export type RenderedVideoUncheckedUpdateWithoutPlanningSessionInput = {
+export type RenderedVideoUncheckedUpdateWithoutPDCA_SessionInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   videoUrl?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  hook?: Prisma.StringFieldUpdateOperationsInput | string
-  bodyAMessage?: Prisma.StringFieldUpdateOperationsInput | string
-  bodyBMessage?: Prisma.StringFieldUpdateOperationsInput | string
-  bodyCMessage?: Prisma.StringFieldUpdateOperationsInput | string
-  cta?: Prisma.StringFieldUpdateOperationsInput | string
+  bodyAMessage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  bodyBMessage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  bodyCMessage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  cta?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  hook?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
 }
 
-export type RenderedVideoUncheckedUpdateManyWithoutPlanningSessionInput = {
+export type RenderedVideoUncheckedUpdateManyWithoutPDCA_SessionInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   videoUrl?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  hook?: Prisma.StringFieldUpdateOperationsInput | string
-  bodyAMessage?: Prisma.StringFieldUpdateOperationsInput | string
-  bodyBMessage?: Prisma.StringFieldUpdateOperationsInput | string
-  bodyCMessage?: Prisma.StringFieldUpdateOperationsInput | string
-  cta?: Prisma.StringFieldUpdateOperationsInput | string
+  bodyAMessage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  bodyBMessage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  bodyCMessage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  cta?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  hook?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
 }
 
 
@@ -560,79 +560,79 @@ export type RenderedVideoSelect<ExtArgs extends runtime.Types.Extensions.Interna
   id?: boolean
   videoUrl?: boolean
   createdAt?: boolean
-  hook?: boolean
   bodyAMessage?: boolean
   bodyBMessage?: boolean
   bodyCMessage?: boolean
   cta?: boolean
-  planningSessionId?: boolean
-  PlanningSession?: boolean | Prisma.PlanningSessionDefaultArgs<ExtArgs>
+  hook?: boolean
+  pdca_session_id?: boolean
+  PDCA_Session?: boolean | Prisma.PDCASessionDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["renderedVideo"]>
 
 export type RenderedVideoSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
   videoUrl?: boolean
   createdAt?: boolean
-  hook?: boolean
   bodyAMessage?: boolean
   bodyBMessage?: boolean
   bodyCMessage?: boolean
   cta?: boolean
-  planningSessionId?: boolean
-  PlanningSession?: boolean | Prisma.PlanningSessionDefaultArgs<ExtArgs>
+  hook?: boolean
+  pdca_session_id?: boolean
+  PDCA_Session?: boolean | Prisma.PDCASessionDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["renderedVideo"]>
 
 export type RenderedVideoSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
   videoUrl?: boolean
   createdAt?: boolean
-  hook?: boolean
   bodyAMessage?: boolean
   bodyBMessage?: boolean
   bodyCMessage?: boolean
   cta?: boolean
-  planningSessionId?: boolean
-  PlanningSession?: boolean | Prisma.PlanningSessionDefaultArgs<ExtArgs>
+  hook?: boolean
+  pdca_session_id?: boolean
+  PDCA_Session?: boolean | Prisma.PDCASessionDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["renderedVideo"]>
 
 export type RenderedVideoSelectScalar = {
   id?: boolean
   videoUrl?: boolean
   createdAt?: boolean
-  hook?: boolean
   bodyAMessage?: boolean
   bodyBMessage?: boolean
   bodyCMessage?: boolean
   cta?: boolean
-  planningSessionId?: boolean
+  hook?: boolean
+  pdca_session_id?: boolean
 }
 
-export type RenderedVideoOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "videoUrl" | "createdAt" | "hook" | "bodyAMessage" | "bodyBMessage" | "bodyCMessage" | "cta" | "planningSessionId", ExtArgs["result"]["renderedVideo"]>
+export type RenderedVideoOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "videoUrl" | "createdAt" | "bodyAMessage" | "bodyBMessage" | "bodyCMessage" | "cta" | "hook" | "pdca_session_id", ExtArgs["result"]["renderedVideo"]>
 export type RenderedVideoInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  PlanningSession?: boolean | Prisma.PlanningSessionDefaultArgs<ExtArgs>
+  PDCA_Session?: boolean | Prisma.PDCASessionDefaultArgs<ExtArgs>
 }
 export type RenderedVideoIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  PlanningSession?: boolean | Prisma.PlanningSessionDefaultArgs<ExtArgs>
+  PDCA_Session?: boolean | Prisma.PDCASessionDefaultArgs<ExtArgs>
 }
 export type RenderedVideoIncludeUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  PlanningSession?: boolean | Prisma.PlanningSessionDefaultArgs<ExtArgs>
+  PDCA_Session?: boolean | Prisma.PDCASessionDefaultArgs<ExtArgs>
 }
 
 export type $RenderedVideoPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   name: "RenderedVideo"
   objects: {
-    PlanningSession: Prisma.$PlanningSessionPayload<ExtArgs>
+    PDCA_Session: Prisma.$PDCASessionPayload<ExtArgs>
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: string
     videoUrl: string
     createdAt: Date
-    hook: string
-    bodyAMessage: string
-    bodyBMessage: string
-    bodyCMessage: string
-    cta: string
-    planningSessionId: string
+    bodyAMessage: string | null
+    bodyBMessage: string | null
+    bodyCMessage: string | null
+    cta: string | null
+    hook: string | null
+    pdca_session_id: string
   }, ExtArgs["result"]["renderedVideo"]>
   composites: {}
 }
@@ -1027,7 +1027,7 @@ readonly fields: RenderedVideoFieldRefs;
  */
 export interface Prisma__RenderedVideoClient<T, Null = never, ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
   readonly [Symbol.toStringTag]: "PrismaPromise"
-  PlanningSession<T extends Prisma.PlanningSessionDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.PlanningSessionDefaultArgs<ExtArgs>>): Prisma.Prisma__PlanningSessionClient<runtime.Types.Result.GetResult<Prisma.$PlanningSessionPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+  PDCA_Session<T extends Prisma.PDCASessionDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.PDCASessionDefaultArgs<ExtArgs>>): Prisma.Prisma__PDCASessionClient<runtime.Types.Result.GetResult<Prisma.$PDCASessionPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
    * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -1060,12 +1060,12 @@ export interface RenderedVideoFieldRefs {
   readonly id: Prisma.FieldRef<"RenderedVideo", 'String'>
   readonly videoUrl: Prisma.FieldRef<"RenderedVideo", 'String'>
   readonly createdAt: Prisma.FieldRef<"RenderedVideo", 'DateTime'>
-  readonly hook: Prisma.FieldRef<"RenderedVideo", 'String'>
   readonly bodyAMessage: Prisma.FieldRef<"RenderedVideo", 'String'>
   readonly bodyBMessage: Prisma.FieldRef<"RenderedVideo", 'String'>
   readonly bodyCMessage: Prisma.FieldRef<"RenderedVideo", 'String'>
   readonly cta: Prisma.FieldRef<"RenderedVideo", 'String'>
-  readonly planningSessionId: Prisma.FieldRef<"RenderedVideo", 'String'>
+  readonly hook: Prisma.FieldRef<"RenderedVideo", 'String'>
+  readonly pdca_session_id: Prisma.FieldRef<"RenderedVideo", 'String'>
 }
     
 

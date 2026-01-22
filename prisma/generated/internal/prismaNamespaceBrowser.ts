@@ -56,12 +56,17 @@ export const ModelName = {
   requestlist: 'requestlist',
   project: 'project',
   Transaction: 'Transaction',
-  PlanningSession: 'PlanningSession',
-  CreativeBrief: 'CreativeBrief',
+  PDCA: 'PDCA',
+  PDCASession: 'PDCASession',
+  CompetitorMatrix: 'CompetitorMatrix',
+  ValueOrganization: 'ValueOrganization',
+  DesireOrganization: 'DesireOrganization',
+  PositioningPatterns: 'PositioningPatterns',
   PlanningPlan: 'PlanningPlan',
   PlanningVariants: 'PlanningVariants',
   RenderedVideo: 'RenderedVideo',
-  Ads: 'Ads'
+  Ads: 'Ads',
+  GoogleAdsCredential: 'GoogleAdsCredential'
 } as const
 
 export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -172,29 +177,82 @@ export const TransactionScalarFieldEnum = {
 export type TransactionScalarFieldEnum = (typeof TransactionScalarFieldEnum)[keyof typeof TransactionScalarFieldEnum]
 
 
-export const PlanningSessionScalarFieldEnum = {
+export const PDCAScalarFieldEnum = {
   id: 'id',
-  sessionToken: 'sessionToken',
-  finishedAt: 'finishedAt',
-  lastPage: 'lastPage',
-  lastStep: 'lastStep',
-  product: 'product',
-  keyword: 'keyword',
-  competitors: 'competitors',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt',
   userId: 'userId'
 } as const
 
-export type PlanningSessionScalarFieldEnum = (typeof PlanningSessionScalarFieldEnum)[keyof typeof PlanningSessionScalarFieldEnum]
+export type PDCAScalarFieldEnum = (typeof PDCAScalarFieldEnum)[keyof typeof PDCAScalarFieldEnum]
 
 
-export const CreativeBriefScalarFieldEnum = {
+export const PDCASessionScalarFieldEnum = {
+  id: 'id',
+  pdca_id: 'pdca_id',
+  finishedAt: 'finishedAt',
+  lastPage: 'lastPage',
+  product: 'product',
+  competitors: 'competitors',
+  keyword: 'keyword'
+} as const
+
+export type PDCASessionScalarFieldEnum = (typeof PDCASessionScalarFieldEnum)[keyof typeof PDCASessionScalarFieldEnum]
+
+
+export const CompetitorMatrixScalarFieldEnum = {
   id: 'id',
   keyMessages: 'keyMessages',
   strongPoints: 'strongPoints',
-  planningSessionId: 'planningSessionId'
+  competitorsMatrix: 'competitorsMatrix',
+  pdca_session_id: 'pdca_session_id'
 } as const
 
-export type CreativeBriefScalarFieldEnum = (typeof CreativeBriefScalarFieldEnum)[keyof typeof CreativeBriefScalarFieldEnum]
+export type CompetitorMatrixScalarFieldEnum = (typeof CompetitorMatrixScalarFieldEnum)[keyof typeof CompetitorMatrixScalarFieldEnum]
+
+
+export const ValueOrganizationScalarFieldEnum = {
+  id: 'id',
+  value_id: 'value_id',
+  category: 'category',
+  label: 'label',
+  rationale: 'rationale',
+  pdca_session_id: 'pdca_session_id'
+} as const
+
+export type ValueOrganizationScalarFieldEnum = (typeof ValueOrganizationScalarFieldEnum)[keyof typeof ValueOrganizationScalarFieldEnum]
+
+
+export const DesireOrganizationScalarFieldEnum = {
+  id: 'id',
+  value_id: 'value_id',
+  value_category: 'value_category',
+  value_label: 'value_label',
+  desire_1: 'desire_1',
+  desire_2: 'desire_2',
+  pdca_session_id: 'pdca_session_id'
+} as const
+
+export type DesireOrganizationScalarFieldEnum = (typeof DesireOrganizationScalarFieldEnum)[keyof typeof DesireOrganizationScalarFieldEnum]
+
+
+export const PositioningPatternsScalarFieldEnum = {
+  id: 'id',
+  pattern_number: 'pattern_number',
+  quadrant: 'quadrant',
+  quadrant_ja: 'quadrant_ja',
+  direction: 'direction',
+  direction_ja: 'direction_ja',
+  direction_reason: 'direction_reason',
+  process_description: 'process_description',
+  outcome_description: 'outcome_description',
+  one_line_promise: 'one_line_promise',
+  source_value_ids: 'source_value_ids',
+  source_tobe_ids: 'source_tobe_ids',
+  pdca_session_id: 'pdca_session_id'
+} as const
+
+export type PositioningPatternsScalarFieldEnum = (typeof PositioningPatternsScalarFieldEnum)[keyof typeof PositioningPatternsScalarFieldEnum]
 
 
 export const PlanningPlanScalarFieldEnum = {
@@ -209,7 +267,7 @@ export const PlanningPlanScalarFieldEnum = {
   typical_cpm: 'typical_cpm',
   budget: 'budget',
   template_id: 'template_id',
-  planningSessionId: 'planningSessionId'
+  pdca_session_id: 'pdca_session_id'
 } as const
 
 export type PlanningPlanScalarFieldEnum = (typeof PlanningPlanScalarFieldEnum)[keyof typeof PlanningPlanScalarFieldEnum]
@@ -222,7 +280,7 @@ export const PlanningVariantsScalarFieldEnum = {
   bodyB_messages: 'bodyB_messages',
   bodyC_messages: 'bodyC_messages',
   ctas: 'ctas',
-  planningSessionId: 'planningSessionId'
+  pdca_session_id: 'pdca_session_id'
 } as const
 
 export type PlanningVariantsScalarFieldEnum = (typeof PlanningVariantsScalarFieldEnum)[keyof typeof PlanningVariantsScalarFieldEnum]
@@ -232,12 +290,12 @@ export const RenderedVideoScalarFieldEnum = {
   id: 'id',
   videoUrl: 'videoUrl',
   createdAt: 'createdAt',
-  hook: 'hook',
   bodyAMessage: 'bodyAMessage',
   bodyBMessage: 'bodyBMessage',
   bodyCMessage: 'bodyCMessage',
   cta: 'cta',
-  planningSessionId: 'planningSessionId'
+  hook: 'hook',
+  pdca_session_id: 'pdca_session_id'
 } as const
 
 export type RenderedVideoScalarFieldEnum = (typeof RenderedVideoScalarFieldEnum)[keyof typeof RenderedVideoScalarFieldEnum]
@@ -248,10 +306,22 @@ export const AdsScalarFieldEnum = {
   adUrl: 'adUrl',
   createdAt: 'createdAt',
   performance: 'performance',
-  planningSessionId: 'planningSessionId'
+  pdca_session_id: 'pdca_session_id'
 } as const
 
 export type AdsScalarFieldEnum = (typeof AdsScalarFieldEnum)[keyof typeof AdsScalarFieldEnum]
+
+
+export const GoogleAdsCredentialScalarFieldEnum = {
+  id: 'id',
+  userId: 'userId',
+  refreshToken: 'refreshToken',
+  customerIds: 'customerIds',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type GoogleAdsCredentialScalarFieldEnum = (typeof GoogleAdsCredentialScalarFieldEnum)[keyof typeof GoogleAdsCredentialScalarFieldEnum]
 
 
 export const SortOrder = {
@@ -268,6 +338,13 @@ export const NullableJsonNullValueInput = {
 } as const
 
 export type NullableJsonNullValueInput = (typeof NullableJsonNullValueInput)[keyof typeof NullableJsonNullValueInput]
+
+
+export const JsonNullValueInput = {
+  JsonNull: 'JsonNull'
+} as const
+
+export type JsonNullValueInput = (typeof JsonNullValueInput)[keyof typeof JsonNullValueInput]
 
 
 export const QueryMode = {

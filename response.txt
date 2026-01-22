@@ -1,0 +1,160 @@
+{
+  "values": [
+    {
+      "id": "P1",
+      "category": "people",
+      "label": "Empathy",
+      "rationale": "Users feel understood by the platform's support."
+    },
+    {
+      "id": "I1",
+      "category": "information",
+      "label": "Accuracy",
+      "rationale": "High precision in data analysis is mentioned repeatedly."
+    },
+    {
+      "id": "T1",
+      "category": "things",
+      "label": "Speed",
+      "rationale": "Processing is 2x faster than competitors."
+    },
+    {
+      "id": "V1",
+      "category": "vibes",
+      "label": "Modern",
+      "rationale": "UI is sleek and contemporary."
+    }
+    // ... total 12 items (3 per category)
+  ]
+}
+
+// desire organization
+{
+  "desire_tobes": [
+    {
+      "value_id": "P1",
+      "value_label": "Empathy",
+      "value_category": "people",
+      "desire_1": {
+        "desire": "belonging",
+        "reason": "Creating a community where users feel safe.",
+        "tobe": {
+          "old_assumption": "I am alone in this struggle",
+          "new_assumption": "We are in this together",
+          "judgment": "Seek connection over isolation",
+          "action": "Join the user community"
+        }
+      },
+      "desire_2": {
+        "desire": "security",
+        "reason": "Knowing support is always there.",
+        "tobe": {
+          "old_assumption": "Errors are fatal",
+          "new_assumption": "Help is always available",
+          "judgment": "Prioritize reliability",
+          "action": "Subscribe to premium support"
+        }
+      }
+    }
+    // ... total 6 items
+  ]
+}
+
+//positioning outline
+{
+  "positioning_patterns": [
+    {
+      "pattern_number": 1,
+      "quadrant": "functional × process",
+      "quadrant_ja": "機能×プロセス",
+      "direction": "convergent",
+      "direction_ja": "収束",
+      "direction_reason": "To focus on efficiency improvement.",
+      "process_description": "Streamlining the daily workflow with automation tools.",
+      "outcome_description": "Users save 2 hours per day/week.",
+      "one_line_promise": "We guarantee a 20% efficiency boost in your daily tasks.",
+      "source_value_ids": ["T1", "I1"],
+      "source_tobe_ids": ["P1_belonging"]
+    },
+    {
+      "pattern_number": 2,
+      "quadrant": "emotional × process",
+      "quadrant_ja": "情緒×プロセス",
+      "direction": "divergent",
+      "direction_ja": "発散",
+      "direction_reason": "To expand the user's creative potential.",
+      "process_description": "Providing a playground for experimentation.",
+      "outcome_description": "Users feel inspired and less anxious about failure.",
+      "one_line_promise": "Unleash your creativity without the fear of making mistakes.",
+      "source_value_ids": ["V1", "P1"],
+      "source_tobe_ids": ["P1_security"]
+    },
+    {
+      "pattern_number": 3,
+      "quadrant": "functional × outcome",
+      "quadrant_ja": "機能×結果",
+      "direction": "convergent",
+      "direction_ja": "収束",
+      "direction_reason": "To ensure targeted results.",
+      "process_description": "Using data-driven insights to guide decisions.",
+      "outcome_description": "Achieve zero error rates in reporting.",
+      "one_line_promise": "Data accuracy you can trust for critical decisions.",
+      "source_value_ids": ["I1", "T2"],
+      "source_tobe_ids": ["T1_growth"]
+    }
+  ]
+}
+
+
+//payload render
+{
+  "template_id": "de2edb7c-b2cb-43b2-bcec-df6d79cdaa98",
+  "modifications": {
+    "Back-ground-color(CTA).fill_color": "#3EB135",
+
+    //body 2
+    "BodyB(image)-2.source": "https://creatomate.com/files/assets/3f0d08c5-9aa9-47de-91e0-fe39416dbfe2",
+    "BodyB(image)-1.source": "https://creatomate.com/files/assets/4a70d5ed-910a-4e13-8e3d-84e1eb4668f4",
+    "BodyB(text)-2.text": "同じ世界を違う角度から見る力が育っていきます ",
+    "BodyB(text)-2.background_color": null,
+    "BodyB(text)-2_audio.source": "",
+    "BodyB(text)-1.text": "子どもと年代の近いロールモデルと出会い、",
+    "BodyB(text)-1.background_color": null,
+    "BodyB(text)-1_audio.source": "",
+
+    //body 1
+    "BodyA(image)-2.source": "https://creatomate.com/files/assets/a745c91d-2648-4708-8a4f-0ec24adcf8b8",
+    "BodyA(image)-1.source": "https://creatomate.com/files/assets/defc9ca8-de70-4a87-9404-e6898baf0641",
+    "BodyA(text)-2.text": "小学生で英検2級を目指す英語塾 ",
+    "BodyA(text)-2.font_size": "5 vmin",
+    "BodyA(text)-2.background_color": null,
+    "BodyA(text)-2_audio.source": "",
+    "BodyA(text)-1.text": " 多国経験のあるバイリンガル講師の個別レッスンで、",
+    "BodyA(text)-1.background_color": null,
+    "BodyA(text)-1_audio.source": "",
+    
+    //hook
+    "Back-ground-color(Hook).fill_color": "rgba(63,177,53,1)",
+    "Hook(image).source": "https://creatomate.com/files/assets/21d33251-5306-44b0-8075-e204e36f6d27",
+    "Hook(text)-2.text": "生き方の選択肢が増える英語時間を子どもに ",
+    "Hook(text)-2_audio.source": "",
+    "Hook(text)-1.text": "「周りと違ってもいい」と気付き、",
+    "Hook(text)-1_audio.source": "",
+
+    //image duplicate
+    "Same-image-as-BodyA(image)-1.source": "https://creatomate.com/files/assets/2737c464-c4bc-4be9-b535-5cb55fcfe5c1",
+    "Same-image-as-BodyA(image)-2.source": "https://creatomate.com/files/assets/0190806a-8744-4b8f-aa0d-f10cb01b2b7d",
+    "Same-image-as-Hook(image).source": "https://creatomate.com/files/assets/4fa675a7-8885-4ffb-a608-aecc08491f61",
+
+    //cta
+    "CTA(text)-1.text": "世界が広がる感覚に触れられる、",
+    "CTA(text)-1_audio.source": "",
+    "CTA(text)-2.text": "無料体験レッスン\n",
+    "CTA(text)-2.background_color": "rgba(247,106,30,1)",
+    "CTA(text)-2_audio.source": "",
+
+    //other
+    "Logo.source": "https://creatomate.com/files/assets/b87431af-d124-4305-b6c2-6320c8e2bf93",
+    "BGM.source": ""
+  }
+}

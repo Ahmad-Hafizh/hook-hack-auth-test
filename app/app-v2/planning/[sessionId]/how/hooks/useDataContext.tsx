@@ -1,6 +1,6 @@
-'use client';
+"use client";
 
-import React, { useState } from 'react';
+import React, { useState } from "react";
 
 export interface IPlan {
   test_term_weeks: number;
@@ -45,6 +45,25 @@ export interface IPattern {
   };
 }
 
+export interface IDataRow {
+  hook: string;
+  body1: string;
+  body2: string;
+  cta: string;
+}
+
+export interface IDataRowFinalized {
+  hookImage: string;
+  hook: string;
+  body1Image: string;
+  body1ImageB?: string;
+  body1: string;
+  body2Image: string;
+  body2ImageB?: string;
+  body2: string;
+  cta: string;
+}
+
 const dataContext = React.createContext({
   plan: {} as IPlan,
   onSetPlan: (plan: IPlan) => {},
@@ -56,15 +75,29 @@ const dataContext = React.createContext({
   onSetPatternCount: (count: number) => {},
   patternCombinations: [] as IPattern[],
   onSetPatternCombinations: (value: any) => {},
-  jobId: '',
+  jobId: "",
   onSetJobId: (id: string) => {},
   rendersCreatomate: [] as { result_url: string }[],
   onSetRendersCreatomate: (value: any) => {},
-  selectedTemplateId: '',
+  selectedTemplateId: "",
   onSetSelectedTemplateId: (id: string) => {},
+
+  // New Steps Data
+  duration: 15 | 30,
+  onSetDuration: (duration: 15 | 30) => {},
+  dataRows: [] as IDataRow[],
+  onSetDataRows: (rows: IDataRow[]) => {},
+  finalizedDataRows: [] as IDataRowFinalized[],
+  onSetFinalizedDataRows: (rows: IDataRowFinalized[]) => {},
+  selectedFinalizedRows: [] as IDataRowFinalized[],
+  onSetSelectedFinalizedRows: (rows: IDataRowFinalized[]) => {},
 });
 
-export const DataContextProvider = ({ children }: { children: React.ReactNode }) => {
+export const DataContextProvider = ({
+  children,
+}: {
+  children: React.ReactNode;
+}) => {
   const [plan, setPlan] = useState<IPlan>({
     test_term_weeks: 0,
     videos_per_month: 0,
@@ -83,7 +116,7 @@ export const DataContextProvider = ({ children }: { children: React.ReactNode })
     strong_point_2_images: [],
     strong_point_3_images: [],
     background_music: [],
-    brand_logo: '',
+    brand_logo: "",
   });
   const onSetVariants = (value: any) => {
     setVariants(value);
@@ -108,24 +141,53 @@ export const DataContextProvider = ({ children }: { children: React.ReactNode })
     setPatternCount(count);
   };
 
-  const [patternCombinations, setPatternCombinations] = useState<IPattern[]>([]);
+  const [patternCombinations, setPatternCombinations] = useState<IPattern[]>(
+    [],
+  );
   const onSetPatternCombinations = (value: any) => {
     setPatternCombinations(value);
   };
 
-  const [jobId, setJobId] = useState<string>('');
+  const [jobId, setJobId] = useState<string>("");
   const onSetJobId = (id: string) => {
     setJobId(id);
   };
 
-  const [rendersCreatomate, setRendersCreatomate] = useState<{ result_url: string }[]>([]);
+  const [rendersCreatomate, setRendersCreatomate] = useState<
+    { result_url: string }[]
+  >([]);
   const onSetRendersCreatomate = (value: any) => {
     setRendersCreatomate(value);
   };
 
-  const [selectedTemplateId, setSelectedTemplateId] = useState<string>('');
+  const [selectedTemplateId, setSelectedTemplateId] = useState<string>("");
   const onSetSelectedTemplateId = (id: string) => {
     setSelectedTemplateId(id);
+  };
+
+  // new steps data
+  const [duration, setDuration] = useState<15 | 30>(15);
+  const onSetDuration = (duration: 15 | 30) => {
+    setDuration(duration);
+  };
+
+  const [dataRows, setDataRows] = useState<IDataRow[]>([]);
+  const onSetDataRows = (rows: IDataRow[]) => {
+    setDataRows(rows);
+  };
+
+  const [finalizedDataRows, setFinalizedDataRows] = useState<
+    IDataRowFinalized[]
+  >([]);
+  const onSetFinalizedDataRows = (rows: IDataRowFinalized[]) => {
+    setFinalizedDataRows(rows);
+  };
+
+  const [selectedFinalizedRows, setSelectedFinalizedRows] = useState<
+    IDataRowFinalized[]
+  >([]);
+  const onSetSelectedFinalizedRows = (rows: IDataRowFinalized[]) => {
+    setSelectedFinalizedRows(rows);
   };
 
   return (
@@ -147,6 +209,14 @@ export const DataContextProvider = ({ children }: { children: React.ReactNode })
         onSetRendersCreatomate,
         selectedTemplateId,
         onSetSelectedTemplateId,
+        duration,
+        onSetDuration,
+        dataRows,
+        onSetDataRows,
+        finalizedDataRows,
+        onSetFinalizedDataRows,
+        selectedFinalizedRows,
+        onSetSelectedFinalizedRows,
       }}
     >
       {children}
@@ -157,7 +227,7 @@ export const DataContextProvider = ({ children }: { children: React.ReactNode })
 export const useDataContext = () => {
   const context = React.useContext(dataContext);
   if (context === undefined) {
-    throw new Error('useDataContext must be used within a DataContextProvider');
+    throw new Error("useDataContext must be used within a DataContextProvider");
   }
   return context;
 };

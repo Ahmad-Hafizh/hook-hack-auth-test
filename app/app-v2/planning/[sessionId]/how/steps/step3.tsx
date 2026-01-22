@@ -1,26 +1,58 @@
-'use client';
-import React, { use } from 'react';
-import { Button } from '@/components/ui/button';
-import { submitStep3 } from '../hooks/useFetchApi';
-import { getJobResult } from '../hooks/useFetchAPINext';
-import { Spinner } from '@/components/ui/spinner';
-import { Infinity } from 'lucide-react';
-import { generatePatternCombinations, calculatePatternCount, onElementValueChange } from '../hooks/usePattern';
-import ElementProgress from '../components/elementProgress';
-import ElementCard from '../components/elementCard';
-import { HoverCard, HoverCardContent, HoverCardTrigger } from '@/components/ui/hover-card';
+"use client";
+import React, { use } from "react";
+import { Button } from "@/components/ui/button";
+import { submitStep3 } from "../hooks/useFetchAPINext";
+import { getJobResult } from "../hooks/useFetchAPINext";
+import { Spinner } from "@/components/ui/spinner";
+import { Infinity } from "lucide-react";
+import {
+  generatePatternCombinations,
+  calculatePatternCount,
+  onElementValueChange,
+} from "../hooks/usePattern";
+import ElementProgress from "../components/elementProgress";
+import ElementCard from "../components/elementCard";
+import {
+  HoverCard,
+  HoverCardContent,
+  HoverCardTrigger,
+} from "@/components/ui/hover-card";
 // @ts-ignore
-import { useQuery } from '@tanstack/react-query';
-import { useParams } from 'next/navigation';
-import { useDataContext } from '../hooks/useDataContext';
+import { useQuery } from "@tanstack/react-query";
+import { useParams } from "next/navigation";
+import { useDataContext } from "../hooks/useDataContext";
 
 const Step3 = ({ onNext }: { onNext: () => void }) => {
   const [loading, setLoading] = React.useState(false);
   const [loadingGenerate, setLoadingGenerate] = React.useState(true);
   const [isComplete, setIsComplete] = React.useState(false);
-  const { plan, elements, variants, patternCount, onSetElements, onSetVariants, onSetPatternCount, onSetPatternCombinations, jobId } = useDataContext();
+  const {
+    plan,
+    elements,
+    variants,
+    patternCount,
+    onSetElements,
+    onSetVariants,
+    onSetPatternCount,
+    onSetPatternCombinations,
+    jobId,
+    selectedTemplateId,
+  } = useDataContext();
 
   const { sessionId } = useParams();
+  const [aspectRatio, setAspectRatio] = React.useState<{
+    aspectRatio: number;
+    aspectLabel: string;
+    aspectStyle: string;
+  }>(
+    selectedTemplateId === "6f8e118a-703d-4b94-8534-96a2b7be7d62"
+      ? {
+          aspectRatio: 469 / 1023,
+          aspectLabel: "469 / 1023（縦）",
+          aspectStyle: "469/1023",
+        }
+      : { aspectRatio: 4 / 3, aspectLabel: "4 / 3（横）", aspectStyle: "4/3" }
+  );
 
   // Use the polling query
   const {
@@ -32,19 +64,24 @@ const Step3 = ({ onNext }: { onNext: () => void }) => {
     variants?: any;
     error?: unknown;
   }>({
-    queryKey: ['jobStatus', jobId],
-    queryFn: () => getJobResult({ jobId: jobId!, sessionId: sessionId as string }),
+    queryKey: ["jobStatus", jobId],
+    queryFn: () =>
+      getJobResult({ jobId: jobId!, sessionId: sessionId as string }),
     enabled: !!jobId && loadingGenerate, // Only poll when we have a jobId and still loading
     refetchInterval: (query) => {
       const currentStatus = query.state.data?.status;
 
       // Stop polling if status is any terminal state
-      if (currentStatus === 'done' || currentStatus === 'error' || currentStatus === 'failed') {
+      if (
+        currentStatus === "done" ||
+        currentStatus === "error" ||
+        currentStatus === "failed"
+      ) {
         return false;
       }
 
       // Continue polling only if status is 'running'
-      if (currentStatus === 'running') {
+      if (currentStatus === "running") {
         return 10000;
       }
 
@@ -56,15 +93,22 @@ const Step3 = ({ onNext }: { onNext: () => void }) => {
   // Handle job completion
   React.useEffect(() => {
     if (jobResult) {
-      if (jobResult.status === 'done' && jobResult.variants) {
+      if (jobResult.status === "done" && jobResult.variants) {
         onSetVariants(jobResult.variants);
         setLoadingGenerate(false);
-      } else if (jobResult.status === 'failed' || jobResult.status === 'error') {
-        console.error('Job failed with status:', jobResult.status, jobResult.error);
+      } else if (
+        jobResult.status === "failed" ||
+        jobResult.status === "error"
+      ) {
+        console.error(
+          "Job failed with status:",
+          jobResult.status,
+          jobResult.error
+        );
         setLoadingGenerate(false);
       }
     }
-  }, [jobResult, onSetVariants]);
+  }, [jobResult]);
 
   React.useEffect(() => {
     onSetPatternCount(calculatePatternCount(elements).totalPattern);
@@ -73,7 +117,7 @@ const Step3 = ({ onNext }: { onNext: () => void }) => {
 
   if (loadingGenerate || isPending) {
     return (
-      <div className="w-full h-96 flex justify-center items-center">
+      <div className="w-full h-96 flex justify-center items-center gap-4">
         <Spinner /> Generating variants...
       </div>
     );
@@ -91,14 +135,23 @@ const Step3 = ({ onNext }: { onNext: () => void }) => {
             {patternCount} パターンを {plan?.test_term_weeks || 0} 週間テスト
           </p>
           <HoverCard>
-            <HoverCardTrigger className="w-6 h-6 border-2 border-black text-lg font-bold rounded-full flex justify-center items-center">?</HoverCardTrigger>
-            <HoverCardContent>This is image guide for the video</HoverCardContent>
+            <HoverCardTrigger className="w-6 h-6 border-2 border-black text-lg font-bold rounded-full flex justify-center items-center">
+              ?
+            </HoverCardTrigger>
+            <HoverCardContent>
+              This is image guide for the video
+            </HoverCardContent>
           </HoverCard>
         </div>
         <div className="flex flex-col gap-4 items-center justify-center">
           <p className="text-sm flex items-center gap-2 leading-none">
             <Infinity className="w-5 h-5" /> Pattern
-            {plan?.test_term_weeks ? <strong className="text-base">{plan.test_term_weeks}</strong> : <Infinity className="w-5 h-5" />} Weeks to test is recommended
+            {plan?.test_term_weeks ? (
+              <strong className="text-base">{plan.test_term_weeks}</strong>
+            ) : (
+              <Infinity className="w-5 h-5" />
+            )}{" "}
+            Weeks to test is recommended
           </p>
           <ElementProgress elements={elements} />
         </div>
@@ -123,7 +176,7 @@ const Step3 = ({ onNext }: { onNext: () => void }) => {
               value={elements.hooks}
               onElementValueChange={(value) =>
                 onElementValueChange({
-                  category: 'hooks',
+                  category: "hooks",
                   value,
                   elements,
                   onSetElements,
@@ -133,10 +186,13 @@ const Step3 = ({ onNext }: { onNext: () => void }) => {
             <ElementCard
               type="image"
               title="Body 1 Images"
-              description="Aspect ratio : 9/16"
+              description={`Aspect ratio : ${aspectRatio.aspectLabel}`}
+              aspectRatio={aspectRatio.aspectRatio}
+              aspectStyle={aspectRatio.aspectStyle}
               variant={variants.strong_point_1_images}
               onVariantChange={(value, index) => {
-                const oldUrl = variants.strong_point_1_images[index];
+                const variantCopy = [...variants.strong_point_1_images];
+                const oldUrl = variantCopy[index];
 
                 // Update variants using functional state to avoid stale closures
                 onSetVariants((prev: any) => {
@@ -149,26 +205,25 @@ const Step3 = ({ onNext }: { onNext: () => void }) => {
                 if (oldUrl) {
                   onSetElements((prev: any) => {
                     if (!prev.body1Images.includes(oldUrl)) return prev;
+
                     return {
                       ...prev,
-                      body1Images: prev.body1Images.map((url: string) => (url === oldUrl ? value : url)),
+                      body1Images: prev.body1Images.map((url: string) =>
+                        url === oldUrl ? value : url
+                      ),
                     };
                   });
                 }
               }}
               value={elements.body1Images}
-              onElementValueChange={(value) => {
-                // Body images should behave like a single-select:
-                // keep only the most recently selected image.
-                const lastSelected = value[value.length - 1];
-                const nextValue = lastSelected ? [lastSelected] : [];
+              onElementValueChange={(value) =>
                 onElementValueChange({
-                  category: 'body1Images',
-                  value: nextValue,
+                  category: "body1Images",
+                  value,
                   elements,
                   onSetElements,
-                });
-              }}
+                })
+              }
             />
             <ElementCard
               type="text"
@@ -185,7 +240,7 @@ const Step3 = ({ onNext }: { onNext: () => void }) => {
               value={elements.body1Messages}
               onElementValueChange={(value) =>
                 onElementValueChange({
-                  category: 'body1Messages',
+                  category: "body1Messages",
                   value,
                   elements,
                   onSetElements,
@@ -195,10 +250,13 @@ const Step3 = ({ onNext }: { onNext: () => void }) => {
             <ElementCard
               type="image"
               title="Body 2 Images"
-              description="Aspect ratio : 9/16"
+              description={`Aspect ratio : ${aspectRatio.aspectLabel}`}
+              aspectRatio={aspectRatio.aspectRatio}
+              aspectStyle={aspectRatio.aspectStyle}
               variant={variants.strong_point_2_images}
               onVariantChange={(value, index) => {
-                const oldUrl = variants.strong_point_2_images[index];
+                const variantCopy = [...variants.strong_point_2_images];
+                const oldUrl = variantCopy[index];
 
                 onSetVariants((prev: any) => {
                   const newBody2Images = [...prev.strong_point_2_images];
@@ -211,22 +269,22 @@ const Step3 = ({ onNext }: { onNext: () => void }) => {
                     if (!prev.body2Images.includes(oldUrl)) return prev;
                     return {
                       ...prev,
-                      body2Images: prev.body2Images.map((url: string) => (url === oldUrl ? value : url)),
+                      body2Images: prev.body2Images.map((url: string) =>
+                        url === oldUrl ? value : url
+                      ),
                     };
                   });
                 }
               }}
               value={elements.body2Images}
-              onElementValueChange={(value) => {
-                const lastSelected = value[value.length - 1];
-                const nextValue = lastSelected ? [lastSelected] : [];
+              onElementValueChange={(value) =>
                 onElementValueChange({
-                  category: 'body2Images',
-                  value: nextValue,
+                  category: "body2Images",
+                  value,
                   elements,
                   onSetElements,
-                });
-              }}
+                })
+              }
             />
             <ElementCard
               type="text"
@@ -243,7 +301,7 @@ const Step3 = ({ onNext }: { onNext: () => void }) => {
               value={elements.body2Messages}
               onElementValueChange={(value) =>
                 onElementValueChange({
-                  category: 'body2Messages',
+                  category: "body2Messages",
                   value,
                   elements,
                   onSetElements,
@@ -253,10 +311,13 @@ const Step3 = ({ onNext }: { onNext: () => void }) => {
             <ElementCard
               type="image"
               title="Body 3 Images"
-              description="Aspect ratio : 9/16"
+              description={`Aspect ratio : ${aspectRatio.aspectLabel}`}
+              aspectRatio={aspectRatio.aspectRatio}
+              aspectStyle={aspectRatio.aspectStyle}
               variant={variants.strong_point_3_images}
               onVariantChange={(value, index) => {
-                const oldUrl = variants.strong_point_3_images[index];
+                const variantCopy = [...variants.strong_point_3_images];
+                const oldUrl = variantCopy[index];
 
                 onSetVariants((prev: any) => {
                   const newBody3Images = [...prev.strong_point_3_images];
@@ -269,22 +330,22 @@ const Step3 = ({ onNext }: { onNext: () => void }) => {
                     if (!prev.body3Images.includes(oldUrl)) return prev;
                     return {
                       ...prev,
-                      body3Images: prev.body3Images.map((url: string) => (url === oldUrl ? value : url)),
+                      body3Images: prev.body3Images.map((url: string) =>
+                        url === oldUrl ? value : url
+                      ),
                     };
                   });
                 }
               }}
               value={elements.body3Images}
-              onElementValueChange={(value) => {
-                const lastSelected = value[value.length - 1];
-                const nextValue = lastSelected ? [lastSelected] : [];
+              onElementValueChange={(value) =>
                 onElementValueChange({
-                  category: 'body3Images',
-                  value: nextValue,
+                  category: "body3Images",
+                  value,
                   elements,
                   onSetElements,
-                });
-              }}
+                })
+              }
             />
             <ElementCard
               type="text"
@@ -301,7 +362,7 @@ const Step3 = ({ onNext }: { onNext: () => void }) => {
               value={elements.body3Messages}
               onElementValueChange={(value) =>
                 onElementValueChange({
-                  category: 'body3Messages',
+                  category: "body3Messages",
                   value,
                   elements,
                   onSetElements,
@@ -320,7 +381,7 @@ const Step3 = ({ onNext }: { onNext: () => void }) => {
               value={elements.ctas}
               onElementValueChange={(value) =>
                 onElementValueChange({
-                  category: 'ctas',
+                  category: "ctas",
                   value,
                   elements,
                   onSetElements,
@@ -341,7 +402,7 @@ const Step3 = ({ onNext }: { onNext: () => void }) => {
             submitStep3({ setLoading, onNext });
           }}
           disabled={loading || loadingGenerate || !isComplete}
-          className="border-2 border-rose-600 bg-rose-600  hover:bg-rose-500 text-white px-4 py-2"
+          className="border-2 border-sky-600 bg-sky-600  hover:bg-sky-500 text-white px-4 py-2"
         >
           {loading && <Spinner />}
           次に​進む

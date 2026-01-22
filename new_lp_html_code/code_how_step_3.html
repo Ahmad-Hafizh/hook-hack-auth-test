@@ -1,0 +1,1043 @@
+<html lang="ja"><head>
+<meta charset="utf-8"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700;900&amp;display=swap" rel="stylesheet"/>
+<style type="text/tailwindcss">
+        @layer utilities {
+            .scrollbar-hide::-webkit-scrollbar {
+                display: none;
+            }
+            .scrollbar-hide {
+                -ms-overflow-style: none;
+                scrollbar-width: none;
+            }
+            .gs-textarea {
+                @apply w-full h-full py-2 px-3 text-xs bg-transparent border-none focus:ring-0 focus:outline-none resize-none leading-relaxed transition-all text-text-main;
+            }
+            .gs-cell {
+                @apply border-b border-r border-border-strong relative p-0 transition-colors bg-white hover:bg-slate-50;
+            }
+            .gs-header {
+                @apply border-b border-r border-border-strong text-left text-xs font-bold text-text-main bg-header-bg px-2 py-3 select-none whitespace-nowrap sticky top-0 z-50 shadow-sm;
+            }
+            .cell-content-wrapper {
+                @apply flex h-full w-full relative;
+            }
+            .cell-image-container {
+                @apply w-full h-full p-2 flex flex-col items-center justify-center relative;
+            }
+            .mini-image-slot {
+                @apply w-full h-20 rounded border border-dashed border-gray-400 bg-slate-50 hover:border-primary hover:bg-blue-50/50 flex items-center justify-center cursor-pointer transition-all text-gray-400 hover:text-primary relative overflow-hidden;
+            }
+            .mini-image-slot.has-image {
+                @apply border-gray-300 border-solid bg-white p-0.5;
+            }
+            .sheet-tab {
+                @apply px-4 py-2 text-sm font-medium cursor-pointer border-t border-l border-r rounded-t-lg transition-all flex items-center gap-2 relative;
+            }
+            .sheet-tab.active {
+                @apply bg-white text-primary border-border-strong border-b-white -mb-px z-10;
+            }
+            .sheet-tab:not(.active) {
+                @apply bg-gray-100 text-text-muted border-transparent hover:bg-gray-200;
+            }
+            .sheet-tab .delete-tab {
+                @apply opacity-0 hover:opacity-100 transition-opacity text-gray-400 hover:text-red-500;
+            }
+            .sheet-tab:hover .delete-tab {
+                @apply opacity-100;
+            }
+        }
+    </style>
+<script id="tailwind-config">
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: "#0093b4",
+                        "primary-hover": "#007a92",
+                        "background-light": "#ffffff",
+                        "surface-light": "#ffffff",
+                        "surface-subtle": "#f8fafc",
+                        "header-bg": "#e2e8f0",
+                        "border-light": "#cbd5e1",
+                        "border-strong": "#64748b","text-main": "#0f172a",
+                        "text-muted": "#475569",
+                        "accent-soft": "#e0f2f7"
+                    },
+                    fontFamily: {
+                        sans: ["Noto Sans JP", "sans-serif"]
+                    },
+                    boxShadow: {
+                        soft: "0 2px 8px -2px rgba(0, 0, 0, 0.05), 0 1px 4px -1px rgba(0, 0, 0, 0.02)",
+                        sticky: "0 1px 0 0 #64748b"}
+                }
+            }
+        };
+    </script>
+</head>
+<body class="bg-surface-subtle text-text-main font-sans min-h-screen flex flex-col">
+
+<!-- Modal Overlay -->
+<div id="modalOverlay" class="fixed inset-0 bg-black/50 z-[100] hidden items-center justify-center">
+    <div id="modalContent" class="bg-white rounded-xl shadow-2xl p-6 max-w-md w-full mx-4 transform transition-all">
+        <div class="flex items-start gap-4">
+            <div id="modalIcon" class="w-12 h-12 rounded-full flex items-center justify-center flex-shrink-0">
+                <span class="material-symbols-outlined text-2xl"></span>
+            </div>
+            <div class="flex-1">
+                <h3 id="modalTitle" class="text-lg font-bold text-text-main mb-2"></h3>
+                <p id="modalMessage" class="text-sm text-text-muted mb-4"></p>
+                <div id="modalInput" class="mb-4 hidden">
+                    <input type="text" id="modalInputField" class="w-full px-3 py-2 border border-border-strong rounded-lg text-sm focus:ring-2 focus:ring-primary focus:border-primary" placeholder=""/>
+                </div>
+                <div id="modalButtons" class="flex gap-3 justify-end">
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Image Preview Modal -->
+<div id="imagePreviewOverlay" class="fixed inset-0 bg-black/80 z-[100] hidden items-center justify-center" onclick="closeImagePreview(event)">
+    <div class="relative max-w-4xl max-h-[90vh] mx-4">
+        <button onclick="closeImagePreview(event, true)" class="absolute -top-10 right-0 text-white hover:text-gray-300 transition-colors">
+            <span class="material-symbols-outlined text-3xl">close</span>
+        </button>
+        <img id="previewImage" src="" alt="Preview" class="max-w-full max-h-[85vh] object-contain rounded-lg shadow-2xl"/>
+        <button id="deleteImageBtn" onclick="deletePreviewedImage()" class="absolute -bottom-12 left-1/2 transform -translate-x-1/2 bg-red-500 hover:bg-red-600 text-white px-4 py-2 rounded-lg flex items-center gap-2 transition-colors">
+            <span class="material-symbols-outlined text-lg">delete</span>
+            Delete Image
+        </button>
+    </div>
+</div>
+
+<!-- Image Upload Modal -->
+<div id="imageUploadModal" class="fixed inset-0 bg-black/50 z-[100] hidden items-center justify-center" onclick="closeImageUploadModal(event)">
+    <div class="bg-white rounded-xl shadow-2xl p-6 max-w-md w-full mx-4" onclick="event.stopPropagation()">
+        <div class="flex items-center justify-between mb-4">
+            <h3 class="text-lg font-bold text-text-main flex items-center gap-2">
+                <span class="material-symbols-outlined text-primary">add_photo_alternate</span>
+                Upload Image
+            </h3>
+            <button onclick="closeImageUploadModal(event, true)" class="text-gray-400 hover:text-gray-600 transition-colors">
+                <span class="material-symbols-outlined">close</span>
+            </button>
+        </div>
+        <p class="text-sm text-text-muted mb-4">Select an image file to upload to this slot.</p>
+        <div class="border-2 border-dashed border-gray-300 rounded-lg p-8 text-center hover:border-primary hover:bg-blue-50/30 transition-all cursor-pointer" onclick="document.getElementById('singleImageUpload').click()">
+            <span class="material-symbols-outlined text-4xl text-gray-400 mb-2">cloud_upload</span>
+            <p class="text-sm text-text-muted">Click to select an image</p>
+            <p class="text-xs text-gray-400 mt-1">PNG, JPG, GIF up to 10MB</p>
+        </div>
+        <input type="file" id="singleImageUpload" accept="image/*" class="hidden" onchange="handleSingleImageUpload(this)"/>
+        <div class="flex justify-end mt-4">
+            <button onclick="closeImageUploadModal(event, true)" class="px-4 py-2 text-text-muted hover:text-text-main font-medium transition-colors">
+                Cancel
+            </button>
+        </div>
+    </div>
+</div>
+
+<main class="flex-1 w-full max-w-[1800px] mx-auto p-6 flex flex-col items-start gap-6 pb-20">
+<div class="w-full flex items-center justify-between mb-2">
+<div>
+<h1 class="text-2xl font-bold text-text-main flex items-center gap-2">
+<span class="material-symbols-outlined text-primary text-3xl">grid_on</span>
+                    コピー作成（Hookテスト用）
+                </h1>
+</div>
+<div class="flex items-center gap-2">
+<div class="flex items-center bg-white rounded-lg border border-border-strong px-2 py-1 shadow-sm gap-1 h-[54px]">
+<div class="flex items-center px-4 py-1 border-r border-slate-100/50">
+<div class="flex flex-col items-end mr-3">
+<span class="text-[10px] font-bold text-text-muted leading-tight whitespace-nowrap">画像<br/>パターン数</span>
+</div>
+<span id="imagePatternCount" class="text-2xl font-bold text-text-main font-mono tracking-tight">0</span>
+</div>
+<div class="flex items-center px-4 py-1 border-r border-slate-100/50">
+<div class="flex flex-col items-end mr-3">
+<span class="text-[10px] font-bold text-text-muted leading-tight whitespace-nowrap">テキスト<br/>パターン数</span>
+</div>
+<span id="textPatternCount" class="text-2xl font-bold text-text-main font-mono tracking-tight">0</span>
+</div>
+<div class="flex items-center px-6 py-1 bg-accent-soft/30 rounded-md ml-1">
+<div class="flex flex-col items-end mr-3">
+<span class="text-[10px] font-bold text-primary leading-tight whitespace-nowrap">合計<br/>パターン数</span>
+</div>
+<span id="totalPatternCount" class="text-3xl font-black text-primary font-mono tracking-tight">0</span>
+</div>
+</div>
+<div class="flex flex-col justify-center bg-white rounded-lg border border-border-strong px-4 py-1 shadow-sm h-[54px]">
+<span class="text-[10px] font-bold text-text-muted leading-tight mb-0.5">1ヶ月運用期間の予算の参考表</span>
+<div class="flex items-center gap-3 text-xs font-medium text-text-main">
+<div class="flex items-baseline gap-1">
+<span class="text-[10px] text-text-muted">５本の場合 ＝</span>
+<span class="font-mono text-text-main">¥100,000 / 月</span>
+</div>
+<div class="w-px h-3 bg-slate-200"></div>
+<div class="flex items-baseline gap-1">
+<span class="text-[10px] text-text-muted">１０本の場合 ＝</span>
+<span class="font-mono text-text-main">¥200,000 / 月</span>
+</div>
+<div class="w-px h-3 bg-slate-200"></div>
+<div class="flex items-baseline gap-1">
+<span class="text-[10px] text-text-muted">２０本の場合 ＝</span>
+<span class="font-mono text-text-main">¥400,000 / 月</span>
+</div>
+</div>
+</div>
+</div>
+</div>
+
+<!-- Image Upload Form (hidden by default, shown when image checkboxes are selected) -->
+<div id="uploadForm" class="w-full bg-blue-50 border border-primary rounded-lg p-4 hidden">
+    <div class="flex items-center gap-4">
+        <span class="material-symbols-outlined text-primary text-2xl">cloud_upload</span>
+        <div class="flex-1">
+            <label class="block text-sm font-bold text-text-main mb-2">Upload image for selected image slots</label>
+            <div class="flex items-center gap-3">
+                <input type="file" id="imageUpload" accept="image/*" class="text-sm text-text-muted file:mr-4 file:py-2 file:px-4 file:rounded-md file:border-0 file:text-sm file:font-semibold file:bg-primary file:text-white hover:file:bg-primary-hover file:cursor-pointer" onchange="handleImageUpload(this)"/>
+                <span id="selectedCount" class="text-sm text-primary font-medium"></span>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="w-full bg-white rounded-lg border border-border-strong shadow-soft overflow-auto relative isolate" style="height: 540px; min-height: 540px;">
+<table class="w-full min-w-[1600px] border-collapse text-sm table-fixed" id="dataTable">
+<thead class="z-50">
+<tr class="h-[40px]">
+<th class="gs-header w-[40px] border-l-0 shadow-[1px_1px_0_0_#64748b] text-center">
+    <input type="checkbox" id="checkAllRows" class="w-4 h-4 text-primary border-border-strong rounded focus:ring-primary cursor-pointer" onchange="toggleAllRowCheckboxes(this)"/>
+</th>
+<th class="gs-header w-[13%] shadow-[1px_1px_0_0_#64748b]">
+    <div class="flex items-center gap-2">
+        <input type="checkbox" id="checkAllHookImages" class="w-3.5 h-3.5 text-primary border-border-strong rounded focus:ring-primary cursor-pointer" onchange="toggleAllImageCheckboxes('hookImage', this)"/>
+        <span>Hook (画像)</span>
+    </div>
+</th>
+<th class="gs-header w-[17%] shadow-[1px_1px_0_0_#64748b]">Hook (メッセージ)</th>
+<th class="gs-header w-[13%] shadow-[1px_1px_0_0_#64748b]">
+    <div class="flex items-center gap-2">
+        <input type="checkbox" id="checkAllBody1Images" class="w-3.5 h-3.5 text-primary border-border-strong rounded focus:ring-primary cursor-pointer" onchange="toggleAllImageCheckboxes('body1Image', this)"/>
+        <span>Body1 (画像)</span>
+    </div>
+</th>
+<th class="gs-header w-[17%] shadow-[1px_1px_0_0_#64748b]">Body1 (メッセージ)</th>
+<th class="gs-header w-[13%] shadow-[1px_1px_0_0_#64748b]">
+    <div class="flex items-center gap-2">
+        <input type="checkbox" id="checkAllBody2Images" class="w-3.5 h-3.5 text-primary border-border-strong rounded focus:ring-primary cursor-pointer" onchange="toggleAllImageCheckboxes('body2Image', this)"/>
+        <span>Body2 (画像)</span>
+    </div>
+</th>
+<th class="gs-header w-[17%] shadow-[1px_1px_0_0_#64748b]">Body2 (メッセージ)</th>
+<th class="gs-header w-[13%] border-r-0 shadow-[1px_1px_0_0_#64748b]">CTA (メッセージ)</th>
+</tr>
+</thead>
+<tbody class="text-text-main" id="tableBody">
+</tbody>
+</table>
+</div>
+
+<!-- Sheet Tabs -->
+<div class="w-full flex items-end border-b border-border-strong bg-gray-50 rounded-t-lg -mt-2">
+    <div class="flex items-center gap-1 px-2 pb-2">
+        <button onclick="showAddSheetModal()" class="p-1.5 rounded hover:bg-gray-200 transition-colors text-text-muted hover:text-primary" title="Add new sheet">
+            <span class="material-symbols-outlined text-xl">add</span>
+        </button>
+        <button onclick="duplicateCurrentSheet()" class="p-1.5 rounded hover:bg-gray-200 transition-colors text-text-muted hover:text-primary" title="Duplicate current sheet">
+            <span class="material-symbols-outlined text-xl">content_copy</span>
+        </button>
+    </div>
+    <div id="sheetTabs" class="flex items-end gap-1 px-2 pt-2 overflow-x-auto scrollbar-hide flex-1">
+        <!-- Tabs will be rendered here -->
+    </div>
+</div>
+
+<!-- Add and Delete Row Buttons -->
+<div class="w-full flex justify-start items-center gap-3">
+    <button onclick="addRow()" class="bg-white border border-primary text-primary hover:bg-primary hover:text-white font-bold text-sm px-4 py-2 rounded-md shadow-soft transition-all flex items-center gap-2">
+        <span class="material-symbols-outlined text-lg">add</span>
+        Add Row
+    </button>
+    <button onclick="showDeleteRowsModal()" class="bg-white border border-red-500 text-red-500 hover:bg-red-500 hover:text-white font-bold text-sm px-4 py-2 rounded-md shadow-soft transition-all flex items-center gap-2">
+        <span class="material-symbols-outlined text-lg">delete</span>
+        Delete Row
+    </button>
+</div>
+
+<div class="w-full flex justify-end items-center gap-6 mt-6 mb-4">
+<button class="text-text-muted hover:text-text-main font-bold text-sm transition-colors">
+            戻る
+        </button>
+<button class="bg-primary hover:bg-primary-hover text-white font-bold text-sm px-8 py-3 rounded-md shadow-soft transition-all flex items-center gap-2">
+            次へ進む
+            <span class="font-sans text-lg leading-none pb-0.5">→</span>
+</button>
+</div>
+</main>
+
+<script>
+// Sheet data management
+let sheets = [];
+let activeSheetId = null;
+let sheetCounter = 1;
+
+// Default row data
+const defaultRowData = [
+    {
+        hookImage: 'https://lh3.googleusercontent.com/aida-public/AB6AXuAW9HnYOP1ZfD6GpB7A5iBYvYWr61_5P1VDkC7OwdOXbHq15-wgtrHERQc9n-h7smUGRcYJowbDnUaDJcLVKz4pRshQFebXeQWSqgvj0zKUF5eCmkiVoKsfF1kvz6WRnMNJYEcxxdNHga1PZCnxx-COTeMAqUw9blNYEIF5La6s5H89VDwXmwmP4ceezwh_brmP6pKFZyAcHhGQz1FL3Okjx22ChHqAumf24E5KPY93cBF5gKxtvzv13mD55dt5cR_Gnd0ik0XGLYuC',
+        hookMessage: '30代男性の悩み、これ1本で解決？驚きのスカルプケア',
+        body1Image: '',
+        body1Message: '専門家監修の独自成分で、あなたの頭皮環境を根本から改善。毎日がサロン帰りの心地よさに。',
+        body2Image: '',
+        body2Message: '利用者の90%が満足！「抜け毛が減った」「フケが気にならない」と実感の声多数。今なら初回限定価格。',
+        ctaMessage: '今すぐチェック'
+    },
+    {
+        hookImage: '',
+        hookMessage: '「えっ、まだ高いシャンプー使ってるの？」賢い男の選択',
+        body1Image: '',
+        body1Message: '厳選されたオーガニック成分が毛穴の奥まで浸透。眠っていた頭皮の力を呼び覚まします。',
+        body2Image: '',
+        body2Message: '累計販売数100万本突破！多くの男性に選ばれ続ける実力派。30日間の全額返金保証付きで安心。',
+        ctaMessage: '詳細を見る'
+    },
+    {
+        hookImage: '',
+        hookMessage: '美容師がこっそり教える、自宅でできる頭皮改革',
+        body1Image: '',
+        body1Message: '独自のマイクロバブル処方で、こびりついた皮脂汚れをごっそり洗浄。驚きの爽快感を実現。',
+        body2Image: '',
+        body2Message: '「もっと早く使えばよかった」リピート率95%が証明する信頼の品質。まずは2週間お試しください。',
+        ctaMessage: '公式サイトへ'
+    },
+    {
+        hookImage: '',
+        hookMessage: '毎朝のセットが決まらない...その原因、実はシャンプーかも',
+        body1Image: '',
+        body1Message: '髪のハリ・コシ不足にアプローチ。使うたびに太く強い髪へ導く、次世代スカルプケア。',
+        body2Image: '',
+        body2Message: '雑誌やSNSで話題沸騰中！美容家も絶賛するクオリティを、WEB限定の特別オファーでお届け。',
+        ctaMessage: 'お得に購入する'
+    },
+    {
+        hookImage: '',
+        hookMessage: '【衝撃】9割の人が間違っている頭皮ケアの常識',
+        body1Image: '',
+        body1Message: '頭皮の乾燥・べたつきトラブルを一本でケア。pHバランスを整え、健やかな育毛環境へ。',
+        body2Image: '',
+        body2Message: '【期間限定】定期コース申し込みで初回50%OFF！さらに特製スカルプブラシをプレゼント。',
+        ctaMessage: '初回半額で試す'
+    }
+];
+
+// Initialize
+document.addEventListener('DOMContentLoaded', function() {
+    // Create first sheet
+    createSheet('Sheet 1', JSON.parse(JSON.stringify(defaultRowData)));
+    renderSheetTabs();
+    switchToSheet(sheets[0].id);
+    updatePatternCounts();
+
+    // Add input event listeners to textareas for real-time counting
+    document.getElementById('tableBody').addEventListener('input', function(e) {
+        if (e.target.tagName === 'TEXTAREA') {
+            updatePatternCounts();
+        }
+    });
+});
+
+// Calculate and update pattern counts across all sheets
+function updatePatternCounts() {
+    // Save current sheet data first to get latest values
+    saveCurrentSheetData();
+
+    let totalImagePatterns = 0;
+    let totalTextPatterns = 0;
+    let totalRows = 0;
+
+    // Collect unique images and count patterns across all sheets
+    const uniqueImages = new Set();
+
+    sheets.forEach(sheet => {
+        sheet.data.forEach(row => {
+            totalRows++;
+
+            // Count unique images
+            if (row.hookImage) uniqueImages.add(row.hookImage);
+            if (row.body1Image) uniqueImages.add(row.body1Image);
+            if (row.body2Image) uniqueImages.add(row.body2Image);
+
+            // Count rows with at least one text field filled
+            const hasText = row.hookMessage?.trim() ||
+                           row.body1Message?.trim() ||
+                           row.body2Message?.trim() ||
+                           row.ctaMessage?.trim();
+            if (hasText) {
+                totalTextPatterns++;
+            }
+        });
+    });
+
+    totalImagePatterns = uniqueImages.size;
+
+    // Calculate total combinations
+    // If we have both images and texts, total = unique images * text patterns
+    // Otherwise, just show the total rows
+    let totalCombinations = totalRows;
+    if (totalImagePatterns > 0 && totalTextPatterns > 0) {
+        totalCombinations = totalImagePatterns * totalTextPatterns;
+    }
+
+    // Update the UI
+    document.getElementById('imagePatternCount').textContent = totalImagePatterns;
+    document.getElementById('textPatternCount').textContent = totalTextPatterns;
+    document.getElementById('totalPatternCount').textContent = totalCombinations;
+}
+
+// Modal functions
+function showModal(options) {
+    const overlay = document.getElementById('modalOverlay');
+    const icon = document.getElementById('modalIcon');
+    const iconSpan = icon.querySelector('span');
+    const title = document.getElementById('modalTitle');
+    const message = document.getElementById('modalMessage');
+    const buttons = document.getElementById('modalButtons');
+    const inputContainer = document.getElementById('modalInput');
+    const inputField = document.getElementById('modalInputField');
+
+    // Set icon
+    if (options.type === 'danger') {
+        icon.className = 'w-12 h-12 rounded-full flex items-center justify-center flex-shrink-0 bg-red-100';
+        iconSpan.className = 'material-symbols-outlined text-2xl text-red-500';
+        iconSpan.textContent = 'warning';
+    } else if (options.type === 'success') {
+        icon.className = 'w-12 h-12 rounded-full flex items-center justify-center flex-shrink-0 bg-green-100';
+        iconSpan.className = 'material-symbols-outlined text-2xl text-green-500';
+        iconSpan.textContent = 'check_circle';
+    } else if (options.type === 'info') {
+        icon.className = 'w-12 h-12 rounded-full flex items-center justify-center flex-shrink-0 bg-blue-100';
+        iconSpan.className = 'material-symbols-outlined text-2xl text-primary';
+        iconSpan.textContent = 'info';
+    } else if (options.type === 'input') {
+        icon.className = 'w-12 h-12 rounded-full flex items-center justify-center flex-shrink-0 bg-blue-100';
+        iconSpan.className = 'material-symbols-outlined text-2xl text-primary';
+        iconSpan.textContent = 'edit';
+    }
+
+    title.textContent = options.title || '';
+    message.textContent = options.message || '';
+
+    // Handle input
+    if (options.type === 'input') {
+        inputContainer.classList.remove('hidden');
+        inputField.value = options.inputValue || '';
+        inputField.placeholder = options.inputPlaceholder || '';
+        setTimeout(() => inputField.focus(), 100);
+    } else {
+        inputContainer.classList.add('hidden');
+    }
+
+    // Build buttons
+    buttons.innerHTML = '';
+    if (options.buttons) {
+        options.buttons.forEach(btn => {
+            const button = document.createElement('button');
+            button.textContent = btn.text;
+            if (btn.primary) {
+                if (options.type === 'danger') {
+                    button.className = 'px-4 py-2 bg-red-500 hover:bg-red-600 text-white font-medium rounded-lg transition-colors text-sm';
+                } else {
+                    button.className = 'px-4 py-2 bg-primary hover:bg-primary-hover text-white font-medium rounded-lg transition-colors text-sm';
+                }
+            } else {
+                button.className = 'px-4 py-2 bg-gray-100 hover:bg-gray-200 text-text-main font-medium rounded-lg transition-colors text-sm';
+            }
+            button.onclick = () => {
+                if (btn.onClick) {
+                    const inputVal = inputField.value;
+                    btn.onClick(inputVal);
+                }
+                hideModal();
+            };
+            buttons.appendChild(button);
+        });
+    }
+
+    overlay.classList.remove('hidden');
+    overlay.classList.add('flex');
+}
+
+function hideModal() {
+    const overlay = document.getElementById('modalOverlay');
+    overlay.classList.add('hidden');
+    overlay.classList.remove('flex');
+}
+
+// Close modal on overlay click
+document.getElementById('modalOverlay').addEventListener('click', function(e) {
+    if (e.target === this) {
+        hideModal();
+    }
+});
+
+// Sheet functions
+function createSheet(name, data = []) {
+    const sheet = {
+        id: 'sheet_' + Date.now() + '_' + Math.random().toString(36).substr(2, 9),
+        name: name,
+        data: data
+    };
+    sheets.push(sheet);
+    sheetCounter++;
+    return sheet;
+}
+
+function renderSheetTabs() {
+    const container = document.getElementById('sheetTabs');
+    container.innerHTML = '';
+
+    sheets.forEach(sheet => {
+        const tab = document.createElement('div');
+        tab.className = `sheet-tab ${sheet.id === activeSheetId ? 'active' : ''}`;
+        tab.innerHTML = `
+            <span class="tab-name" ondblclick="renameSheet('${sheet.id}')">${sheet.name}</span>
+            ${sheets.length > 1 ? `<button class="delete-tab" onclick="event.stopPropagation(); showDeleteSheetModal('${sheet.id}')">
+                <span class="material-symbols-outlined text-sm">close</span>
+            </button>` : ''}
+        `;
+        tab.onclick = (e) => {
+            if (!e.target.closest('.delete-tab')) {
+                switchToSheet(sheet.id);
+            }
+        };
+        container.appendChild(tab);
+    });
+}
+
+function switchToSheet(sheetId) {
+    // Save current sheet data
+    if (activeSheetId) {
+        saveCurrentSheetData();
+    }
+
+    activeSheetId = sheetId;
+    renderSheetTabs();
+    loadSheetData(sheetId);
+    updateCheckboxState();
+    updatePatternCounts();
+}
+
+function saveCurrentSheetData() {
+    const sheet = sheets.find(s => s.id === activeSheetId);
+    if (!sheet) return;
+
+    const rows = document.querySelectorAll('#tableBody tr');
+    sheet.data = [];
+
+    rows.forEach(row => {
+        const rowData = {
+            hookImage: row.querySelector('[data-field="hookImage"] img')?.src || '',
+            hookMessage: row.querySelector('[data-field="hookMessage"] textarea')?.value || '',
+            body1Image: row.querySelector('[data-field="body1Image"] img')?.src || '',
+            body1Message: row.querySelector('[data-field="body1Message"] textarea')?.value || '',
+            body2Image: row.querySelector('[data-field="body2Image"] img')?.src || '',
+            body2Message: row.querySelector('[data-field="body2Message"] textarea')?.value || '',
+            ctaMessage: row.querySelector('[data-field="ctaMessage"] textarea')?.value || ''
+        };
+        sheet.data.push(rowData);
+    });
+}
+
+function loadSheetData(sheetId) {
+    const sheet = sheets.find(s => s.id === sheetId);
+    if (!sheet) return;
+
+    const tableBody = document.getElementById('tableBody');
+    tableBody.innerHTML = '';
+
+    sheet.data.forEach(rowData => {
+        const row = createRowElement(rowData);
+        tableBody.appendChild(row);
+    });
+}
+
+function createRowElement(rowData = {}) {
+    const row = document.createElement('tr');
+    row.className = 'group';
+    row.innerHTML = `
+        <td class="gs-cell border-l-0 text-center align-middle w-[40px]">
+            <input type="checkbox" class="row-checkbox w-4 h-4 text-primary border-border-strong rounded focus:ring-primary cursor-pointer" onchange="updateRowCheckboxState()"/>
+        </td>
+        <td class="gs-cell" data-field="hookImage">
+            <div class="cell-image-container">
+                <div class="flex items-start gap-2 w-full">
+                    <input type="checkbox" class="image-checkbox w-3.5 h-3.5 mt-1 text-primary border-border-strong rounded focus:ring-primary cursor-pointer flex-shrink-0" data-image-type="hookImage" onchange="updateImageCheckboxState()"/>
+                    <div class="mini-image-slot ${rowData.hookImage ? 'has-image' : ''} group/img flex-1" onclick="handleImageSlotClick(this)">
+                        ${rowData.hookImage
+                            ? `<img alt="Selected" class="w-full h-full object-cover" src="${rowData.hookImage}"/>
+                               <div class="absolute inset-0 bg-black/0 group-hover/img:bg-black/10 transition-colors"></div>`
+                            : `<span class="material-symbols-outlined text-2xl group-hover/img:scale-110 transition-transform">add_photo_alternate</span>`
+                        }
+                    </div>
+                </div>
+            </div>
+        </td>
+        <td class="gs-cell h-24 align-top" data-field="hookMessage">
+            <div class="cell-content-wrapper">
+                <textarea class="gs-textarea" placeholder="Hook message...">${rowData.hookMessage || ''}</textarea>
+            </div>
+        </td>
+        <td class="gs-cell" data-field="body1Image">
+            <div class="cell-image-container">
+                <div class="flex items-start gap-2 w-full">
+                    <input type="checkbox" class="image-checkbox w-3.5 h-3.5 mt-1 text-primary border-border-strong rounded focus:ring-primary cursor-pointer flex-shrink-0" data-image-type="body1Image" onchange="updateImageCheckboxState()"/>
+                    <div class="mini-image-slot ${rowData.body1Image ? 'has-image' : ''} group/img flex-1" onclick="handleImageSlotClick(this)">
+                        ${rowData.body1Image
+                            ? `<img alt="Selected" class="w-full h-full object-cover" src="${rowData.body1Image}"/>
+                               <div class="absolute inset-0 bg-black/0 group-hover/img:bg-black/10 transition-colors"></div>`
+                            : `<span class="material-symbols-outlined text-2xl group-hover/img:scale-110 transition-transform">add_photo_alternate</span>`
+                        }
+                    </div>
+                </div>
+            </div>
+        </td>
+        <td class="gs-cell h-24 align-top" data-field="body1Message">
+            <div class="cell-content-wrapper">
+                <textarea class="gs-textarea" placeholder="Body1 message...">${rowData.body1Message || ''}</textarea>
+            </div>
+        </td>
+        <td class="gs-cell" data-field="body2Image">
+            <div class="cell-image-container">
+                <div class="flex items-start gap-2 w-full">
+                    <input type="checkbox" class="image-checkbox w-3.5 h-3.5 mt-1 text-primary border-border-strong rounded focus:ring-primary cursor-pointer flex-shrink-0" data-image-type="body2Image" onchange="updateImageCheckboxState()"/>
+                    <div class="mini-image-slot ${rowData.body2Image ? 'has-image' : ''} group/img flex-1" onclick="handleImageSlotClick(this)">
+                        ${rowData.body2Image
+                            ? `<img alt="Selected" class="w-full h-full object-cover" src="${rowData.body2Image}"/>
+                               <div class="absolute inset-0 bg-black/0 group-hover/img:bg-black/10 transition-colors"></div>`
+                            : `<span class="material-symbols-outlined text-2xl group-hover/img:scale-110 transition-transform">add_photo_alternate</span>`
+                        }
+                    </div>
+                </div>
+            </div>
+        </td>
+        <td class="gs-cell h-24 align-top" data-field="body2Message">
+            <div class="cell-content-wrapper">
+                <textarea class="gs-textarea" placeholder="Body2 message...">${rowData.body2Message || ''}</textarea>
+            </div>
+        </td>
+        <td class="gs-cell h-24 align-top border-r-0" data-field="ctaMessage">
+            <div class="cell-content-wrapper">
+                <textarea class="gs-textarea" placeholder="CTA message...">${rowData.ctaMessage || ''}</textarea>
+            </div>
+        </td>
+    `;
+    return row;
+}
+
+function showAddSheetModal() {
+    showModal({
+        type: 'input',
+        title: 'Add New Sheet',
+        message: 'Enter a name for the new sheet:',
+        inputValue: 'Sheet ' + (sheets.length + 1),
+        inputPlaceholder: 'Sheet name',
+        buttons: [
+            { text: 'Cancel' },
+            {
+                text: 'Create',
+                primary: true,
+                onClick: (name) => {
+                    if (name.trim()) {
+                        saveCurrentSheetData();
+                        const newSheet = createSheet(name.trim(), []);
+                        // Add one empty row
+                        newSheet.data.push({
+                            hookImage: '', hookMessage: '',
+                            body1Image: '', body1Message: '',
+                            body2Image: '', body2Message: '',
+                            ctaMessage: ''
+                        });
+                        renderSheetTabs();
+                        switchToSheet(newSheet.id);
+                        updatePatternCounts();
+                    }
+                }
+            }
+        ]
+    });
+}
+
+function showDeleteSheetModal(sheetId) {
+    const sheet = sheets.find(s => s.id === sheetId);
+    if (!sheet) return;
+
+    showModal({
+        type: 'danger',
+        title: 'Delete Sheet',
+        message: `Are you sure you want to delete "${sheet.name}"? This action cannot be undone.`,
+        buttons: [
+            { text: 'Cancel' },
+            {
+                text: 'Delete',
+                primary: true,
+                onClick: () => deleteSheet(sheetId)
+            }
+        ]
+    });
+}
+
+function deleteSheet(sheetId) {
+    if (sheets.length <= 1) {
+        showModal({
+            type: 'info',
+            title: 'Cannot Delete',
+            message: 'You must have at least one sheet.',
+            buttons: [{ text: 'OK', primary: true }]
+        });
+        return;
+    }
+
+    const index = sheets.findIndex(s => s.id === sheetId);
+    sheets.splice(index, 1);
+
+    if (activeSheetId === sheetId) {
+        activeSheetId = sheets[Math.max(0, index - 1)].id;
+        loadSheetData(activeSheetId);
+    }
+
+    renderSheetTabs();
+    updatePatternCounts();
+}
+
+function duplicateCurrentSheet() {
+    saveCurrentSheetData();
+    const currentSheet = sheets.find(s => s.id === activeSheetId);
+    if (!currentSheet) return;
+
+    const newName = currentSheet.name + ' (Copy)';
+    const newSheet = createSheet(newName, JSON.parse(JSON.stringify(currentSheet.data)));
+    renderSheetTabs();
+    switchToSheet(newSheet.id);
+    updatePatternCounts();
+
+    showModal({
+        type: 'success',
+        title: 'Sheet Duplicated',
+        message: `"${newName}" has been created successfully.`,
+        buttons: [{ text: 'OK', primary: true }]
+    });
+}
+
+function renameSheet(sheetId) {
+    const sheet = sheets.find(s => s.id === sheetId);
+    if (!sheet) return;
+
+    showModal({
+        type: 'input',
+        title: 'Rename Sheet',
+        message: 'Enter a new name for the sheet:',
+        inputValue: sheet.name,
+        inputPlaceholder: 'Sheet name',
+        buttons: [
+            { text: 'Cancel' },
+            {
+                text: 'Rename',
+                primary: true,
+                onClick: (name) => {
+                    if (name.trim()) {
+                        sheet.name = name.trim();
+                        renderSheetTabs();
+                    }
+                }
+            }
+        ]
+    });
+}
+
+// Toggle all row checkboxes
+function toggleAllRowCheckboxes(checkbox) {
+    const rowCheckboxes = document.querySelectorAll('.row-checkbox');
+    rowCheckboxes.forEach(cb => {
+        cb.checked = checkbox.checked;
+    });
+    updateRowCheckboxState();
+}
+
+// Update row checkbox state
+function updateRowCheckboxState() {
+    const rowCheckboxes = document.querySelectorAll('.row-checkbox');
+    const checkAllRows = document.getElementById('checkAllRows');
+
+    if (!checkAllRows) return;
+
+    const checkedCount = document.querySelectorAll('.row-checkbox:checked').length;
+    const totalCount = rowCheckboxes.length;
+
+    // Update check-all checkbox state
+    if (checkedCount === 0) {
+        checkAllRows.checked = false;
+        checkAllRows.indeterminate = false;
+    } else if (checkedCount === totalCount) {
+        checkAllRows.checked = true;
+        checkAllRows.indeterminate = false;
+    } else {
+        checkAllRows.checked = false;
+        checkAllRows.indeterminate = true;
+    }
+}
+
+// Toggle all image checkboxes of a specific type
+function toggleAllImageCheckboxes(imageType, checkbox) {
+    const imageCheckboxes = document.querySelectorAll(`.image-checkbox[data-image-type="${imageType}"]`);
+    imageCheckboxes.forEach(cb => {
+        cb.checked = checkbox.checked;
+    });
+    updateImageCheckboxState();
+}
+
+// Variable to store currently clicked image slot for single upload
+let currentImageSlot = null;
+
+// Handle image slot click
+function handleImageSlotClick(slot) {
+    const hasImage = slot.classList.contains('has-image');
+
+    if (hasImage) {
+        // Show image preview
+        const img = slot.querySelector('img');
+        if (img) {
+            currentImageSlot = slot;
+            const previewOverlay = document.getElementById('imagePreviewOverlay');
+            const previewImage = document.getElementById('previewImage');
+            previewImage.src = img.src;
+            previewOverlay.classList.remove('hidden');
+            previewOverlay.classList.add('flex');
+        }
+    } else {
+        // Show upload modal
+        currentImageSlot = slot;
+        const uploadModal = document.getElementById('imageUploadModal');
+        uploadModal.classList.remove('hidden');
+        uploadModal.classList.add('flex');
+    }
+}
+
+// Close image preview
+function closeImagePreview(event, force = false) {
+    if (force || event.target.id === 'imagePreviewOverlay') {
+        const previewOverlay = document.getElementById('imagePreviewOverlay');
+        previewOverlay.classList.add('hidden');
+        previewOverlay.classList.remove('flex');
+    }
+}
+
+// Delete previewed image
+function deletePreviewedImage() {
+    if (currentImageSlot) {
+        currentImageSlot.innerHTML = `<span class="material-symbols-outlined text-2xl group-hover/img:scale-110 transition-transform">add_photo_alternate</span>`;
+        currentImageSlot.classList.remove('has-image');
+        closeImagePreview(null, true);
+        updatePatternCounts();
+    }
+}
+
+// Close image upload modal
+function closeImageUploadModal(event, force = false) {
+    if (force || event.target.id === 'imageUploadModal') {
+        const uploadModal = document.getElementById('imageUploadModal');
+        uploadModal.classList.add('hidden');
+        uploadModal.classList.remove('flex');
+        document.getElementById('singleImageUpload').value = '';
+    }
+}
+
+// Handle single image upload (from modal)
+function handleSingleImageUpload(input) {
+    if (!input.files || !input.files[0] || !currentImageSlot) return;
+
+    const file = input.files[0];
+    const reader = new FileReader();
+
+    reader.onload = function(e) {
+        const imageUrl = e.target.result;
+
+        currentImageSlot.innerHTML = `
+            <img alt="Selected" class="w-full h-full object-cover" src="${imageUrl}"/>
+            <div class="absolute inset-0 bg-black/0 group-hover/img:bg-black/10 transition-colors"></div>
+        `;
+        currentImageSlot.classList.add('has-image');
+
+        closeImageUploadModal(null, true);
+        updatePatternCounts();
+    };
+
+    reader.readAsDataURL(file);
+}
+
+// Update image checkbox state and show/hide upload form
+function updateImageCheckboxState() {
+    const uploadForm = document.getElementById('uploadForm');
+    const selectedCount = document.getElementById('selectedCount');
+
+    // Update header checkboxes for each image type
+    ['hookImage', 'body1Image', 'body2Image'].forEach(imageType => {
+        const checkboxes = document.querySelectorAll(`.image-checkbox[data-image-type="${imageType}"]`);
+        const checkedCount = document.querySelectorAll(`.image-checkbox[data-image-type="${imageType}"]:checked`).length;
+        const totalCount = checkboxes.length;
+
+        const headerCheckbox = document.getElementById(`checkAll${imageType.charAt(0).toUpperCase() + imageType.slice(1).replace('Image', 'Images')}`);
+        if (headerCheckbox) {
+            if (checkedCount === 0) {
+                headerCheckbox.checked = false;
+                headerCheckbox.indeterminate = false;
+            } else if (checkedCount === totalCount) {
+                headerCheckbox.checked = true;
+                headerCheckbox.indeterminate = false;
+            } else {
+                headerCheckbox.checked = false;
+                headerCheckbox.indeterminate = true;
+            }
+        }
+    });
+
+    // Count total selected image checkboxes
+    const totalSelectedImages = document.querySelectorAll('.image-checkbox:checked').length;
+
+    // Show/hide upload form based on image checkboxes
+    if (totalSelectedImages > 0) {
+        uploadForm.classList.remove('hidden');
+        selectedCount.textContent = totalSelectedImages + ' image slot(s) selected';
+    } else {
+        uploadForm.classList.add('hidden');
+    }
+}
+
+// Legacy function for compatibility
+function updateCheckboxState() {
+    updateRowCheckboxState();
+    updateImageCheckboxState();
+}
+
+// Handle image upload
+function handleImageUpload(input) {
+    if (!input.files || !input.files[0]) return;
+
+    const file = input.files[0];
+    const reader = new FileReader();
+
+    reader.onload = function(e) {
+        const imageUrl = e.target.result;
+        const checkedImageCheckboxes = document.querySelectorAll('.image-checkbox:checked');
+
+        if (checkedImageCheckboxes.length === 0) {
+            showModal({
+                type: 'info',
+                title: 'No Image Slots Selected',
+                message: 'Please select at least one image slot to apply the image.',
+                buttons: [{ text: 'OK', primary: true }]
+            });
+            return;
+        }
+
+        checkedImageCheckboxes.forEach(checkbox => {
+            const cell = checkbox.closest('td');
+            const slot = cell.querySelector('.mini-image-slot');
+
+            slot.innerHTML = `
+                <img alt="Selected" class="w-full h-full object-cover" src="${imageUrl}"/>
+                <div class="absolute inset-0 bg-black/0 group-hover/img:bg-black/10 transition-colors"></div>
+            `;
+            slot.classList.add('has-image');
+
+            // Uncheck the checkbox after applying
+            checkbox.checked = false;
+        });
+
+        // Update states
+        updateImageCheckboxState();
+        updatePatternCounts();
+
+        showModal({
+            type: 'success',
+            title: 'Image Applied',
+            message: `Image has been applied to ${checkedImageCheckboxes.length} image slot(s).`,
+            buttons: [{ text: 'OK', primary: true }]
+        });
+
+        // Reset file input
+        input.value = '';
+    };
+
+    reader.readAsDataURL(file);
+}
+
+// Add new row
+function addRow() {
+    const tableBody = document.getElementById('tableBody');
+    const newRow = createRowElement({});
+    tableBody.appendChild(newRow);
+    updateCheckboxState();
+    updatePatternCounts();
+
+    // Auto-scroll to the new row
+    const tableContainer = document.getElementById('dataTable').parentElement;
+    setTimeout(() => {
+        tableContainer.scrollTop = tableContainer.scrollHeight;
+    }, 50);
+}
+
+// Show delete rows modal
+function showDeleteRowsModal() {
+    const checkedBoxes = document.querySelectorAll('.row-checkbox:checked');
+    const totalRows = document.querySelectorAll('#tableBody tr').length;
+
+    if (checkedBoxes.length === 0) {
+        showModal({
+            type: 'info',
+            title: 'No Rows Selected',
+            message: 'Please select at least one row to delete.',
+            buttons: [{ text: 'OK', primary: true }]
+        });
+        return;
+    }
+
+    if (checkedBoxes.length >= totalRows) {
+        showModal({
+            type: 'info',
+            title: 'Cannot Delete All',
+            message: 'You must have at least one row in the table. Please unselect at least one row.',
+            buttons: [{ text: 'OK', primary: true }]
+        });
+        return;
+    }
+
+    showModal({
+        type: 'danger',
+        title: 'Delete Rows',
+        message: `Are you sure you want to delete ${checkedBoxes.length} row(s)? This action cannot be undone.`,
+        buttons: [
+            { text: 'Cancel' },
+            {
+                text: 'Delete',
+                primary: true,
+                onClick: () => deleteSelectedRows()
+            }
+        ]
+    });
+}
+
+// Delete selected rows
+function deleteSelectedRows() {
+    const checkedBoxes = document.querySelectorAll('.row-checkbox:checked');
+    checkedBoxes.forEach(cb => {
+        cb.closest('tr').remove();
+    });
+    updateCheckboxState();
+    updatePatternCounts();
+}
+</script>
+</body></html>

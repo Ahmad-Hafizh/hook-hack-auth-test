@@ -1,25 +1,31 @@
-import { prisma } from '@/config/prisma/prisma';
-import { getAuth } from '@clerk/nextjs/server';
-import { NextRequest, NextResponse } from 'next/server';
+import { prisma } from "@/config/prisma/prisma";
+import { getAuth } from "@clerk/nextjs/server";
+import { NextRequest, NextResponse } from "next/server";
 
 export async function GET(req: NextRequest) {
   try {
     const params = req.nextUrl.searchParams;
-    const sessionId = params.get('sessionId');
+    const sessionId = params.get("sessionId");
 
-    const session = await prisma.planningSession.findUnique({
+    const session = await prisma.pDCASession.findUnique({
       where: {
-        id: sessionId || '',
+        id: sessionId || "",
       },
     });
 
     if (!session) {
-      return NextResponse.json({ error: 'Session not found' }, { status: 404 });
+      return NextResponse.json({ error: "Session not found" }, { status: 404 });
     }
 
-    return NextResponse.json({ message: 'Page found', page: session.lastPage, step: session.lastStep }, { status: 200 });
+    return NextResponse.json(
+      { message: "Page found", page: session.lastPage },
+      { status: 200 }
+    );
   } catch (error) {
     console.log(error);
-    return NextResponse.json({ error: 'Internal Server Error' }, { status: 500 });
+    return NextResponse.json(
+      { error: "Internal Server Error" },
+      { status: 500 }
+    );
   }
 }

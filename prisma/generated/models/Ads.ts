@@ -28,14 +28,14 @@ export type AdsMinAggregateOutputType = {
   id: string | null
   adUrl: string | null
   createdAt: Date | null
-  planningSessionId: string | null
+  pdca_session_id: string | null
 }
 
 export type AdsMaxAggregateOutputType = {
   id: string | null
   adUrl: string | null
   createdAt: Date | null
-  planningSessionId: string | null
+  pdca_session_id: string | null
 }
 
 export type AdsCountAggregateOutputType = {
@@ -43,7 +43,7 @@ export type AdsCountAggregateOutputType = {
   adUrl: number
   createdAt: number
   performance: number
-  planningSessionId: number
+  pdca_session_id: number
   _all: number
 }
 
@@ -52,14 +52,14 @@ export type AdsMinAggregateInputType = {
   id?: true
   adUrl?: true
   createdAt?: true
-  planningSessionId?: true
+  pdca_session_id?: true
 }
 
 export type AdsMaxAggregateInputType = {
   id?: true
   adUrl?: true
   createdAt?: true
-  planningSessionId?: true
+  pdca_session_id?: true
 }
 
 export type AdsCountAggregateInputType = {
@@ -67,7 +67,7 @@ export type AdsCountAggregateInputType = {
   adUrl?: true
   createdAt?: true
   performance?: true
-  planningSessionId?: true
+  pdca_session_id?: true
   _all?: true
 }
 
@@ -148,7 +148,7 @@ export type AdsGroupByOutputType = {
   adUrl: string
   createdAt: Date
   performance: runtime.JsonValue | null
-  planningSessionId: string
+  pdca_session_id: string
   _count: AdsCountAggregateOutputType | null
   _min: AdsMinAggregateOutputType | null
   _max: AdsMaxAggregateOutputType | null
@@ -177,8 +177,8 @@ export type AdsWhereInput = {
   adUrl?: Prisma.StringFilter<"Ads"> | string
   createdAt?: Prisma.DateTimeFilter<"Ads"> | Date | string
   performance?: Prisma.JsonNullableFilter<"Ads">
-  planningSessionId?: Prisma.StringFilter<"Ads"> | string
-  PlanningSession?: Prisma.XOR<Prisma.PlanningSessionScalarRelationFilter, Prisma.PlanningSessionWhereInput>
+  pdca_session_id?: Prisma.StringFilter<"Ads"> | string
+  PDCA_Session?: Prisma.XOR<Prisma.PDCASessionScalarRelationFilter, Prisma.PDCASessionWhereInput>
 }
 
 export type AdsOrderByWithRelationInput = {
@@ -186,8 +186,8 @@ export type AdsOrderByWithRelationInput = {
   adUrl?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   performance?: Prisma.SortOrderInput | Prisma.SortOrder
-  planningSessionId?: Prisma.SortOrder
-  PlanningSession?: Prisma.PlanningSessionOrderByWithRelationInput
+  pdca_session_id?: Prisma.SortOrder
+  PDCA_Session?: Prisma.PDCASessionOrderByWithRelationInput
 }
 
 export type AdsWhereUniqueInput = Prisma.AtLeast<{
@@ -198,8 +198,8 @@ export type AdsWhereUniqueInput = Prisma.AtLeast<{
   adUrl?: Prisma.StringFilter<"Ads"> | string
   createdAt?: Prisma.DateTimeFilter<"Ads"> | Date | string
   performance?: Prisma.JsonNullableFilter<"Ads">
-  planningSessionId?: Prisma.StringFilter<"Ads"> | string
-  PlanningSession?: Prisma.XOR<Prisma.PlanningSessionScalarRelationFilter, Prisma.PlanningSessionWhereInput>
+  pdca_session_id?: Prisma.StringFilter<"Ads"> | string
+  PDCA_Session?: Prisma.XOR<Prisma.PDCASessionScalarRelationFilter, Prisma.PDCASessionWhereInput>
 }, "id">
 
 export type AdsOrderByWithAggregationInput = {
@@ -207,7 +207,7 @@ export type AdsOrderByWithAggregationInput = {
   adUrl?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   performance?: Prisma.SortOrderInput | Prisma.SortOrder
-  planningSessionId?: Prisma.SortOrder
+  pdca_session_id?: Prisma.SortOrder
   _count?: Prisma.AdsCountOrderByAggregateInput
   _max?: Prisma.AdsMaxOrderByAggregateInput
   _min?: Prisma.AdsMinOrderByAggregateInput
@@ -221,7 +221,7 @@ export type AdsScalarWhereWithAggregatesInput = {
   adUrl?: Prisma.StringWithAggregatesFilter<"Ads"> | string
   createdAt?: Prisma.DateTimeWithAggregatesFilter<"Ads"> | Date | string
   performance?: Prisma.JsonNullableWithAggregatesFilter<"Ads">
-  planningSessionId?: Prisma.StringWithAggregatesFilter<"Ads"> | string
+  pdca_session_id?: Prisma.StringWithAggregatesFilter<"Ads"> | string
 }
 
 export type AdsCreateInput = {
@@ -229,7 +229,7 @@ export type AdsCreateInput = {
   adUrl: string
   createdAt?: Date | string
   performance?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
-  PlanningSession: Prisma.PlanningSessionCreateNestedOneWithoutAdsInput
+  PDCA_Session: Prisma.PDCASessionCreateNestedOneWithoutAdsInput
 }
 
 export type AdsUncheckedCreateInput = {
@@ -237,7 +237,7 @@ export type AdsUncheckedCreateInput = {
   adUrl: string
   createdAt?: Date | string
   performance?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
-  planningSessionId: string
+  pdca_session_id: string
 }
 
 export type AdsUpdateInput = {
@@ -245,7 +245,7 @@ export type AdsUpdateInput = {
   adUrl?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   performance?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
-  PlanningSession?: Prisma.PlanningSessionUpdateOneRequiredWithoutAdsNestedInput
+  PDCA_Session?: Prisma.PDCASessionUpdateOneRequiredWithoutAdsNestedInput
 }
 
 export type AdsUncheckedUpdateInput = {
@@ -253,7 +253,7 @@ export type AdsUncheckedUpdateInput = {
   adUrl?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   performance?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
-  planningSessionId?: Prisma.StringFieldUpdateOperationsInput | string
+  pdca_session_id?: Prisma.StringFieldUpdateOperationsInput | string
 }
 
 export type AdsCreateManyInput = {
@@ -261,7 +261,7 @@ export type AdsCreateManyInput = {
   adUrl: string
   createdAt?: Date | string
   performance?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
-  planningSessionId: string
+  pdca_session_id: string
 }
 
 export type AdsUpdateManyMutationInput = {
@@ -276,7 +276,7 @@ export type AdsUncheckedUpdateManyInput = {
   adUrl?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   performance?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
-  planningSessionId?: Prisma.StringFieldUpdateOperationsInput | string
+  pdca_session_id?: Prisma.StringFieldUpdateOperationsInput | string
 }
 
 export type AdsListRelationFilter = {
@@ -294,103 +294,103 @@ export type AdsCountOrderByAggregateInput = {
   adUrl?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   performance?: Prisma.SortOrder
-  planningSessionId?: Prisma.SortOrder
+  pdca_session_id?: Prisma.SortOrder
 }
 
 export type AdsMaxOrderByAggregateInput = {
   id?: Prisma.SortOrder
   adUrl?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
-  planningSessionId?: Prisma.SortOrder
+  pdca_session_id?: Prisma.SortOrder
 }
 
 export type AdsMinOrderByAggregateInput = {
   id?: Prisma.SortOrder
   adUrl?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
-  planningSessionId?: Prisma.SortOrder
+  pdca_session_id?: Prisma.SortOrder
 }
 
-export type AdsCreateNestedManyWithoutPlanningSessionInput = {
-  create?: Prisma.XOR<Prisma.AdsCreateWithoutPlanningSessionInput, Prisma.AdsUncheckedCreateWithoutPlanningSessionInput> | Prisma.AdsCreateWithoutPlanningSessionInput[] | Prisma.AdsUncheckedCreateWithoutPlanningSessionInput[]
-  connectOrCreate?: Prisma.AdsCreateOrConnectWithoutPlanningSessionInput | Prisma.AdsCreateOrConnectWithoutPlanningSessionInput[]
-  createMany?: Prisma.AdsCreateManyPlanningSessionInputEnvelope
+export type AdsCreateNestedManyWithoutPDCA_SessionInput = {
+  create?: Prisma.XOR<Prisma.AdsCreateWithoutPDCA_SessionInput, Prisma.AdsUncheckedCreateWithoutPDCA_SessionInput> | Prisma.AdsCreateWithoutPDCA_SessionInput[] | Prisma.AdsUncheckedCreateWithoutPDCA_SessionInput[]
+  connectOrCreate?: Prisma.AdsCreateOrConnectWithoutPDCA_SessionInput | Prisma.AdsCreateOrConnectWithoutPDCA_SessionInput[]
+  createMany?: Prisma.AdsCreateManyPDCA_SessionInputEnvelope
   connect?: Prisma.AdsWhereUniqueInput | Prisma.AdsWhereUniqueInput[]
 }
 
-export type AdsUncheckedCreateNestedManyWithoutPlanningSessionInput = {
-  create?: Prisma.XOR<Prisma.AdsCreateWithoutPlanningSessionInput, Prisma.AdsUncheckedCreateWithoutPlanningSessionInput> | Prisma.AdsCreateWithoutPlanningSessionInput[] | Prisma.AdsUncheckedCreateWithoutPlanningSessionInput[]
-  connectOrCreate?: Prisma.AdsCreateOrConnectWithoutPlanningSessionInput | Prisma.AdsCreateOrConnectWithoutPlanningSessionInput[]
-  createMany?: Prisma.AdsCreateManyPlanningSessionInputEnvelope
+export type AdsUncheckedCreateNestedManyWithoutPDCA_SessionInput = {
+  create?: Prisma.XOR<Prisma.AdsCreateWithoutPDCA_SessionInput, Prisma.AdsUncheckedCreateWithoutPDCA_SessionInput> | Prisma.AdsCreateWithoutPDCA_SessionInput[] | Prisma.AdsUncheckedCreateWithoutPDCA_SessionInput[]
+  connectOrCreate?: Prisma.AdsCreateOrConnectWithoutPDCA_SessionInput | Prisma.AdsCreateOrConnectWithoutPDCA_SessionInput[]
+  createMany?: Prisma.AdsCreateManyPDCA_SessionInputEnvelope
   connect?: Prisma.AdsWhereUniqueInput | Prisma.AdsWhereUniqueInput[]
 }
 
-export type AdsUpdateManyWithoutPlanningSessionNestedInput = {
-  create?: Prisma.XOR<Prisma.AdsCreateWithoutPlanningSessionInput, Prisma.AdsUncheckedCreateWithoutPlanningSessionInput> | Prisma.AdsCreateWithoutPlanningSessionInput[] | Prisma.AdsUncheckedCreateWithoutPlanningSessionInput[]
-  connectOrCreate?: Prisma.AdsCreateOrConnectWithoutPlanningSessionInput | Prisma.AdsCreateOrConnectWithoutPlanningSessionInput[]
-  upsert?: Prisma.AdsUpsertWithWhereUniqueWithoutPlanningSessionInput | Prisma.AdsUpsertWithWhereUniqueWithoutPlanningSessionInput[]
-  createMany?: Prisma.AdsCreateManyPlanningSessionInputEnvelope
+export type AdsUpdateManyWithoutPDCA_SessionNestedInput = {
+  create?: Prisma.XOR<Prisma.AdsCreateWithoutPDCA_SessionInput, Prisma.AdsUncheckedCreateWithoutPDCA_SessionInput> | Prisma.AdsCreateWithoutPDCA_SessionInput[] | Prisma.AdsUncheckedCreateWithoutPDCA_SessionInput[]
+  connectOrCreate?: Prisma.AdsCreateOrConnectWithoutPDCA_SessionInput | Prisma.AdsCreateOrConnectWithoutPDCA_SessionInput[]
+  upsert?: Prisma.AdsUpsertWithWhereUniqueWithoutPDCA_SessionInput | Prisma.AdsUpsertWithWhereUniqueWithoutPDCA_SessionInput[]
+  createMany?: Prisma.AdsCreateManyPDCA_SessionInputEnvelope
   set?: Prisma.AdsWhereUniqueInput | Prisma.AdsWhereUniqueInput[]
   disconnect?: Prisma.AdsWhereUniqueInput | Prisma.AdsWhereUniqueInput[]
   delete?: Prisma.AdsWhereUniqueInput | Prisma.AdsWhereUniqueInput[]
   connect?: Prisma.AdsWhereUniqueInput | Prisma.AdsWhereUniqueInput[]
-  update?: Prisma.AdsUpdateWithWhereUniqueWithoutPlanningSessionInput | Prisma.AdsUpdateWithWhereUniqueWithoutPlanningSessionInput[]
-  updateMany?: Prisma.AdsUpdateManyWithWhereWithoutPlanningSessionInput | Prisma.AdsUpdateManyWithWhereWithoutPlanningSessionInput[]
+  update?: Prisma.AdsUpdateWithWhereUniqueWithoutPDCA_SessionInput | Prisma.AdsUpdateWithWhereUniqueWithoutPDCA_SessionInput[]
+  updateMany?: Prisma.AdsUpdateManyWithWhereWithoutPDCA_SessionInput | Prisma.AdsUpdateManyWithWhereWithoutPDCA_SessionInput[]
   deleteMany?: Prisma.AdsScalarWhereInput | Prisma.AdsScalarWhereInput[]
 }
 
-export type AdsUncheckedUpdateManyWithoutPlanningSessionNestedInput = {
-  create?: Prisma.XOR<Prisma.AdsCreateWithoutPlanningSessionInput, Prisma.AdsUncheckedCreateWithoutPlanningSessionInput> | Prisma.AdsCreateWithoutPlanningSessionInput[] | Prisma.AdsUncheckedCreateWithoutPlanningSessionInput[]
-  connectOrCreate?: Prisma.AdsCreateOrConnectWithoutPlanningSessionInput | Prisma.AdsCreateOrConnectWithoutPlanningSessionInput[]
-  upsert?: Prisma.AdsUpsertWithWhereUniqueWithoutPlanningSessionInput | Prisma.AdsUpsertWithWhereUniqueWithoutPlanningSessionInput[]
-  createMany?: Prisma.AdsCreateManyPlanningSessionInputEnvelope
+export type AdsUncheckedUpdateManyWithoutPDCA_SessionNestedInput = {
+  create?: Prisma.XOR<Prisma.AdsCreateWithoutPDCA_SessionInput, Prisma.AdsUncheckedCreateWithoutPDCA_SessionInput> | Prisma.AdsCreateWithoutPDCA_SessionInput[] | Prisma.AdsUncheckedCreateWithoutPDCA_SessionInput[]
+  connectOrCreate?: Prisma.AdsCreateOrConnectWithoutPDCA_SessionInput | Prisma.AdsCreateOrConnectWithoutPDCA_SessionInput[]
+  upsert?: Prisma.AdsUpsertWithWhereUniqueWithoutPDCA_SessionInput | Prisma.AdsUpsertWithWhereUniqueWithoutPDCA_SessionInput[]
+  createMany?: Prisma.AdsCreateManyPDCA_SessionInputEnvelope
   set?: Prisma.AdsWhereUniqueInput | Prisma.AdsWhereUniqueInput[]
   disconnect?: Prisma.AdsWhereUniqueInput | Prisma.AdsWhereUniqueInput[]
   delete?: Prisma.AdsWhereUniqueInput | Prisma.AdsWhereUniqueInput[]
   connect?: Prisma.AdsWhereUniqueInput | Prisma.AdsWhereUniqueInput[]
-  update?: Prisma.AdsUpdateWithWhereUniqueWithoutPlanningSessionInput | Prisma.AdsUpdateWithWhereUniqueWithoutPlanningSessionInput[]
-  updateMany?: Prisma.AdsUpdateManyWithWhereWithoutPlanningSessionInput | Prisma.AdsUpdateManyWithWhereWithoutPlanningSessionInput[]
+  update?: Prisma.AdsUpdateWithWhereUniqueWithoutPDCA_SessionInput | Prisma.AdsUpdateWithWhereUniqueWithoutPDCA_SessionInput[]
+  updateMany?: Prisma.AdsUpdateManyWithWhereWithoutPDCA_SessionInput | Prisma.AdsUpdateManyWithWhereWithoutPDCA_SessionInput[]
   deleteMany?: Prisma.AdsScalarWhereInput | Prisma.AdsScalarWhereInput[]
 }
 
-export type AdsCreateWithoutPlanningSessionInput = {
+export type AdsCreateWithoutPDCA_SessionInput = {
   id?: string
   adUrl: string
   createdAt?: Date | string
   performance?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
 }
 
-export type AdsUncheckedCreateWithoutPlanningSessionInput = {
+export type AdsUncheckedCreateWithoutPDCA_SessionInput = {
   id?: string
   adUrl: string
   createdAt?: Date | string
   performance?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
 }
 
-export type AdsCreateOrConnectWithoutPlanningSessionInput = {
+export type AdsCreateOrConnectWithoutPDCA_SessionInput = {
   where: Prisma.AdsWhereUniqueInput
-  create: Prisma.XOR<Prisma.AdsCreateWithoutPlanningSessionInput, Prisma.AdsUncheckedCreateWithoutPlanningSessionInput>
+  create: Prisma.XOR<Prisma.AdsCreateWithoutPDCA_SessionInput, Prisma.AdsUncheckedCreateWithoutPDCA_SessionInput>
 }
 
-export type AdsCreateManyPlanningSessionInputEnvelope = {
-  data: Prisma.AdsCreateManyPlanningSessionInput | Prisma.AdsCreateManyPlanningSessionInput[]
+export type AdsCreateManyPDCA_SessionInputEnvelope = {
+  data: Prisma.AdsCreateManyPDCA_SessionInput | Prisma.AdsCreateManyPDCA_SessionInput[]
   skipDuplicates?: boolean
 }
 
-export type AdsUpsertWithWhereUniqueWithoutPlanningSessionInput = {
+export type AdsUpsertWithWhereUniqueWithoutPDCA_SessionInput = {
   where: Prisma.AdsWhereUniqueInput
-  update: Prisma.XOR<Prisma.AdsUpdateWithoutPlanningSessionInput, Prisma.AdsUncheckedUpdateWithoutPlanningSessionInput>
-  create: Prisma.XOR<Prisma.AdsCreateWithoutPlanningSessionInput, Prisma.AdsUncheckedCreateWithoutPlanningSessionInput>
+  update: Prisma.XOR<Prisma.AdsUpdateWithoutPDCA_SessionInput, Prisma.AdsUncheckedUpdateWithoutPDCA_SessionInput>
+  create: Prisma.XOR<Prisma.AdsCreateWithoutPDCA_SessionInput, Prisma.AdsUncheckedCreateWithoutPDCA_SessionInput>
 }
 
-export type AdsUpdateWithWhereUniqueWithoutPlanningSessionInput = {
+export type AdsUpdateWithWhereUniqueWithoutPDCA_SessionInput = {
   where: Prisma.AdsWhereUniqueInput
-  data: Prisma.XOR<Prisma.AdsUpdateWithoutPlanningSessionInput, Prisma.AdsUncheckedUpdateWithoutPlanningSessionInput>
+  data: Prisma.XOR<Prisma.AdsUpdateWithoutPDCA_SessionInput, Prisma.AdsUncheckedUpdateWithoutPDCA_SessionInput>
 }
 
-export type AdsUpdateManyWithWhereWithoutPlanningSessionInput = {
+export type AdsUpdateManyWithWhereWithoutPDCA_SessionInput = {
   where: Prisma.AdsScalarWhereInput
-  data: Prisma.XOR<Prisma.AdsUpdateManyMutationInput, Prisma.AdsUncheckedUpdateManyWithoutPlanningSessionInput>
+  data: Prisma.XOR<Prisma.AdsUpdateManyMutationInput, Prisma.AdsUncheckedUpdateManyWithoutPDCA_SessionInput>
 }
 
 export type AdsScalarWhereInput = {
@@ -401,31 +401,31 @@ export type AdsScalarWhereInput = {
   adUrl?: Prisma.StringFilter<"Ads"> | string
   createdAt?: Prisma.DateTimeFilter<"Ads"> | Date | string
   performance?: Prisma.JsonNullableFilter<"Ads">
-  planningSessionId?: Prisma.StringFilter<"Ads"> | string
+  pdca_session_id?: Prisma.StringFilter<"Ads"> | string
 }
 
-export type AdsCreateManyPlanningSessionInput = {
+export type AdsCreateManyPDCA_SessionInput = {
   id?: string
   adUrl: string
   createdAt?: Date | string
   performance?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
 }
 
-export type AdsUpdateWithoutPlanningSessionInput = {
+export type AdsUpdateWithoutPDCA_SessionInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   adUrl?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   performance?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
 }
 
-export type AdsUncheckedUpdateWithoutPlanningSessionInput = {
+export type AdsUncheckedUpdateWithoutPDCA_SessionInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   adUrl?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   performance?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
 }
 
-export type AdsUncheckedUpdateManyWithoutPlanningSessionInput = {
+export type AdsUncheckedUpdateManyWithoutPDCA_SessionInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   adUrl?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -439,8 +439,8 @@ export type AdsSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = ru
   adUrl?: boolean
   createdAt?: boolean
   performance?: boolean
-  planningSessionId?: boolean
-  PlanningSession?: boolean | Prisma.PlanningSessionDefaultArgs<ExtArgs>
+  pdca_session_id?: boolean
+  PDCA_Session?: boolean | Prisma.PDCASessionDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["ads"]>
 
 export type AdsSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
@@ -448,8 +448,8 @@ export type AdsSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extension
   adUrl?: boolean
   createdAt?: boolean
   performance?: boolean
-  planningSessionId?: boolean
-  PlanningSession?: boolean | Prisma.PlanningSessionDefaultArgs<ExtArgs>
+  pdca_session_id?: boolean
+  PDCA_Session?: boolean | Prisma.PDCASessionDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["ads"]>
 
 export type AdsSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
@@ -457,8 +457,8 @@ export type AdsSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extension
   adUrl?: boolean
   createdAt?: boolean
   performance?: boolean
-  planningSessionId?: boolean
-  PlanningSession?: boolean | Prisma.PlanningSessionDefaultArgs<ExtArgs>
+  pdca_session_id?: boolean
+  PDCA_Session?: boolean | Prisma.PDCASessionDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["ads"]>
 
 export type AdsSelectScalar = {
@@ -466,31 +466,31 @@ export type AdsSelectScalar = {
   adUrl?: boolean
   createdAt?: boolean
   performance?: boolean
-  planningSessionId?: boolean
+  pdca_session_id?: boolean
 }
 
-export type AdsOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "adUrl" | "createdAt" | "performance" | "planningSessionId", ExtArgs["result"]["ads"]>
+export type AdsOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "adUrl" | "createdAt" | "performance" | "pdca_session_id", ExtArgs["result"]["ads"]>
 export type AdsInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  PlanningSession?: boolean | Prisma.PlanningSessionDefaultArgs<ExtArgs>
+  PDCA_Session?: boolean | Prisma.PDCASessionDefaultArgs<ExtArgs>
 }
 export type AdsIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  PlanningSession?: boolean | Prisma.PlanningSessionDefaultArgs<ExtArgs>
+  PDCA_Session?: boolean | Prisma.PDCASessionDefaultArgs<ExtArgs>
 }
 export type AdsIncludeUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  PlanningSession?: boolean | Prisma.PlanningSessionDefaultArgs<ExtArgs>
+  PDCA_Session?: boolean | Prisma.PDCASessionDefaultArgs<ExtArgs>
 }
 
 export type $AdsPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   name: "Ads"
   objects: {
-    PlanningSession: Prisma.$PlanningSessionPayload<ExtArgs>
+    PDCA_Session: Prisma.$PDCASessionPayload<ExtArgs>
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: string
     adUrl: string
     createdAt: Date
     performance: runtime.JsonValue | null
-    planningSessionId: string
+    pdca_session_id: string
   }, ExtArgs["result"]["ads"]>
   composites: {}
 }
@@ -885,7 +885,7 @@ readonly fields: AdsFieldRefs;
  */
 export interface Prisma__AdsClient<T, Null = never, ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
   readonly [Symbol.toStringTag]: "PrismaPromise"
-  PlanningSession<T extends Prisma.PlanningSessionDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.PlanningSessionDefaultArgs<ExtArgs>>): Prisma.Prisma__PlanningSessionClient<runtime.Types.Result.GetResult<Prisma.$PlanningSessionPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+  PDCA_Session<T extends Prisma.PDCASessionDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.PDCASessionDefaultArgs<ExtArgs>>): Prisma.Prisma__PDCASessionClient<runtime.Types.Result.GetResult<Prisma.$PDCASessionPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
    * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -919,7 +919,7 @@ export interface AdsFieldRefs {
   readonly adUrl: Prisma.FieldRef<"Ads", 'String'>
   readonly createdAt: Prisma.FieldRef<"Ads", 'DateTime'>
   readonly performance: Prisma.FieldRef<"Ads", 'Json'>
-  readonly planningSessionId: Prisma.FieldRef<"Ads", 'String'>
+  readonly pdca_session_id: Prisma.FieldRef<"Ads", 'String'>
 }
     
 

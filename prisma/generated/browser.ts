@@ -44,15 +44,35 @@ export type project = Prisma.projectModel
  */
 export type Transaction = Prisma.TransactionModel
 /**
- * Model PlanningSession
+ * Model PDCA
  * 
  */
-export type PlanningSession = Prisma.PlanningSessionModel
+export type PDCA = Prisma.PDCAModel
 /**
- * Model CreativeBrief
+ * Model PDCASession
  * 
  */
-export type CreativeBrief = Prisma.CreativeBriefModel
+export type PDCASession = Prisma.PDCASessionModel
+/**
+ * Model CompetitorMatrix
+ * 
+ */
+export type CompetitorMatrix = Prisma.CompetitorMatrixModel
+/**
+ * Model ValueOrganization
+ * 
+ */
+export type ValueOrganization = Prisma.ValueOrganizationModel
+/**
+ * Model DesireOrganization
+ * 
+ */
+export type DesireOrganization = Prisma.DesireOrganizationModel
+/**
+ * Model PositioningPatterns
+ * 
+ */
+export type PositioningPatterns = Prisma.PositioningPatternsModel
 /**
  * Model PlanningPlan
  * 
@@ -73,3 +93,8 @@ export type RenderedVideo = Prisma.RenderedVideoModel
  * 
  */
 export type Ads = Prisma.AdsModel
+/**
+ * Model GoogleAdsCredential
+ * 
+ */
+export type GoogleAdsCredential = Prisma.GoogleAdsCredentialModel

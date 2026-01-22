@@ -1,0 +1,605 @@
+<html lang="ja"><head><meta charset="utf-8"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<style type="text/tailwindcss">
+    @layer utilities {
+        .scrollbar-hide::-webkit-scrollbar {
+            display: none;
+        }
+        .scrollbar-hide {
+            -ms-overflow-style: none;
+            scrollbar-width: none;
+        }
+        .gs-textarea {
+            @apply w-full h-full py-3 pr-3 pl-1 text-sm bg-transparent border-none focus:ring-0 focus:outline-none resize-none leading-relaxed transition-all;
+        }
+        .gs-cell {
+            @apply border-b border-r border-border-strong relative p-0 transition-colors bg-white;
+        }.gs-header {
+            @apply border-b border-r border-border-strong text-left text-xs font-bold text-text-muted bg-header-bg px-3 py-3 select-none whitespace-nowrap;
+        }
+        .gs-header-fixed-row2 {
+            @apply border-b border-r border-border-strong align-top bg-header-bg p-3 shadow-sticky;
+        }
+        .custom-checkbox {
+            @apply w-4 h-4 rounded border-gray-400 text-primary focus:ring-primary/50 transition duration-150 ease-in-out cursor-pointer;
+        }
+        .custom-radio {
+            @apply w-4 h-4 border-gray-400 text-primary focus:ring-primary/50 focus:ring-offset-0 cursor-pointer transition-all;
+        }
+        .row-selected .cell-hook-group {
+                @apply bg-accent-soft/30;
+        }
+        .cell-selectable:has(:checked) {
+            @apply bg-accent-soft/30;
+        }
+        tr:not(.row-selected) .gs-cell:hover {
+            @apply bg-slate-50;
+        }.limit-badge {
+            @apply text-[10px] font-medium px-1.5 py-0.5 rounded border border-border-strong bg-white/50 text-text-muted inline-block ml-2;
+        }
+        .image-slot-wrapper {
+            @apply relative flex flex-col items-center shrink-0 w-full;
+        }
+        .image-slot-container {
+                @apply w-full h-[95px] relative;
+        }
+        .image-slot {
+            @apply w-full h-full rounded border-2 border-dashed border-slate-400 bg-white/50 hover:border-primary hover:bg-blue-50/50 flex items-center justify-center cursor-pointer transition-all text-slate-400 hover:text-primary relative overflow-hidden;
+        }
+        .image-slot.has-image {
+            @apply border-primary border-solid bg-white p-0.5;
+        }
+        .slot-checkbox {
+            @apply absolute -top-2 -right-2 w-5 h-5 bg-white border border-gray-300 rounded text-primary focus:ring-0 z-20 shadow-md cursor-pointer hover:scale-110 transition-transform;
+        }
+        .slot-checkbox:checked {
+            @apply border-primary bg-primary;
+        }
+        .slot-radio {
+            @apply absolute -top-2 -right-2 w-5 h-5 bg-white border border-gray-300 rounded-full text-primary focus:ring-0 z-20 shadow-md cursor-pointer hover:scale-110 transition-transform;
+        }
+        .slot-radio:checked {
+            @apply border-primary bg-primary;
+        }
+        .image-slot-wrapper:has(.slot-checkbox:checked) .image-slot,
+        .image-slot-wrapper:has(.slot-radio:checked) .image-slot {
+            @apply border-primary ring-2 ring-primary/20 bg-blue-50/30;
+        }
+    }
+</style>
+<script id="tailwind-config">
+    tailwind.config = {
+        theme: {
+            extend: {
+                colors: {
+                    primary: "#0093b4",
+                    "primary-hover": "#007a92",
+                    "background-light": "#ffffff",
+                    "surface-light": "#ffffff",
+                    "surface-subtle": "#f8fafc",
+                    "header-bg": "#e2e8f0","border-light": "#e2e8f0", 
+                    "border-strong": "#94a3b8",
+                    "text-main": "#1e293b",
+                    "text-muted": "#64748b",
+                    "accent-soft": "#e0f2f7"
+                },
+                fontFamily: {
+                    sans: ["Noto Sans JP", "sans-serif"]
+                },
+                boxShadow: {
+                    soft: "0 2px 8px -2px rgba(0, 0, 0, 0.05), 0 1px 4px -1px rgba(0, 0, 0, 0.02)",
+                    sticky: "0 1px 0 0 #94a3b8"
+                }
+            }
+        }
+    };
+</script>
+</head><body class="bg-surface-subtle text-text-main font-sans min-h-screen flex flex-col">
+<main class="flex-1 w-full max-w-[1800px] mx-auto p-6 flex flex-col items-start gap-6 pb-24 relative">
+<div class="w-full flex items-center justify-between mb-2">
+<div>
+<h1 class="text-2xl font-bold text-text-main flex items-center gap-2">
+<span class="material-symbols-outlined text-primary text-3xl">grid_on</span>
+                    パターン設定
+                </h1>
+</div>
+<div class="flex items-center gap-2">
+<div class="flex items-center bg-white rounded-lg border border-border-strong px-2 py-1 shadow-sm gap-1 h-[54px]">
+<div class="flex items-center px-4 py-1 border-r border-slate-100/50">
+<div class="flex flex-col items-end mr-3">
+<span class="text-[10px] font-bold text-text-muted leading-tight whitespace-nowrap">画像<br/>パターン数</span>
+</div>
+<span class="text-2xl font-bold text-text-main font-mono tracking-tight">1</span>
+</div>
+<div class="flex items-center px-4 py-1 border-r border-slate-100/50">
+<div class="flex flex-col items-end mr-3">
+<span class="text-[10px] font-bold text-text-muted leading-tight whitespace-nowrap">テキスト<br/>パターン数</span>
+</div>
+<span class="text-2xl font-bold text-text-main font-mono tracking-tight">3</span>
+</div>
+<div class="flex items-center px-6 py-1 bg-accent-soft/30 rounded-md ml-1">
+<div class="flex flex-col items-end mr-3">
+<span class="text-[10px] font-bold text-primary leading-tight whitespace-nowrap">合計<br/>パターン数</span>
+</div>
+<span class="text-3xl font-black text-primary font-mono tracking-tight">3</span>
+</div>
+</div>
+<div class="flex flex-col justify-center bg-white rounded-lg border border-border-strong px-4 py-1 shadow-sm h-[54px]">
+<span class="text-[10px] font-bold text-text-muted leading-tight mb-0.5">1ヶ月運用期間の予算の参考表</span>
+<div class="flex items-center gap-3 text-xs font-medium text-text-main">
+<div class="flex items-baseline gap-1">
+<span class="text-[10px] text-text-muted">５本の場合 ＝</span>
+<span class="font-mono text-text-main">¥100,000 / 月</span>
+</div>
+<div class="w-px h-3 bg-slate-200"></div>
+<div class="flex items-baseline gap-1">
+<span class="text-[10px] text-text-muted">１０本の場合 ＝</span>
+<span class="font-mono text-text-main">¥200,000 / 月</span>
+</div>
+<div class="w-px h-3 bg-slate-200"></div>
+<div class="flex items-baseline gap-1">
+<span class="text-[10px] text-text-muted">２０本の場合 ＝</span>
+<span class="font-mono text-text-main">¥400,000 / 月</span>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="w-full bg-white rounded-lg border border-border-strong shadow-soft overflow-auto relative h-[calc(100vh-250px)] isolate">
+<table class="w-full min-w-[1300px] border-collapse text-sm table-fixed">
+<thead class="z-50">
+<tr class="h-[40px]">
+<th class="gs-header w-[30%] sticky top-0 left-0 z-[70] border-l-0 shadow-[1px_1px_0_0_#94a3b8]">Hook</th>
+<th class="gs-header w-[25%] sticky top-0 z-[60] shadow-sticky">Body1</th>
+<th class="gs-header w-[25%] sticky top-0 z-[60] shadow-sticky">Body2</th>
+<th class="gs-header w-[20%] sticky top-0 z-[60] shadow-sticky border-r-0">CTA</th>
+</tr>
+<tr class="h-[150px]">
+<th class="gs-header-fixed-row2 sticky top-[40px] left-0 z-[70] h-[150px] border-l-0 shadow-[1px_1px_0_0_#94a3b8]">
+<div class="flex flex-col h-full justify-between pb-1">
+<div class="flex items-center gap-2 mb-2">
+<span class="text-xs font-bold text-text-muted flex items-center gap-1">
+<span class="material-symbols-outlined text-sm">photo_library</span>
+                                        画像選択
+                                    </span>
+<span class="limit-badge">2つまで</span>
+</div>
+<div class="grid grid-cols-2 gap-3 px-1 h-full w-full">
+<div class="image-slot-wrapper">
+<div class="image-slot-container">
+<input checked="" class="slot-checkbox" type="checkbox"/>
+<div class="image-slot has-image group">
+<img alt="Selected" class="w-full h-full object-cover rounded-[2px]" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAW9HnYOP1ZfD6GpB7A5iBYvYWr61_5P1VDkC7OwdOXbHq15-wgtrHERQc9n-h7smUGRcYJowbDnUaDJcLVKz4pRshQFebXeQWSqgvj0zKUF5eCmkiVoKsfF1kvz6WRnMNJYEcxxdNHga1PZCnxx-COTeMAqUw9blNYEIF5La6s5H89VDwXmwmP4ceezwh_brmP6pKFZyAcHhGQz1FL3Okjx22ChHqAumf24E5KPY93cBF5gKxtvzv13mD55dt5cR_Gnd0ik0XGLYuC"/>
+<div class="absolute inset-0 bg-black/0 group-hover:bg-black/10 transition-colors"></div>
+</div>
+</div>
+</div>
+<div class="image-slot-wrapper">
+<div class="image-slot-container">
+<input class="slot-checkbox" type="checkbox"/>
+<div class="image-slot group">
+<span class="material-symbols-outlined text-3xl group-hover:scale-110 transition-transform">add_photo_alternate</span>
+</div>
+</div>
+</div>
+</div>
+</div>
+</th>
+<th class="gs-header-fixed-row2 sticky top-[40px] z-[60] h-[150px]">
+<div class="flex flex-col h-full justify-between pb-1">
+<div class="flex items-center gap-2 mb-2">
+<span class="text-xs font-bold text-text-muted flex items-center gap-1">
+<span class="material-symbols-outlined text-sm">photo_library</span>
+                                        画像選択
+                                    </span>
+<span class="limit-badge">1つのみ</span>
+</div>
+<div class="grid grid-cols-2 gap-3 px-1 h-full w-full">
+<div class="image-slot-wrapper">
+<div class="image-slot-container">
+<input checked="" class="slot-radio" name="body1_img" type="radio"/>
+<div class="image-slot group">
+<span class="material-symbols-outlined text-3xl group-hover:scale-110 transition-transform">add_photo_alternate</span>
+</div>
+</div>
+</div>
+<div class="image-slot-wrapper">
+<div class="image-slot-container">
+<input class="slot-radio" name="body1_img" type="radio"/>
+<div class="image-slot group">
+<span class="material-symbols-outlined text-3xl group-hover:scale-110 transition-transform">add_photo_alternate</span>
+</div>
+</div>
+</div>
+</div>
+</div>
+</th>
+<th class="gs-header-fixed-row2 sticky top-[40px] z-[60] h-[150px]">
+<div class="flex flex-col h-full justify-between pb-1">
+<div class="flex items-center gap-2 mb-2">
+<span class="text-xs font-bold text-text-muted flex items-center gap-1">
+<span class="material-symbols-outlined text-sm">photo_library</span>
+                                        画像選択
+                                    </span>
+<span class="limit-badge">1つのみ</span>
+</div>
+<div class="grid grid-cols-2 gap-3 px-1 h-full w-full">
+<div class="image-slot-wrapper">
+<div class="image-slot-container">
+<input checked="" class="slot-radio" name="body2_img" type="radio"/>
+<div class="image-slot group">
+<span class="material-symbols-outlined text-3xl group-hover:scale-110 transition-transform">add_photo_alternate</span>
+</div>
+</div>
+</div>
+<div class="image-slot-wrapper">
+<div class="image-slot-container">
+<input class="slot-radio" name="body2_img" type="radio"/>
+<div class="image-slot group">
+<span class="material-symbols-outlined text-3xl group-hover:scale-110 transition-transform">add_photo_alternate</span>
+</div>
+</div>
+</div>
+</div>
+</div>
+</th>
+<th class="gs-header-fixed-row2 sticky top-[40px] z-[60] h-[150px] border-r-0 bg-header-bg">
+</th>
+</tr>
+</thead>
+<tbody class="text-text-main">
+<tr class="row-selected group">
+<td class="gs-cell cell-hook-group h-24 align-top border-l-0">
+<div class="flex h-full">
+<div class="pt-3.5 pl-3 pr-2 flex-shrink-0">
+<input checked="" class="custom-checkbox" type="checkbox"/>
+</div>
+<textarea class="gs-textarea">30代男性の悩み、これ1本で解決？驚きのスカルプケア</textarea>
+</div>
+</td>
+<td class="gs-cell cell-selectable h-24 align-top">
+<div class="flex h-full">
+<div class="pt-3.5 pl-3 pr-2 flex-shrink-0">
+<input checked="" class="custom-radio" name="body1_select" type="radio"/>
+</div>
+<textarea class="gs-textarea">専門家監修の独自成分で、あなたの頭皮環境を根本から改善。毎日がサロン帰りの心地よさに。</textarea>
+</div>
+</td>
+<td class="gs-cell cell-selectable h-24 align-top">
+<div class="flex h-full">
+<div class="pt-3.5 pl-3 pr-2 flex-shrink-0">
+<input checked="" class="custom-radio" name="body2_select" type="radio"/>
+</div>
+<textarea class="gs-textarea">利用者の90%が満足！「抜け毛が減った」「フケが気にならない」と実感の声多数。今なら初回限定価格。</textarea>
+</div>
+</td>
+<td class="gs-cell cell-selectable h-24 align-top border-r-0">
+<div class="flex h-full">
+<div class="pt-3.5 pl-3 pr-2 flex-shrink-0">
+<input checked="" class="custom-radio" name="cta_select" type="radio"/>
+</div>
+<textarea class="gs-textarea">今すぐチェック</textarea>
+</div>
+</td>
+</tr>
+<tr class="row-selected group">
+<td class="gs-cell cell-hook-group h-24 align-top border-l-0">
+<div class="flex h-full">
+<div class="pt-3.5 pl-3 pr-2 flex-shrink-0">
+<input checked="" class="custom-checkbox" type="checkbox"/>
+</div>
+<textarea class="gs-textarea">「えっ、まだ高いシャンプー使ってるの？」賢い男の選択</textarea>
+</div>
+</td>
+<td class="gs-cell cell-selectable h-24 align-top">
+<div class="flex h-full">
+<div class="pt-3.5 pl-3 pr-2 flex-shrink-0">
+<input class="custom-radio" name="body1_select" type="radio"/>
+</div>
+<textarea class="gs-textarea">厳選されたオーガニック成分が毛穴の奥まで浸透。眠っていた頭皮の力を呼び覚まします。</textarea>
+</div>
+</td>
+<td class="gs-cell cell-selectable h-24 align-top">
+<div class="flex h-full">
+<div class="pt-3.5 pl-3 pr-2 flex-shrink-0">
+<input class="custom-radio" name="body2_select" type="radio"/>
+</div>
+<textarea class="gs-textarea">累計販売数100万本突破！多くの男性に選ばれ続ける実力派。30日間の全額返金保証付きで安心。</textarea>
+</div>
+</td>
+<td class="gs-cell cell-selectable h-24 align-top border-r-0">
+<div class="flex h-full">
+<div class="pt-3.5 pl-3 pr-2 flex-shrink-0">
+<input class="custom-radio" name="cta_select" type="radio"/>
+</div>
+<textarea class="gs-textarea">詳細を見る</textarea>
+</div>
+</td>
+</tr>
+<tr class="row-selected group">
+<td class="gs-cell cell-hook-group h-24 align-top border-l-0">
+<div class="flex h-full">
+<div class="pt-3.5 pl-3 pr-2 flex-shrink-0">
+<input checked="" class="custom-checkbox" type="checkbox"/>
+</div>
+<textarea class="gs-textarea">美容師がこっそり教える、自宅でできる頭皮改革</textarea>
+</div>
+</td>
+<td class="gs-cell cell-selectable h-24 align-top">
+<div class="flex h-full">
+<div class="pt-3.5 pl-3 pr-2 flex-shrink-0">
+<input class="custom-radio" name="body1_select" type="radio"/>
+</div>
+<textarea class="gs-textarea">独自のマイクロバブル処方で、こびりついた皮脂汚れをごっそり洗浄。驚きの爽快感を実現。</textarea>
+</div>
+</td>
+<td class="gs-cell cell-selectable h-24 align-top">
+<div class="flex h-full">
+<div class="pt-3.5 pl-3 pr-2 flex-shrink-0">
+<input class="custom-radio" name="body2_select" type="radio"/>
+</div>
+<textarea class="gs-textarea">「もっと早く使えばよかった」リピート率95%が証明する信頼の品質。まずは2週間お試しください。</textarea>
+</div>
+</td>
+<td class="gs-cell cell-selectable h-24 align-top border-r-0">
+<div class="flex h-full">
+<div class="pt-3.5 pl-3 pr-2 flex-shrink-0">
+<input class="custom-radio" name="cta_select" type="radio"/>
+</div>
+<textarea class="gs-textarea">公式サイトへ</textarea>
+</div>
+</td>
+</tr>
+<tr class="group">
+<td class="gs-cell cell-hook-group h-24 align-top border-l-0">
+<div class="flex h-full">
+<div class="pt-3.5 pl-3 pr-2 flex-shrink-0">
+<input class="custom-checkbox" type="checkbox"/>
+</div>
+<textarea class="gs-textarea">毎朝のセットが決まらない...その原因、実はシャンプーかも</textarea>
+</div>
+</td>
+<td class="gs-cell cell-selectable h-24 align-top">
+<div class="flex h-full">
+<div class="pt-3.5 pl-3 pr-2 flex-shrink-0">
+<input class="custom-radio" name="body1_select" type="radio"/>
+</div>
+<textarea class="gs-textarea">髪のハリ・コシ不足にアプローチ。使うたびに太く強い髪へ導く、次世代スカルプケア。</textarea>
+</div>
+</td>
+<td class="gs-cell cell-selectable h-24 align-top">
+<div class="flex h-full">
+<div class="pt-3.5 pl-3 pr-2 flex-shrink-0">
+<input class="custom-radio" name="body2_select" type="radio"/>
+</div>
+<textarea class="gs-textarea">雑誌やSNSで話題沸騰中！美容家も絶賛するクオリティを、WEB限定の特別オファーでお届け。</textarea>
+</div>
+</td>
+<td class="gs-cell cell-selectable h-24 align-top border-r-0">
+<div class="flex h-full">
+<div class="pt-3.5 pl-3 pr-2 flex-shrink-0">
+<input class="custom-radio" name="cta_select" type="radio"/>
+</div>
+<textarea class="gs-textarea">お得に購入する</textarea>
+</div>
+</td>
+</tr>
+<tr class="group">
+<td class="gs-cell cell-hook-group h-24 align-top border-l-0">
+<div class="flex h-full">
+<div class="pt-3.5 pl-3 pr-2 flex-shrink-0">
+<input class="custom-checkbox" type="checkbox"/>
+</div>
+<textarea class="gs-textarea">【衝撃】9割の人が間違っている頭皮ケアの常識</textarea>
+</div>
+</td>
+<td class="gs-cell cell-selectable h-24 align-top">
+<div class="flex h-full">
+<div class="pt-3.5 pl-3 pr-2 flex-shrink-0">
+<input class="custom-radio" name="body1_select" type="radio"/>
+</div>
+<textarea class="gs-textarea">頭皮の乾燥・べたつきトラブルを一本でケア。pHバランスを整え、健やかな育毛環境へ。</textarea>
+</div>
+</td>
+<td class="gs-cell cell-selectable h-24 align-top">
+<div class="flex h-full">
+<div class="pt-3.5 pl-3 pr-2 flex-shrink-0">
+<input class="custom-radio" name="body2_select" type="radio"/>
+</div>
+<textarea class="gs-textarea">【期間限定】定期コース申し込みで初回50%OFF！さらに特製スカルプブラシをプレゼント。</textarea>
+</div>
+</td>
+<td class="gs-cell cell-selectable h-24 align-top border-r-0">
+<div class="flex h-full">
+<div class="pt-3.5 pl-3 pr-2 flex-shrink-0">
+<input class="custom-radio" name="cta_select" type="radio"/>
+</div>
+<textarea class="gs-textarea">初回半額で試す</textarea>
+</div>
+</td>
+</tr>
+<tr class="group">
+<td class="gs-cell cell-hook-group h-24 align-top border-l-0">
+<div class="flex h-full">
+<div class="pt-3.5 pl-3 pr-2 flex-shrink-0">
+<input class="custom-checkbox" type="checkbox"/>
+</div>
+<textarea class="gs-textarea">妻に「最近かっこよくなった？」と言われた秘密とは</textarea>
+</div>
+</td>
+<td class="gs-cell cell-selectable h-24 align-top">
+<div class="flex h-full">
+<div class="pt-3.5 pl-3 pr-2 flex-shrink-0">
+<input class="custom-radio" name="body1_select" type="radio"/>
+</div>
+<textarea class="gs-textarea">3種の有効成分が発毛を促進。薄毛の悩みに終止符を打つ、確かな実感をあなたに。</textarea>
+</div>
+</td>
+<td class="gs-cell cell-selectable h-24 align-top">
+<div class="flex h-full">
+<div class="pt-3.5 pl-3 pr-2 flex-shrink-0">
+<input class="custom-radio" name="body2_select" type="radio"/>
+</div>
+<textarea class="gs-textarea">愛用歴3年のユーザーが語る「変わったのは髪だけじゃない、人生だ」。あなたも体験してみませんか？</textarea>
+</div>
+</td>
+<td class="gs-cell cell-selectable h-24 align-top border-r-0">
+<div class="flex h-full">
+<div class="pt-3.5 pl-3 pr-2 flex-shrink-0">
+<input class="custom-radio" name="cta_select" type="radio"/>
+</div>
+<textarea class="gs-textarea">在庫を確認する</textarea>
+</div>
+</td>
+</tr>
+<tr class="group">
+<td class="gs-cell cell-hook-group h-24 align-top border-l-0">
+<div class="flex h-full">
+<div class="pt-3.5 pl-3 pr-2 flex-shrink-0">
+<input class="custom-checkbox" type="checkbox"/>
+</div>
+<textarea class="gs-textarea">初回980円で始める、男の自信を取り戻す習慣</textarea>
+</div>
+</td>
+<td class="gs-cell cell-selectable h-24 align-top">
+<div class="flex h-full">
+<div class="pt-3.5 pl-3 pr-2 flex-shrink-0">
+<input class="custom-radio" name="body1_select" type="radio"/>
+</div>
+<textarea class="gs-textarea">ノンシリコンなのにきしまない。保湿成分たっぷりで、洗うだけでトリートメント級の仕上がり。</textarea>
+</div>
+</td>
+<td class="gs-cell cell-selectable h-24 align-top">
+<div class="flex h-full">
+<div class="pt-3.5 pl-3 pr-2 flex-shrink-0">
+<input class="custom-radio" name="body2_select" type="radio"/>
+</div>
+<textarea class="gs-textarea">在庫残りわずか！次回の入荷は未定です。お得なキャンペーンセットは今だけのチャンス。</textarea>
+</div>
+</td>
+<td class="gs-cell cell-selectable h-24 align-top border-r-0">
+<div class="flex h-full">
+<div class="pt-3.5 pl-3 pr-2 flex-shrink-0">
+<input class="custom-radio" name="cta_select" type="radio"/>
+</div>
+<textarea class="gs-textarea">申し込みはこちら</textarea>
+</div>
+</td>
+</tr>
+<tr class="row-selected group">
+<td class="gs-cell cell-hook-group h-24 align-top border-l-0">
+<div class="flex h-full">
+<div class="pt-3.5 pl-3 pr-2 flex-shrink-0">
+<input checked="" class="custom-checkbox" type="checkbox"/>
+</div>
+<textarea class="gs-textarea">「もっと早く出会いたかった」リピーター続出の理由</textarea>
+</div>
+</td>
+<td class="gs-cell cell-selectable h-24 align-top">
+<div class="flex h-full">
+<div class="pt-3.5 pl-3 pr-2 flex-shrink-0">
+<input class="custom-radio" name="body1_select" type="radio"/>
+</div>
+<textarea class="gs-textarea">ニオイの原因菌を殺菌・消毒。夕方まで続く清潔感で、至近距離でも自信が持てる。</textarea>
+</div>
+</td>
+<td class="gs-cell cell-selectable h-24 align-top">
+<div class="flex h-full">
+<div class="pt-3.5 pl-3 pr-2 flex-shrink-0">
+<input class="custom-radio" name="body2_select" type="radio"/>
+</div>
+<textarea class="gs-textarea">お客様満足度No.1獲得！第三者機関による調査でも高評価。確かな結果を求める方へ。</textarea>
+</div>
+</td>
+<td class="gs-cell cell-selectable h-24 align-top border-r-0">
+<div class="flex h-full">
+<div class="pt-3.5 pl-3 pr-2 flex-shrink-0">
+<input class="custom-radio" name="cta_select" type="radio"/>
+</div>
+<textarea class="gs-textarea">無料モニターに応募</textarea>
+</div>
+</td>
+</tr>
+<tr class="group">
+<td class="gs-cell cell-hook-group h-24 align-top border-l-0">
+<div class="flex h-full">
+<div class="pt-3.5 pl-3 pr-2 flex-shrink-0">
+<input class="custom-checkbox" type="checkbox"/>
+</div>
+<textarea class="gs-textarea">諦めるのはまだ早い。ボリューム感が変わる魔法のケア</textarea>
+</div>
+</td>
+<td class="gs-cell cell-selectable h-24 align-top">
+<div class="flex h-full">
+<div class="pt-3.5 pl-3 pr-2 flex-shrink-0">
+<input class="custom-radio" name="body1_select" type="radio"/>
+</div>
+<textarea class="gs-textarea">長年の研究から生まれた「浸透型ナノカプセル」採用。必要な栄養をダイレクトに届けます。</textarea>
+</div>
+</td>
+<td class="gs-cell cell-selectable h-24 align-top">
+<div class="flex h-full">
+<div class="pt-3.5 pl-3 pr-2 flex-shrink-0">
+<input class="custom-radio" name="body2_select" type="radio"/>
+</div>
+<textarea class="gs-textarea">毎日のシャンプーを変えるだけ。手間なし簡単ケアで、忙しいビジネスマンにも最適です。</textarea>
+</div>
+</td>
+<td class="gs-cell cell-selectable h-24 align-top border-r-0">
+<div class="flex h-full">
+<div class="pt-3.5 pl-3 pr-2 flex-shrink-0">
+<input class="custom-radio" name="cta_select" type="radio"/>
+</div>
+<textarea class="gs-textarea">キャンペーン詳細</textarea>
+</div>
+</td>
+</tr>
+<tr class="group">
+<td class="gs-cell cell-hook-group h-24 align-top border-l-0">
+<div class="flex h-full">
+<div class="pt-3.5 pl-3 pr-2 flex-shrink-0">
+<input class="custom-checkbox" type="checkbox"/>
+</div>
+<textarea class="gs-textarea">返金保証付き。リスクゼロで試せる本格スカルプ体験</textarea>
+</div>
+</td>
+<td class="gs-cell cell-selectable h-24 align-top">
+<div class="flex h-full">
+<div class="pt-3.5 pl-3 pr-2 flex-shrink-0">
+<input class="custom-radio" name="body1_select" type="radio"/>
+</div>
+<textarea class="gs-textarea">敏感肌でも安心の無添加処方。優しさと洗浄力を両立した、家族みんなで使えるシャンプー。</textarea>
+</div>
+</td>
+<td class="gs-cell cell-selectable h-24 align-top">
+<div class="flex h-full">
+<div class="pt-3.5 pl-3 pr-2 flex-shrink-0">
+<input class="custom-radio" name="body2_select" type="radio"/>
+</div>
+<textarea class="gs-textarea">20代〜50代まで幅広い世代が愛用中。若々しい印象を取り戻すなら、今が始めるタイミング。</textarea>
+</div>
+</td>
+<td class="gs-cell cell-selectable h-24 align-top border-r-0">
+<div class="flex h-full">
+<div class="pt-3.5 pl-3 pr-2 flex-shrink-0">
+<input class="custom-radio" name="cta_select" type="radio"/>
+</div>
+<textarea class="gs-textarea">今すぐ始める</textarea>
+</div>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="w-full flex justify-end items-center mt-auto pt-4 gap-6">
+<button class="px-4 py-2 text-text-muted font-bold hover:text-text-main transition-colors text-sm">
+        戻る
+    </button>
+<button class="px-8 py-2.5 rounded-lg bg-primary hover:bg-primary-hover text-white font-bold flex items-center gap-2 shadow-md transition-colors text-sm">
+        次へ進む
+        <span class="material-symbols-outlined text-lg">arrow_forward</span>
+</button>
+</div>
+</main>
+</body></html>

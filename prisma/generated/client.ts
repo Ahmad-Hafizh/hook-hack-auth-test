@@ -33,7 +33,7 @@ export * from "./enums"
  * const users = await prisma.user.findMany()
  * ```
  * 
- * Read more in our [docs](https://www.prisma.io/docs/reference/tools-and-interfaces/prisma-client).
+ * Read more in our [docs](https://pris.ly/d/client).
  */
 export const PrismaClient = $Class.getPrismaClientClass()
 export type PrismaClient<LogOpts extends Prisma.LogLevel = never, OmitOpts extends Prisma.PrismaClientOptions["omit"] = Prisma.PrismaClientOptions["omit"], ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = $Class.PrismaClient<LogOpts, OmitOpts, ExtArgs>
@@ -66,15 +66,35 @@ export type project = Prisma.projectModel
  */
 export type Transaction = Prisma.TransactionModel
 /**
- * Model PlanningSession
+ * Model PDCA
  * 
  */
-export type PlanningSession = Prisma.PlanningSessionModel
+export type PDCA = Prisma.PDCAModel
 /**
- * Model CreativeBrief
+ * Model PDCASession
  * 
  */
-export type CreativeBrief = Prisma.CreativeBriefModel
+export type PDCASession = Prisma.PDCASessionModel
+/**
+ * Model CompetitorMatrix
+ * 
+ */
+export type CompetitorMatrix = Prisma.CompetitorMatrixModel
+/**
+ * Model ValueOrganization
+ * 
+ */
+export type ValueOrganization = Prisma.ValueOrganizationModel
+/**
+ * Model DesireOrganization
+ * 
+ */
+export type DesireOrganization = Prisma.DesireOrganizationModel
+/**
+ * Model PositioningPatterns
+ * 
+ */
+export type PositioningPatterns = Prisma.PositioningPatternsModel
 /**
  * Model PlanningPlan
  * 
@@ -95,3 +115,8 @@ export type RenderedVideo = Prisma.RenderedVideoModel
  * 
  */
 export type Ads = Prisma.AdsModel
+/**
+ * Model GoogleAdsCredential
+ * 
+ */
+export type GoogleAdsCredential = Prisma.GoogleAdsCredentialModel

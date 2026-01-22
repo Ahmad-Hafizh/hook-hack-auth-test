@@ -1,6 +1,6 @@
 import { RowData } from "./types";
 
-export const defaultRowData: RowData[] = [
+export const defaultRowData: any[] = [
   {
     hookImage:
       "https://lh3.googleusercontent.com/aida-public/AB6AXuAW9HnYOP1ZfD6GpB7A5iBYvYWr61_5P1VDkC7OwdOXbHq15-wgtrHERQc9n-h7smUGRcYJowbDnUaDJcLVKz4pRshQFebXeQWSqgvj0zKUF5eCmkiVoKsfF1kvz6WRnMNJYEcxxdNHga1PZCnxx-COTeMAqUw9blNYEIF5La6s5H89VDwXmwmP4ceezwh_brmP6pKFZyAcHhGQz1FL3Okjx22ChHqAumf24E5KPY93cBF5gKxtvzv13mD55dt5cR_Gnd0ik0XGLYuC",

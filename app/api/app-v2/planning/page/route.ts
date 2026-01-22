@@ -6,7 +6,7 @@ export async function GET(req: NextRequest) {
     const params = req.nextUrl.searchParams;
     const sessionId = params.get("sessionId");
 
-    const session = await prisma.planningSession.findUnique({
+    const session = await prisma.pDCASession.findUnique({
       where: {
         id: sessionId || "",
       },
@@ -21,12 +21,12 @@ export async function GET(req: NextRequest) {
 
     return NextResponse.json(
       { message: "Step is valid", page: session.lastPage },
-      { status: 200 }
+      { status: 200 },
     );
   } catch (error) {
     return NextResponse.json(
       { error: "Internal Server Error" },
-      { status: 500 }
+      { status: 500 },
     );
   }
 }

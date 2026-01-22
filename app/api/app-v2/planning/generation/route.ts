@@ -8,13 +8,13 @@ export async function POST(request: NextRequest) {
 
     const renders = await prisma.renderedVideo.findMany({
       where: {
-        planningSessionId: sessionId,
+        pdca_session_id: sessionId,
       },
     });
 
     return NextResponse.json(
       { renders, message: "Renders fetched successfully" },
-      { status: 200 }
+      { status: 200 },
     );
   } catch (error) {
     return NextResponse.json({ error: "An error occurred" }, { status: 500 });

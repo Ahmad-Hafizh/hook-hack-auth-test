@@ -43,7 +43,7 @@ const Step5 = () => {
               Your browser does not support the video tag.
             </video>
           ))} */}
-          <video className="aspect-[9/16] w-[350px] rounded-xl mb-4" controls>
+          <video className="aspect-[16/9] w-[350px] rounded-xl mb-4" controls>
             <source src={url} type="video/mp4" />
             Your browser does not support the video tag.
           </video>

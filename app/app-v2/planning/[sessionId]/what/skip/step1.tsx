@@ -5,14 +5,14 @@ import callAppV2Api from "@/config/axios/axiosAppV2";
 import React from "react";
 import { submitStep1Skip } from "../hooks/useFetchAPINext";
 import { useParams } from "next/navigation";
-import { IBriefPlanning } from "../hooks/planningWhatDataContext";
+import { ICompetitiveMatrix } from "../hooks/planningWhatDataContext";
 
 const Step1Skip = ({
   onNext,
   onSetBriefPlanning,
 }: {
   onNext: () => void;
-  onSetBriefPlanning: (briefPlanning: IBriefPlanning) => void;
+  onSetBriefPlanning: (briefPlanning: ICompetitiveMatrix) => void;
 }) => {
   const [loadingSubmit, setLoadingSubmit] = React.useState(false);
   const [competitorUrls, setCompetitorUrls] = React.useState<string[]>([]);

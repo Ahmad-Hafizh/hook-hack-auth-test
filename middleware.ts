@@ -2,7 +2,7 @@
 
 import { NextResponse } from "next/server";
 import type { NextRequest } from "next/server";
-import { createClient } from "./lib/supabase/server";
+import { createServerClient } from "@supabase/ssr";
 
 export async function middleware(req: NextRequest) {
   const { pathname } = req.nextUrl;
@@ -17,13 +17,37 @@ export async function middleware(req: NextRequest) {
     return NextResponse.next();
   }
 
-  const supabase = await createClient();
+  // Create response to pass to supabase client
+  let response = NextResponse.next({
+    request: {
+      headers: req.headers,
+    },
+  });
+
+  const supabase = createServerClient(
+    process.env.NEXT_PUBLIC_SUPABASE_URL!,
+    process.env.NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY!,
+    {
+      cookies: {
+        getAll() {
+          return req.cookies.getAll();
+        },
+        setAll(cookiesToSet) {
+          cookiesToSet.forEach(({ name, value, options }) => {
+            req.cookies.set(name, value);
+            response.cookies.set(name, value, options);
+          });
+        },
+      },
+    },
+  );
+
   const {
     data: { user },
   } = await supabase.auth.getUser();
 
   if (!user && isAuthRoute) {
-    return NextResponse.next();
+    return response;
   } else if (!user && !isPublicRoute && !isAuthRoute) {
     const redirectUrl = new URL("/auth/sign-in", req.url);
     return NextResponse.redirect(redirectUrl);
@@ -32,7 +56,7 @@ export async function middleware(req: NextRequest) {
     return NextResponse.redirect(redirectUrl);
   }
 
-  return NextResponse.next();
+  return response;
 }
 
 export const config = {

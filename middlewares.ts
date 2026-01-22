@@ -35,6 +35,11 @@ export async function middleware(req: NextRequest) {
         setAll(cookiesToSet) {
           cookiesToSet.forEach(({ name, value, options }) => {
             req.cookies.set(name, value);
+            response = NextResponse.next({
+              request: {
+                headers: req.headers,
+              },
+            });
             response.cookies.set(name, value, options);
           });
         },
@@ -42,9 +47,22 @@ export async function middleware(req: NextRequest) {
     },
   );
 
+  // IMPORTANT: Do not run any code between createServerClient and
+  // supabase.auth.getUser(). A simple mistake could make your application
+  // vulnerable to CSRF attacks.
   const {
     data: { user },
+    error,
   } = await supabase.auth.getUser();
+
+  // Debug logging - remove after fixing
+  console.log("[Middleware Debug]", {
+    pathname,
+    hasUser: !!user,
+    userId: user?.id,
+    error: error?.message,
+    cookies: req.cookies.getAll().map((c) => c.name),
+  });
 
   if (!user && isAuthRoute) {
     return response;

@@ -22,8 +22,6 @@ const AppPage = () => {
     onSetKeywords,
     selectedKeywords,
     onSetSelectedKeywords,
-    briefPlanning,
-    onSetBriefPlanning,
   } = usePlanningWhatDataContext();
   const currentWhatPage = page.split("_")[1];
 
@@ -33,37 +31,15 @@ const AppPage = () => {
       steps: [
         {
           id: 1,
-          page: (
-            <Step1Scratch
-              onNext={() => onStep(2)}
-              onSetKeywords={onSetKeywords}
-            />
-          ),
+          page: <Step1Scratch onNext={() => onStep(2)} />,
         },
         {
           id: 2,
-          page: (
-            <Step2Scratch
-              onNext={() => onStep(3)}
-              keywords={keywords}
-              selectedKeywords={selectedKeywords}
-              onSetSelectedKeywords={onSetSelectedKeywords}
-              onSetKeyVisuals={onSetKeyVisuals}
-            />
-          ),
+          page: <Step2Scratch onNext={() => onStep(3)} />,
         },
         {
           id: 3,
-          page: (
-            <Step3
-              onNext={() => onStep(4)}
-              onPrev={() => onStep(2)}
-              onSetBriefPlanning={onSetBriefPlanning}
-              selectedKeywords={selectedKeywords}
-              keyVisuals={keyVisuals}
-              onSetKeyVisuals={onSetKeyVisuals}
-            />
-          ),
+          page: <Step3 onNext={() => onStep(4)} onPrev={() => onStep(2)} />,
         },
         {
           id: 4,
@@ -92,19 +68,18 @@ const AppPage = () => {
     skip: {
       id: "skip",
       steps: [
-        {
-          id: 1,
-          page: (
-            <Step1Skip
-              onNext={() => onStep(2)}
-              onSetBriefPlanning={onSetBriefPlanning}
-            />
-          ),
-        },
-        {
-          id: 2,
-          page: <Step2Skip briefPlanning={briefPlanning} />,
-        },
+        // {
+        //   id: 1,
+        //   page: (
+        //     <Step1Skip
+        //       onNext={() => onStep(2)}
+        //     />
+        //   ),
+        // },
+        // {
+        //   id: 2,
+        //   page: <Step2Skip />,
+        // },
       ],
     },
   };

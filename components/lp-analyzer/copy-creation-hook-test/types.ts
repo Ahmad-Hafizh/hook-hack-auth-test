@@ -1,11 +1,13 @@
 export interface RowData {
   hookImage: string;
-  hookMessage: string;
+  hook: string;
   body1Image: string;
-  body1Message: string;
+  body1ImageB?: string;
+  body1: string;
   body2Image: string;
-  body2Message: string;
-  ctaMessage: string;
+  body2ImageB?: string;
+  body2: string;
+  cta: string;
 }
 
 export interface Sheet {

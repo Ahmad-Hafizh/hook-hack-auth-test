@@ -1,6 +1,7 @@
 import callApi from "@/config/axios/axios";
 import { redirect } from "next/navigation";
 import {
+  ICompetitiveMatrix,
   IDesireOrganization,
   IKeyVisuals,
   IPositioningPatterns,
@@ -115,16 +116,16 @@ export const getMoreVisuals = async ({
 export const submitStep3 = async ({
   selectedVisuals,
   keyVisuals,
-  onSetBriefPlanning,
+  onSetCompetitiveMatrix,
   onNext,
   setLoadingSubmit,
   sessionId,
 }: {
   selectedVisuals: string[];
   keyVisuals: any[];
-  onSetBriefPlanning: (briefPlanning: any) => void;
   onNext: () => void;
   setLoadingSubmit: (loading: boolean) => void;
+  onSetCompetitiveMatrix: (competitiveMatrix: ICompetitiveMatrix) => void;
   sessionId: string;
 }) => {
   setLoadingSubmit(true);
@@ -159,7 +160,7 @@ export const submitStep3 = async ({
 
     console.log(data);
 
-    onSetBriefPlanning({
+    onSetCompetitiveMatrix({
       user: data.key_message.user
         ? data.key_message.user
         : { key_message: "", strong_points: [] },
@@ -201,11 +202,21 @@ export const submitStep4 = async ({
   onSetSelectedMatrix: (data: any) => void;
 }) => {
   onSetLoading(true);
+  console.log(keyMessage);
+  console.log(strongPoints);
+
   try {
     onSetSelectedMatrix({
       key_message: keyMessage,
       strong_points: strongPoints,
     });
+    localStorage.setItem(
+      "selected_matrix",
+      JSON.stringify({
+        key_message: keyMessage,
+        strong_points: strongPoints,
+      }),
+    );
     const { data } = await callApi.post("/app-v2/planning/what/step4", {
       key_message: keyMessage,
       strong_points: strongPoints,

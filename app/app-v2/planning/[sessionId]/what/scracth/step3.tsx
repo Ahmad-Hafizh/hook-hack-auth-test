@@ -6,29 +6,30 @@ import KeyVisualsCard from "../components/keyVisualsCard";
 import { submitStep3, getMoreVisuals } from "../hooks/useFetchAPINext";
 import { Spinner } from "@/components/ui/spinner";
 import { useParams } from "next/navigation";
-import { IBriefPlanning } from "../hooks/planningWhatDataContext";
+import {
+  ICompetitiveMatrix,
+  usePlanningWhatDataContext,
+} from "../hooks/planningWhatDataContext";
 import { Card, PageHeader, VisualSelector } from "@/components/lp-analyzer";
 import { ArrowRight } from "lucide-react";
 
 const Step3 = ({
   onNext,
   onPrev,
-  onSetBriefPlanning,
-  keyVisuals,
-  onSetKeyVisuals,
 }: {
   onNext: () => void;
   onPrev: () => void;
-  selectedKeywords: string;
-  keyVisuals: any[];
-  onSetKeyVisuals: (visuals: any[]) => void;
-  onSetBriefPlanning: (briefPlanning: IBriefPlanning) => void;
 }) => {
   const { sessionId } = useParams();
   const [selectedVisuals, setSelectedVisuals] = React.useState<string[]>([]);
-
   const [loading, setLoading] = React.useState(false);
   const [loadingGenerate, setLoadingGenerate] = React.useState(false);
+  const {
+    onSetCompetitiveMatrix,
+    onSetKeyVisuals,
+    keyVisuals,
+    selectedKeywords,
+  } = usePlanningWhatDataContext();
 
   useEffect(() => {
     if (keyVisuals.length === 0) {
@@ -162,7 +163,7 @@ const Step3 = ({
                     submitStep3({
                       selectedVisuals,
                       keyVisuals,
-                      onSetBriefPlanning,
+                      onSetCompetitiveMatrix,
                       onNext,
                       setLoadingSubmit: setLoading,
                       sessionId: sessionId as string,

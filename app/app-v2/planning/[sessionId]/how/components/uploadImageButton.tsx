@@ -72,7 +72,7 @@ const createCroppedImageBlob = async ({
     0,
     0,
     targetWidth,
-    targetHeight
+    targetHeight,
   );
 
   return await new Promise<Blob>((resolve, reject) => {
@@ -85,7 +85,7 @@ const createCroppedImageBlob = async ({
         resolve(blob);
       },
       "image/jpeg",
-      0.9
+      0.9,
     );
   });
 };
@@ -101,7 +101,7 @@ const UploadImageButton: React.FC<UploadImageButtonProps> = ({
   const [crop, setCrop] = React.useState({ x: 0, y: 0 });
   const [zoom, setZoom] = React.useState(1);
   const [croppedAreaPixels, setCroppedAreaPixels] = React.useState<Area | null>(
-    null
+    null,
   );
 
   const onCropComplete = React.useCallback(
@@ -111,7 +111,7 @@ const UploadImageButton: React.FC<UploadImageButtonProps> = ({
       });
       setCroppedAreaPixels(croppedPixels);
     },
-    []
+    [],
   );
 
   const handleConfirm = React.useCallback(async () => {
@@ -127,7 +127,7 @@ const UploadImageButton: React.FC<UploadImageButtonProps> = ({
     // If no aspectRatio is provided, fall back to original upload behaviour.
     if (!aspectRatio || !croppedAreaPixels) {
       console.log(
-        "[UploadImageButton] No aspect ratio or crop area, uploading original file"
+        "[UploadImageButton] No aspect ratio or crop area, uploading original file",
       );
       uploadImage({
         file: sourceFile,
@@ -146,7 +146,7 @@ const UploadImageButton: React.FC<UploadImageButtonProps> = ({
       const croppedFile = new File(
         [blob],
         sourceFile.name || "cropped-image.jpg",
-        { type: blob.type || "image/jpeg" }
+        { type: blob.type || "image/jpeg" },
       );
 
       console.log("[UploadImageButton] Uploading cropped file", {
@@ -161,7 +161,7 @@ const UploadImageButton: React.FC<UploadImageButtonProps> = ({
     } catch (error) {
       console.error(
         "[UploadImageButton] Error while cropping & uploading",
-        error
+        error,
       );
     }
   }, [aspectRatio, croppedAreaPixels, image, onUploadImage, sourceFile]);
@@ -182,7 +182,7 @@ const UploadImageButton: React.FC<UploadImageButtonProps> = ({
       // If no aspectRatio is provided, immediately upload as before.
       if (!aspectRatio) {
         console.log(
-          "[UploadImageButton] No aspect ratio provided, uploading original file immediately"
+          "[UploadImageButton] No aspect ratio provided, uploading original file immediately",
         );
         uploadImage({
           file,
@@ -190,7 +190,7 @@ const UploadImageButton: React.FC<UploadImageButtonProps> = ({
         });
       }
     },
-    [aspectRatio, onUploadImage]
+    [aspectRatio, onUploadImage],
   );
 
   const {
@@ -218,21 +218,28 @@ const UploadImageButton: React.FC<UploadImageButtonProps> = ({
         )}
       </PopoverTrigger>
       <PopoverContent
-        className="w-[360px] h-[420px] flex flex-col gap-3 p-3"
+        className="w-[300px] h-[300px] flex flex-col gap-3 p-2 rounded-xl"
         onCloseAutoFocus={() => setImage("")}
       >
         {!showCropper && (
           <div {...getRootProps()} className="w-full h-full">
             <input {...getInputProps()} />
-            <div className="flex flex-col items-center justify-center cursor-pointer border-2 border-dotted border-gray-200 p-4 rounded w-full h-full">
-              {!image && <UploadCloud className="w-10 h-10 mb-2" />}
+            <div className="flex flex-col items-center justify-center cursor-pointer border-2 border-dotted border-gray-200 p-4 rounded-lg w-full h-full">
+              {!image && (
+                <UploadCloud className="w-10 h-10 mb-2 text-gray-400" />
+              )}
               {isDragAccept ? (
-                <p className="text-sm text-center">file will be accepted</p>
+                <p className="text-sm text-center text-gray-400">
+                  file will be accepted
+                </p>
               ) : isDragReject ? (
-                <p className="text-sm text-center">file will be rejected</p>
+                <p className="text-sm text-center text-gray-400">
+                  file will be rejected
+                </p>
               ) : !isDragActive && !image ? (
-                <p className="text-sm text-center">
-                  Drag 'n' drop some file here, or click to select file
+                <p className="text-sm text-center text-gray-400 leading-tight">
+                  Drag 'n' drop some file here,
+                  <br /> or click to select file
                 </p>
               ) : (
                 image && (
@@ -293,7 +300,7 @@ const UploadImageButton: React.FC<UploadImageButtonProps> = ({
               </Button>
               <Button
                 size="sm"
-                className="border-rose-600 bg-rose-600 hover:bg-rose-500 text-white"
+                className=" bg-[#0093b4] hover:bg-[#007a8c] text-white"
                 onClick={handleConfirm}
               >
                 Save

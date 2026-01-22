@@ -7,6 +7,7 @@ import { Button } from "@/components/ui/button";
 import { submitStep5 } from "../hooks/useFetchAPINext";
 import { Spinner } from "@/components/ui/spinner";
 import { ArrowRight } from "lucide-react";
+import { usePlannningContext } from "@/app/app-v2/plannningContext";
 
 const Step5 = ({ onNext }: { onNext: () => void }) => {
   const {
@@ -15,9 +16,10 @@ const Step5 = ({ onNext }: { onNext: () => void }) => {
     onSetDesireOrganization,
     selectedValueOrganization,
     onSetSelectedValueOrganization,
+    competitiveMatrix,
     selectedMatrix,
-    briefPlanning,
   } = usePlanningWhatDataContext();
+
   const [loading, setLoading] = React.useState(false);
   const [submitProgress, setSubmitProgress] = React.useState({
     percent: 0,
@@ -116,7 +118,7 @@ const Step5 = ({ onNext }: { onNext: () => void }) => {
                       onSetDesireOrganization(desireOrganization),
                     onNext,
                     own_lp_summary: `${selectedMatrix.key_message}, ${selectedMatrix.strong_points.join(", ")}`,
-                    competitors_summary: briefPlanning.competitors.map(
+                    competitors_summary: competitiveMatrix.competitors.map(
                       (c) => `${c.key_message}, ${c.strong_points.join(", ")}`,
                     ),
                   })

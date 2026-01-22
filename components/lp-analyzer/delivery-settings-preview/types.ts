@@ -15,4 +15,5 @@ export interface DesignSettings {
   font: string;
   template: Template;
   selectedBgm: string;
+  gender: string;
 }

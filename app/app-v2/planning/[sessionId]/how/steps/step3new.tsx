@@ -2,8 +2,6 @@
 
 import React, { useState, useCallback, useMemo } from "react";
 import {
-  Sheet,
-  RowData,
   ModalOptions,
   ModalButton,
 } from "@/components/lp-analyzer/copy-creation-hook-test/types";
@@ -12,22 +10,46 @@ import { Modal } from "@/components/lp-analyzer/copy-creation-hook-test/Modal";
 import { SheetTabs } from "@/components/lp-analyzer/copy-creation-hook-test/SheetTabs";
 import { DataTable } from "@/components/lp-analyzer/copy-creation-hook-test/DataTable";
 import { ArrowRight, Grid, Plus, Trash2 } from "lucide-react";
-import { useDataContext } from "../hooks/useDataContext";
+import { IDataRowFinalized, useDataContext } from "../hooks/useDataContext";
 
-const createEmptyRow = (): RowData => ({
+const createEmptyRow15s = (): IDataRowFinalized => ({
   hookImage: "",
-  hookMessage: "",
+  hook: "",
   body1Image: "",
-  body1Message: "",
+  body1: "",
   body2Image: "",
-  body2Message: "",
-  ctaMessage: "",
+  body2: "",
+  cta: "",
 });
 
+const createEmptyRow30s = (): IDataRowFinalized => ({
+  hookImage: "",
+  hook: "",
+  body1Image: "",
+  body1ImageB: "",
+  body1: "",
+  body2Image: "",
+  body2ImageB: "",
+  body2: "",
+  cta: "",
+});
+
+export interface Sheet {
+  id: string;
+  name: string;
+  data: IDataRowFinalized[];
+}
+
 export const Step3New = ({ onNext }: { onNext: () => void }) => {
+  const {
+    finalizedDataRows,
+    selectedFinalizedRows,
+    onSetSelectedFinalizedRows,
+  } = useDataContext();
+
   // Sheet Management
   const [sheets, setSheets] = useState<Sheet[]>([
-    { id: "sheet_1", name: "Sheet 1", data: [...defaultRowData] },
+    { id: "sheet_1", name: "Sheet 1", data: [...finalizedDataRows] },
   ]);
   const [activeSheetId, setActiveSheetId] = useState("sheet_1");
 
@@ -36,6 +58,13 @@ export const Step3New = ({ onNext }: { onNext: () => void }) => {
   const [selectedImages, setSelectedImages] = useState<Record<string, boolean>>(
     {},
   );
+  const [selectedImage, setSelectedImage] = useState<any>({
+    hookImage: [],
+    body1Image: [],
+    body1ImageB: [],
+    body2Image: [],
+    body2ImageB: [],
+  });
 
   // Modal State
   const [modalState, setModalState] = useState<{
@@ -57,32 +86,39 @@ export const Step3New = ({ onNext }: { onNext: () => void }) => {
   );
 
   const patternCounts = useMemo(() => {
-    const uniqueImages = new Set<string>();
-    let textPatterns = 0;
+    // Count unique selected images
+    const getUniqueSelectedImages = (imageType: string) => {
+      const indices: number[] = selectedImage[imageType] || [];
+      const urls = indices
+        .map(
+          (idx: number) =>
+            activeSheet.data[idx]?.[imageType as keyof IDataRowFinalized],
+        )
+        .filter((url): url is string => !!url && url.trim() !== "");
+      return new Set(urls).size;
+    };
 
-    sheets.forEach((sheet) => {
-      sheet.data.forEach((row) => {
-        if (row.hookImage) uniqueImages.add(row.hookImage);
-        if (row.body1Image) uniqueImages.add(row.body1Image);
-        if (row.body2Image) uniqueImages.add(row.body2Image);
+    const imagePatterns =
+      getUniqueSelectedImages("hookImage") +
+      getUniqueSelectedImages("body1Image") +
+      (duration === 30 ? getUniqueSelectedImages("body1ImageB") : 0) +
+      getUniqueSelectedImages("body2Image") +
+      (duration === 30 ? getUniqueSelectedImages("body2ImageB") : 0);
 
-        const hasText =
-          row.hookMessage?.trim() ||
-          row.body1Message?.trim() ||
-          row.body2Message?.trim() ||
-          row.ctaMessage?.trim();
-        if (hasText) textPatterns++;
-      });
-    });
+    // Count rows with text
+    const textPatterns = activeSheet.data.filter(
+      (row) =>
+        row.hook?.trim() ||
+        row.body1?.trim() ||
+        row.body2?.trim() ||
+        row.cta?.trim(),
+    ).length;
 
-    const imagePatterns = uniqueImages.size;
-    const total =
-      imagePatterns > 0 && textPatterns > 0
-        ? imagePatterns * textPatterns
-        : sheets.reduce((acc, s) => acc + s.data.length, 0);
+    // Total = rows in sheet
+    const total = activeSheet.data.length;
 
     return { imagePatterns, textPatterns, total };
-  }, [sheets]);
+  }, [selectedImage, activeSheet.data, duration]);
 
   // Sheet Functions
   const showModal = (options: ModalOptions) => {
@@ -124,7 +160,10 @@ export const Step3New = ({ onNext }: { onNext: () => void }) => {
               const newSheet: Sheet = {
                 id: `sheet_${Date.now()}`,
                 name: name.trim(),
-                data: [createEmptyRow()],
+                data:
+                  duration === 15
+                    ? [createEmptyRow15s()]
+                    : [createEmptyRow30s()],
               };
               setSheets([...sheets, newSheet]);
               setActiveSheetId(newSheet.id);
@@ -214,7 +253,7 @@ export const Step3New = ({ onNext }: { onNext: () => void }) => {
   };
 
   // Row Functions
-  const updateSheetData = (newData: RowData[]) => {
+  const updateSheetData = (newData: IDataRowFinalized[]) => {
     setSheets(
       sheets.map((s) => (s.id === activeSheetId ? { ...s, data: newData } : s)),
     );
@@ -222,7 +261,7 @@ export const Step3New = ({ onNext }: { onNext: () => void }) => {
 
   const handleTextChange = (
     rowIndex: number,
-    field: keyof RowData,
+    field: keyof IDataRowFinalized,
     value: string,
   ) => {
     const newData = [...activeSheet.data];
@@ -231,7 +270,10 @@ export const Step3New = ({ onNext }: { onNext: () => void }) => {
   };
 
   const addRow = () => {
-    updateSheetData([...activeSheet.data, createEmptyRow()]);
+    updateSheetData([
+      ...activeSheet.data,
+      duration === 15 ? createEmptyRow15s() : createEmptyRow30s(),
+    ]);
   };
 
   const deleteSelectedRows = () => {
@@ -300,18 +342,51 @@ export const Step3New = ({ onNext }: { onNext: () => void }) => {
     imageType: string,
     checked: boolean,
   ) => {
-    setSelectedImages((prev) => ({
-      ...prev,
-      [`${rowIndex}-${imageType}`]: checked,
-    }));
+    setSelectedImage((prev: any) => {
+      const currentArray = prev[imageType] || [];
+      if (checked) {
+        // Prevent duplicates by checking if rowIndex already exists
+        if (!currentArray.includes(rowIndex)) {
+          return {
+            ...prev,
+            [imageType]: [...currentArray, rowIndex],
+          };
+        }
+        return prev;
+      } else {
+        return {
+          ...prev,
+          [imageType]: currentArray.filter((idx: number) => idx !== rowIndex),
+        };
+      }
+    });
   };
 
   const handleSelectAllImages = (imageType: string, selected: boolean) => {
-    const newSelected = { ...selectedImages };
-    activeSheet.data.forEach((_, index) => {
-      newSelected[`${index}-${imageType}`] = selected;
+    setSelectedImage((prev: any) => {
+      if (selected) {
+        // Select all rows that have an image for this imageType
+        const selectedIndices = activeSheet.data
+          .map((row, index) => {
+            const imageUrl = row[imageType as keyof IDataRowFinalized];
+            return imageUrl &&
+              typeof imageUrl === "string" &&
+              imageUrl.trim() !== ""
+              ? index
+              : -1;
+          })
+          .filter((index) => index !== -1);
+        return {
+          ...prev,
+          [imageType]: selectedIndices,
+        };
+      } else {
+        return {
+          ...prev,
+          [imageType]: [],
+        };
+      }
     });
-    setSelectedImages(newSelected);
   };
 
   const handleImageSlotClick = (
@@ -320,7 +395,28 @@ export const Step3New = ({ onNext }: { onNext: () => void }) => {
     currentUrl?: string,
   ) => {
     // For now, just show a placeholder - in a real app, this would open an upload modal
-    console.log("Image slot clicked:", rowIndex, imageType, currentUrl);
+    const newData = [...activeSheet.data];
+    newData[rowIndex] = { ...newData[rowIndex], [imageType]: currentUrl || "" };
+    updateSheetData(newData);
+  };
+  const onSubmit = () => {
+    // Map active sheet data to IDataRowFinalized array
+    const patterns: IDataRowFinalized[] = activeSheet.data.map((row) => ({
+      hookImage: row.hookImage || "",
+      hook: row.hook || "",
+      body1Image: row.body1Image || "",
+      body1ImageB: duration === 30 ? row.body1ImageB || "" : undefined,
+      body1: row.body1 || "",
+      body2Image: row.body2Image || "",
+      body2ImageB: duration === 30 ? row.body2ImageB || "" : undefined,
+      body2: row.body2 || "",
+      cta: row.cta || "",
+    }));
+
+    // Store in context
+    onSetSelectedFinalizedRows(patterns);
+    onNext();
+    console.log("Generated Patterns:", patterns);
   };
 
   return (
@@ -410,7 +506,7 @@ export const Step3New = ({ onNext }: { onNext: () => void }) => {
       <DataTable
         rows={activeSheet.data}
         selectedRows={selectedRows}
-        selectedImages={selectedImages}
+        selectedImages={selectedImage}
         onRowSelectChange={handleRowSelectChange}
         onSelectAllRows={handleSelectAllRows}
         onImageCheckChange={handleImageCheckChange}
@@ -431,21 +527,23 @@ export const Step3New = ({ onNext }: { onNext: () => void }) => {
       />
 
       {/* Action Buttons */}
-      <div className="w-full flex justify-start items-center gap-3">
-        <button
-          onClick={addRow}
-          className="bg-white border border-[#0093b4] text-[#0093b4] hover:bg-[#0093b4] hover:text-white font-bold text-sm px-4 py-2 rounded-md shadow-sm transition-all flex items-center gap-2"
-        >
-          <Plus className="text-[#0093b4] w-4 h-4" />
-          Add Row
-        </button>
-        <button
-          onClick={deleteSelectedRows}
-          className="bg-white border border-red-500 text-red-500 hover:bg-red-500 hover:text-white font-bold text-sm px-4 py-2 rounded-md shadow-sm transition-all flex items-center gap-2"
-        >
-          <Trash2 className="text-red-500 w-4 h-4" />
-          Delete Row
-        </button>
+      <div className="w-full flex justify-between items-center gap-3">
+        <div className="flex items-center gap-3">
+          <button
+            onClick={addRow}
+            className="bg-white border border-[#0093b4] text-[#0093b4] hover:bg-[#0093b4] hover:text-white font-bold text-sm px-4 py-2 rounded-md shadow-sm transition-all flex items-center gap-2"
+          >
+            <Plus className="text-[#0093b4] w-4 h-4" />
+            Add Row
+          </button>
+          <button
+            onClick={deleteSelectedRows}
+            className="bg-white border border-red-500 text-red-500 hover:bg-red-500 hover:text-white font-bold text-sm px-4 py-2 rounded-md shadow-sm transition-all flex items-center gap-2"
+          >
+            <Trash2 className="text-red-500 w-4 h-4" />
+            Delete Row
+          </button>
+        </div>
       </div>
 
       {/* Navigation */}
@@ -455,7 +553,8 @@ export const Step3New = ({ onNext }: { onNext: () => void }) => {
         </button>
         <button
           className="bg-[#0093b4] hover:bg-[#007a92] text-white font-bold text-sm px-8 py-3 rounded-md shadow-sm transition-all flex items-center gap-2"
-          onClick={onNext}
+          onClick={onSubmit}
+          disabled={activeSheet.data.length === 0}
         >
           次へ進む
           <ArrowRight className="w-4 h-4 text-white" />

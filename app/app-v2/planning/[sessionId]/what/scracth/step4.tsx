@@ -10,28 +10,33 @@ import { usePlanningWhatDataContext } from "../hooks/planningWhatDataContext";
 import { Card, PageHeader } from "@/components/lp-analyzer";
 import { ArrowRight } from "lucide-react";
 import CompetitiveMatrix from "../components/competitiveMatrix";
+import { usePlannningContext } from "@/app/app-v2/plannningContext";
 
 const Step4 = ({ onNext }: { onNext: () => void }) => {
-  const { briefPlanning, onSetValueOrganization, onSetSelectedMatrix } =
-    usePlanningWhatDataContext();
+  const {
+    competitiveMatrix,
+    onSetValueOrganization,
+    onSetSelectedMatrix,
+    selectedMatrix,
+  } = usePlanningWhatDataContext();
 
   const { sessionId } = useParams();
   const [loading, setLoading] = React.useState(false);
   const [selectedOption, setSelectedOption] = React.useState("your-company");
 
   const [strongPoints, setStrongPoints] = React.useState<string[]>(
-    briefPlanning.user.strong_points
+    competitiveMatrix.user.strong_points,
   );
   const [keyMessage, setKeyMessage] = React.useState<string>(
-    briefPlanning.user.key_message
+    competitiveMatrix.user.key_message,
   );
 
   const [suggestionStrongPoints, setSuggestionStrongPoints] = React.useState<
     string[]
-  >(briefPlanning.suggestion.strong_points);
+  >(competitiveMatrix.suggestion.strong_points);
 
   const [suggestionKeyMessage, setSuggestionKeyMessage] =
-    React.useState<string>(briefPlanning.suggestion.key_message);
+    React.useState<string>(competitiveMatrix.suggestion.key_message);
 
   const [submitProgress, setSubmitProgress] = React.useState({
     percent: 0,
@@ -80,7 +85,7 @@ const Step4 = ({ onNext }: { onNext: () => void }) => {
                 </RadioGroup>
                 <CompetitiveMatrix
                   type="competitor"
-                  competitors={briefPlanning.competitors}
+                  competitors={competitiveMatrix.competitors}
                 />
               </div>
             </div>
@@ -108,7 +113,7 @@ const Step4 = ({ onNext }: { onNext: () => void }) => {
                         : suggestionStrongPoints,
                     onSetLoading: (loading) => setLoading(loading),
                     sessionId: sessionId as string,
-                    competitorsMatrix: briefPlanning.competitors,
+                    competitorsMatrix: competitiveMatrix.competitors,
                     onSetSubmitProgress: (progress, message) =>
                       setSubmitProgress({ percent: progress, message }),
                     onSetValueOrganization,

@@ -5,6 +5,25 @@ import callApi from "@/config/axios/axios";
 import { useParams, useRouter } from "next/navigation";
 import React from "react";
 import { useState, useEffect } from "react";
+import { IMatrix } from "./planning/[sessionId]/what/hooks/planningWhatDataContext";
+
+type SelectedValue = {
+  id: string;
+  label: string;
+  category: string;
+  rationale: string;
+};
+
+type SelectedTobes = {
+  id: string;
+  value_id: string;
+  value_label: string;
+  desire: string;
+  old_assumption: string;
+  new_assumption: string;
+  judgment: string;
+  action: string;
+};
 
 const PlannningContext = React.createContext({
   step: 1,
@@ -35,13 +54,13 @@ export default function PlannningContextProvider({
     setLoading(true);
     try {
       const { data } = await callApi.get(
-        `/app-v2/planning/what?sessionId=${sessionId}`
+        `/app-v2/planning/what?sessionId=${sessionId}`,
       );
 
       if (data.page.startsWith("what")) {
         setPage(data.page);
         router.replace(
-          `/app-v2/planning/${sessionId}/${data.page.split("_")[0]}`
+          `/app-v2/planning/${sessionId}/${data.page.split("_")[0]}`,
         );
       } else {
         setPage(data.page);
@@ -88,7 +107,14 @@ export default function PlannningContextProvider({
   }
 
   return (
-    <PlannningContext.Provider value={{ step, onStep, page, onChangePage }}>
+    <PlannningContext.Provider
+      value={{
+        step,
+        onStep,
+        page,
+        onChangePage,
+      }}
+    >
       {children}
     </PlannningContext.Provider>
   );

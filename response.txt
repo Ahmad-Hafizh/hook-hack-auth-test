@@ -104,3 +104,57 @@
     }
   ]
 }
+
+
+//payload render
+{
+  "template_id": "de2edb7c-b2cb-43b2-bcec-df6d79cdaa98",
+  "modifications": {
+    "Back-ground-color(CTA).fill_color": "#3EB135",
+
+    //body 2
+    "BodyB(image)-2.source": "https://creatomate.com/files/assets/3f0d08c5-9aa9-47de-91e0-fe39416dbfe2",
+    "BodyB(image)-1.source": "https://creatomate.com/files/assets/4a70d5ed-910a-4e13-8e3d-84e1eb4668f4",
+    "BodyB(text)-2.text": "同じ世界を違う角度から見る力が育っていきます ",
+    "BodyB(text)-2.background_color": null,
+    "BodyB(text)-2_audio.source": "",
+    "BodyB(text)-1.text": "子どもと年代の近いロールモデルと出会い、",
+    "BodyB(text)-1.background_color": null,
+    "BodyB(text)-1_audio.source": "",
+
+    //body 1
+    "BodyA(image)-2.source": "https://creatomate.com/files/assets/a745c91d-2648-4708-8a4f-0ec24adcf8b8",
+    "BodyA(image)-1.source": "https://creatomate.com/files/assets/defc9ca8-de70-4a87-9404-e6898baf0641",
+    "BodyA(text)-2.text": "小学生で英検2級を目指す英語塾 ",
+    "BodyA(text)-2.font_size": "5 vmin",
+    "BodyA(text)-2.background_color": null,
+    "BodyA(text)-2_audio.source": "",
+    "BodyA(text)-1.text": " 多国経験のあるバイリンガル講師の個別レッスンで、",
+    "BodyA(text)-1.background_color": null,
+    "BodyA(text)-1_audio.source": "",
+    
+    //hook
+    "Back-ground-color(Hook).fill_color": "rgba(63,177,53,1)",
+    "Hook(image).source": "https://creatomate.com/files/assets/21d33251-5306-44b0-8075-e204e36f6d27",
+    "Hook(text)-2.text": "生き方の選択肢が増える英語時間を子どもに ",
+    "Hook(text)-2_audio.source": "",
+    "Hook(text)-1.text": "「周りと違ってもいい」と気付き、",
+    "Hook(text)-1_audio.source": "",
+
+    //image duplicate
+    "Same-image-as-BodyA(image)-1.source": "https://creatomate.com/files/assets/2737c464-c4bc-4be9-b535-5cb55fcfe5c1",
+    "Same-image-as-BodyA(image)-2.source": "https://creatomate.com/files/assets/0190806a-8744-4b8f-aa0d-f10cb01b2b7d",
+    "Same-image-as-Hook(image).source": "https://creatomate.com/files/assets/4fa675a7-8885-4ffb-a608-aecc08491f61",
+
+    //cta
+    "CTA(text)-1.text": "世界が広がる感覚に触れられる、",
+    "CTA(text)-1_audio.source": "",
+    "CTA(text)-2.text": "無料体験レッスン\n",
+    "CTA(text)-2.background_color": "rgba(247,106,30,1)",
+    "CTA(text)-2_audio.source": "",
+
+    //other
+    "Logo.source": "https://creatomate.com/files/assets/b87431af-d124-4305-b6c2-6320c8e2bf93",
+    "BGM.source": ""
+  }
+}

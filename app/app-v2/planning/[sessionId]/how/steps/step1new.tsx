@@ -5,6 +5,7 @@ import { DurationCard } from "@/components/lp-analyzer/video-duration-selection/
 import { ArrowRight } from "lucide-react";
 import { useDataContext } from "../hooks/useDataContext";
 import { VideoDurationOption } from "@/components/lp-analyzer/video-duration-selection/types";
+import callAppV2Api from "@/config/axios/axiosAppV2";
 
 interface VideoDurationSelectionProps {
   onBack?: () => void;
@@ -30,7 +31,42 @@ export const Step1New: React.FC<VideoDurationSelectionProps> = ({
   onBack,
   onNext,
 }) => {
-  const { duration, onSetDuration } = useDataContext();
+  const { duration, onSetDuration, onSetJobId } = useDataContext();
+  const selected_value_6 = localStorage.getItem("selected_values_6");
+  const selected_tobe_4 = localStorage.getItem("selected_tobe_4");
+  const selected_matrix = localStorage.getItem("selected_matrix");
+
+  const onSubmit = async () => {
+    try {
+      const { data } = await callAppV2Api.post("/v1/video/main-content/async", {
+        key_message: JSON.parse(selected_matrix || "{}")?.key_message,
+        strong_points: JSON.parse(selected_matrix || "{}")?.strong_points,
+        video_length: `${duration}s`,
+        provider: "openai",
+        language: "en",
+        selected_values: JSON.parse(selected_value_6 || "[]"),
+        selected_tobes: JSON.parse(selected_tobe_4 || "[]"),
+        positioning_pattern: {
+          pattern_number: 1,
+          quadrant: "functional × process",
+          quadrant_ja: "string",
+          direction: "convergent",
+          direction_ja: "収束",
+          direction_reason: "string",
+          process_description: "string",
+          outcome_description: "string",
+          one_line_promise: "string",
+          source_value_ids: ["string"],
+          source_tobe_ids: ["string"],
+        },
+      });
+
+      onSetJobId(data.job_id);
+      onNext();
+    } catch (error) {
+      console.log(error);
+    }
+  };
 
   return (
     <main className="flex-1 w-full max-w-5xl mx-auto px-4 py-12 md:px-8 flex flex-col justify-center">
@@ -70,7 +106,7 @@ export const Step1New: React.FC<VideoDurationSelectionProps> = ({
             戻る
           </button>
           <button
-            onClick={onNext}
+            onClick={onSubmit}
             className="w-full sm:w-auto px-10 py-3 rounded-lg text-sm font-bold text-white bg-[#0093b4] hover:bg-[#007a92] transition-all shadow-lg shadow-[#0093b4]/20 flex items-center justify-center gap-2 group disabled:opacity-50 disabled:cursor-not-allowed"
           >
             <span>次へ進む</span>

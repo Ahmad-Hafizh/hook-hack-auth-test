@@ -17,7 +17,7 @@ export interface IMatrix {
   strong_points: string[];
 }
 
-export interface IBriefPlanning {
+export interface ICompetitiveMatrix {
   user: IMatrix;
   competitors: IMatrix[];
   suggestion: IMatrix;
@@ -64,34 +64,39 @@ export interface IPositioningPatterns {
 }
 
 export const PlannningWhatDataContext = createContext({
+  // step 2 data
   keywords: [] as IKeywords[],
   onSetKeywords: (keywords: IKeywords[]) => {},
-  step1Form: "",
-  onChangeStep1Form: (value: string) => {},
-  keyVisuals: [] as IKeyVisuals[],
-  onSetKeyVisuals: (keyVisuals: IKeyVisuals[]) => {},
   selectedKeywords: "",
   onSetSelectedKeywords: (value: string) => {},
-  briefPlanning: {} as IBriefPlanning,
-  onSetBriefPlanning: (briefPlanning: IBriefPlanning) => {},
-  step5Data: {} as any,
-  onSetStep5Data: (data: any) => {},
-  step6Data: [] as any,
-  onSetStep6Data: (data: any) => {},
-  step7Data: {} as any,
-  onSetStep7Data: (data: any) => {},
+
+  // step 3 data
+  keyVisuals: [] as IKeyVisuals[],
+  onSetKeyVisuals: (keyVisuals: IKeyVisuals[]) => {},
+  selectedKeyVisuals: [] as string[],
+  onSetSelectedKeyVisuals: (value: string[]) => {},
+
+  // step 4 data
+  competitiveMatrix: {} as ICompetitiveMatrix,
+  onSetCompetitiveMatrix: (competitiveMatrix: ICompetitiveMatrix) => {},
+  selectedMatrix: {} as IMatrix,
+  onSetSelectedMatrix: (matrix: IMatrix) => {},
+
+  // step 5 data
   valueOrganization: [] as IValueOrganization[],
   onSetValueOrganization: (data: IValueOrganization[]) => {},
-  desireOrganization: [] as IDesireOrganization[],
-  onSetDesireOrganization: (data: IDesireOrganization[]) => {},
-  positioningPatterns: [] as IPositioningPatterns[],
-  onSetPositioningPatterns: (data: IPositioningPatterns[]) => {},
   selectedValueOrganization: [] as string[],
   onSetSelectedValueOrganization: (data: string[]) => {},
+
+  // step 6 data
+  desireOrganization: [] as IDesireOrganization[],
+  onSetDesireOrganization: (data: IDesireOrganization[]) => {},
   selectedTobes: [] as string[],
   onSetSelectedTobes: (data: string[]) => {},
-  selectedMatrix: {} as IMatrix,
-  onSetSelectedMatrix: (data: IMatrix) => {},
+
+  // step 7 data
+  positioningPatterns: [] as IPositioningPatterns[],
+  onSetPositioningPatterns: (data: IPositioningPatterns[]) => {},
 });
 
 export default function PlannningWhatDataContextProvider({
@@ -99,72 +104,65 @@ export default function PlannningWhatDataContextProvider({
 }: {
   children: React.ReactNode;
 }) {
+  // step 2 data
   const [keywords, setKeywords] = useState<IKeywords[]>([]);
   const onSetKeywords = (keywords: IKeywords[]) => {
     setKeywords(keywords);
   };
-
-  const [step1Form, setStep1Form] = useState<string>("");
-  const onChangeStep1Form = (value: string) => {
-    setStep1Form(value);
-  };
-
-  const [keyVisuals, setKeyVisuals] = useState<IKeyVisuals[]>([]);
-  const onSetKeyVisuals = (keyVisuals: IKeyVisuals[]) => {
-    setKeyVisuals(keyVisuals);
-  };
-
   const [selectedKeywords, setSelectedKeywords] = useState<string>("");
   const onSetSelectedKeywords = (value: string) => {
     setSelectedKeywords(value);
   };
 
-  const [briefPlanning, setBriefPlanning] = useState<IBriefPlanning>({
-    user: { key_message: "", strong_points: [] },
-    competitors: [],
-    suggestion: { key_message: "", strong_points: [] },
-  });
-
-  const onSetBriefPlanning = (briefPlanning: IBriefPlanning) => {
-    setBriefPlanning(briefPlanning);
+  // step 3 data
+  const [keyVisuals, setKeyVisuals] = useState<IKeyVisuals[]>([]);
+  const onSetKeyVisuals = (keyVisuals: IKeyVisuals[]) => {
+    setKeyVisuals(keyVisuals);
+  };
+  const [selectedKeyVisuals, setSelectedKeyVisuals] = useState<string[]>([]);
+  const onSetSelectedKeyVisuals = (value: string[]) => {
+    setSelectedKeyVisuals(value);
   };
 
-  const [step5Data, setStep5Data] = useState<any>({
-    option1: [],
-    option2: [],
-    option3: [],
-    option4: [],
-  });
-  const onSetStep5Data = (data: any) => {
-    setStep5Data(data);
+  // step 4 data
+  const [competitiveMatrix, setCompetitiveMatrix] =
+    useState<ICompetitiveMatrix>({
+      user: { key_message: "", strong_points: [] },
+      competitors: [],
+      suggestion: { key_message: "", strong_points: [] },
+    });
+  const onSetCompetitiveMatrix = (competitiveMatrix: ICompetitiveMatrix) => {
+    setCompetitiveMatrix(competitiveMatrix);
+  };
+  const [selectedMatrix, setSelectedMatrix] = useState<IMatrix>({} as IMatrix);
+  const onSetSelectedMatrix = (matrix: IMatrix) => {
+    setSelectedMatrix(matrix);
   };
 
-  const [step6Data, setStep6Data] = useState<any>([]);
-  const onSetStep6Data = (data: any) => {
-    setStep6Data(data);
-  };
-
-  const [step7Data, setStep7Data] = useState<any>({
-    option1: [],
-    option2: [],
-    option3: [],
-  });
-  const onSetStep7Data = (data: any) => {
-    setStep7Data(data);
-  };
-
+  // step 5 data
   const [valueOrganization, setValueOrganization] = useState<
     IValueOrganization[]
   >([]);
   const onSetValueOrganization = (data: IValueOrganization[]) => {
     setValueOrganization(data);
   };
+  const [selectedValueOrganization, setSelectedValueOrganization] = useState<
+    any[]
+  >([]);
+  const onSetSelectedValueOrganization = (data: any[]) => {
+    setSelectedValueOrganization(data);
+  };
 
+  // step 6 data
   const [desireOrganization, setDesireOrganization] = useState<
     IDesireOrganization[]
   >([]);
   const onSetDesireOrganization = (data: IDesireOrganization[]) => {
     setDesireOrganization(data);
+  };
+  const [selectedTobes, setSelectedTobes] = useState<string[]>([]);
+  const onSetSelectedTobes = (data: string[]) => {
+    setSelectedTobes(data);
   };
 
   const [positioningPatterns, setPositioningPatterns] = useState<
@@ -174,45 +172,17 @@ export default function PlannningWhatDataContextProvider({
     setPositioningPatterns(data);
   };
 
-  const [selectedMatrix, setSelectedMatrix] = useState<IMatrix>({
-    key_message: "",
-    strong_points: [],
-  });
-  const onSetSelectedMatrix = (data: IMatrix) => {
-    setSelectedMatrix(data);
-  };
-
-  const [selectedValueOrganization, setSelectedValueOrganization] = useState<
-    any[]
-  >([]);
-  const onSetSelectedValueOrganization = (data: any[]) => {
-    setSelectedValueOrganization(data);
-  };
-
-  const [selectedTobes, setSelectedTobes] = useState<string[]>([]);
-  const onSetSelectedTobes = (data: string[]) => {
-    setSelectedTobes(data);
-  };
-
   return (
     <PlannningWhatDataContext.Provider
       value={{
         keywords,
         onSetKeywords,
-        step1Form,
-        onChangeStep1Form,
         keyVisuals,
         onSetKeyVisuals,
         selectedKeywords,
         onSetSelectedKeywords,
-        briefPlanning,
-        onSetBriefPlanning,
-        step5Data,
-        onSetStep5Data,
-        step6Data,
-        onSetStep6Data,
-        step7Data,
-        onSetStep7Data,
+        competitiveMatrix,
+        onSetCompetitiveMatrix,
         valueOrganization,
         onSetValueOrganization,
         desireOrganization,
@@ -225,6 +195,8 @@ export default function PlannningWhatDataContextProvider({
         onSetSelectedValueOrganization,
         selectedMatrix,
         onSetSelectedMatrix,
+        selectedKeyVisuals,
+        onSetSelectedKeyVisuals,
       }}
     >
       {children}

@@ -46,9 +46,6 @@ export const CopyTable: React.FC<CopyTableProps> = ({
     setRows(initialRows);
   }, [data, selectedRow]);
 
-  console.log(selectedRow);
-  console.log(rows);
-
   const handleTextChange = (
     rowIndex: number,
     field: VerificationTarget,

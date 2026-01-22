@@ -6,17 +6,13 @@ import { useParams } from "next/navigation";
 import { submitStep1Scratch } from "../hooks/useFetchAPINext";
 import { Card, PageHeader, URLInput } from "@/components/lp-analyzer";
 import { ArrowRight } from "lucide-react";
+import { usePlanningWhatDataContext } from "../hooks/planningWhatDataContext";
 
-const Step1Scratch = ({
-  onNext,
-  onSetKeywords,
-}: {
-  onNext: () => void;
-  onSetKeywords: (keywords: any) => void;
-}) => {
+const Step1Scratch = ({ onNext }: { onNext: () => void }) => {
   const { sessionId } = useParams();
   const [loading, setLoading] = React.useState(false);
   const [url, setUrl] = React.useState("");
+  const { onSetKeywords } = usePlanningWhatDataContext();
 
   return (
     <div className="flex-1 w-full max-w-6xl mx-auto px-4 py-12 md:px-8 flex flex-col justify-center h-full items-start">

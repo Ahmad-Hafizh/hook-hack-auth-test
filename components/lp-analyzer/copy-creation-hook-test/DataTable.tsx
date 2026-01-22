@@ -8,7 +8,7 @@ import { useDataContext } from "@/app/app-v2/planning/[sessionId]/how/hooks/useD
 interface DataTableProps {
   rows: RowData[];
   selectedRows: Set<number>;
-  selectedImages: Record<string, boolean>;
+  selectedImages: any;
   onRowSelectChange: (index: number, selected: boolean) => void;
   onSelectAllRows: (selected: boolean) => void;
   onImageCheckChange: (
@@ -41,7 +41,7 @@ export const DataTable: React.FC<DataTableProps> = ({
     selectedRows.size > 0 && selectedRows.size < rows.length;
 
   const isImageChecked = (rowIndex: number, imageType: string) => {
-    return selectedImages[`${rowIndex}-${imageType}`] || false;
+    return selectedImages[imageType]?.includes(rowIndex) || false;
   };
   const { duration } = useDataContext();
 
@@ -53,7 +53,7 @@ export const DataTable: React.FC<DataTableProps> = ({
       <table className="w-full min-w-[1600px] border-collapse text-sm table-fixed">
         <thead className="z-50">
           <tr className="h-[40px]">
-            <th className="border-b border-r border-slate-400 text-left text-xs font-bold text-slate-800 bg-slate-200 px-2 py-3 select-none whitespace-nowrap sticky top-0 z-50 shadow-sm w-[40px] border-l-0 text-center">
+            <th className="border-b border-r border-slate-400 text-left text-xs font-bold text-slate-800 bg-slate-200 px-2 py-3 select-none whitespace-nowrap sticky top-0 z-50 shadow-sm w-[40px] border-l-0 ">
               <input
                 type="checkbox"
                 className="w-4 h-4 text-[#0093b4] border-slate-400 rounded focus:ring-[#0093b4] cursor-pointer"
@@ -98,7 +98,7 @@ export const DataTable: React.FC<DataTableProps> = ({
                     type="checkbox"
                     className="w-3.5 h-3.5 text-[#0093b4] border-slate-400 rounded focus:ring-[#0093b4] cursor-pointer"
                     onChange={(e) =>
-                      onSelectAllImages("body1Image", e.target.checked)
+                      onSelectAllImages("body1ImageB", e.target.checked)
                     }
                   />
                   <span>Body1 (画像) B</span>
@@ -121,6 +121,20 @@ export const DataTable: React.FC<DataTableProps> = ({
                 <span>Body2 (画像)</span>
               </div>
             </th>
+            {duration === 30 && (
+              <th className="border-b border-r border-slate-400 text-left text-xs font-bold text-slate-800 bg-slate-200 px-2 py-3 select-none whitespace-nowrap sticky top-0 z-50 shadow-sm w-[13%]">
+                <div className="flex items-center gap-2">
+                  <input
+                    type="checkbox"
+                    className="w-3.5 h-3.5 text-[#0093b4] border-slate-400 rounded focus:ring-[#0093b4] cursor-pointer"
+                    onChange={(e) =>
+                      onSelectAllImages("body2ImageB", e.target.checked)
+                    }
+                  />
+                  <span>Body2 (画像) B</span>
+                </div>
+              </th>
+            )}
             <th className="border-b border-r border-slate-400 text-left text-xs font-bold text-slate-800 bg-slate-200 px-2 py-3 select-none whitespace-nowrap sticky top-0 z-50 shadow-sm w-[17%]">
               Body2 (メッセージ)
             </th>
@@ -147,8 +161,8 @@ export const DataTable: React.FC<DataTableProps> = ({
                   onCheckChange={(checked) =>
                     onImageCheckChange(index, "hookImage", checked)
                   }
-                  onSlotClick={() =>
-                    onImageSlotClick(index, "hookImage", row.hookImage)
+                  onSlotClick={(url) =>
+                    onImageSlotClick(index, "hookImage", url)
                   }
                   imageType="hookImage"
                 />
@@ -158,9 +172,9 @@ export const DataTable: React.FC<DataTableProps> = ({
                   <textarea
                     className="w-full h-full py-2 px-3 text-xs bg-transparent border-none focus:ring-0 focus:outline-none resize-none leading-relaxed transition-all text-slate-800"
                     placeholder="Hook message..."
-                    value={row.hookMessage}
+                    value={row.hook}
                     onChange={(e) =>
-                      onTextChange(index, "hookMessage", e.target.value)
+                      onTextChange(index, "hook", e.target.value)
                     }
                   />
                 </div>
@@ -172,33 +186,35 @@ export const DataTable: React.FC<DataTableProps> = ({
                   onCheckChange={(checked) =>
                     onImageCheckChange(index, "body1Image", checked)
                   }
-                  onSlotClick={() =>
-                    onImageSlotClick(index, "body1Image", row.body1Image)
+                  onSlotClick={(url) =>
+                    onImageSlotClick(index, "body1Image", url)
                   }
                   imageType="body1Image"
                 />
               </td>
-              <td className="border-b border-r border-slate-400 relative p-0 transition-colors bg-white hover:bg-slate-50">
-                <ImageSlot
-                  imageUrl={row.body1Image}
-                  checked={isImageChecked(index, "body1Image")}
-                  onCheckChange={(checked) =>
-                    onImageCheckChange(index, "body1Image", checked)
-                  }
-                  onSlotClick={() =>
-                    onImageSlotClick(index, "body1Image", row.body1Image)
-                  }
-                  imageType="body1Image"
-                />
-              </td>
+              {duration === 30 && (
+                <td className="border-b border-r border-slate-400 relative p-0 transition-colors bg-white hover:bg-slate-50">
+                  <ImageSlot
+                    imageUrl={row.body1ImageB}
+                    checked={isImageChecked(index, "body1ImageB")}
+                    onCheckChange={(checked) =>
+                      onImageCheckChange(index, "body1ImageB", checked)
+                    }
+                    onSlotClick={(url) =>
+                      onImageSlotClick(index, "body1ImageB", url)
+                    }
+                    imageType="body1ImageB"
+                  />
+                </td>
+              )}
               <td className="border-b border-r border-slate-400 relative p-0 transition-colors bg-white hover:bg-slate-50 h-24 align-top">
                 <div className="flex h-full w-full relative">
                   <textarea
                     className="w-full h-full py-2 px-3 text-xs bg-transparent border-none focus:ring-0 focus:outline-none resize-none leading-relaxed transition-all text-slate-800"
                     placeholder="Body1 message..."
-                    value={row.body1Message}
+                    value={row.body1}
                     onChange={(e) =>
-                      onTextChange(index, "body1Message", e.target.value)
+                      onTextChange(index, "body1", e.target.value)
                     }
                   />
                 </div>
@@ -210,20 +226,35 @@ export const DataTable: React.FC<DataTableProps> = ({
                   onCheckChange={(checked) =>
                     onImageCheckChange(index, "body2Image", checked)
                   }
-                  onSlotClick={() =>
-                    onImageSlotClick(index, "body2Image", row.body2Image)
+                  onSlotClick={(url) =>
+                    onImageSlotClick(index, "body2Image", url)
                   }
                   imageType="body2Image"
                 />
               </td>
+              {duration === 30 && (
+                <td className="border-b border-r border-slate-400 relative p-0 transition-colors bg-white hover:bg-slate-50">
+                  <ImageSlot
+                    imageUrl={row.body2ImageB}
+                    checked={isImageChecked(index, "body2ImageB")}
+                    onCheckChange={(checked) =>
+                      onImageCheckChange(index, "body2ImageB", checked)
+                    }
+                    onSlotClick={(url) =>
+                      onImageSlotClick(index, "body2ImageB", url)
+                    }
+                    imageType="body2ImageB"
+                  />
+                </td>
+              )}
               <td className="border-b border-r border-slate-400 relative p-0 transition-colors bg-white hover:bg-slate-50 h-24 align-top">
                 <div className="flex h-full w-full relative">
                   <textarea
                     className="w-full h-full py-2 px-3 text-xs bg-transparent border-none focus:ring-0 focus:outline-none resize-none leading-relaxed transition-all text-slate-800"
                     placeholder="Body2 message..."
-                    value={row.body2Message}
+                    value={row.body2}
                     onChange={(e) =>
-                      onTextChange(index, "body2Message", e.target.value)
+                      onTextChange(index, "body2", e.target.value)
                     }
                   />
                 </div>
@@ -233,10 +264,8 @@ export const DataTable: React.FC<DataTableProps> = ({
                   <textarea
                     className="w-full h-full py-2 px-3 text-xs bg-transparent border-none focus:ring-0 focus:outline-none resize-none leading-relaxed transition-all text-slate-800"
                     placeholder="CTA message..."
-                    value={row.ctaMessage}
-                    onChange={(e) =>
-                      onTextChange(index, "ctaMessage", e.target.value)
-                    }
+                    value={row.cta}
+                    onChange={(e) => onTextChange(index, "cta", e.target.value)}
                   />
                 </div>
               </td>

@@ -45,6 +45,25 @@ export interface IPattern {
   };
 }
 
+export interface IDataRow {
+  hook: string;
+  body1: string;
+  body2: string;
+  cta: string;
+}
+
+export interface IDataRowFinalized {
+  hookImage: string;
+  hook: string;
+  body1Image: string;
+  body1ImageB?: string;
+  body1: string;
+  body2Image: string;
+  body2ImageB?: string;
+  body2: string;
+  cta: string;
+}
+
 const dataContext = React.createContext({
   plan: {} as IPlan,
   onSetPlan: (plan: IPlan) => {},
@@ -66,6 +85,12 @@ const dataContext = React.createContext({
   // New Steps Data
   duration: 15 | 30,
   onSetDuration: (duration: 15 | 30) => {},
+  dataRows: [] as IDataRow[],
+  onSetDataRows: (rows: IDataRow[]) => {},
+  finalizedDataRows: [] as IDataRowFinalized[],
+  onSetFinalizedDataRows: (rows: IDataRowFinalized[]) => {},
+  selectedFinalizedRows: [] as IDataRowFinalized[],
+  onSetSelectedFinalizedRows: (rows: IDataRowFinalized[]) => {},
 });
 
 export const DataContextProvider = ({
@@ -146,6 +171,25 @@ export const DataContextProvider = ({
     setDuration(duration);
   };
 
+  const [dataRows, setDataRows] = useState<IDataRow[]>([]);
+  const onSetDataRows = (rows: IDataRow[]) => {
+    setDataRows(rows);
+  };
+
+  const [finalizedDataRows, setFinalizedDataRows] = useState<
+    IDataRowFinalized[]
+  >([]);
+  const onSetFinalizedDataRows = (rows: IDataRowFinalized[]) => {
+    setFinalizedDataRows(rows);
+  };
+
+  const [selectedFinalizedRows, setSelectedFinalizedRows] = useState<
+    IDataRowFinalized[]
+  >([]);
+  const onSetSelectedFinalizedRows = (rows: IDataRowFinalized[]) => {
+    setSelectedFinalizedRows(rows);
+  };
+
   return (
     <dataContext.Provider
       value={{
@@ -167,6 +211,12 @@ export const DataContextProvider = ({
         onSetSelectedTemplateId,
         duration,
         onSetDuration,
+        dataRows,
+        onSetDataRows,
+        finalizedDataRows,
+        onSetFinalizedDataRows,
+        selectedFinalizedRows,
+        onSetSelectedFinalizedRows,
       }}
     >
       {children}

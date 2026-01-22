@@ -13,6 +13,7 @@ import { RadioGroup } from "@/components/ui/radio-group";
 import { usePlanningWhatDataContext } from "../hooks/planningWhatDataContext";
 import { Spinner } from "@/components/ui/spinner";
 import { ArrowRight } from "lucide-react";
+import callApi from "@/config/axios/axios";
 
 const Step7 = () => {
   const { positioningPatterns } = usePlanningWhatDataContext();
@@ -20,6 +21,18 @@ const Step7 = () => {
 
   const router = useRouter();
   const { sessionId } = useParams();
+
+  const onSubmit = async () => {
+    // Submit logic here
+    try {
+      const { data } = await callApi.post("/app-v2/planning/what/step7", {
+        sessionId,
+      });
+      router.push(data.redirectTo);
+    } catch (error) {
+      console.log(error);
+    }
+  };
   return (
     <div className="flex-1 w-full max-w-6xl mx-auto px-4 py-12 md:px-8 flex flex-col justify-center h-full items-start">
       <PageHeader title="ポジショニング骨子" />
@@ -75,7 +88,7 @@ const Step7 = () => {
         <Button
           className="bg-cyan-600 hover:bg-cyan-700"
           size={"lg"}
-          onClick={() => router.push(`/app-v2/planning/${sessionId}/how`)}
+          onClick={onSubmit}
         >
           <>
             次に進む <ArrowRight className="h-4 w-4" />

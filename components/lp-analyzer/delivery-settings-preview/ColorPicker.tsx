@@ -30,11 +30,22 @@ export const ColorPicker: React.FC<ColorPickerProps> = ({
             className="bg-transparent border-none p-0 text-sm font-mono focus:ring-0 text-slate-800 w-full"
             type="text"
             value={value}
-            onChange={(e) => onChange(e.target.value)}
+            onChange={(e) => {
+              onChange(e.target.value);
+            }}
           />
         </div>
+
         <button className="w-10 h-10 flex items-center justify-center border border-slate-200 rounded hover:bg-gray-50 text-gray-500 shrink-0">
           <Paintbrush />
+          <input
+            type="color"
+            className="absolute w-10 h-10 opacity-0 cursor-pointer"
+            value={previewColor}
+            onChange={(e) => {
+              onChange(e.target.value.replace("#", ""));
+            }}
+          />
         </button>
       </div>
     </div>

@@ -11,6 +11,7 @@ import { ValueDesireCard } from "@/components/lp-analyzer/ValueDesireCard";
 import { Spinner } from "@/components/ui/spinner";
 import { ArrowRight } from "lucide-react";
 import { submitStep6 } from "../hooks/useFetchAPINext";
+import { usePlannningContext } from "@/app/app-v2/plannningContext";
 
 const Step6 = ({ onNext }: { onNext: () => void }) => {
   const {
@@ -18,16 +19,65 @@ const Step6 = ({ onNext }: { onNext: () => void }) => {
     onSetDesireOrganization,
     valueOrganization,
     selectedValueOrganization,
-    briefPlanning,
-    selectedMatrix,
+    competitiveMatrix,
     onSetPositioningPatterns,
+    selectedMatrix,
+    onSetSelectedValueOrganization,
+    onSetSelectedTobes,
   } = usePlanningWhatDataContext();
+
   const [loading, setLoading] = React.useState(false);
   const [checkedTobes, setCheckedTobes] = React.useState<string[]>([]);
   const [submitProcess, setSubmitProcess] = React.useState<{
     percent: number;
     message: string;
   }>({ percent: 0, message: "" });
+
+  const onSubmit = () => {
+    const selectedValue6 = selectedValueOrganization.map((e) => {
+      return valueOrganization.find((v) => v.id === e);
+    });
+    onSetSelectedValueOrganization(selectedValue6 as any);
+    localStorage.setItem("selected_values_6", JSON.stringify(selectedValue6));
+
+    const selectedTobe4 = checkedTobes.map((e) => {
+      const [value_id, desire] = e.split("_");
+      const desireObj = desireOrganization.find((v) => v.value_id === value_id);
+      const desireTobe: IDesire | null =
+        desireObj?.desire_1.desire === desire
+          ? desireObj.desire_1
+          : desireObj?.desire_2.desire === desire
+            ? desireObj.desire_2
+            : null;
+      return {
+        id: desireObj?.value_id,
+        value_id: desireObj?.value_id,
+        value_label: desireObj?.value_label,
+        desire: desireTobe?.desire,
+        old_assumption: desireTobe?.tobe.old_assumption,
+        new_assumption: desireTobe?.tobe.new_assumption,
+        judgment: desireTobe?.tobe.judgment,
+        action: desireTobe?.tobe.action,
+      };
+    });
+    onSetSelectedTobes(selectedTobe4 as any);
+    localStorage.setItem("selected_tobe_4", JSON.stringify(selectedTobe4));
+
+    submitStep6({
+      own_lp_summary: `${selectedMatrix.key_message}, ${selectedMatrix.strong_points.join(", ")}`,
+      competitors_summary: competitiveMatrix.competitors.map(
+        (c) => `${c.key_message}, ${c.strong_points.join(", ")}`,
+      ),
+      selected_values_6: selectedValue6,
+      selected_tobe_4: selectedTobe4,
+      onSetPositioningPatterns,
+      onNext,
+      onSetSubmitProcess: (percent, message) => {
+        setSubmitProcess({ percent, message });
+      },
+      onSetLoading: (loading) => setLoading(loading),
+    });
+  };
 
   return (
     <div className="flex-1 w-full max-w-6xl mx-auto px-4 py-12 md:px-8 flex flex-col justify-center h-full items-start">
@@ -73,45 +123,7 @@ const Step6 = ({ onNext }: { onNext: () => void }) => {
                 className="bg-cyan-600 hover:bg-cyan-700"
                 size={"lg"}
                 disabled={loading || checkedTobes.length < 4}
-                onClick={() =>
-                  submitStep6({
-                    own_lp_summary: `${selectedMatrix.key_message}, ${selectedMatrix.strong_points.join(", ")}`,
-                    competitors_summary: briefPlanning.competitors.map(
-                      (c) => `${c.key_message}, ${c.strong_points.join(", ")}`,
-                    ),
-                    selected_values_6: selectedValueOrganization.map((e) => {
-                      return valueOrganization.find((v) => v.id === e);
-                    }),
-                    selected_tobe_4: checkedTobes.map((e) => {
-                      const [value_id, desire] = e.split("_");
-                      const desireObj = desireOrganization.find(
-                        (v) => v.value_id === value_id,
-                      );
-                      const desireTobe: IDesire | null =
-                        desireObj?.desire_1.desire === desire
-                          ? desireObj.desire_1
-                          : desireObj?.desire_2.desire === desire
-                            ? desireObj.desire_2
-                            : null;
-                      return {
-                        id: desireObj?.value_id,
-                        value_id: desireObj?.value_id,
-                        value_label: desireObj?.value_label,
-                        desire: desireTobe?.desire,
-                        old_assumption: desireTobe?.tobe.old_assumption,
-                        new_assumption: desireTobe?.tobe.new_assumption,
-                        judgment: desireTobe?.tobe.judgment,
-                        action: desireTobe?.tobe.action,
-                      };
-                    }),
-                    onSetPositioningPatterns,
-                    onNext,
-                    onSetSubmitProcess: (percent, message) => {
-                      setSubmitProcess({ percent, message });
-                    },
-                    onSetLoading: (loading) => setLoading(loading),
-                  })
-                }
+                onClick={onSubmit}
               >
                 {loading ? (
                   <>

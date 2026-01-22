@@ -5,22 +5,13 @@ import { submitStep2Scratch } from "../hooks/useFetchAPINext";
 import { useParams } from "next/navigation";
 import { Card, KeywordSelector, PageHeader } from "@/components/lp-analyzer";
 import { ArrowRight } from "lucide-react";
+import { usePlanningWhatDataContext } from "../hooks/planningWhatDataContext";
 
-const Step2Scratch = ({
-  onNext,
-  keywords,
-  selectedKeywords,
-  onSetSelectedKeywords,
-  onSetKeyVisuals,
-}: {
-  onNext: () => void;
-  keywords: any[];
-  selectedKeywords: string;
-  onSetSelectedKeywords: (value: string) => void;
-  onSetKeyVisuals: (visuals: any[]) => void;
-}) => {
+const Step2Scratch = ({ onNext }: { onNext: () => void }) => {
   const [loading, setLoading] = React.useState(false);
   const { sessionId } = useParams();
+  const { keywords, selectedKeywords, onSetSelectedKeywords, onSetKeyVisuals } =
+    usePlanningWhatDataContext();
 
   return (
     <div className="flex-1 w-full max-w-6xl mx-auto px-4 py-12 md:px-8 flex flex-col justify-center h-full items-start">

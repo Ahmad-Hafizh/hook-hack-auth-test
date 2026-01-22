@@ -2,6 +2,7 @@
 
 import React from "react";
 import { Orientation, Template } from "./types";
+import { Laptop, Smartphone } from "lucide-react";
 
 interface LivePreviewProps {
   orientation: Orientation;
@@ -48,14 +49,10 @@ export const LivePreview: React.FC<LivePreviewProps> = ({
           </div>
           <div className="flex gap-2">
             <button className="text-gray-400 hover:text-[#0093b4] transition-colors">
-              <span className="material-symbols-outlined text-xl">
-                smartphone
-              </span>
+              <Smartphone className="w-5 h-5" />
             </button>
             <button className="text-[#0093b4] hover:text-[#007a92] transition-colors">
-              <span className="material-symbols-outlined text-xl">
-                desktop_windows
-              </span>
+              <Laptop className="w-7 h-7" />
             </button>
           </div>
         </div>

@@ -8,6 +8,8 @@ export const bgmOptions: BGMOption[] = [
 
 export const fontOptions = ["Noto Sans JP", "Hiragino Sans", "Yu Gothic"];
 
+export const genderOptions = ["m", "f"];
+
 export const templateOptions = [
   { id: "simple" as const, name: "シンプルモダン", previewBg: "bg-gray-50" },
   { id: "dynamic" as const, name: "ダイナミック", previewBg: "bg-slate-50" },

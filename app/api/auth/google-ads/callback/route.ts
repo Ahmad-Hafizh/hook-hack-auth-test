@@ -14,7 +14,7 @@ export async function GET(request: NextRequest) {
       return NextResponse.json(
         {
           error: "Google Ads authentication failed",
-          url: `${process.env.NEXT_PUBLIC_APP_URL}/auth/handler?status=error&message=${encodeURIComponent("Google Ads authentication failed")}`,
+          url: `${process.env.NEXT_PUBLIC_APP_URL}/handler?status=error&message=${encodeURIComponent("Google Ads authentication failed")}`,
         },
         { status: 500 },
       );
@@ -26,7 +26,7 @@ export async function GET(request: NextRequest) {
       return NextResponse.json(
         {
           error: "User not found. Please sign in again.",
-          url: `${process.env.NEXT_PUBLIC_APP_URL}/auth/handler?status=error&message=${encodeURIComponent("User not found. Please sign in again.")}`,
+          url: `${process.env.NEXT_PUBLIC_APP_URL}/handler?status=error&message=${encodeURIComponent("User not found. Please sign in again.")}`,
         },
         { status: 404 },
       );
@@ -108,7 +108,7 @@ export async function GET(request: NextRequest) {
         return NextResponse.json(
           {
             error: "Failed to link MCC account",
-            url: `${process.env.NEXT_PUBLIC_APP_URL}/auth/handler?status=error&message=${encodeURIComponent(
+            url: `${process.env.NEXT_PUBLIC_APP_URL}/handler?status=error&message=${encodeURIComponent(
               err instanceof Error
                 ? err.message
                 : "Failed to link MCC account.",
@@ -122,7 +122,7 @@ export async function GET(request: NextRequest) {
     return NextResponse.json(
       {
         error: "Failed to connect Google Ads account",
-        url: `${process.env.NEXT_PUBLIC_APP_URL}/auth/handler?status=error&message=${encodeURIComponent("Failed to connect Google Ads account.")}`,
+        url: `${process.env.NEXT_PUBLIC_APP_URL}/handler?status=error&message=${encodeURIComponent("Failed to connect Google Ads account.")}`,
       },
       { status: 500 },
     );

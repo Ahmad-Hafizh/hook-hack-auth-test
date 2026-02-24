@@ -1,0 +1,479 @@
+<!DOCTYPE html>
+<html class="" lang="ja"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>LPアナライザー - 価値に対応する欲求の整理</title>
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700;900&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">tailwind.config = {theme: {extend: {colors: {primary: "#0093b4", "primary-hover": "#007a92", "background-light": "#ffffff", "surface-light": "#ffffff", "surface-subtle": "#f8fafc", "border-light": "#e2e8f0", "text-main": "#1e293b", "text-muted": "#64748b", "background-dark": "#0f1f23", "accent-soft": "#e0f2f7"}, fontFamily: {display: "Inter", sans: ["Noto Sans JP", "sans-serif"]}, borderRadius: {DEFAULT: "0.25rem", lg: "0.5rem", xl: "0.75rem", full: "9999px"}, boxShadow: {soft: "0 4px 6px -1px rgba(0, 0, 0, 0.05), 0 2px 4px -1px rgba(0, 0, 0, 0.03)"}}}};</script>
+<style type="text/tailwindcss">
+    @layer utilities {
+        .animate-fade-in-up {
+            animation: fadeInUp 0.5s ease-out;
+        }
+    }
+    @keyframes fadeInUp {
+        from {
+            opacity: 0;
+            transform: translateY(10px);
+        }
+        to {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
+    input[type="checkbox"] {
+        @apply w-5 h-5 rounded border-gray-300 text-primary focus:ring-primary/20 focus:ring-offset-0 cursor-pointer;
+    }textarea::-webkit-scrollbar {
+        width: 8px;
+    }
+    textarea::-webkit-scrollbar-track {
+        background: transparent;
+    }
+    textarea::-webkit-scrollbar-thumb {
+        background-color: #cbd5e1;
+        border-radius: 4px;
+        border: 2px solid transparent;
+        background-clip: content-box;
+    }
+</style>
+</head>
+<body class="bg-surface-light text-text-main font-sans transition-colors duration-200 min-h-screen flex flex-col overflow-x-hidden antialiased">
+<main class="flex-1 w-full max-w-7xl mx-auto px-4 py-8 md:px-8 flex flex-col">
+<div class="mb-8 animate-fade-in-up">
+<h1 class="text-2xl md:text-3xl font-bold tracking-tight mb-2 text-text-main">価値に対応する欲求の整理</h1>
+</div>
+<div class="w-full flex-1 flex flex-col gap-8 pb-12">
+<div class="grid grid-cols-1 lg:grid-cols-2 gap-6 animate-fade-in-up">
+<div class="bg-surface-light rounded-xl shadow-soft border border-border-light p-5 md:p-6 flex flex-col gap-5 transition-shadow hover:shadow-md">
+<div class="flex flex-col gap-2 border-b border-border-light pb-4">
+<div class="flex items-center gap-3">
+<input class="w-12 text-center text-xs font-bold text-white bg-text-main rounded py-1 focus:ring-2 focus:ring-primary outline-none cursor-text" type="text" value="V01"/>
+<input class="w-20 text-xs text-text-muted bg-surface-subtle border border-border-light rounded px-2 py-1 text-center focus:border-primary focus:ring-1 focus:ring-primary outline-none" type="text" value="情報"/>
+<input class="flex-1 text-lg font-bold text-text-main bg-transparent border-none p-0 focus:ring-0 placeholder-text-muted/50 truncate" type="text" value="迷わない判断軸"/>
+</div>
+</div>
+<div class="bg-surface-subtle rounded-lg p-4 border border-border-light/50 flex flex-col gap-3">
+<div class="flex items-center gap-3">
+<input checked="" type="checkbox"/>
+<span class="text-[10px] font-bold text-primary bg-primary/10 px-2 py-0.5 rounded whitespace-nowrap">欲求Top1</span>
+<input class="flex-1 min-w-0 text-sm font-bold text-text-main bg-white border border-border-light rounded px-2 py-1 focus:border-primary focus:ring-1 focus:ring-primary outline-none" type="text" value="正しい選択をしたい"/>
+</div>
+<div class="flex items-center gap-2 pl-8">
+<span class="text-xs text-text-muted whitespace-nowrap">理由 :</span>
+<input class="flex-1 min-w-0 text-xs text-text-main bg-transparent border-b border-border-light py-0.5 focus:border-primary outline-none" type="text" value="失敗したくない心理から"/>
+</div>
+<div class="pl-8 pt-2 flex flex-col gap-1.5">
+<div class="text-[10px] text-text-muted font-bold mb-0.5">TOBE</div>
+<div class="flex items-center gap-2">
+<span class="w-28 text-[10px] font-medium text-text-muted text-right shrink-0">旧前提（卒業）:</span>
+<input class="flex-1 min-w-0 text-xs text-text-main bg-white border border-border-light rounded px-2 py-1 focus:border-primary focus:ring-1 focus:ring-primary outline-none" type="text" value="複雑で何が良いかわからない"/>
+</div>
+<div class="flex items-center gap-2">
+<span class="w-28 text-[10px] font-medium text-text-muted text-right shrink-0">新前提（当たり前）:</span>
+<input class="flex-1 min-w-0 text-xs text-text-main bg-white border border-border-light rounded px-2 py-1 focus:border-primary focus:ring-1 focus:ring-primary outline-none" type="text" value="明確な比較基準が示される"/>
+</div>
+<div class="flex items-center gap-2">
+<span class="w-28 text-[10px] font-medium text-text-muted text-right shrink-0">判断:</span>
+<input class="flex-1 min-w-0 text-xs text-text-main bg-white border border-border-light rounded px-2 py-1 focus:border-primary focus:ring-1 focus:ring-primary outline-none" type="text" value="これなら間違いないと確信"/>
+</div>
+<div class="flex items-center gap-2">
+<span class="w-28 text-[10px] font-medium text-text-muted text-right shrink-0">行動:</span>
+<input class="flex-1 min-w-0 text-xs text-text-main bg-white border border-border-light rounded px-2 py-1 focus:border-primary focus:ring-1 focus:ring-primary outline-none" type="text" value="自信を持って購入"/>
+</div>
+</div>
+</div>
+<div class="bg-surface-subtle rounded-lg p-4 border border-border-light/50 flex flex-col gap-3">
+<div class="flex items-center gap-3">
+<input checked="" type="checkbox"/>
+<span class="text-[10px] font-bold text-text-muted bg-gray-200 px-2 py-0.5 rounded whitespace-nowrap">欲求Top2</span>
+<input class="flex-1 min-w-0 text-sm font-bold text-text-main bg-white border border-border-light rounded px-2 py-1 focus:border-primary focus:ring-1 focus:ring-primary outline-none" type="text" value="手間を省きたい"/>
+</div>
+<div class="flex items-center gap-2 pl-8">
+<span class="text-xs text-text-muted whitespace-nowrap">理由 :</span>
+<input class="flex-1 min-w-0 text-xs text-text-main bg-transparent border-b border-border-light py-0.5 focus:border-primary outline-none" type="text" value="時間がないため効率重視"/>
+</div>
+<div class="pl-8 pt-2 flex flex-col gap-1.5">
+<div class="text-[10px] text-text-muted font-bold mb-0.5">TOBE</div>
+<div class="flex items-center gap-2">
+<span class="w-28 text-[10px] font-medium text-text-muted text-right shrink-0">旧前提（卒業）:</span>
+<input class="flex-1 min-w-0 text-xs text-text-main bg-white border border-border-light rounded px-2 py-1 focus:border-primary focus:ring-1 focus:ring-primary outline-none" type="text" value="自分で調べるのは面倒"/>
+</div>
+<div class="flex items-center gap-2">
+<span class="w-28 text-[10px] font-medium text-text-muted text-right shrink-0">新前提（当たり前）:</span>
+<input class="flex-1 min-w-0 text-xs text-text-main bg-white border border-border-light rounded px-2 py-1 focus:border-primary focus:ring-1 focus:ring-primary outline-none" type="text" value="結論だけ端的に分かる"/>
+</div>
+<div class="flex items-center gap-2">
+<span class="w-28 text-[10px] font-medium text-text-muted text-right shrink-0">判断:</span>
+<input class="flex-1 min-w-0 text-xs text-text-main bg-white border border-border-light rounded px-2 py-1 focus:border-primary focus:ring-1 focus:ring-primary outline-none" type="text" value="効率的だと感じる"/>
+</div>
+<div class="flex items-center gap-2">
+<span class="w-28 text-[10px] font-medium text-text-muted text-right shrink-0">行動:</span>
+<input class="flex-1 min-w-0 text-xs text-text-main bg-white border border-border-light rounded px-2 py-1 focus:border-primary focus:ring-1 focus:ring-primary outline-none" type="text" value="即決で申し込む"/>
+</div>
+</div>
+</div>
+</div>
+<div class="bg-surface-light rounded-xl shadow-soft border border-border-light p-5 md:p-6 flex flex-col gap-5 transition-shadow hover:shadow-md">
+<div class="flex flex-col gap-2 border-b border-border-light pb-4">
+<div class="flex items-center gap-3">
+<input class="w-12 text-center text-xs font-bold text-white bg-text-main rounded py-1 focus:ring-2 focus:ring-primary outline-none cursor-text" type="text" value="V02"/>
+<input class="w-20 text-xs text-text-muted bg-surface-subtle border border-border-light rounded px-2 py-1 text-center focus:border-primary focus:ring-1 focus:ring-primary outline-none" type="text" value="モノ"/>
+<input class="flex-1 text-lg font-bold text-text-main bg-transparent border-none p-0 focus:ring-0 placeholder-text-muted/50 truncate" type="text" value="圧倒的な機能性"/>
+</div>
+</div>
+<div class="bg-surface-subtle rounded-lg p-4 border border-border-light/50 flex flex-col gap-3">
+<div class="flex items-center gap-3">
+<input checked="" type="checkbox"/>
+<span class="text-[10px] font-bold text-primary bg-primary/10 px-2 py-0.5 rounded whitespace-nowrap">欲求Top1</span>
+<input class="flex-1 min-w-0 text-sm font-bold text-text-main bg-white border border-border-light rounded px-2 py-1 focus:border-primary focus:ring-1 focus:ring-primary outline-none" type="text" value="業務を効率化したい"/>
+</div>
+<div class="flex items-center gap-2 pl-8">
+<span class="text-xs text-text-muted whitespace-nowrap">理由 :</span>
+<input class="flex-1 min-w-0 text-xs text-text-main bg-transparent border-b border-border-light py-0.5 focus:border-primary outline-none" type="text" value="リソース不足の解消"/>
+</div>
+<div class="pl-8 pt-2 flex flex-col gap-1.5">
+<div class="text-[10px] text-text-muted font-bold mb-0.5">TOBE</div>
+<div class="flex items-center gap-2">
+<span class="w-28 text-[10px] font-medium text-text-muted text-right shrink-0">旧前提（卒業）:</span>
+<input class="flex-1 min-w-0 text-xs text-text-main bg-white border border-border-light rounded px-2 py-1 focus:border-primary focus:ring-1 focus:ring-primary outline-none" type="text" value="人手不足で回らない"/>
+</div>
+<div class="flex items-center gap-2">
+<span class="w-28 text-[10px] font-medium text-text-muted text-right shrink-0">新前提（当たり前）:</span>
+<input class="flex-1 min-w-0 text-xs text-text-main bg-white border border-border-light rounded px-2 py-1 focus:border-primary focus:ring-1 focus:ring-primary outline-none" type="text" value="自動化で工数が1/10になる"/>
+</div>
+<div class="flex items-center gap-2">
+<span class="w-28 text-[10px] font-medium text-text-muted text-right shrink-0">判断:</span>
+<input class="flex-1 min-w-0 text-xs text-text-main bg-white border border-border-light rounded px-2 py-1 focus:border-primary focus:ring-1 focus:ring-primary outline-none" type="text" value="導入効果が高い"/>
+</div>
+<div class="flex items-center gap-2">
+<span class="w-28 text-[10px] font-medium text-text-muted text-right shrink-0">行動:</span>
+<input class="flex-1 min-w-0 text-xs text-text-main bg-white border border-border-light rounded px-2 py-1 focus:border-primary focus:ring-1 focus:ring-primary outline-none" type="text" value="稟議を上げる"/>
+</div>
+</div>
+</div>
+<div class="bg-surface-subtle rounded-lg p-4 border border-border-light/50 flex flex-col gap-3">
+<div class="flex items-center gap-3">
+<input checked="" type="checkbox"/>
+<span class="text-[10px] font-bold text-text-muted bg-gray-200 px-2 py-0.5 rounded whitespace-nowrap">欲求Top2</span>
+<input class="flex-1 min-w-0 text-sm font-bold text-text-main bg-white border border-border-light rounded px-2 py-1 focus:border-primary focus:ring-1 focus:ring-primary outline-none" type="text" value="ミスを減らしたい"/>
+</div>
+<div class="flex items-center gap-2 pl-8">
+<span class="text-xs text-text-muted whitespace-nowrap">理由 :</span>
+<input class="flex-1 min-w-0 text-xs text-text-main bg-transparent border-b border-border-light py-0.5 focus:border-primary outline-none" type="text" value="品質担保のため"/>
+</div>
+<div class="pl-8 pt-2 flex flex-col gap-1.5">
+<div class="text-[10px] text-text-muted font-bold mb-0.5">TOBE</div>
+<div class="flex items-center gap-2">
+<span class="w-28 text-[10px] font-medium text-text-muted text-right shrink-0">旧前提（卒業）:</span>
+<input class="flex-1 min-w-0 text-xs text-text-main bg-white border border-border-light rounded px-2 py-1 focus:border-primary focus:ring-1 focus:ring-primary outline-none" type="text" value="ヒューマンエラーが起きる"/>
+</div>
+<div class="flex items-center gap-2">
+<span class="w-28 text-[10px] font-medium text-text-muted text-right shrink-0">新前提（当たり前）:</span>
+<input class="flex-1 min-w-0 text-xs text-text-main bg-white border border-border-light rounded px-2 py-1 focus:border-primary focus:ring-1 focus:ring-primary outline-none" type="text" value="システムが正確に処理"/>
+</div>
+<div class="flex items-center gap-2">
+<span class="w-28 text-[10px] font-medium text-text-muted text-right shrink-0">判断:</span>
+<input class="flex-1 min-w-0 text-xs text-text-main bg-white border border-border-light rounded px-2 py-1 focus:border-primary focus:ring-1 focus:ring-primary outline-none" type="text" value="安心できる"/>
+</div>
+<div class="flex items-center gap-2">
+<span class="w-28 text-[10px] font-medium text-text-muted text-right shrink-0">行動:</span>
+<input class="flex-1 min-w-0 text-xs text-text-main bg-white border border-border-light rounded px-2 py-1 focus:border-primary focus:ring-1 focus:ring-primary outline-none" type="text" value="現場に導入"/>
+</div>
+</div>
+</div>
+</div>
+<div class="bg-surface-light rounded-xl shadow-soft border border-border-light p-5 md:p-6 flex flex-col gap-5 transition-shadow hover:shadow-md">
+<div class="flex flex-col gap-2 border-b border-border-light pb-4">
+<div class="flex items-center gap-3">
+<input class="w-12 text-center text-xs font-bold text-white bg-text-main rounded py-1 focus:ring-2 focus:ring-primary outline-none cursor-text" type="text" value="V03"/>
+<input class="w-20 text-xs text-text-muted bg-surface-subtle border border-border-light rounded px-2 py-1 text-center focus:border-primary focus:ring-1 focus:ring-primary outline-none" type="text" value="バイブス"/>
+<input class="flex-1 text-lg font-bold text-text-main bg-transparent border-none p-0 focus:ring-0 placeholder-text-muted/50 truncate" type="text" value="先進的なブランド観"/>
+</div>
+</div>
+<div class="bg-surface-subtle rounded-lg p-4 border border-border-light/50 flex flex-col gap-3">
+<div class="flex items-center gap-3">
+<input checked="" type="checkbox"/>
+<span class="text-[10px] font-bold text-primary bg-primary/10 px-2 py-0.5 rounded whitespace-nowrap">欲求Top1</span>
+<input class="flex-1 min-w-0 text-sm font-bold text-text-main bg-white border border-border-light rounded px-2 py-1 focus:border-primary focus:ring-1 focus:ring-primary outline-none" type="text" value="一目置かれたい"/>
+</div>
+<div class="flex items-center gap-2 pl-8">
+<span class="text-xs text-text-muted whitespace-nowrap">理由 :</span>
+<input class="flex-1 min-w-0 text-xs text-text-main bg-transparent border-b border-border-light py-0.5 focus:border-primary outline-none" type="text" value="承認欲求を満たす"/>
+</div>
+<div class="pl-8 pt-2 flex flex-col gap-1.5">
+<div class="text-[10px] text-text-muted font-bold mb-0.5">TOBE</div>
+<div class="flex items-center gap-2">
+<span class="w-28 text-[10px] font-medium text-text-muted text-right shrink-0">旧前提（卒業）:</span>
+<input class="flex-1 min-w-0 text-xs text-text-main bg-white border border-border-light rounded px-2 py-1 focus:border-primary focus:ring-1 focus:ring-primary outline-none" type="text" value="平凡で埋もれている"/>
+</div>
+<div class="flex items-center gap-2">
+<span class="w-28 text-[10px] font-medium text-text-muted text-right shrink-0">新前提（当たり前）:</span>
+<input class="flex-1 min-w-0 text-xs text-text-main bg-white border border-border-light rounded px-2 py-1 focus:border-primary focus:ring-1 focus:ring-primary outline-none" type="text" value="最先端のツールを使う"/>
+</div>
+<div class="flex items-center gap-2">
+<span class="w-28 text-[10px] font-medium text-text-muted text-right shrink-0">判断:</span>
+<input class="flex-1 min-w-0 text-xs text-text-main bg-white border border-border-light rounded px-2 py-1 focus:border-primary focus:ring-1 focus:ring-primary outline-none" type="text" value="センスが良いと思われる"/>
+</div>
+<div class="flex items-center gap-2">
+<span class="w-28 text-[10px] font-medium text-text-muted text-right shrink-0">行動:</span>
+<input class="flex-1 min-w-0 text-xs text-text-main bg-white border border-border-light rounded px-2 py-1 focus:border-primary focus:ring-1 focus:ring-primary outline-none" type="text" value="シェア・推奨する"/>
+</div>
+</div>
+</div>
+<div class="bg-surface-subtle rounded-lg p-4 border border-border-light/50 flex flex-col gap-3">
+<div class="flex items-center gap-3">
+<input checked="" type="checkbox"/>
+<span class="text-[10px] font-bold text-text-muted bg-gray-200 px-2 py-0.5 rounded whitespace-nowrap">欲求Top2</span>
+<input class="flex-1 min-w-0 text-sm font-bold text-text-main bg-white border border-border-light rounded px-2 py-1 focus:border-primary focus:ring-1 focus:ring-primary outline-none" type="text" value="ワクワクしたい"/>
+</div>
+<div class="flex items-center gap-2 pl-8">
+<span class="text-xs text-text-muted whitespace-nowrap">理由 :</span>
+<input class="flex-1 min-w-0 text-xs text-text-main bg-transparent border-b border-border-light py-0.5 focus:border-primary outline-none" type="text" value="感情的価値の重視"/>
+</div>
+<div class="pl-8 pt-2 flex flex-col gap-1.5">
+<div class="text-[10px] text-text-muted font-bold mb-0.5">TOBE</div>
+<div class="flex items-center gap-2">
+<span class="w-28 text-[10px] font-medium text-text-muted text-right shrink-0">旧前提（卒業）:</span>
+<input class="flex-1 min-w-0 text-xs text-text-main bg-white border border-border-light rounded px-2 py-1 focus:border-primary focus:ring-1 focus:ring-primary outline-none" type="text" value="事務的でつまらない"/>
+</div>
+<div class="flex items-center gap-2">
+<span class="w-28 text-[10px] font-medium text-text-muted text-right shrink-0">新前提（当たり前）:</span>
+<input class="flex-1 min-w-0 text-xs text-text-main bg-white border border-border-light rounded px-2 py-1 focus:border-primary focus:ring-1 focus:ring-primary outline-none" type="text" value="UIが美しく触りたくなる"/>
+</div>
+<div class="flex items-center gap-2">
+<span class="w-28 text-[10px] font-medium text-text-muted text-right shrink-0">判断:</span>
+<input class="flex-1 min-w-0 text-xs text-text-main bg-white border border-border-light rounded px-2 py-1 focus:border-primary focus:ring-1 focus:ring-primary outline-none" type="text" value="仕事が楽しくなる"/>
+</div>
+<div class="flex items-center gap-2">
+<span class="w-28 text-[10px] font-medium text-text-muted text-right shrink-0">行動:</span>
+<input class="flex-1 min-w-0 text-xs text-text-main bg-white border border-border-light rounded px-2 py-1 focus:border-primary focus:ring-1 focus:ring-primary outline-none" type="text" value="毎日ログインする"/>
+</div>
+</div>
+</div>
+</div>
+<div class="bg-surface-light rounded-xl shadow-soft border border-border-light p-5 md:p-6 flex flex-col gap-5 transition-shadow hover:shadow-md">
+<div class="flex flex-col gap-2 border-b border-border-light pb-4">
+<div class="flex items-center gap-3">
+<input class="w-12 text-center text-xs font-bold text-white bg-text-main rounded py-1 focus:ring-2 focus:ring-primary outline-none cursor-text" type="text" value="V04"/>
+<input class="w-20 text-xs text-text-muted bg-surface-subtle border border-border-light rounded px-2 py-1 text-center focus:border-primary focus:ring-1 focus:ring-primary outline-none" type="text" value="人"/>
+<input class="flex-1 text-lg font-bold text-text-main bg-transparent border-none p-0 focus:ring-0 placeholder-text-muted/50 truncate" type="text" value="手厚い伴走サポート"/>
+</div>
+</div>
+<div class="bg-surface-subtle rounded-lg p-4 border border-border-light/50 flex flex-col gap-3">
+<div class="flex items-center gap-3">
+<input checked="" type="checkbox"/>
+<span class="text-[10px] font-bold text-primary bg-primary/10 px-2 py-0.5 rounded whitespace-nowrap">欲求Top1</span>
+<input class="flex-1 min-w-0 text-sm font-bold text-text-main bg-white border border-border-light rounded px-2 py-1 focus:border-primary focus:ring-1 focus:ring-primary outline-none" type="text" value="孤独を解消したい"/>
+</div>
+<div class="flex items-center gap-2 pl-8">
+<span class="text-xs text-text-muted whitespace-nowrap">理由 :</span>
+<input class="flex-1 min-w-0 text-xs text-text-main bg-transparent border-b border-border-light py-0.5 focus:border-primary outline-none" type="text" value="担当者の不安解消"/>
+</div>
+<div class="pl-8 pt-2 flex flex-col gap-1.5">
+<div class="text-[10px] text-text-muted font-bold mb-0.5">TOBE</div>
+<div class="flex items-center gap-2">
+<span class="w-28 text-[10px] font-medium text-text-muted text-right shrink-0">旧前提（卒業）:</span>
+<input class="flex-1 min-w-0 text-xs text-text-main bg-white border border-border-light rounded px-2 py-1 focus:border-primary focus:ring-1 focus:ring-primary outline-none" type="text" value="誰も助けてくれない"/>
+</div>
+<div class="flex items-center gap-2">
+<span class="w-28 text-[10px] font-medium text-text-muted text-right shrink-0">新前提（当たり前）:</span>
+<input class="flex-1 min-w-0 text-xs text-text-main bg-white border border-border-light rounded px-2 py-1 focus:border-primary focus:ring-1 focus:ring-primary outline-none" type="text" value="専任担当が常に相談に乗る"/>
+</div>
+<div class="flex items-center gap-2">
+<span class="w-28 text-[10px] font-medium text-text-muted text-right shrink-0">判断:</span>
+<input class="flex-1 min-w-0 text-xs text-text-main bg-white border border-border-light rounded px-2 py-1 focus:border-primary focus:ring-1 focus:ring-primary outline-none" type="text" value="心強い味方がいる"/>
+</div>
+<div class="flex items-center gap-2">
+<span class="w-28 text-[10px] font-medium text-text-muted text-right shrink-0">行動:</span>
+<input class="flex-1 min-w-0 text-xs text-text-main bg-white border border-border-light rounded px-2 py-1 focus:border-primary focus:ring-1 focus:ring-primary outline-none" type="text" value="プロジェクトを推進"/>
+</div>
+</div>
+</div>
+<div class="bg-surface-subtle rounded-lg p-4 border border-border-light/50 flex flex-col gap-3">
+<div class="flex items-center gap-3">
+<input checked="" type="checkbox"/>
+<span class="text-[10px] font-bold text-text-muted bg-gray-200 px-2 py-0.5 rounded whitespace-nowrap">欲求Top2</span>
+<input class="flex-1 min-w-0 text-sm font-bold text-text-main bg-white border border-border-light rounded px-2 py-1 focus:border-primary focus:ring-1 focus:ring-primary outline-none" type="text" value="責任を回避したい"/>
+</div>
+<div class="flex items-center gap-2 pl-8">
+<span class="text-xs text-text-muted whitespace-nowrap">理由 :</span>
+<input class="flex-1 min-w-0 text-xs text-text-main bg-transparent border-b border-border-light py-0.5 focus:border-primary outline-none" type="text" value="リスクヘッジのため"/>
+</div>
+<div class="pl-8 pt-2 flex flex-col gap-1.5">
+<div class="text-[10px] text-text-muted font-bold mb-0.5">TOBE</div>
+<div class="flex items-center gap-2">
+<span class="w-28 text-[10px] font-medium text-text-muted text-right shrink-0">旧前提（卒業）:</span>
+<input class="flex-1 min-w-0 text-xs text-text-main bg-white border border-border-light rounded px-2 py-1 focus:border-primary focus:ring-1 focus:ring-primary outline-none" type="text" value="失敗したら自分の責任"/>
+</div>
+<div class="flex items-center gap-2">
+<span class="w-28 text-[10px] font-medium text-text-muted text-right shrink-0">新前提（当たり前）:</span>
+<input class="flex-1 min-w-0 text-xs text-text-main bg-white border border-border-light rounded px-2 py-1 focus:border-primary focus:ring-1 focus:ring-primary outline-none" type="text" value="プロの監修がある"/>
+</div>
+<div class="flex items-center gap-2">
+<span class="w-28 text-[10px] font-medium text-text-muted text-right shrink-0">判断:</span>
+<input class="flex-1 min-w-0 text-xs text-text-main bg-white border border-border-light rounded px-2 py-1 focus:border-primary focus:ring-1 focus:ring-primary outline-none" type="text" value="安全策が取れる"/>
+</div>
+<div class="flex items-center gap-2">
+<span class="w-28 text-[10px] font-medium text-text-muted text-right shrink-0">行動:</span>
+<input class="flex-1 min-w-0 text-xs text-text-main bg-white border border-border-light rounded px-2 py-1 focus:border-primary focus:ring-1 focus:ring-primary outline-none" type="text" value="契約を継続"/>
+</div>
+</div>
+</div>
+</div>
+<div class="bg-surface-light rounded-xl shadow-soft border border-border-light p-5 md:p-6 flex flex-col gap-5 transition-shadow hover:shadow-md">
+<div class="flex flex-col gap-2 border-b border-border-light pb-4">
+<div class="flex items-center gap-3">
+<input class="w-12 text-center text-xs font-bold text-white bg-text-main rounded py-1 focus:ring-2 focus:ring-primary outline-none cursor-text" type="text" value="V05"/>
+<input class="w-20 text-xs text-text-muted bg-surface-subtle border border-border-light rounded px-2 py-1 text-center focus:border-primary focus:ring-1 focus:ring-primary outline-none" type="text" value="情報"/>
+<input class="flex-1 text-lg font-bold text-text-main bg-transparent border-none p-0 focus:ring-0 placeholder-text-muted/50 truncate" type="text" value="成功事例の網羅性"/>
+</div>
+</div>
+<div class="bg-surface-subtle rounded-lg p-4 border border-border-light/50 flex flex-col gap-3">
+<div class="flex items-center gap-3">
+<input checked="" type="checkbox"/>
+<span class="text-[10px] font-bold text-primary bg-primary/10 px-2 py-0.5 rounded whitespace-nowrap">欲求Top1</span>
+<input class="flex-1 min-w-0 text-sm font-bold text-text-main bg-white border border-border-light rounded px-2 py-1 focus:border-primary focus:ring-1 focus:ring-primary outline-none" type="text" value="再現性が欲しい"/>
+</div>
+<div class="flex items-center gap-2 pl-8">
+<span class="text-xs text-text-muted whitespace-nowrap">理由 :</span>
+<input class="flex-1 min-w-0 text-xs text-text-main bg-transparent border-b border-border-light py-0.5 focus:border-primary outline-none" type="text" value="確実性の確保"/>
+</div>
+<div class="pl-8 pt-2 flex flex-col gap-1.5">
+<div class="text-[10px] text-text-muted font-bold mb-0.5">TOBE</div>
+<div class="flex items-center gap-2">
+<span class="w-28 text-[10px] font-medium text-text-muted text-right shrink-0">旧前提（卒業）:</span>
+<input class="flex-1 min-w-0 text-xs text-text-main bg-white border border-border-light rounded px-2 py-1 focus:border-primary focus:ring-1 focus:ring-primary outline-none" type="text" value="自社に合うか不明"/>
+</div>
+<div class="flex items-center gap-2">
+<span class="w-28 text-[10px] font-medium text-text-muted text-right shrink-0">新前提（当たり前）:</span>
+<input class="flex-1 min-w-0 text-xs text-text-main bg-white border border-border-light rounded px-2 py-1 focus:border-primary focus:ring-1 focus:ring-primary outline-none" type="text" value="類似業界の成功パターンがある"/>
+</div>
+<div class="flex items-center gap-2">
+<span class="w-28 text-[10px] font-medium text-text-muted text-right shrink-0">判断:</span>
+<input class="flex-1 min-w-0 text-xs text-text-main bg-white border border-border-light rounded px-2 py-1 focus:border-primary focus:ring-1 focus:ring-primary outline-none" type="text" value="自社でもできる"/>
+</div>
+<div class="flex items-center gap-2">
+<span class="w-28 text-[10px] font-medium text-text-muted text-right shrink-0">行動:</span>
+<input class="flex-1 min-w-0 text-xs text-text-main bg-white border border-border-light rounded px-2 py-1 focus:border-primary focus:ring-1 focus:ring-primary outline-none" type="text" value="ノウハウを実践"/>
+</div>
+</div>
+</div>
+<div class="bg-surface-subtle rounded-lg p-4 border border-border-light/50 flex flex-col gap-3">
+<div class="flex items-center gap-3">
+<input checked="" type="checkbox"/>
+<span class="text-[10px] font-bold text-text-muted bg-gray-200 px-2 py-0.5 rounded whitespace-nowrap">欲求Top2</span>
+<input class="flex-1 min-w-0 text-sm font-bold text-text-main bg-white border border-border-light rounded px-2 py-1 focus:border-primary focus:ring-1 focus:ring-primary outline-none" type="text" value="社内を説得したい"/>
+</div>
+<div class="flex items-center gap-2 pl-8">
+<span class="text-xs text-text-muted whitespace-nowrap">理由 :</span>
+<input class="flex-1 min-w-0 text-xs text-text-main bg-transparent border-b border-border-light py-0.5 focus:border-primary outline-none" type="text" value="合意形成のため"/>
+</div>
+<div class="pl-8 pt-2 flex flex-col gap-1.5">
+<div class="text-[10px] text-text-muted font-bold mb-0.5">TOBE</div>
+<div class="flex items-center gap-2">
+<span class="w-28 text-[10px] font-medium text-text-muted text-right shrink-0">旧前提（卒業）:</span>
+<input class="flex-1 min-w-0 text-xs text-text-main bg-white border border-border-light rounded px-2 py-1 focus:border-primary focus:ring-1 focus:ring-primary outline-none" type="text" value="感覚値では通じない"/>
+</div>
+<div class="flex items-center gap-2">
+<span class="w-28 text-[10px] font-medium text-text-muted text-right shrink-0">新前提（当たり前）:</span>
+<input class="flex-1 min-w-0 text-xs text-text-main bg-white border border-border-light rounded px-2 py-1 focus:border-primary focus:ring-1 focus:ring-primary outline-none" type="text" value="定量的な実績データがある"/>
+</div>
+<div class="flex items-center gap-2">
+<span class="w-28 text-[10px] font-medium text-text-muted text-right shrink-0">判断:</span>
+<input class="flex-1 min-w-0 text-xs text-text-main bg-white border border-border-light rounded px-2 py-1 focus:border-primary focus:ring-1 focus:ring-primary outline-none" type="text" value="論理的に説明できる"/>
+</div>
+<div class="flex items-center gap-2">
+<span class="w-28 text-[10px] font-medium text-text-muted text-right shrink-0">行動:</span>
+<input class="flex-1 min-w-0 text-xs text-text-main bg-white border border-border-light rounded px-2 py-1 focus:border-primary focus:ring-1 focus:ring-primary outline-none" type="text" value="会議で提案"/>
+</div>
+</div>
+</div>
+</div>
+<div class="bg-surface-light rounded-xl shadow-soft border border-border-light p-5 md:p-6 flex flex-col gap-5 transition-shadow hover:shadow-md">
+<div class="flex flex-col gap-2 border-b border-border-light pb-4">
+<div class="flex items-center gap-3">
+<input class="w-12 text-center text-xs font-bold text-white bg-text-main rounded py-1 focus:ring-2 focus:ring-primary outline-none cursor-text" type="text" value="V06"/>
+<input class="w-20 text-xs text-text-muted bg-surface-subtle border border-border-light rounded px-2 py-1 text-center focus:border-primary focus:ring-1 focus:ring-primary outline-none" type="text" value="モノ"/>
+<input class="flex-1 text-lg font-bold text-text-main bg-transparent border-none p-0 focus:ring-0 placeholder-text-muted/50 truncate" type="text" value="柔軟なカスタマイズ"/>
+</div>
+</div>
+<div class="bg-surface-subtle rounded-lg p-4 border border-border-light/50 flex flex-col gap-3">
+<div class="flex items-center gap-3">
+<input checked="" type="checkbox"/>
+<span class="text-[10px] font-bold text-primary bg-primary/10 px-2 py-0.5 rounded whitespace-nowrap">欲求Top1</span>
+<input class="flex-1 min-w-0 text-sm font-bold text-text-main bg-white border border-border-light rounded px-2 py-1 focus:border-primary focus:ring-1 focus:ring-primary outline-none" type="text" value="自社仕様に合わせたい"/>
+</div>
+<div class="flex items-center gap-2 pl-8">
+<span class="text-xs text-text-muted whitespace-nowrap">理由 :</span>
+<input class="flex-1 min-w-0 text-xs text-text-main bg-transparent border-b border-border-light py-0.5 focus:border-primary outline-none" type="text" value="独自性の確保"/>
+</div>
+<div class="pl-8 pt-2 flex flex-col gap-1.5">
+<div class="text-[10px] text-text-muted font-bold mb-0.5">TOBE</div>
+<div class="flex items-center gap-2">
+<span class="w-28 text-[10px] font-medium text-text-muted text-right shrink-0">旧前提（卒業）:</span>
+<input class="flex-1 min-w-0 text-xs text-text-main bg-white border border-border-light rounded px-2 py-1 focus:border-primary focus:ring-1 focus:ring-primary outline-none" type="text" value="パッケージは使いにくい"/>
+</div>
+<div class="flex items-center gap-2">
+<span class="w-28 text-[10px] font-medium text-text-muted text-right shrink-0">新前提（当たり前）:</span>
+<input class="flex-1 min-w-0 text-xs text-text-main bg-white border border-border-light rounded px-2 py-1 focus:border-primary focus:ring-1 focus:ring-primary outline-none" type="text" value="必要な機能だけ選べる"/>
+</div>
+<div class="flex items-center gap-2">
+<span class="w-28 text-[10px] font-medium text-text-muted text-right shrink-0">判断:</span>
+<input class="flex-1 min-w-0 text-xs text-text-main bg-white border border-border-light rounded px-2 py-1 focus:border-primary focus:ring-1 focus:ring-primary outline-none" type="text" value="無駄がない"/>
+</div>
+<div class="flex items-center gap-2">
+<span class="w-28 text-[10px] font-medium text-text-muted text-right shrink-0">行動:</span>
+<input class="flex-1 min-w-0 text-xs text-text-main bg-white border border-border-light rounded px-2 py-1 focus:border-primary focus:ring-1 focus:ring-primary outline-none" type="text" value="仕様策定に入る"/>
+</div>
+</div>
+</div>
+<div class="bg-surface-subtle rounded-lg p-4 border border-border-light/50 flex flex-col gap-3">
+<div class="flex items-center gap-3">
+<input checked="" type="checkbox"/>
+<span class="text-[10px] font-bold text-text-muted bg-gray-200 px-2 py-0.5 rounded whitespace-nowrap">欲求Top2</span>
+<input class="flex-1 min-w-0 text-sm font-bold text-text-main bg-white border border-border-light rounded px-2 py-1 focus:border-primary focus:ring-1 focus:ring-primary outline-none" type="text" value="スモールスタートしたい"/>
+</div>
+<div class="flex items-center gap-2 pl-8">
+<span class="text-xs text-text-muted whitespace-nowrap">理由 :</span>
+<input class="flex-1 min-w-0 text-xs text-text-main bg-transparent border-b border-border-light py-0.5 focus:border-primary outline-none" type="text" value="慎重な判断"/>
+</div>
+<div class="pl-8 pt-2 flex flex-col gap-1.5">
+<div class="text-[10px] text-text-muted font-bold mb-0.5">TOBE</div>
+<div class="flex items-center gap-2">
+<span class="w-28 text-[10px] font-medium text-text-muted text-right shrink-0">旧前提（卒業）:</span>
+<input class="flex-1 min-w-0 text-xs text-text-main bg-white border border-border-light rounded px-2 py-1 focus:border-primary focus:ring-1 focus:ring-primary outline-none" type="text" value="初期投資が高すぎる"/>
+</div>
+<div class="flex items-center gap-2">
+<span class="w-28 text-[10px] font-medium text-text-muted text-right shrink-0">新前提（当たり前）:</span>
+<input class="flex-1 min-w-0 text-xs text-text-main bg-white border border-border-light rounded px-2 py-1 focus:border-primary focus:ring-1 focus:ring-primary outline-none" type="text" value="最低限から始められる"/>
+</div>
+<div class="flex items-center gap-2">
+<span class="w-28 text-[10px] font-medium text-text-muted text-right shrink-0">判断:</span>
+<input class="flex-1 min-w-0 text-xs text-text-main bg-white border border-border-light rounded px-2 py-1 focus:border-primary focus:ring-1 focus:ring-primary outline-none" type="text" value="リスクが低い"/>
+</div>
+<div class="flex items-center gap-2">
+<span class="w-28 text-[10px] font-medium text-text-muted text-right shrink-0">行動:</span>
+<input class="flex-1 min-w-0 text-xs text-text-main bg-white border border-border-light rounded px-2 py-1 focus:border-primary focus:ring-1 focus:ring-primary outline-none" type="text" value="無料トライアル開始"/>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="flex flex-col-reverse sm:flex-row items-center justify-end gap-4 mt-8 w-full pt-6 md:px-6 border-t border-border-light/50">
+<div class="flex-1"></div>
+<button class="px-6 py-3 rounded-lg text-sm font-bold text-text-muted hover:text-text-main hover:bg-slate-100 transition-all flex items-center justify-center">
+            戻る
+        </button>
+<button class="w-full sm:w-auto px-10 py-3 rounded-lg text-sm font-bold text-white bg-primary hover:bg-primary-hover transition-all shadow-lg shadow-primary/20 flex items-center justify-center gap-2 group disabled:opacity-50 disabled:cursor-not-allowed">
+<span>次へ進む</span>
+<span class="material-symbols-outlined text-[18px] group-hover:translate-x-1 transition-transform">arrow_forward</span>
+</button>
+</div>
+</div>
+</main>
+
+</body></html>

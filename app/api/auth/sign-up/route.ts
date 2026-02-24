@@ -1,0 +1,69 @@
+import callAppV2Api from "@/config/axios/axiosAppV2";
+import { prisma } from "@/config/prisma/prisma";
+import { createClient } from "@/lib/supabase/server";
+import { NextRequest, NextResponse } from "next/server";
+
+export async function POST(request: NextRequest) {
+  try {
+    const { email, password, name } = await request.json();
+
+    if (!email || !password) {
+      return NextResponse.json(
+        { error: "Email and password are required" },
+        { status: 400 },
+      );
+    }
+
+    if (password.length < 8) {
+      return NextResponse.json(
+        { error: "Password must be at least 8 characters long" },
+        { status: 400 },
+      );
+    }
+
+    const supabase = await createClient();
+
+    const { data, error } = await supabase.auth.signUp({
+      email,
+      password,
+      options: {
+        data: {
+          full_name: name,
+        },
+      },
+    });
+
+    if (error) {
+      return NextResponse.json({ error: error.message }, { status: 400 });
+    }
+
+    const userInDb = await prisma.user.upsert({
+      where: { userId: data.user?.id! },
+      update: {},
+      create: {
+        email: data.user?.email!,
+        name: name,
+        userId: data.user?.id!,
+      },
+    });
+
+    const response = await callAppV2Api.get("/v1/google-ads/oauth-url", {
+      headers: {
+        "X-User-id": userInDb.id,
+      },
+    });
+
+    return NextResponse.json(
+      {
+        ...response.data,
+      },
+      { status: 200 },
+    );
+  } catch (error) {
+    console.error("Sign up error:", error);
+    return NextResponse.json(
+      { error: "An error occurred during sign up" },
+      { status: 500 },
+    );
+  }
+}

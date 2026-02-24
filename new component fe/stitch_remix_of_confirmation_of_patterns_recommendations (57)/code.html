@@ -1,0 +1,1004 @@
+<html lang="ja"><head>
+<meta charset="utf-8"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700;900&amp;display=swap" rel="stylesheet"/>
+<style type="text/tailwindcss">
+        @layer utilities {
+            .scrollbar-hide::-webkit-scrollbar {
+                display: none;
+            }
+            .scrollbar-hide {
+                -ms-overflow-style: none;
+                scrollbar-width: none;
+            }
+            .gs-textarea {
+                @apply w-full h-full py-2 px-3 text-xs bg-transparent border-none focus:ring-0 focus:outline-none resize-none leading-relaxed transition-all text-text-main;
+            }
+            .gs-cell {
+                @apply border-b border-r border-border-strong relative p-0 transition-colors bg-white hover:bg-slate-50;
+            }
+            .gs-header {
+                @apply border-b border-r border-border-strong text-left text-xs font-bold text-text-main bg-header-bg px-2 py-3 select-none whitespace-nowrap sticky top-0 z-50 shadow-sm;
+            }
+            .cell-content-wrapper {
+                @apply flex h-full w-full relative;
+            }
+            .cell-image-container {
+                @apply w-full h-full p-2 flex flex-col items-center justify-center relative;
+            }
+            .mini-image-slot {
+                @apply w-full h-20 rounded border border-dashed border-gray-400 bg-slate-50 hover:border-primary hover:bg-blue-50/50 flex items-center justify-center cursor-pointer transition-all text-gray-400 hover:text-primary relative overflow-hidden;
+            }
+            .mini-image-slot.has-image {
+                @apply border-gray-300 border-solid bg-white p-0.5;
+            }
+        }
+    </style>
+<script id="tailwind-config">
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: "#0093b4",
+                        "primary-hover": "#007a92",
+                        "background-light": "#ffffff",
+                        "surface-light": "#ffffff",
+                        "surface-subtle": "#f8fafc",
+                        "header-bg": "#e2e8f0",
+                        "border-light": "#cbd5e1", 
+                        "border-strong": "#64748b","text-main": "#0f172a",
+                        "text-muted": "#475569",
+                        "accent-soft": "#e0f2f7"
+                    },
+                    fontFamily: {
+                        sans: ["Noto Sans JP", "sans-serif"]
+                    },
+                    boxShadow: {
+                        soft: "0 2px 8px -2px rgba(0, 0, 0, 0.05), 0 1px 4px -1px rgba(0, 0, 0, 0.02)",
+                        sticky: "0 1px 0 0 #64748b"}
+                }
+            }
+        };
+    </script>
+</head>
+<body class="bg-surface-subtle text-text-main font-sans min-h-screen flex flex-col">
+<main class="flex-1 w-full max-w-[1800px] mx-auto p-6 flex flex-col items-start gap-6 pb-20">
+<div class="w-full flex items-center justify-between mb-2">
+<div>
+<h1 class="text-2xl font-bold text-text-main flex items-center gap-2">
+<span class="material-symbols-outlined text-primary text-3xl">grid_on</span>
+                    コピー作成（Hookテスト用）
+                </h1>
+</div>
+<div class="flex items-center gap-2">
+<div class="flex items-center bg-white rounded-lg border border-border-strong px-2 py-1 shadow-sm gap-1 h-[54px]">
+<div class="flex items-center px-4 py-1 border-r border-slate-100/50">
+<div class="flex flex-col items-end mr-3">
+<span class="text-[10px] font-bold text-text-muted leading-tight whitespace-nowrap">画像<br/>パターン数</span>
+</div>
+<span class="text-2xl font-bold text-text-main font-mono tracking-tight">20</span>
+</div>
+<div class="flex items-center px-4 py-1 border-r border-slate-100/50">
+<div class="flex flex-col items-end mr-3">
+<span class="text-[10px] font-bold text-text-muted leading-tight whitespace-nowrap">テキスト<br/>パターン数</span>
+</div>
+<span class="text-2xl font-bold text-text-main font-mono tracking-tight">20</span>
+</div>
+<div class="flex items-center px-6 py-1 bg-accent-soft/30 rounded-md ml-1">
+<div class="flex flex-col items-end mr-3">
+<span class="text-[10px] font-bold text-primary leading-tight whitespace-nowrap">合計<br/>パターン数</span>
+</div>
+<span class="text-3xl font-black text-primary font-mono tracking-tight">20</span>
+</div>
+</div>
+<div class="flex flex-col justify-center bg-white rounded-lg border border-border-strong px-4 py-1 shadow-sm h-[54px]">
+<span class="text-[10px] font-bold text-text-muted leading-tight mb-0.5">1ヶ月運用期間の予算の参考表</span>
+<div class="flex items-center gap-3 text-xs font-medium text-text-main">
+<div class="flex items-baseline gap-1">
+<span class="text-[10px] text-text-muted">５本の場合 ＝</span>
+<span class="font-mono text-text-main">¥100,000 / 月</span>
+</div>
+<div class="w-px h-3 bg-slate-200"></div>
+<div class="flex items-baseline gap-1">
+<span class="text-[10px] text-text-muted">１０本の場合 ＝</span>
+<span class="font-mono text-text-main">¥200,000 / 月</span>
+</div>
+<div class="w-px h-3 bg-slate-200"></div>
+<div class="flex items-baseline gap-1">
+<span class="text-[10px] text-text-muted">２０本の場合 ＝</span>
+<span class="font-mono text-text-main">¥400,000 / 月</span>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="w-full bg-white rounded-lg border border-border-strong shadow-soft overflow-auto relative h-[calc(100vh-180px)] isolate">
+<table class="w-full min-w-[1600px] border-collapse text-sm table-fixed">
+<thead class="z-50">
+<tr class="h-[40px]">
+<th class="gs-header w-[10%] border-l-0 shadow-[1px_1px_0_0_#64748b]">Hook (画像)</th>
+<th class="gs-header w-[18%] shadow-[1px_1px_0_0_#64748b]">Hook (メッセージ)</th>
+<th class="gs-header w-[10%] shadow-[1px_1px_0_0_#64748b]">Body1 (画像)</th>
+<th class="gs-header w-[18%] shadow-[1px_1px_0_0_#64748b]">Body1 (メッセージ)</th>
+<th class="gs-header w-[10%] shadow-[1px_1px_0_0_#64748b]">Body2 (画像)</th>
+<th class="gs-header w-[18%] shadow-[1px_1px_0_0_#64748b]">Body2 (メッセージ)</th>
+<th class="gs-header w-[16%] border-r-0 shadow-[1px_1px_0_0_#64748b]">CTA (メッセージ)</th>
+</tr>
+</thead>
+<tbody class="text-text-main">
+<tr class="group">
+<td class="gs-cell border-l-0">
+<div class="cell-image-container">
+<div class="mini-image-slot has-image group/img">
+<img alt="Selected" class="w-full h-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAW9HnYOP1ZfD6GpB7A5iBYvYWr61_5P1VDkC7OwdOXbHq15-wgtrHERQc9n-h7smUGRcYJowbDnUaDJcLVKz4pRshQFebXeQWSqgvj0zKUF5eCmkiVoKsfF1kvz6WRnMNJYEcxxdNHga1PZCnxx-COTeMAqUw9blNYEIF5La6s5H89VDwXmwmP4ceezwh_brmP6pKFZyAcHhGQz1FL3Okjx22ChHqAumf24E5KPY93cBF5gKxtvzv13mD55dt5cR_Gnd0ik0XGLYuC"/>
+<div class="absolute inset-0 bg-black/0 group-hover/img:bg-black/10 transition-colors"></div>
+</div>
+</div>
+</td>
+<td class="gs-cell h-24 align-top">
+<div class="cell-content-wrapper">
+<textarea class="gs-textarea">30代男性の悩み、これ1本で解決？驚きのスカルプケア</textarea>
+</div>
+</td>
+<td class="gs-cell">
+<div class="cell-image-container">
+<div class="mini-image-slot group/img">
+<span class="material-symbols-outlined text-2xl group-hover/img:scale-110 transition-transform">add_photo_alternate</span>
+</div>
+</div>
+</td>
+<td class="gs-cell h-24 align-top">
+<div class="cell-content-wrapper">
+<textarea class="gs-textarea">専門家監修の独自成分で、あなたの頭皮環境を根本から改善。毎日がサロン帰りの心地よさに。</textarea>
+</div>
+</td>
+<td class="gs-cell">
+<div class="cell-image-container">
+<div class="mini-image-slot group/img">
+<span class="material-symbols-outlined text-2xl group-hover/img:scale-110 transition-transform">add_photo_alternate</span>
+</div>
+</div>
+</td>
+<td class="gs-cell h-24 align-top">
+<div class="cell-content-wrapper">
+<textarea class="gs-textarea">利用者の90%が満足！「抜け毛が減った」「フケが気にならない」と実感の声多数。今なら初回限定価格。</textarea>
+</div>
+</td>
+<td class="gs-cell h-24 align-top border-r-0">
+<div class="cell-content-wrapper">
+<textarea class="gs-textarea">今すぐチェック</textarea>
+</div>
+</td>
+</tr>
+<tr class="group">
+<td class="gs-cell border-l-0">
+<div class="cell-image-container">
+<div class="mini-image-slot group/img">
+<span class="material-symbols-outlined text-2xl group-hover/img:scale-110 transition-transform">add_photo_alternate</span>
+</div>
+</div>
+</td>
+<td class="gs-cell h-24 align-top">
+<div class="cell-content-wrapper">
+<textarea class="gs-textarea">「えっ、まだ高いシャンプー使ってるの？」賢い男の選択</textarea>
+</div>
+</td>
+<td class="gs-cell">
+<div class="cell-image-container">
+<div class="mini-image-slot group/img">
+<span class="material-symbols-outlined text-2xl group-hover/img:scale-110 transition-transform">add_photo_alternate</span>
+</div>
+</div>
+</td>
+<td class="gs-cell h-24 align-top">
+<div class="cell-content-wrapper">
+<textarea class="gs-textarea">厳選されたオーガニック成分が毛穴の奥まで浸透。眠っていた頭皮の力を呼び覚まします。</textarea>
+</div>
+</td>
+<td class="gs-cell">
+<div class="cell-image-container">
+<div class="mini-image-slot group/img">
+<span class="material-symbols-outlined text-2xl group-hover/img:scale-110 transition-transform">add_photo_alternate</span>
+</div>
+</div>
+</td>
+<td class="gs-cell h-24 align-top">
+<div class="cell-content-wrapper">
+<textarea class="gs-textarea">累計販売数100万本突破！多くの男性に選ばれ続ける実力派。30日間の全額返金保証付きで安心。</textarea>
+</div>
+</td>
+<td class="gs-cell h-24 align-top border-r-0">
+<div class="cell-content-wrapper">
+<textarea class="gs-textarea">詳細を見る</textarea>
+</div>
+</td>
+</tr>
+<tr class="group">
+<td class="gs-cell border-l-0">
+<div class="cell-image-container">
+<div class="mini-image-slot group/img">
+<span class="material-symbols-outlined text-2xl group-hover/img:scale-110 transition-transform">add_photo_alternate</span>
+</div>
+</div>
+</td>
+<td class="gs-cell h-24 align-top">
+<div class="cell-content-wrapper">
+<textarea class="gs-textarea">美容師がこっそり教える、自宅でできる頭皮改革</textarea>
+</div>
+</td>
+<td class="gs-cell">
+<div class="cell-image-container">
+<div class="mini-image-slot group/img">
+<span class="material-symbols-outlined text-2xl group-hover/img:scale-110 transition-transform">add_photo_alternate</span>
+</div>
+</div>
+</td>
+<td class="gs-cell h-24 align-top">
+<div class="cell-content-wrapper">
+<textarea class="gs-textarea">独自のマイクロバブル処方で、こびりついた皮脂汚れをごっそり洗浄。驚きの爽快感を実現。</textarea>
+</div>
+</td>
+<td class="gs-cell">
+<div class="cell-image-container">
+<div class="mini-image-slot group/img">
+<span class="material-symbols-outlined text-2xl group-hover/img:scale-110 transition-transform">add_photo_alternate</span>
+</div>
+</div>
+</td>
+<td class="gs-cell h-24 align-top">
+<div class="cell-content-wrapper">
+<textarea class="gs-textarea">「もっと早く使えばよかった」リピート率95%が証明する信頼の品質。まずは2週間お試しください。</textarea>
+</div>
+</td>
+<td class="gs-cell h-24 align-top border-r-0">
+<div class="cell-content-wrapper">
+<textarea class="gs-textarea">公式サイトへ</textarea>
+</div>
+</td>
+</tr>
+<tr class="group">
+<td class="gs-cell border-l-0">
+<div class="cell-image-container">
+<div class="mini-image-slot group/img">
+<span class="material-symbols-outlined text-2xl group-hover/img:scale-110 transition-transform">add_photo_alternate</span>
+</div>
+</div>
+</td>
+<td class="gs-cell h-24 align-top">
+<div class="cell-content-wrapper">
+<textarea class="gs-textarea">毎朝のセットが決まらない...その原因、実はシャンプーかも</textarea>
+</div>
+</td>
+<td class="gs-cell">
+<div class="cell-image-container">
+<div class="mini-image-slot group/img">
+<span class="material-symbols-outlined text-2xl group-hover/img:scale-110 transition-transform">add_photo_alternate</span>
+</div>
+</div>
+</td>
+<td class="gs-cell h-24 align-top">
+<div class="cell-content-wrapper">
+<textarea class="gs-textarea">髪のハリ・コシ不足にアプローチ。使うたびに太く強い髪へ導く、次世代スカルプケア。</textarea>
+</div>
+</td>
+<td class="gs-cell">
+<div class="cell-image-container">
+<div class="mini-image-slot group/img">
+<span class="material-symbols-outlined text-2xl group-hover/img:scale-110 transition-transform">add_photo_alternate</span>
+</div>
+</div>
+</td>
+<td class="gs-cell h-24 align-top">
+<div class="cell-content-wrapper">
+<textarea class="gs-textarea">雑誌やSNSで話題沸騰中！美容家も絶賛するクオリティを、WEB限定の特別オファーでお届け。</textarea>
+</div>
+</td>
+<td class="gs-cell h-24 align-top border-r-0">
+<div class="cell-content-wrapper">
+<textarea class="gs-textarea">お得に購入する</textarea>
+</div>
+</td>
+</tr>
+<tr class="group">
+<td class="gs-cell border-l-0">
+<div class="cell-image-container">
+<div class="mini-image-slot group/img">
+<span class="material-symbols-outlined text-2xl group-hover/img:scale-110 transition-transform">add_photo_alternate</span>
+</div>
+</div>
+</td>
+<td class="gs-cell h-24 align-top">
+<div class="cell-content-wrapper">
+<textarea class="gs-textarea">【衝撃】9割の人が間違っている頭皮ケアの常識</textarea>
+</div>
+</td>
+<td class="gs-cell">
+<div class="cell-image-container">
+<div class="mini-image-slot group/img">
+<span class="material-symbols-outlined text-2xl group-hover/img:scale-110 transition-transform">add_photo_alternate</span>
+</div>
+</div>
+</td>
+<td class="gs-cell h-24 align-top">
+<div class="cell-content-wrapper">
+<textarea class="gs-textarea">頭皮の乾燥・べたつきトラブルを一本でケア。pHバランスを整え、健やかな育毛環境へ。</textarea>
+</div>
+</td>
+<td class="gs-cell">
+<div class="cell-image-container">
+<div class="mini-image-slot group/img">
+<span class="material-symbols-outlined text-2xl group-hover/img:scale-110 transition-transform">add_photo_alternate</span>
+</div>
+</div>
+</td>
+<td class="gs-cell h-24 align-top">
+<div class="cell-content-wrapper">
+<textarea class="gs-textarea">【期間限定】定期コース申し込みで初回50%OFF！さらに特製スカルプブラシをプレゼント。</textarea>
+</div>
+</td>
+<td class="gs-cell h-24 align-top border-r-0">
+<div class="cell-content-wrapper">
+<textarea class="gs-textarea">初回半額で試す</textarea>
+</div>
+</td>
+</tr>
+<tr class="group">
+<td class="gs-cell border-l-0">
+<div class="cell-image-container">
+<div class="mini-image-slot group/img">
+<span class="material-symbols-outlined text-2xl">add_photo_alternate</span>
+</div>
+</div>
+</td>
+<td class="gs-cell h-24 align-top">
+<div class="cell-content-wrapper">
+<textarea class="gs-textarea">妻に「最近かっこよくなった？」と言われた秘密とは</textarea>
+</div>
+</td>
+<td class="gs-cell">
+<div class="cell-image-container">
+<div class="mini-image-slot group/img">
+<span class="material-symbols-outlined text-2xl">add_photo_alternate</span>
+</div>
+</div>
+</td>
+<td class="gs-cell h-24 align-top">
+<div class="cell-content-wrapper">
+<textarea class="gs-textarea">3種の有効成分が発毛を促進。薄毛の悩みに終止符を打つ、確かな実感をあなたに。</textarea>
+</div>
+</td>
+<td class="gs-cell">
+<div class="cell-image-container">
+<div class="mini-image-slot group/img">
+<span class="material-symbols-outlined text-2xl">add_photo_alternate</span>
+</div>
+</div>
+</td>
+<td class="gs-cell h-24 align-top">
+<div class="cell-content-wrapper">
+<textarea class="gs-textarea">愛用歴3年のユーザーが語る「変わったのは髪だけじゃない、人生だ」。あなたも体験してみませんか？</textarea>
+</div>
+</td>
+<td class="gs-cell h-24 align-top border-r-0">
+<div class="cell-content-wrapper">
+<textarea class="gs-textarea">在庫を確認する</textarea>
+</div>
+</td>
+</tr>
+<tr class="group">
+<td class="gs-cell border-l-0">
+<div class="cell-image-container">
+<div class="mini-image-slot group/img">
+<span class="material-symbols-outlined text-2xl">add_photo_alternate</span>
+</div>
+</div>
+</td>
+<td class="gs-cell h-24 align-top">
+<div class="cell-content-wrapper">
+<textarea class="gs-textarea">初回980円で始める、男の自信を取り戻す習慣</textarea>
+</div>
+</td>
+<td class="gs-cell">
+<div class="cell-image-container">
+<div class="mini-image-slot group/img">
+<span class="material-symbols-outlined text-2xl">add_photo_alternate</span>
+</div>
+</div>
+</td>
+<td class="gs-cell h-24 align-top">
+<div class="cell-content-wrapper">
+<textarea class="gs-textarea">ノンシリコンなのにきしまない。保湿成分たっぷりで、洗うだけでトリートメント級の仕上がり。</textarea>
+</div>
+</td>
+<td class="gs-cell">
+<div class="cell-image-container">
+<div class="mini-image-slot group/img">
+<span class="material-symbols-outlined text-2xl">add_photo_alternate</span>
+</div>
+</div>
+</td>
+<td class="gs-cell h-24 align-top">
+<div class="cell-content-wrapper">
+<textarea class="gs-textarea">在庫残りわずか！次回の入荷は未定です。お得なキャンペーンセットは今だけのチャンス。</textarea>
+</div>
+</td>
+<td class="gs-cell h-24 align-top border-r-0">
+<div class="cell-content-wrapper">
+<textarea class="gs-textarea">申し込みはこちら</textarea>
+</div>
+</td>
+</tr>
+<tr class="group">
+<td class="gs-cell border-l-0">
+<div class="cell-image-container">
+<div class="mini-image-slot group/img">
+<span class="material-symbols-outlined text-2xl">add_photo_alternate</span>
+</div>
+</div>
+</td>
+<td class="gs-cell h-24 align-top">
+<div class="cell-content-wrapper">
+<textarea class="gs-textarea">「もっと早く出会いたかった」リピーター続出の理由</textarea>
+</div>
+</td>
+<td class="gs-cell">
+<div class="cell-image-container">
+<div class="mini-image-slot group/img">
+<span class="material-symbols-outlined text-2xl">add_photo_alternate</span>
+</div>
+</div>
+</td>
+<td class="gs-cell h-24 align-top">
+<div class="cell-content-wrapper">
+<textarea class="gs-textarea">ニオイの原因菌を殺菌・消毒。夕方まで続く清潔感で、至近距離でも自信が持てる。</textarea>
+</div>
+</td>
+<td class="gs-cell">
+<div class="cell-image-container">
+<div class="mini-image-slot group/img">
+<span class="material-symbols-outlined text-2xl">add_photo_alternate</span>
+</div>
+</div>
+</td>
+<td class="gs-cell h-24 align-top">
+<div class="cell-content-wrapper">
+<textarea class="gs-textarea">お客様満足度No.1獲得！第三者機関による調査でも高評価。確かな結果を求める方へ。</textarea>
+</div>
+</td>
+<td class="gs-cell h-24 align-top border-r-0">
+<div class="cell-content-wrapper">
+<textarea class="gs-textarea">無料モニターに応募</textarea>
+</div>
+</td>
+</tr>
+<tr class="group">
+<td class="gs-cell border-l-0">
+<div class="cell-image-container">
+<div class="mini-image-slot group/img">
+<span class="material-symbols-outlined text-2xl">add_photo_alternate</span>
+</div>
+</div>
+</td>
+<td class="gs-cell h-24 align-top">
+<div class="cell-content-wrapper">
+<textarea class="gs-textarea">諦めるのはまだ早い。ボリューム感が変わる魔法のケア</textarea>
+</div>
+</td>
+<td class="gs-cell">
+<div class="cell-image-container">
+<div class="mini-image-slot group/img">
+<span class="material-symbols-outlined text-2xl">add_photo_alternate</span>
+</div>
+</div>
+</td>
+<td class="gs-cell h-24 align-top">
+<div class="cell-content-wrapper">
+<textarea class="gs-textarea">長年の研究から生まれた「浸透型ナノカプセル」採用。必要な栄養をダイレクトに届けます。</textarea>
+</div>
+</td>
+<td class="gs-cell">
+<div class="cell-image-container">
+<div class="mini-image-slot group/img">
+<span class="material-symbols-outlined text-2xl">add_photo_alternate</span>
+</div>
+</div>
+</td>
+<td class="gs-cell h-24 align-top">
+<div class="cell-content-wrapper">
+<textarea class="gs-textarea">毎日のシャンプーを変えるだけ。手間なし簡単ケアで、忙しいビジネスマンにも最適です。</textarea>
+</div>
+</td>
+<td class="gs-cell h-24 align-top border-r-0">
+<div class="cell-content-wrapper">
+<textarea class="gs-textarea">キャンペーン詳細</textarea>
+</div>
+</td>
+</tr>
+<tr class="group">
+<td class="gs-cell border-l-0">
+<div class="cell-image-container">
+<div class="mini-image-slot group/img">
+<span class="material-symbols-outlined text-2xl">add_photo_alternate</span>
+</div>
+</div>
+</td>
+<td class="gs-cell h-24 align-top">
+<div class="cell-content-wrapper">
+<textarea class="gs-textarea">返金保証付き。リスクゼロで試せる本格スカルプ体験</textarea>
+</div>
+</td>
+<td class="gs-cell">
+<div class="cell-image-container">
+<div class="mini-image-slot group/img">
+<span class="material-symbols-outlined text-2xl">add_photo_alternate</span>
+</div>
+</div>
+</td>
+<td class="gs-cell h-24 align-top">
+<div class="cell-content-wrapper">
+<textarea class="gs-textarea">敏感肌でも安心の無添加処方。優しさと洗浄力を両立した、家族みんなで使えるシャンプー。</textarea>
+</div>
+</td>
+<td class="gs-cell">
+<div class="cell-image-container">
+<div class="mini-image-slot group/img">
+<span class="material-symbols-outlined text-2xl">add_photo_alternate</span>
+</div>
+</div>
+</td>
+<td class="gs-cell h-24 align-top">
+<div class="cell-content-wrapper">
+<textarea class="gs-textarea">20代〜50代まで幅広い世代が愛用中。若々しい印象を取り戻すなら、今が始めるタイミング。</textarea>
+</div>
+</td>
+<td class="gs-cell h-24 align-top border-r-0">
+<div class="cell-content-wrapper">
+<textarea class="gs-textarea">今すぐ始める</textarea>
+</div>
+</td>
+</tr>
+<tr class="group">
+<td class="gs-cell border-l-0">
+<div class="cell-image-container">
+<div class="mini-image-slot group/img">
+<span class="material-symbols-outlined text-2xl">add_photo_alternate</span>
+</div>
+</div>
+</td>
+<td class="gs-cell h-24 align-top">
+<div class="cell-content-wrapper">
+<textarea class="gs-textarea">男性肌特有のテカリ防止。サラサラ肌が一日中続く。</textarea>
+</div>
+</td>
+<td class="gs-cell">
+<div class="cell-image-container">
+<div class="mini-image-slot group/img">
+<span class="material-symbols-outlined text-2xl">add_photo_alternate</span>
+</div>
+</div>
+</td>
+<td class="gs-cell h-24 align-top">
+<div class="cell-content-wrapper">
+<textarea class="gs-textarea">皮脂吸着パウダー配合で、夕方のベタつきをシャットアウト。</textarea>
+</div>
+</td>
+<td class="gs-cell">
+<div class="cell-image-container">
+<div class="mini-image-slot group/img">
+<span class="material-symbols-outlined text-2xl">add_photo_alternate</span>
+</div>
+</div>
+</td>
+<td class="gs-cell h-24 align-top">
+<div class="cell-content-wrapper">
+<textarea class="gs-textarea">清潔感のある肌で、第一印象をアップさせましょう。</textarea>
+</div>
+</td>
+<td class="gs-cell h-24 align-top border-r-0">
+<div class="cell-content-wrapper">
+<textarea class="gs-textarea">詳細はこちら</textarea>
+</div>
+</td>
+</tr>
+<tr class="group">
+<td class="gs-cell border-l-0">
+<div class="cell-image-container">
+<div class="mini-image-slot group/img">
+<span class="material-symbols-outlined text-2xl">add_photo_alternate</span>
+</div>
+</div>
+</td>
+<td class="gs-cell h-24 align-top">
+<div class="cell-content-wrapper">
+<textarea class="gs-textarea">忙しい朝のオールインワンケア。洗顔後はこれ1つでOK。</textarea>
+</div>
+</td>
+<td class="gs-cell">
+<div class="cell-image-container">
+<div class="mini-image-slot group/img">
+<span class="material-symbols-outlined text-2xl">add_photo_alternate</span>
+</div>
+</div>
+</td>
+<td class="gs-cell h-24 align-top">
+<div class="cell-content-wrapper">
+<textarea class="gs-textarea">化粧水・乳液・美容液の3役を凝縮。時短でも妥協しないスキンケア。</textarea>
+</div>
+</td>
+<td class="gs-cell">
+<div class="cell-image-container">
+<div class="mini-image-slot group/img">
+<span class="material-symbols-outlined text-2xl">add_photo_alternate</span>
+</div>
+</div>
+</td>
+<td class="gs-cell h-24 align-top">
+<div class="cell-content-wrapper">
+<textarea class="gs-textarea">累計200万本販売の実績。多くのビジネスマンに選ばれています。</textarea>
+</div>
+</td>
+<td class="gs-cell h-24 align-top border-r-0">
+<div class="cell-content-wrapper">
+<textarea class="gs-textarea">今すぐ購入</textarea>
+</div>
+</td>
+</tr>
+<tr class="group">
+<td class="gs-cell border-l-0">
+<div class="cell-image-container">
+<div class="mini-image-slot group/img">
+<span class="material-symbols-outlined text-2xl">add_photo_alternate</span>
+</div>
+</div>
+</td>
+<td class="gs-cell h-24 align-top">
+<div class="cell-content-wrapper">
+<textarea class="gs-textarea">カミソリ負けを防ぐ、濃厚泡シェービングジェル。</textarea>
+</div>
+</td>
+<td class="gs-cell">
+<div class="cell-image-container">
+<div class="mini-image-slot group/img">
+<span class="material-symbols-outlined text-2xl">add_photo_alternate</span>
+</div>
+</div>
+</td>
+<td class="gs-cell h-24 align-top">
+<div class="cell-content-wrapper">
+<textarea class="gs-textarea">肌を保護しながら深剃りを実現。ヒリヒリ感とはサヨナラ。</textarea>
+</div>
+</td>
+<td class="gs-cell">
+<div class="cell-image-container">
+<div class="mini-image-slot group/img">
+<span class="material-symbols-outlined text-2xl">add_photo_alternate</span>
+</div>
+</div>
+</td>
+<td class="gs-cell h-24 align-top">
+<div class="cell-content-wrapper">
+<textarea class="gs-textarea">毎日のシェービングが楽しみに変わる、プロ仕様の使い心地。</textarea>
+</div>
+</td>
+<td class="gs-cell h-24 align-top border-r-0">
+<div class="cell-content-wrapper">
+<textarea class="gs-textarea">商品をチェック</textarea>
+</div>
+</td>
+</tr>
+<tr class="group">
+<td class="gs-cell border-l-0">
+<div class="cell-image-container">
+<div class="mini-image-slot group/img">
+<span class="material-symbols-outlined text-2xl">add_photo_alternate</span>
+</div>
+</div>
+</td>
+<td class="gs-cell h-24 align-top">
+<div class="cell-content-wrapper">
+<textarea class="gs-textarea">年齢肌にアプローチ。目元のシワ、気になりませんか？</textarea>
+</div>
+</td>
+<td class="gs-cell">
+<div class="cell-image-container">
+<div class="mini-image-slot group/img">
+<span class="material-symbols-outlined text-2xl">add_photo_alternate</span>
+</div>
+</div>
+</td>
+<td class="gs-cell h-24 align-top">
+<div class="cell-content-wrapper">
+<textarea class="gs-textarea">高濃度レチノール配合クリームが、ピンとしたハリを与えます。</textarea>
+</div>
+</td>
+<td class="gs-cell">
+<div class="cell-image-container">
+<div class="mini-image-slot group/img">
+<span class="material-symbols-outlined text-2xl">add_photo_alternate</span>
+</div>
+</div>
+</td>
+<td class="gs-cell h-24 align-top">
+<div class="cell-content-wrapper">
+<textarea class="gs-textarea">若々しい目元で、表情まで明るく。自信あふれる毎日へ。</textarea>
+</div>
+</td>
+<td class="gs-cell h-24 align-top border-r-0">
+<div class="cell-content-wrapper">
+<textarea class="gs-textarea">お試しセットを見る</textarea>
+</div>
+</td>
+</tr>
+<tr class="group">
+<td class="gs-cell border-l-0">
+<div class="cell-image-container">
+<div class="mini-image-slot group/img">
+<span class="material-symbols-outlined text-2xl">add_photo_alternate</span>
+</div>
+</div>
+</td>
+<td class="gs-cell h-24 align-top">
+<div class="cell-content-wrapper">
+<textarea class="gs-textarea">体臭ケアの新常識。飲むだけでスッキリ爽やか。</textarea>
+</div>
+</td>
+<td class="gs-cell">
+<div class="cell-image-container">
+<div class="mini-image-slot group/img">
+<span class="material-symbols-outlined text-2xl">add_photo_alternate</span>
+</div>
+</div>
+</td>
+<td class="gs-cell h-24 align-top">
+<div class="cell-content-wrapper">
+<textarea class="gs-textarea">体内環境を整えるシャンピニオンエキスを高配合。</textarea>
+</div>
+</td>
+<td class="gs-cell">
+<div class="cell-image-container">
+<div class="mini-image-slot group/img">
+<span class="material-symbols-outlined text-2xl">add_photo_alternate</span>
+</div>
+</div>
+</td>
+<td class="gs-cell h-24 align-top">
+<div class="cell-content-wrapper">
+<textarea class="gs-textarea">パートナーとの距離も縮まる、清潔感のある香りに。</textarea>
+</div>
+</td>
+<td class="gs-cell h-24 align-top border-r-0">
+<div class="cell-content-wrapper">
+<textarea class="gs-textarea">詳細へ</textarea>
+</div>
+</td>
+</tr>
+<tr class="group">
+<td class="gs-cell border-l-0">
+<div class="cell-image-container">
+<div class="mini-image-slot group/img">
+<span class="material-symbols-outlined text-2xl">add_photo_alternate</span>
+</div>
+</div>
+</td>
+<td class="gs-cell h-24 align-top">
+<div class="cell-content-wrapper">
+<textarea class="gs-textarea">【WEB限定】プレミアム会員だけの特別セール開催中</textarea>
+</div>
+</td>
+<td class="gs-cell">
+<div class="cell-image-container">
+<div class="mini-image-slot group/img">
+<span class="material-symbols-outlined text-2xl">add_photo_alternate</span>
+</div>
+</div>
+</td>
+<td class="gs-cell h-24 align-top">
+<div class="cell-content-wrapper">
+<textarea class="gs-textarea">全品20%OFF！欲しかったあのアイテムをお得にゲット。</textarea>
+</div>
+</td>
+<td class="gs-cell">
+<div class="cell-image-container">
+<div class="mini-image-slot group/img">
+<span class="material-symbols-outlined text-2xl">add_photo_alternate</span>
+</div>
+</div>
+</td>
+<td class="gs-cell h-24 align-top">
+<div class="cell-content-wrapper">
+<textarea class="gs-textarea">3日間限定のチャンスです。お見逃しなく。</textarea>
+</div>
+</td>
+<td class="gs-cell h-24 align-top border-r-0">
+<div class="cell-content-wrapper">
+<textarea class="gs-textarea">会場へ行く</textarea>
+</div>
+</td>
+</tr>
+<tr class="group">
+<td class="gs-cell border-l-0">
+<div class="cell-image-container">
+<div class="mini-image-slot group/img">
+<span class="material-symbols-outlined text-2xl">add_photo_alternate</span>
+</div>
+</div>
+</td>
+<td class="gs-cell h-24 align-top">
+<div class="cell-content-wrapper">
+<textarea class="gs-textarea">睡眠の質を変える、機能性表示食品サプリメント</textarea>
+</div>
+</td>
+<td class="gs-cell">
+<div class="cell-image-container">
+<div class="mini-image-slot group/img">
+<span class="material-symbols-outlined text-2xl">add_photo_alternate</span>
+</div>
+</div>
+</td>
+<td class="gs-cell h-24 align-top">
+<div class="cell-content-wrapper">
+<textarea class="gs-textarea">GABAの力で深い眠りをサポート。朝の目覚めが違います。</textarea>
+</div>
+</td>
+<td class="gs-cell">
+<div class="cell-image-container">
+<div class="mini-image-slot group/img">
+<span class="material-symbols-outlined text-2xl">add_photo_alternate</span>
+</div>
+</div>
+</td>
+<td class="gs-cell h-24 align-top">
+<div class="cell-content-wrapper">
+<textarea class="gs-textarea">日中のパフォーマンス向上にも。活力ある毎日を。</textarea>
+</div>
+</td>
+<td class="gs-cell h-24 align-top border-r-0">
+<div class="cell-content-wrapper">
+<textarea class="gs-textarea">モニター募集</textarea>
+</div>
+</td>
+</tr>
+<tr class="group">
+<td class="gs-cell border-l-0">
+<div class="cell-image-container">
+<div class="mini-image-slot group/img">
+<span class="material-symbols-outlined text-2xl">add_photo_alternate</span>
+</div>
+</div>
+</td>
+<td class="gs-cell h-24 align-top">
+<div class="cell-content-wrapper">
+<textarea class="gs-textarea">自宅で本格ホワイトニング。笑顔に自信を。</textarea>
+</div>
+</td>
+<td class="gs-cell">
+<div class="cell-image-container">
+<div class="mini-image-slot group/img">
+<span class="material-symbols-outlined text-2xl">add_photo_alternate</span>
+</div>
+</div>
+</td>
+<td class="gs-cell h-24 align-top">
+<div class="cell-content-wrapper">
+<textarea class="gs-textarea">歯科医推奨の成分で、歯の黄ばみをクリアに。</textarea>
+</div>
+</td>
+<td class="gs-cell">
+<div class="cell-image-container">
+<div class="mini-image-slot group/img">
+<span class="material-symbols-outlined text-2xl">add_photo_alternate</span>
+</div>
+</div>
+</td>
+<td class="gs-cell h-24 align-top">
+<div class="cell-content-wrapper">
+<textarea class="gs-textarea">痛くない、しみない。続けやすいホームケアキット。</textarea>
+</div>
+</td>
+<td class="gs-cell h-24 align-top border-r-0">
+<div class="cell-content-wrapper">
+<textarea class="gs-textarea">詳細を見る</textarea>
+</div>
+</td>
+</tr>
+<tr class="group">
+<td class="gs-cell border-l-0">
+<div class="cell-image-container">
+<div class="mini-image-slot group/img">
+<span class="material-symbols-outlined text-2xl">add_photo_alternate</span>
+</div>
+</div>
+</td>
+<td class="gs-cell h-24 align-top">
+<div class="cell-content-wrapper">
+<textarea class="gs-textarea">ジム通い不要。自宅でできる効率的トレーニング</textarea>
+</div>
+</td>
+<td class="gs-cell">
+<div class="cell-image-container">
+<div class="mini-image-slot group/img">
+<span class="material-symbols-outlined text-2xl">add_photo_alternate</span>
+</div>
+</div>
+</td>
+<td class="gs-cell h-24 align-top">
+<div class="cell-content-wrapper">
+<textarea class="gs-textarea">オンライン動画プログラムで、プロの指導を独り占め。</textarea>
+</div>
+</td>
+<td class="gs-cell">
+<div class="cell-image-container">
+<div class="mini-image-slot group/img">
+<span class="material-symbols-outlined text-2xl">add_photo_alternate</span>
+</div>
+</div>
+</td>
+<td class="gs-cell h-24 align-top">
+<div class="cell-content-wrapper">
+<textarea class="gs-textarea">1日15分から始められる。理想のボディメイクを。</textarea>
+</div>
+</td>
+<td class="gs-cell h-24 align-top border-r-0">
+<div class="cell-content-wrapper">
+<textarea class="gs-textarea">無料体験へ</textarea>
+</div>
+</td>
+</tr>
+<tr class="group">
+<td class="gs-cell border-l-0">
+<div class="cell-image-container">
+<div class="mini-image-slot group/img">
+<span class="material-symbols-outlined text-2xl">add_photo_alternate</span>
+</div>
+</div>
+</td>
+<td class="gs-cell h-24 align-top">
+<div class="cell-content-wrapper">
+<textarea class="gs-textarea">視力回復トレーニング機、ついに解禁。</textarea>
+</div>
+</td>
+<td class="gs-cell">
+<div class="cell-image-container">
+<div class="mini-image-slot group/img">
+<span class="material-symbols-outlined text-2xl">add_photo_alternate</span>
+</div>
+</div>
+</td>
+<td class="gs-cell h-24 align-top">
+<div class="cell-content-wrapper">
+<textarea class="gs-textarea">1日5分の使用で、目のピント調節機能を改善。</textarea>
+</div>
+</td>
+<td class="gs-cell">
+<div class="cell-image-container">
+<div class="mini-image-slot group/img">
+<span class="material-symbols-outlined text-2xl">add_photo_alternate</span>
+</div>
+</div>
+</td>
+<td class="gs-cell h-24 align-top">
+<div class="cell-content-wrapper">
+<textarea class="gs-textarea">デスクワークの疲れ目にも効果的。クリアな視界を取り戻そう。</textarea>
+</div>
+</td>
+<td class="gs-cell h-24 align-top border-r-0">
+<div class="cell-content-wrapper">
+<textarea class="gs-textarea">資料請求</textarea>
+</div>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="w-full flex justify-end items-center gap-6 mt-12 mb-4">
+<button class="text-text-muted hover:text-text-main font-bold text-sm transition-colors">
+            戻る
+        </button>
+<button class="bg-primary hover:bg-primary-hover text-white font-bold text-sm px-8 py-3 rounded-md shadow-soft transition-all flex items-center gap-2">
+            次へ進む
+            <span class="font-sans text-lg leading-none pb-0.5">→</span>
+</button>
+</div>
+</main>
+</body></html>

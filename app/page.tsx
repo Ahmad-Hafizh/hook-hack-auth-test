@@ -1,0 +1,56 @@
+"use client";
+import Navbar from "@/components/navbar";
+import Hero from "@/components/landingpage/hero";
+import TrustedBy from "@/components/landingpage/trusted-by";
+import Features from "@/components/landingpage/features";
+import DashboardPreview from "@/components/landingpage/dashboard-preview";
+import Testimonial from "@/components/landingpage/testimonial";
+import FeaturesDetail from "@/components/landingpage/features-detail";
+import AIFeatures from "@/components/landingpage/ai-features";
+import CTA from "@/components/landingpage/cta";
+import Footer from "@/components/footer";
+import Newsletter from "@/components/landingpage/newsletter";
+import Benefit from "@/components/landingpage/benefit";
+import MemberShowcase from "@/components/member-showcase";
+import CompanyFooter from "@/components/company-footer";
+import Explain from "@/components/landingpage/explain";
+import Schedule from "@/components/landingpage/schedule";
+import Price from "@/components/landingpage/price";
+import TrialDialog from "@/components/landingpage/TrialDialog";
+import { useSearchParams, useRouter } from "next/navigation";
+import { useEffect, Suspense } from "react";
+
+export default function LandingPage() {
+  return (
+    <div className="min-h-screen bg-white">
+      {/* <Suspense fallback={null}><OAuthErrorRedirect /></Suspense> */}
+
+      <Navbar />
+      <Hero />
+      <Explain />
+      {/* <TrustedBy /> */}
+      <FeaturesDetail />
+      <Benefit />
+      <Schedule />
+      <Price />
+      <MemberShowcase />
+      {/* <Features /> */}
+      {/* <DashboardPreview />
+      <Testimonial />
+      <AIFeatures /> */}
+      {/* <CTA /> */}
+      {/* <Newsletter /> */}
+      <CompanyFooter />
+      <div className="mt-6 w-full flex justify-center items-center my-20">
+        <TrialDialog
+          trigger={
+            <button className="bg-[#2af0ea] text-black hover:bg-[#288784] hover:text-white transition-all duration-300 border-2 border-[#2af0ea] rounded-lg px-8 py-3 font-bold text-lg">
+              無料トライアルを申し込む
+            </button>
+          }
+        />
+      </div>
+      <Footer />
+    </div>
+  );
+}

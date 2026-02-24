@@ -1,0 +1,358 @@
+generator client {
+  provider = "prisma-client"
+  output   = "./generated"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+model User {
+  id                    String             @id @default(cuid())
+  userId                String             @unique
+  email                 String?            @unique
+  phoneNumber           String?
+  tiktokUsername        String?
+  credit                Int                @default(0)
+  createdAt             DateTime           @default(now()) @db.Timestamptz(6)
+  updatedAt             DateTime           @updatedAt @db.Timestamptz(6)
+  name                  String?
+  isLinkedWithGoogleAds Boolean            @default(false)
+  isLinkedWithMCC       Boolean            @default(false)
+  Media                 Media[]
+  transaction           Transaction[]
+  YoutubeVideoSync      YoutubeVideoSync[]
+  pdcas                 PDCA[]
+  project               project[]
+}
+
+/// This model contains row level security and requires additional setup for migrations. Visit https://pris.ly/d/row-level-security for more info.
+model V2_format {
+  system_status          String   @default("")
+  search_url             String?  @default("")
+  scraping_brand         String?  @default("")
+  scraping_industry      String?  @default("")
+  scraping_caption       String?  @default("")
+  scraping_landingpage   String?  @default("")
+  scraping_likes         BigInt?
+  scraping_comments      BigInt?
+  scraping_shares        BigInt?
+  scraping_ctr           BigInt?
+  scraping_budget        String?  @default("")
+  scraping_ctr_top       BigInt?
+  scraping_ctr_sec       Json?    @db.Json
+  scraping_cvr_top       BigInt?
+  scraping_cvr_sec       Json?    @db.Json
+  system_id              BigInt   @id @default(autoincrement())
+  search_condition       String?  @default("")
+  video_product_category String?  @default("")
+  video_product_details  String?  @default("")
+  video_target_age       String?  @default("")
+  video_target_gender    String?  @default("")
+  video_content_type     String?  @default("")
+  video_content_summary  String?  @default("")
+  video_content_music    String?  @default("")
+  video_content_speed    String?  @default("")
+  video_target_details   String?  @default("")
+  system_usable          Boolean?
+  video_url              String?  @default("")
+}
+
+/// This model or at least one of its fields has comments in the database, and requires an additional setup for migrations: Read more: https://pris.ly/d/database-comments
+/// This model contains row level security and requires additional setup for migrations. Visit https://pris.ly/d/row-level-security for more info.
+model requestlist {
+  id           BigInt   @id @default(autoincrement())
+  created_at   DateTime @default(now()) @db.Timestamptz(6)
+  name         String?
+  company_name String?
+  email        String?
+  tiktok_url   String?
+}
+
+/// This model contains row level security and requires additional setup for migrations. Visit https://pris.ly/d/row-level-security for more info.
+model project {
+  system_userid    String
+  system_createdAt DateTime @default(now()) @db.Timestamptz(6)
+  userinput        Json?    @db.Json
+  comment          Json?    @db.Json
+  hook             Json?    @db.Json
+  hook_count       Int?     @db.SmallInt
+  content          Json?    @db.Json
+  content_count    Int?     @db.SmallInt
+  id               BigInt   @id @unique @default(autoincrement())
+  User             User     @relation(fields: [system_userid], references: [userId], onDelete: NoAction, onUpdate: NoAction)
+}
+
+model Transaction {
+  id              String   @id @default(cuid())
+  userId          String
+  amount          Int
+  quantity        Int
+  stripeSessionId String   @unique
+  status          String
+  type            String
+  createdAt       DateTime @default(now()) @db.Timestamptz(6)
+  updatedAt       DateTime @updatedAt @db.Timestamptz(6)
+  user            User     @relation(fields: [userId], references: [userId], onDelete: Cascade)
+}
+
+model PDCA {
+  id           String        @id @default(cuid())
+  createdAt    DateTime      @default(now()) @db.Timestamptz(6)
+  updatedAt    DateTime      @updatedAt @db.Timestamptz(6)
+  userId       String
+  description  String?
+  memo         String?
+  name         String
+  User         User          @relation(fields: [userId], references: [id])
+  pdcasessions PDCASession[]
+
+  @@map("pdca")
+}
+
+model PDCASession {
+  id                      String                   @id
+  pdca_id                 String
+  finishedAt              DateTime?                @db.Timestamptz(6)
+  lastPage                PlanningPages?
+  memo                    String?
+  name                    String
+  isChoosingSpeed         Boolean?                 @default(false)
+  isHavingCompetitorUrls  Boolean?                 @default(false)
+  createdAt               DateTime                 @default(now()) @db.Timestamptz(6)
+  updatedAt               DateTime                 @updatedAt @db.Timestamptz(6)
+  status                  PDCAStatus               @default(in_progress)
+  step                    Int?                     @default(1)
+  deletedAt               DateTime?                @db.Timestamptz(6)
+  hypotesis               Json?
+  ads                     Ads[]
+  renderedVideos          RenderedVideo[]
+  competitiveMatrixesNew  CompetitiveMatrixesNew?
+  competitorCandidatesNew CompetitorCandidatesNew?
+  dataRowFinalizedNew     DataRowFinalizedNew?
+  dataRowsNew             DataRowNew?
+  desireOrganizationsNew  DesireOrganizationsNew?
+  pdca                    PDCA                     @relation(fields: [pdca_id], references: [id])
+  planning_how            PlanningHow?
+  planning_what           PlanningWhat?
+  positioningPatternsNew  PositioningPatternsNew?
+  valueOrganizationsNew   ValueOrganizationsNew?
+
+  @@map("pdca_session")
+}
+
+model PlanningHow {
+  id                      String      @id @default(cuid())
+  video_duration          Int?
+  selected_data_rows      Json?
+  selected_finalized_rows Json?
+  logo                    String?
+  pdca_session_id         String      @unique
+  font                    String?
+  orientation             String?
+  point_of_view           String?
+  tone                    String?
+  background_color        String?
+  background_image        String?
+  background_music        String?
+  template                String?
+  voice_over              String?
+  job_id_render           String?
+  job_id_variant          String?
+  pdca_session            PDCASession @relation(fields: [pdca_session_id], references: [id])
+
+  @@map("planning_how")
+}
+
+model PlanningWhat {
+  id                                String      @id @default(cuid())
+  product                           String?
+  selected_keyword                  String?
+  selected_keyVisual                String[]
+  selected_competitor_matrix        String?
+  selected_value_organization       String[]
+  selected_desire_tobe_organization String[]
+  selected_positioning_patterns     String?
+  pdca_session_id                   String      @unique
+  competitor_urls                   String[]
+  selected_competitor_candidates    String[]
+  pdca_session                      PDCASession @relation(fields: [pdca_session_id], references: [id])
+
+  @@map("planning_what")
+}
+
+model CompetitorCandidatesNew {
+  id               String      @id @default(cuid())
+  candidates       Json?
+  meta_description Json?
+  pdca_session_id  String      @unique
+  pdca_session     PDCASession @relation(fields: [pdca_session_id], references: [id])
+
+  @@map("competitor_candidates_new")
+}
+
+model CompetitiveMatrixesNew {
+  id              String      @id @default(cuid())
+  competitor      Json[]
+  suggestion      Json?
+  user            Json?
+  pdca_session_id String      @unique
+  pdca_session    PDCASession @relation(fields: [pdca_session_id], references: [id])
+
+  @@map("competitive_matrixes_new")
+}
+
+model ValueOrganizationsNew {
+  id                  String      @id @default(cuid())
+  value_organizations Json?
+  meta                Json?
+  pdca_session_id     String      @unique
+  pdca_session        PDCASession @relation(fields: [pdca_session_id], references: [id])
+
+  @@map("value_organizations_new")
+}
+
+model DesireOrganizationsNew {
+  id                   String      @id @default(cuid())
+  desire_organizations Json?
+  meta                 Json?
+  pdca_session_id      String      @unique
+  pdca_session         PDCASession @relation(fields: [pdca_session_id], references: [id])
+
+  @@map("desire_organizations_new")
+}
+
+model PositioningPatternsNew {
+  id                   String      @id @default(cuid())
+  positioning_patterns Json?
+  meta                 Json?
+  pdca_session_id      String      @unique
+  PDCA_Session         PDCASession @relation(fields: [pdca_session_id], references: [id])
+
+  @@map("positioning_patterns_new")
+}
+
+model DataRowNew {
+  id              String      @id @default(cuid())
+  data_rows       Json?
+  pdca_session_id String      @unique
+  pdca_session    PDCASession @relation(fields: [pdca_session_id], references: [id])
+
+  @@map("data_row_new")
+}
+
+model DataRowFinalizedNew {
+  id                  String      @id @default(cuid())
+  data_rows_finalized Json?
+  pdca_session_id     String      @unique
+  pdca_session        PDCASession @relation(fields: [pdca_session_id], references: [id])
+
+  @@map("data_row_finalized_new")
+}
+
+model RenderedVideo {
+  id              String      @id @default(cuid())
+  pdca_session_id String
+  attempts        Int?
+  error           String?
+  index           Int?
+  render_id       String?
+  status          String?
+  template_id     String?
+  url             String?
+  visual_id_hash  String?     @unique
+  PDCA_Session    PDCASession @relation(fields: [pdca_session_id], references: [id])
+
+  @@index([pdca_session_id], map: "RenderedVideo_pdca_session_idx")
+}
+
+model Ads {
+  id              String      @id @default(cuid())
+  adUrl           String
+  createdAt       DateTime    @default(now()) @db.Timestamptz(6)
+  performance     Json?       @db.Json
+  pdca_session_id String
+  PDCA_Session    PDCASession @relation(fields: [pdca_session_id], references: [id])
+}
+
+model GoogleAdsCredential {
+  id           String    @id @default(dbgenerated("(gen_random_uuid())::text"))
+  userId       String    @unique
+  refreshToken String
+  customerIds  String[]
+  createdAt    DateTime? @default(now()) @db.Timestamptz(6)
+  updatedAt    DateTime? @default(now()) @db.Timestamptz(6)
+}
+
+/// This table contains check constraints and requires additional setup for migrations. Visit https://pris.ly/d/check-constraints for more info.
+model Media {
+  id           String    @id @default(dbgenerated("(gen_random_uuid())::text"))
+  userId       String
+  fileName     String
+  originalName String?
+  type         String
+  slot         String?
+  bucket       String
+  path         String
+  url          String
+  mimeType     String?
+  fileSize     BigInt?
+  isPublic     Boolean   @default(true)
+  metadata     Json?
+  createdAt    DateTime  @default(now()) @db.Timestamptz(6)
+  updatedAt    DateTime  @default(now()) @db.Timestamptz(6)
+  templateKey  String?
+  expiresAt    DateTime? @db.Timestamptz(6)
+  User         User      @relation(fields: [userId], references: [id], onDelete: Cascade, onUpdate: NoAction)
+
+  @@unique([bucket, path], map: "Media_bucket_path_unique")
+  @@index([createdAt])
+  @@index([expiresAt])
+  @@index([userId])
+  @@index([userId, slot])
+  @@index([userId, type])
+  @@index([userId, templateKey], map: "Media_user_template_idx")
+}
+
+model YoutubeCredential {
+  id           String   @id @default(dbgenerated("(gen_random_uuid())::text"))
+  userId       String   @unique
+  refreshToken String
+  createdAt    DateTime @default(now()) @db.Timestamptz(6)
+  updatedAt    DateTime @default(now()) @db.Timestamptz(6)
+}
+
+model YoutubeVideoSync {
+  id                String   @id
+  userId            String
+  pdca_session_id   String?
+  rendered_video_id String?
+  youtubeVideoId    String?
+  youtubeUrl        String?
+  title             String
+  status            String   @default("pending")
+  createdAt         DateTime @default(now()) @db.Timestamptz(6)
+  updatedAt         DateTime @default(now()) @db.Timestamptz(6)
+  User              User     @relation(fields: [userId], references: [id], onDelete: NoAction, onUpdate: NoAction)
+}
+
+enum ValueOrganizationCategory {
+  people
+  things
+  information
+  vibes
+}
+
+enum PlanningPages {
+  selection
+  what
+  how
+  generation
+}
+
+enum PDCAStatus {
+  in_progress
+  running
+  completed
+  deleted
+}

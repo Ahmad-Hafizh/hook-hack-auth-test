@@ -39,15 +39,15 @@ export async function GET(request: NextRequest) {
     });
 
     // // Get ads credential for customer ID
-    // const adsCredential = await prisma.googleAdsCredential.findUnique({
-    //   where: { userId: userId },
-    // });
+    const adsCredential = await prisma.googleAdsCredential.findUnique({
+      where: { userId: userId },
+    });
 
-    // if (!adsCredential || adsCredential.customerIds.length === 0) {
-    //   return NextResponse.redirect(
-    //     `${process.env.NEXT_PUBLIC_APP_URL}/auth/handler?status=error&message=${encodeURIComponent("Google Ads credential not found.")}`,
-    //   );
-    // }
+    if (!adsCredential || adsCredential.customerIds.length === 0) {
+      return NextResponse.redirect(
+        `${process.env.NEXT_PUBLIC_APP_URL}/handler?status=error&message=${encodeURIComponent("Google Ads credential not found.")}`,
+      );
+    }
 
     // const customerId = adsCredential.customerIds[0];
 
@@ -57,7 +57,7 @@ export async function GET(request: NextRequest) {
       {
         headers: {
           "X-User-ID": "a",
-          customer_id: "9033642954",
+          customer_id: adsCredential.customerIds[0],
         },
       },
     );
@@ -86,7 +86,7 @@ export async function GET(request: NextRequest) {
         await callAppV2Api.post(
           "/v1/google-ads/link",
           {
-            customer_id: "9033642954",
+            customer_id: adsCredential.customerIds[0],
           },
           {
             headers: {

@@ -4,16 +4,16 @@ import { NextRequest, NextResponse } from "next/server";
 
 export async function GET(request: NextRequest) {
   try {
-    // const { userId } = await getUser();
-    // if (!userId) {
-    //   return NextResponse.json({ error: "User not found" }, { status: 401 });
-    // }
+    const { userId } = await getUser();
+    if (!userId) {
+      return NextResponse.json({ error: "User not found" }, { status: 401 });
+    }
 
     const { data } = await callAppV2Api.get(
       "/v1/google-ads/connection-status",
       {
         headers: {
-          "X-User-ID": "a",
+          "X-User-ID": userId,
         },
       },
     );

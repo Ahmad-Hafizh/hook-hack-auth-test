@@ -12,8 +12,9 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import callApi from "@/config/axios/axios";
-import { connectGoogleAds } from "./action/connect/connect";
+import { connectGoogleAds } from "./action/connect-mcc/connect";
 import { useRouter } from "next/navigation";
+import { RefreshCcw } from "lucide-react";
 
 export const dynamic = "force-dynamic";
 export const runtime = "nodejs";
@@ -33,14 +34,15 @@ export default function SettingsPage() {
     }
   };
 
-  // const getMCCStatus = async () => {
-  //   try {
-  //     const { data } = await callApi.get("/auth/google-ads/mcc/status");
-  //     console.log("MCC credentials", data);
-  //   } catch (error) {
-  //     console.log(error);
-  //   }
-  // };
+  const getMCCStatus = async () => {
+    try {
+      const { data } = await callApi.get("/auth/google-ads/mcc/status");
+      console.log("MCC credentials", data);
+      setIsMCCConnected(data.connected);
+    } catch (error) {
+      console.log(error);
+    }
+  };
 
   const handleConnectGoogleAds = async () => {
     try {
@@ -67,6 +69,7 @@ export default function SettingsPage() {
 
   useEffect(() => {
     getGoogleAdsStatus();
+    getMCCStatus();
   }, []);
 
   const handleSave = async () => {
@@ -177,17 +180,43 @@ export default function SettingsPage() {
             </CardDescription>
           </CardHeader>
           <CardContent className="space-y-4">
-            <div className="flex flex-col gap-2">
-              <p className="text-[13px]">Google Ads Account</p>
-              <Button
-                variant="outline"
-                size="sm"
-                className={`text-[13px] w-fit ${isGoogleAdsConnected ? "bg-green-100 border-green-200 text-green-500" : ""} `}
-                disabled={isGoogleAdsConnected}
-                onClick={handleConnectGoogleAds}
-              >
-                {isGoogleAdsConnected ? "Connected" : "Connect"}
-              </Button>
+            <div className="flex flex-col gap-2 ">
+              <p className="text-[13px]">Google Ads</p>
+              <div className="  flex items-center gap-4  justify-between">
+                <div className="text-xs text-slate-500 flex flex-col gap-1">
+                  <p>Ads Account</p>
+                  <p className="px-2 py-1 border border-slate-300 rounded text-slate-500 font-medium">
+                    {isGoogleAdsConnected ? "Connected" : "Not Connected"}
+                  </p>
+                </div>
+                <div className="text-xs text-slate-500 flex flex-col gap-1">
+                  <p>MCC Linking</p>
+                  <div className="flex flex-row gap-2 items-center">
+                    <p className="px-2 py-1 border border-slate-300 rounded text-slate-500 font-medium">
+                      {isMCCConnected ? "Connected" : "Not Connected"}
+                    </p>
+                    <Button
+                      variant={"ghost"}
+                      size={"icon"}
+                      onClick={() => {
+                        getMCCStatus();
+                      }}
+                    >
+                      <RefreshCcw className="w-4 h-4" />
+                    </Button>
+                  </div>
+                </div>
+
+                <Button
+                  variant="outline"
+                  size="sm"
+                  className={`text-[13px] w-fit ${isGoogleAdsConnected ? "bg-green-100 border-green-200 text-green-500" : ""} `}
+                  disabled={isGoogleAdsConnected}
+                  onClick={handleConnectGoogleAds}
+                >
+                  {isGoogleAdsConnected ? "Connected" : "Connect"}
+                </Button>
+              </div>
             </div>
             {/* <div className="flex flex-col gap-2">
               <p className="text-[13px]">Google Ads MCC</p>

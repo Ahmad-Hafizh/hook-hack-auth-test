@@ -39,7 +39,7 @@ export default function SettingsPage() {
     try {
       const { data } = await callApi.get("/auth/google-ads/mcc/status");
       console.log("MCC credentials", data);
-      setIsMCCConnected(data.connected);
+      setIsMCCConnected(data.status === "ACTIVE");
     } catch (error) {
       console.log(error);
     }

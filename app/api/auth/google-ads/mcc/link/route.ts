@@ -78,11 +78,7 @@ export async function GET(request: NextRequest) {
       );
     }
 
-    if (
-      mccStatus?.detail?.status === "completed" ||
-      mccStatus?.detail?.status === "done" ||
-      mccStatus?.detail?.status === "connected"
-    ) {
+    if (mccStatus?.detail?.status === "ACTIVE") {
       await prisma.user.update({
         where: { id: userDbId },
         data: { isLinkedWithMCC: true },

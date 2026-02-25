@@ -4,8 +4,8 @@ import { NextRequest, NextResponse } from "next/server";
 
 export async function GET(request: NextRequest) {
   try {
-    const { userId } = await getUser();
-    if (!userId) {
+    const { userId, userDbId } = await getUser();
+    if (!userId || !userDbId) {
       return NextResponse.json({ error: "User not found" }, { status: 401 });
     }
 
@@ -13,7 +13,7 @@ export async function GET(request: NextRequest) {
       "/v1/google-ads/connection-status",
       {
         headers: {
-          "X-User-ID": userId,
+          "X-User-ID": userDbId,
         },
       },
     );

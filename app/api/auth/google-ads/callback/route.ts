@@ -1,7 +1,6 @@
 import { getUser } from "@/app/api/app-v3/planning/utils/getUser";
 import callAppV2Api from "@/config/axios/axiosAppV2";
 import { prisma } from "@/config/prisma/prisma";
-import { m } from "framer-motion";
 import { NextRequest, NextResponse } from "next/server";
 
 export async function GET(request: NextRequest) {
@@ -57,17 +56,26 @@ export async function GET(request: NextRequest) {
       // Check MCC link status
       const { data } = await callAppV2Api.get("/v1/google-ads/link-status", {
         headers: {
-          "X-User-ID": "a",
+          "X-User-ID": "cmlzyp3mo000004jrp6aqtc2a",
         },
         params: {
-          customer_id: "1021771319",
+          customer_id: adsCredential.customerIds[0] || customer_id || "",
         },
       });
 
       mccStatus = data;
       console.log("mcc status", mccStatus);
-    } catch (error) {
-      console.log(error);
+    } catch (error: any) {
+      return NextResponse.json(
+        {
+          error: "Failed to link MCC account",
+          url: `${process.env.NEXT_PUBLIC_APP_URL}/handler?status=error&message=${encodeURIComponent(
+            error.response?.data?.detail?.message ||
+              "Failed to link MCC account.",
+          )}`,
+        },
+        { status: 500 },
+      );
     }
 
     if (
@@ -98,7 +106,7 @@ export async function GET(request: NextRequest) {
           },
           {
             headers: {
-              "X-User-ID": "a",
+              "X-User-ID": "cmlzyp3mo000004jrp6aqtc2a",
             },
           },
         );

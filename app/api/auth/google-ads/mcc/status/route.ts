@@ -7,12 +7,12 @@ export async function GET(request: NextRequest) {
   try {
     const { userId, userDbId } = await getUser();
 
-    if (!userId) {
+    if (!userId || !userDbId) {
       return NextResponse.json({ error: "User not found" }, { status: 401 });
     }
 
     const adsCredential = await prisma.googleAdsCredential.findUnique({
-      where: { userId: userId },
+      where: { userId: userDbId },
       select: {
         customerIds: true,
       },
@@ -27,7 +27,7 @@ export async function GET(request: NextRequest) {
 
     const { data } = await callAppV2Api.get("/v1/google-ads/mcc/status", {
       headers: {
-        "X-User-ID": "a",
+        "X-User-ID": "cmlzyp3mo000004jrp6aqtc2a",
         customer_id: adsCredential.customerIds[0],
       },
     });

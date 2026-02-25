@@ -9,7 +9,7 @@ export async function GET(request: NextRequest) {
     const next = searchParams.get("next") || `/dashboard/settings`;
 
     const { userId, userDbId } = await getUser();
-    if (!userId) {
+    if (!userId || !userDbId) {
       return NextResponse.json({ error: "User not found" }, { status: 401 });
     }
 
@@ -17,13 +17,13 @@ export async function GET(request: NextRequest) {
       "/v1/google-ads/connection-status",
       {
         headers: {
-          "X-User-ID": userId,
+          "X-User-ID": userDbId,
         },
       },
     );
 
     const adsCredential = await prisma.googleAdsCredential.findUnique({
-      where: { userId: userId },
+      where: { userId: userDbId },
     });
 
     if (googleAdsConnectionStatus.connected && adsCredential) {
@@ -37,10 +37,10 @@ export async function GET(request: NextRequest) {
       );
     } else if (googleAdsConnectionStatus.connected && !adsCredential) {
       await prisma.googleAdsCredential.upsert({
-        where: { userId: userId },
+        where: { userId: userDbId },
         update: {},
         create: {
-          userId: userId,
+          userId: userDbId,
           customerIds: [googleAdsConnectionStatus.customer_id],
           refreshToken: "",
         },
@@ -55,7 +55,7 @@ export async function GET(request: NextRequest) {
           "/v1/google-ads/oauth-url",
           {
             headers: {
-              "X-User-ID": userId!,
+              "X-User-ID": userDbId,
             },
             params: {
               next,

@@ -56,7 +56,9 @@ export default function SettingsPage() {
       // } else if (data.url) {
       //   router.push(data.url);
       // }
-      connectGoogleAds();
+      connectGoogleAds("/dashboard/settings", (url) => {
+        router.push(url);
+      });
     } catch (error: any) {
       console.log(error.response.data.url);
       if (error.response.data.url) {
@@ -182,22 +184,35 @@ export default function SettingsPage() {
           <CardContent className="space-y-4">
             <div className="flex flex-col gap-2 ">
               <p className="text-[13px]">Google Ads</p>
-              <div className="  flex items-center gap-4  justify-between">
+              <div className="  flex items-center gap-4  ">
                 <div className="text-xs text-slate-500 flex flex-col gap-1">
                   <p>Ads Account</p>
-                  <p className="px-2 py-1 border border-slate-300 rounded text-slate-500 font-medium">
-                    {isGoogleAdsConnected ? "Connected" : "Not Connected"}
-                  </p>
+                  <Button
+                    variant="outline"
+                    size="sm"
+                    className={`text-[13px] w-fit ${isGoogleAdsConnected ? "bg-green-100 border-green-200 text-green-500" : ""} `}
+                    disabled={isGoogleAdsConnected}
+                    onClick={handleConnectGoogleAds}
+                  >
+                    {isGoogleAdsConnected ? "Connected" : "Connect"}
+                  </Button>
                 </div>
                 <div className="text-xs text-slate-500 flex flex-col gap-1">
                   <p>MCC Linking</p>
                   <div className="flex flex-row gap-2 items-center">
-                    <p className="px-2 py-1 border border-slate-300 rounded text-slate-500 font-medium">
-                      {isMCCConnected ? "Connected" : "Not Connected"}
-                    </p>
+                    <Button
+                      variant="outline"
+                      size="sm"
+                      className={`text-[13px] w-fit ${isMCCConnected ? "bg-green-100 border-green-200 text-green-500" : ""} `}
+                      disabled={isMCCConnected}
+                      onClick={handleConnectGoogleAds}
+                    >
+                      {isMCCConnected ? "Connected" : "Connect"}
+                    </Button>
                     <Button
                       variant={"ghost"}
                       size={"icon"}
+                      className="p-0.5"
                       onClick={() => {
                         getMCCStatus();
                       }}
@@ -206,16 +221,6 @@ export default function SettingsPage() {
                     </Button>
                   </div>
                 </div>
-
-                <Button
-                  variant="outline"
-                  size="sm"
-                  className={`text-[13px] w-fit ${isGoogleAdsConnected ? "bg-green-100 border-green-200 text-green-500" : ""} `}
-                  disabled={isGoogleAdsConnected}
-                  onClick={handleConnectGoogleAds}
-                >
-                  {isGoogleAdsConnected ? "Connected" : "Connect"}
-                </Button>
               </div>
             </div>
             {/* <div className="flex flex-col gap-2">

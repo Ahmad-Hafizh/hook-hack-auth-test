@@ -1,24 +1,24 @@
 import { getUser } from "@/app/api/app-v3/planning/utils/getUser";
 import callAppV2Api from "@/config/axios/axiosAppV2";
 import { prisma } from "@/config/prisma/prisma";
+import { m } from "framer-motion";
 import { NextRequest, NextResponse } from "next/server";
 
 export async function GET(request: NextRequest) {
   try {
     const { searchParams } = new URL(request.url);
-    const code = searchParams.get("code");
-    const error = searchParams.get("error");
     const next = searchParams.get("next");
+    const customer_id = searchParams.get("customer_id");
 
-    if (error) {
-      return NextResponse.json(
-        {
-          error: "Google Ads authentication failed",
-          url: `${process.env.NEXT_PUBLIC_APP_URL}/handler?status=error&message=${encodeURIComponent("Google Ads authentication failed")}`,
-        },
-        { status: 500 },
-      );
-    }
+    // if (error) {
+    //   return NextResponse.json(
+    //     {
+    //       error: "Google Ads authentication failed",
+    //       url: `${process.env.NEXT_PUBLIC_APP_URL}/handler?status=error&message=${encodeURIComponent("Google Ads authentication failed")}`,
+    //     },
+    //     { status: 500 },
+    //   );
+    // }
 
     const { userId, userDbId } = await getUser();
 
@@ -43,24 +43,32 @@ export async function GET(request: NextRequest) {
       where: { userId: userId },
     });
 
+    console.log(adsCredential);
+
     if (!adsCredential || adsCredential.customerIds.length === 0) {
       return NextResponse.redirect(
         `${process.env.NEXT_PUBLIC_APP_URL}/handler?status=error&message=${encodeURIComponent("Google Ads credential not found.")}`,
       );
     }
 
+    let mccStatus;
     // const customerId = adsCredential.customerIds[0];
-
-    // Check MCC link status
-    const { data: mccStatus } = await callAppV2Api.get(
-      "/v1/google-ads/link-status",
-      {
+    try {
+      // Check MCC link status
+      const { data } = await callAppV2Api.get("/v1/google-ads/link-status", {
         headers: {
           "X-User-ID": "a",
-          customer_id: adsCredential.customerIds[0],
         },
-      },
-    );
+        params: {
+          customer_id: "1021771319",
+        },
+      });
+
+      mccStatus = data;
+      console.log("mcc status", mccStatus);
+    } catch (error) {
+      console.log(error);
+    }
 
     if (
       mccStatus?.detail?.status === "completed" ||
@@ -86,7 +94,7 @@ export async function GET(request: NextRequest) {
         await callAppV2Api.post(
           "/v1/google-ads/link",
           {
-            customer_id: adsCredential.customerIds[0],
+            customer_id: adsCredential.customerIds[0] || customer_id || "",
           },
           {
             headers: {

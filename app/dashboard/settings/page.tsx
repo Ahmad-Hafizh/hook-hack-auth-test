@@ -12,9 +12,10 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import callApi from "@/config/axios/axios";
-import { connectGoogleAds } from "./action/connect-mcc/connect";
+import { connectGoogleAds } from "./action/connect/connectGoogleAds";
 import { useRouter } from "next/navigation";
 import { RefreshCcw } from "lucide-react";
+import { connectMCC } from "./action/connect/connectMCC";
 
 export const dynamic = "force-dynamic";
 export const runtime = "nodejs";
@@ -66,6 +67,16 @@ export default function SettingsPage() {
       }
     } finally {
       setIsLoading(false);
+    }
+  };
+
+  const handleConnectMCC = async () => {
+    try {
+      connectMCC("/dashboard/settings", (url) => {
+        router.push(url);
+      });
+    } catch (error) {
+      console.log(error);
     }
   };
 
@@ -205,7 +216,7 @@ export default function SettingsPage() {
                       size="sm"
                       className={`text-[13px] w-fit ${isMCCConnected ? "bg-green-100 border-green-200 text-green-500" : ""} `}
                       disabled={isMCCConnected}
-                      onClick={handleConnectGoogleAds}
+                      onClick={handleConnectMCC}
                     >
                       {isMCCConnected ? "Connected" : "Connect"}
                     </Button>

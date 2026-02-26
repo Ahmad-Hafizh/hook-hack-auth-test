@@ -23,25 +23,34 @@ export const runtime = "nodejs";
 export default function SettingsPage() {
   const [isLoading, setIsLoading] = useState(false);
   const [isGoogleAdsConnected, setIsGoogleAdsConnected] = useState(false);
-  const [isMCCConnected, setIsMCCConnected] = useState(false);
+  const [isMCCConnected, setIsMCCConnected] = useState("");
   const router = useRouter();
+  const [isYoutubeConnected, setIsYoutubeConnected] = useState(false);
+  const [fetchingGoogleAdsStatus, setFetchingGoogleAdsStatus] = useState(false);
+  const [fetchingMCCStatus, setFetchingMCCStatus] = useState(false);
 
   const getGoogleAdsStatus = async () => {
     try {
+      setFetchingGoogleAdsStatus(true);
       const { data } = await callApi.get("/auth/google-ads/status");
       setIsGoogleAdsConnected(data.connected);
     } catch (error) {
       console.log(error);
+    } finally {
+      setFetchingGoogleAdsStatus(false);
     }
   };
 
   const getMCCStatus = async () => {
     try {
+      setFetchingMCCStatus(true);
       const { data } = await callApi.get("/auth/google-ads/mcc/status");
       console.log("MCC credentials", data);
-      setIsMCCConnected(data.status === "ACTIVE");
+      setIsMCCConnected(data.status);
     } catch (error) {
       console.log(error);
+    } finally {
+      setFetchingMCCStatus(false);
     }
   };
 
@@ -195,17 +204,21 @@ export default function SettingsPage() {
           <CardContent className="space-y-4">
             <div className="flex flex-col gap-2 ">
               <p className="text-[13px]">Google Ads</p>
-              <div className="  flex items-center gap-4  ">
+              <div className="  flex items-center gap-6  ">
                 <div className="text-xs text-slate-500 flex flex-col gap-1">
                   <p>Ads Account</p>
                   <Button
                     variant="outline"
                     size="sm"
                     className={`text-[13px] w-fit ${isGoogleAdsConnected ? "bg-green-100 border-green-200 text-green-500" : ""} `}
-                    disabled={isGoogleAdsConnected}
+                    disabled={isGoogleAdsConnected || fetchingGoogleAdsStatus}
                     onClick={handleConnectGoogleAds}
                   >
-                    {isGoogleAdsConnected ? "Connected" : "Connect"}
+                    {fetchingGoogleAdsStatus
+                      ? "Fetching..."
+                      : isGoogleAdsConnected
+                        ? "Connected"
+                        : "Connect"}
                   </Button>
                 </div>
                 <div className="text-xs text-slate-500 flex flex-col gap-1">
@@ -214,11 +227,21 @@ export default function SettingsPage() {
                     <Button
                       variant="outline"
                       size="sm"
-                      className={`text-[13px] w-fit ${isMCCConnected ? "bg-green-100 border-green-200 text-green-500" : ""} `}
-                      disabled={isMCCConnected}
+                      className={`text-[13px] group w-fit ${isMCCConnected === "ACTIVE" ? "bg-green-100 border-green-200 text-green-500" : ""} `}
+                      disabled={
+                        isMCCConnected === "ACTIVE" ||
+                        isMCCConnected === "PENDING" ||
+                        fetchingMCCStatus
+                      }
                       onClick={handleConnectMCC}
                     >
-                      {isMCCConnected ? "Connected" : "Connect"}
+                      {fetchingMCCStatus
+                        ? "Fetching..."
+                        : isMCCConnected === "ACTIVE"
+                          ? "Connected"
+                          : isMCCConnected === "PENDING"
+                            ? "Linking..."
+                            : "Connect"}
                     </Button>
                     <Button
                       variant={"ghost"}
@@ -228,11 +251,14 @@ export default function SettingsPage() {
                         getMCCStatus();
                       }}
                     >
-                      <RefreshCcw className="w-4 h-4" />
+                      <RefreshCcw className="w-4 h-4 group-hover:animate-spin duration-75" />
                     </Button>
                   </div>
                 </div>
               </div>
+            </div>
+            <div className="flex fle-col gap-2">
+              <p className="text-[13px]">Youtube Account</p>
             </div>
             {/* <div className="flex flex-col gap-2">
               <p className="text-[13px]">Google Ads MCC</p>

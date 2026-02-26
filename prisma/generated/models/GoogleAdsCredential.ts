@@ -186,6 +186,7 @@ export type GoogleAdsCredentialWhereInput = {
   customerIds?: Prisma.StringNullableListFilter<"GoogleAdsCredential">
   createdAt?: Prisma.DateTimeNullableFilter<"GoogleAdsCredential"> | Date | string | null
   updatedAt?: Prisma.DateTimeNullableFilter<"GoogleAdsCredential"> | Date | string | null
+  user?: Prisma.XOR<Prisma.UserScalarRelationFilter, Prisma.UserWhereInput>
 }
 
 export type GoogleAdsCredentialOrderByWithRelationInput = {
@@ -195,6 +196,7 @@ export type GoogleAdsCredentialOrderByWithRelationInput = {
   customerIds?: Prisma.SortOrder
   createdAt?: Prisma.SortOrderInput | Prisma.SortOrder
   updatedAt?: Prisma.SortOrderInput | Prisma.SortOrder
+  user?: Prisma.UserOrderByWithRelationInput
 }
 
 export type GoogleAdsCredentialWhereUniqueInput = Prisma.AtLeast<{
@@ -207,6 +209,7 @@ export type GoogleAdsCredentialWhereUniqueInput = Prisma.AtLeast<{
   customerIds?: Prisma.StringNullableListFilter<"GoogleAdsCredential">
   createdAt?: Prisma.DateTimeNullableFilter<"GoogleAdsCredential"> | Date | string | null
   updatedAt?: Prisma.DateTimeNullableFilter<"GoogleAdsCredential"> | Date | string | null
+  user?: Prisma.XOR<Prisma.UserScalarRelationFilter, Prisma.UserWhereInput>
 }, "id" | "userId">
 
 export type GoogleAdsCredentialOrderByWithAggregationInput = {
@@ -235,11 +238,11 @@ export type GoogleAdsCredentialScalarWhereWithAggregatesInput = {
 
 export type GoogleAdsCredentialCreateInput = {
   id?: string
-  userId: string
   refreshToken: string
   customerIds?: Prisma.GoogleAdsCredentialCreatecustomerIdsInput | string[]
   createdAt?: Date | string | null
   updatedAt?: Date | string | null
+  user: Prisma.UserCreateNestedOneWithoutGoogleAdsCredentialInput
 }
 
 export type GoogleAdsCredentialUncheckedCreateInput = {
@@ -253,11 +256,11 @@ export type GoogleAdsCredentialUncheckedCreateInput = {
 
 export type GoogleAdsCredentialUpdateInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
-  userId?: Prisma.StringFieldUpdateOperationsInput | string
   refreshToken?: Prisma.StringFieldUpdateOperationsInput | string
   customerIds?: Prisma.GoogleAdsCredentialUpdatecustomerIdsInput | string[]
   createdAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   updatedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  user?: Prisma.UserUpdateOneRequiredWithoutGoogleAdsCredentialNestedInput
 }
 
 export type GoogleAdsCredentialUncheckedUpdateInput = {
@@ -280,7 +283,6 @@ export type GoogleAdsCredentialCreateManyInput = {
 
 export type GoogleAdsCredentialUpdateManyMutationInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
-  userId?: Prisma.StringFieldUpdateOperationsInput | string
   refreshToken?: Prisma.StringFieldUpdateOperationsInput | string
   customerIds?: Prisma.GoogleAdsCredentialUpdatecustomerIdsInput | string[]
   createdAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -294,6 +296,11 @@ export type GoogleAdsCredentialUncheckedUpdateManyInput = {
   customerIds?: Prisma.GoogleAdsCredentialUpdatecustomerIdsInput | string[]
   createdAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   updatedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+}
+
+export type GoogleAdsCredentialNullableScalarRelationFilter = {
+  is?: Prisma.GoogleAdsCredentialWhereInput | null
+  isNot?: Prisma.GoogleAdsCredentialWhereInput | null
 }
 
 export type GoogleAdsCredentialCountOrderByAggregateInput = {
@@ -321,6 +328,38 @@ export type GoogleAdsCredentialMinOrderByAggregateInput = {
   updatedAt?: Prisma.SortOrder
 }
 
+export type GoogleAdsCredentialCreateNestedOneWithoutUserInput = {
+  create?: Prisma.XOR<Prisma.GoogleAdsCredentialCreateWithoutUserInput, Prisma.GoogleAdsCredentialUncheckedCreateWithoutUserInput>
+  connectOrCreate?: Prisma.GoogleAdsCredentialCreateOrConnectWithoutUserInput
+  connect?: Prisma.GoogleAdsCredentialWhereUniqueInput
+}
+
+export type GoogleAdsCredentialUncheckedCreateNestedOneWithoutUserInput = {
+  create?: Prisma.XOR<Prisma.GoogleAdsCredentialCreateWithoutUserInput, Prisma.GoogleAdsCredentialUncheckedCreateWithoutUserInput>
+  connectOrCreate?: Prisma.GoogleAdsCredentialCreateOrConnectWithoutUserInput
+  connect?: Prisma.GoogleAdsCredentialWhereUniqueInput
+}
+
+export type GoogleAdsCredentialUpdateOneWithoutUserNestedInput = {
+  create?: Prisma.XOR<Prisma.GoogleAdsCredentialCreateWithoutUserInput, Prisma.GoogleAdsCredentialUncheckedCreateWithoutUserInput>
+  connectOrCreate?: Prisma.GoogleAdsCredentialCreateOrConnectWithoutUserInput
+  upsert?: Prisma.GoogleAdsCredentialUpsertWithoutUserInput
+  disconnect?: Prisma.GoogleAdsCredentialWhereInput | boolean
+  delete?: Prisma.GoogleAdsCredentialWhereInput | boolean
+  connect?: Prisma.GoogleAdsCredentialWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.GoogleAdsCredentialUpdateToOneWithWhereWithoutUserInput, Prisma.GoogleAdsCredentialUpdateWithoutUserInput>, Prisma.GoogleAdsCredentialUncheckedUpdateWithoutUserInput>
+}
+
+export type GoogleAdsCredentialUncheckedUpdateOneWithoutUserNestedInput = {
+  create?: Prisma.XOR<Prisma.GoogleAdsCredentialCreateWithoutUserInput, Prisma.GoogleAdsCredentialUncheckedCreateWithoutUserInput>
+  connectOrCreate?: Prisma.GoogleAdsCredentialCreateOrConnectWithoutUserInput
+  upsert?: Prisma.GoogleAdsCredentialUpsertWithoutUserInput
+  disconnect?: Prisma.GoogleAdsCredentialWhereInput | boolean
+  delete?: Prisma.GoogleAdsCredentialWhereInput | boolean
+  connect?: Prisma.GoogleAdsCredentialWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.GoogleAdsCredentialUpdateToOneWithWhereWithoutUserInput, Prisma.GoogleAdsCredentialUpdateWithoutUserInput>, Prisma.GoogleAdsCredentialUncheckedUpdateWithoutUserInput>
+}
+
 export type GoogleAdsCredentialCreatecustomerIdsInput = {
   set: string[]
 }
@@ -328,6 +367,54 @@ export type GoogleAdsCredentialCreatecustomerIdsInput = {
 export type GoogleAdsCredentialUpdatecustomerIdsInput = {
   set?: string[]
   push?: string | string[]
+}
+
+export type GoogleAdsCredentialCreateWithoutUserInput = {
+  id?: string
+  refreshToken: string
+  customerIds?: Prisma.GoogleAdsCredentialCreatecustomerIdsInput | string[]
+  createdAt?: Date | string | null
+  updatedAt?: Date | string | null
+}
+
+export type GoogleAdsCredentialUncheckedCreateWithoutUserInput = {
+  id?: string
+  refreshToken: string
+  customerIds?: Prisma.GoogleAdsCredentialCreatecustomerIdsInput | string[]
+  createdAt?: Date | string | null
+  updatedAt?: Date | string | null
+}
+
+export type GoogleAdsCredentialCreateOrConnectWithoutUserInput = {
+  where: Prisma.GoogleAdsCredentialWhereUniqueInput
+  create: Prisma.XOR<Prisma.GoogleAdsCredentialCreateWithoutUserInput, Prisma.GoogleAdsCredentialUncheckedCreateWithoutUserInput>
+}
+
+export type GoogleAdsCredentialUpsertWithoutUserInput = {
+  update: Prisma.XOR<Prisma.GoogleAdsCredentialUpdateWithoutUserInput, Prisma.GoogleAdsCredentialUncheckedUpdateWithoutUserInput>
+  create: Prisma.XOR<Prisma.GoogleAdsCredentialCreateWithoutUserInput, Prisma.GoogleAdsCredentialUncheckedCreateWithoutUserInput>
+  where?: Prisma.GoogleAdsCredentialWhereInput
+}
+
+export type GoogleAdsCredentialUpdateToOneWithWhereWithoutUserInput = {
+  where?: Prisma.GoogleAdsCredentialWhereInput
+  data: Prisma.XOR<Prisma.GoogleAdsCredentialUpdateWithoutUserInput, Prisma.GoogleAdsCredentialUncheckedUpdateWithoutUserInput>
+}
+
+export type GoogleAdsCredentialUpdateWithoutUserInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  refreshToken?: Prisma.StringFieldUpdateOperationsInput | string
+  customerIds?: Prisma.GoogleAdsCredentialUpdatecustomerIdsInput | string[]
+  createdAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  updatedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+}
+
+export type GoogleAdsCredentialUncheckedUpdateWithoutUserInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  refreshToken?: Prisma.StringFieldUpdateOperationsInput | string
+  customerIds?: Prisma.GoogleAdsCredentialUpdatecustomerIdsInput | string[]
+  createdAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  updatedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
 }
 
 
@@ -339,6 +426,7 @@ export type GoogleAdsCredentialSelect<ExtArgs extends runtime.Types.Extensions.I
   customerIds?: boolean
   createdAt?: boolean
   updatedAt?: boolean
+  user?: boolean | Prisma.UserDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["googleAdsCredential"]>
 
 export type GoogleAdsCredentialSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
@@ -348,6 +436,7 @@ export type GoogleAdsCredentialSelectCreateManyAndReturn<ExtArgs extends runtime
   customerIds?: boolean
   createdAt?: boolean
   updatedAt?: boolean
+  user?: boolean | Prisma.UserDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["googleAdsCredential"]>
 
 export type GoogleAdsCredentialSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
@@ -357,6 +446,7 @@ export type GoogleAdsCredentialSelectUpdateManyAndReturn<ExtArgs extends runtime
   customerIds?: boolean
   createdAt?: boolean
   updatedAt?: boolean
+  user?: boolean | Prisma.UserDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["googleAdsCredential"]>
 
 export type GoogleAdsCredentialSelectScalar = {
@@ -369,10 +459,21 @@ export type GoogleAdsCredentialSelectScalar = {
 }
 
 export type GoogleAdsCredentialOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "userId" | "refreshToken" | "customerIds" | "createdAt" | "updatedAt", ExtArgs["result"]["googleAdsCredential"]>
+export type GoogleAdsCredentialInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  user?: boolean | Prisma.UserDefaultArgs<ExtArgs>
+}
+export type GoogleAdsCredentialIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  user?: boolean | Prisma.UserDefaultArgs<ExtArgs>
+}
+export type GoogleAdsCredentialIncludeUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  user?: boolean | Prisma.UserDefaultArgs<ExtArgs>
+}
 
 export type $GoogleAdsCredentialPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   name: "GoogleAdsCredential"
-  objects: {}
+  objects: {
+    user: Prisma.$UserPayload<ExtArgs>
+  }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: string
     userId: string
@@ -774,6 +875,7 @@ readonly fields: GoogleAdsCredentialFieldRefs;
  */
 export interface Prisma__GoogleAdsCredentialClient<T, Null = never, ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
   readonly [Symbol.toStringTag]: "PrismaPromise"
+  user<T extends Prisma.UserDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.UserDefaultArgs<ExtArgs>>): Prisma.Prisma__UserClient<runtime.Types.Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
    * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -826,6 +928,10 @@ export type GoogleAdsCredentialFindUniqueArgs<ExtArgs extends runtime.Types.Exte
    */
   omit?: Prisma.GoogleAdsCredentialOmit<ExtArgs> | null
   /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.GoogleAdsCredentialInclude<ExtArgs> | null
+  /**
    * Filter, which GoogleAdsCredential to fetch.
    */
   where: Prisma.GoogleAdsCredentialWhereUniqueInput
@@ -844,6 +950,10 @@ export type GoogleAdsCredentialFindUniqueOrThrowArgs<ExtArgs extends runtime.Typ
    */
   omit?: Prisma.GoogleAdsCredentialOmit<ExtArgs> | null
   /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.GoogleAdsCredentialInclude<ExtArgs> | null
+  /**
    * Filter, which GoogleAdsCredential to fetch.
    */
   where: Prisma.GoogleAdsCredentialWhereUniqueInput
@@ -861,6 +971,10 @@ export type GoogleAdsCredentialFindFirstArgs<ExtArgs extends runtime.Types.Exten
    * Omit specific fields from the GoogleAdsCredential
    */
   omit?: Prisma.GoogleAdsCredentialOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.GoogleAdsCredentialInclude<ExtArgs> | null
   /**
    * Filter, which GoogleAdsCredential to fetch.
    */
@@ -910,6 +1024,10 @@ export type GoogleAdsCredentialFindFirstOrThrowArgs<ExtArgs extends runtime.Type
    */
   omit?: Prisma.GoogleAdsCredentialOmit<ExtArgs> | null
   /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.GoogleAdsCredentialInclude<ExtArgs> | null
+  /**
    * Filter, which GoogleAdsCredential to fetch.
    */
   where?: Prisma.GoogleAdsCredentialWhereInput
@@ -958,6 +1076,10 @@ export type GoogleAdsCredentialFindManyArgs<ExtArgs extends runtime.Types.Extens
    */
   omit?: Prisma.GoogleAdsCredentialOmit<ExtArgs> | null
   /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.GoogleAdsCredentialInclude<ExtArgs> | null
+  /**
    * Filter, which GoogleAdsCredentials to fetch.
    */
   where?: Prisma.GoogleAdsCredentialWhereInput
@@ -1001,6 +1123,10 @@ export type GoogleAdsCredentialCreateArgs<ExtArgs extends runtime.Types.Extensio
    */
   omit?: Prisma.GoogleAdsCredentialOmit<ExtArgs> | null
   /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.GoogleAdsCredentialInclude<ExtArgs> | null
+  /**
    * The data needed to create a GoogleAdsCredential.
    */
   data: Prisma.XOR<Prisma.GoogleAdsCredentialCreateInput, Prisma.GoogleAdsCredentialUncheckedCreateInput>
@@ -1034,6 +1160,10 @@ export type GoogleAdsCredentialCreateManyAndReturnArgs<ExtArgs extends runtime.T
    */
   data: Prisma.GoogleAdsCredentialCreateManyInput | Prisma.GoogleAdsCredentialCreateManyInput[]
   skipDuplicates?: boolean
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.GoogleAdsCredentialIncludeCreateManyAndReturn<ExtArgs> | null
 }
 
 /**
@@ -1048,6 +1178,10 @@ export type GoogleAdsCredentialUpdateArgs<ExtArgs extends runtime.Types.Extensio
    * Omit specific fields from the GoogleAdsCredential
    */
   omit?: Prisma.GoogleAdsCredentialOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.GoogleAdsCredentialInclude<ExtArgs> | null
   /**
    * The data needed to update a GoogleAdsCredential.
    */
@@ -1100,6 +1234,10 @@ export type GoogleAdsCredentialUpdateManyAndReturnArgs<ExtArgs extends runtime.T
    * Limit how many GoogleAdsCredentials to update.
    */
   limit?: number
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.GoogleAdsCredentialIncludeUpdateManyAndReturn<ExtArgs> | null
 }
 
 /**
@@ -1114,6 +1252,10 @@ export type GoogleAdsCredentialUpsertArgs<ExtArgs extends runtime.Types.Extensio
    * Omit specific fields from the GoogleAdsCredential
    */
   omit?: Prisma.GoogleAdsCredentialOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.GoogleAdsCredentialInclude<ExtArgs> | null
   /**
    * The filter to search for the GoogleAdsCredential to update in case it exists.
    */
@@ -1140,6 +1282,10 @@ export type GoogleAdsCredentialDeleteArgs<ExtArgs extends runtime.Types.Extensio
    * Omit specific fields from the GoogleAdsCredential
    */
   omit?: Prisma.GoogleAdsCredentialOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.GoogleAdsCredentialInclude<ExtArgs> | null
   /**
    * Filter which GoogleAdsCredential to delete.
    */
@@ -1172,4 +1318,8 @@ export type GoogleAdsCredentialDefaultArgs<ExtArgs extends runtime.Types.Extensi
    * Omit specific fields from the GoogleAdsCredential
    */
   omit?: Prisma.GoogleAdsCredentialOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.GoogleAdsCredentialInclude<ExtArgs> | null
 }

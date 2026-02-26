@@ -182,6 +182,7 @@ export type YoutubeCredentialWhereInput = {
   refreshToken?: Prisma.StringFilter<"YoutubeCredential"> | string
   createdAt?: Prisma.DateTimeFilter<"YoutubeCredential"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"YoutubeCredential"> | Date | string
+  user?: Prisma.XOR<Prisma.UserScalarRelationFilter, Prisma.UserWhereInput>
 }
 
 export type YoutubeCredentialOrderByWithRelationInput = {
@@ -190,6 +191,7 @@ export type YoutubeCredentialOrderByWithRelationInput = {
   refreshToken?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
+  user?: Prisma.UserOrderByWithRelationInput
 }
 
 export type YoutubeCredentialWhereUniqueInput = Prisma.AtLeast<{
@@ -201,6 +203,7 @@ export type YoutubeCredentialWhereUniqueInput = Prisma.AtLeast<{
   refreshToken?: Prisma.StringFilter<"YoutubeCredential"> | string
   createdAt?: Prisma.DateTimeFilter<"YoutubeCredential"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"YoutubeCredential"> | Date | string
+  user?: Prisma.XOR<Prisma.UserScalarRelationFilter, Prisma.UserWhereInput>
 }, "id" | "userId">
 
 export type YoutubeCredentialOrderByWithAggregationInput = {
@@ -227,10 +230,10 @@ export type YoutubeCredentialScalarWhereWithAggregatesInput = {
 
 export type YoutubeCredentialCreateInput = {
   id?: string
-  userId: string
   refreshToken: string
   createdAt?: Date | string
   updatedAt?: Date | string
+  user: Prisma.UserCreateNestedOneWithoutYoutubeCredentialInput
 }
 
 export type YoutubeCredentialUncheckedCreateInput = {
@@ -243,10 +246,10 @@ export type YoutubeCredentialUncheckedCreateInput = {
 
 export type YoutubeCredentialUpdateInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
-  userId?: Prisma.StringFieldUpdateOperationsInput | string
   refreshToken?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  user?: Prisma.UserUpdateOneRequiredWithoutYoutubeCredentialNestedInput
 }
 
 export type YoutubeCredentialUncheckedUpdateInput = {
@@ -267,7 +270,6 @@ export type YoutubeCredentialCreateManyInput = {
 
 export type YoutubeCredentialUpdateManyMutationInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
-  userId?: Prisma.StringFieldUpdateOperationsInput | string
   refreshToken?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -279,6 +281,11 @@ export type YoutubeCredentialUncheckedUpdateManyInput = {
   refreshToken?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+}
+
+export type YoutubeCredentialNullableScalarRelationFilter = {
+  is?: Prisma.YoutubeCredentialWhereInput | null
+  isNot?: Prisma.YoutubeCredentialWhereInput | null
 }
 
 export type YoutubeCredentialCountOrderByAggregateInput = {
@@ -305,6 +312,82 @@ export type YoutubeCredentialMinOrderByAggregateInput = {
   updatedAt?: Prisma.SortOrder
 }
 
+export type YoutubeCredentialCreateNestedOneWithoutUserInput = {
+  create?: Prisma.XOR<Prisma.YoutubeCredentialCreateWithoutUserInput, Prisma.YoutubeCredentialUncheckedCreateWithoutUserInput>
+  connectOrCreate?: Prisma.YoutubeCredentialCreateOrConnectWithoutUserInput
+  connect?: Prisma.YoutubeCredentialWhereUniqueInput
+}
+
+export type YoutubeCredentialUncheckedCreateNestedOneWithoutUserInput = {
+  create?: Prisma.XOR<Prisma.YoutubeCredentialCreateWithoutUserInput, Prisma.YoutubeCredentialUncheckedCreateWithoutUserInput>
+  connectOrCreate?: Prisma.YoutubeCredentialCreateOrConnectWithoutUserInput
+  connect?: Prisma.YoutubeCredentialWhereUniqueInput
+}
+
+export type YoutubeCredentialUpdateOneWithoutUserNestedInput = {
+  create?: Prisma.XOR<Prisma.YoutubeCredentialCreateWithoutUserInput, Prisma.YoutubeCredentialUncheckedCreateWithoutUserInput>
+  connectOrCreate?: Prisma.YoutubeCredentialCreateOrConnectWithoutUserInput
+  upsert?: Prisma.YoutubeCredentialUpsertWithoutUserInput
+  disconnect?: Prisma.YoutubeCredentialWhereInput | boolean
+  delete?: Prisma.YoutubeCredentialWhereInput | boolean
+  connect?: Prisma.YoutubeCredentialWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.YoutubeCredentialUpdateToOneWithWhereWithoutUserInput, Prisma.YoutubeCredentialUpdateWithoutUserInput>, Prisma.YoutubeCredentialUncheckedUpdateWithoutUserInput>
+}
+
+export type YoutubeCredentialUncheckedUpdateOneWithoutUserNestedInput = {
+  create?: Prisma.XOR<Prisma.YoutubeCredentialCreateWithoutUserInput, Prisma.YoutubeCredentialUncheckedCreateWithoutUserInput>
+  connectOrCreate?: Prisma.YoutubeCredentialCreateOrConnectWithoutUserInput
+  upsert?: Prisma.YoutubeCredentialUpsertWithoutUserInput
+  disconnect?: Prisma.YoutubeCredentialWhereInput | boolean
+  delete?: Prisma.YoutubeCredentialWhereInput | boolean
+  connect?: Prisma.YoutubeCredentialWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.YoutubeCredentialUpdateToOneWithWhereWithoutUserInput, Prisma.YoutubeCredentialUpdateWithoutUserInput>, Prisma.YoutubeCredentialUncheckedUpdateWithoutUserInput>
+}
+
+export type YoutubeCredentialCreateWithoutUserInput = {
+  id?: string
+  refreshToken: string
+  createdAt?: Date | string
+  updatedAt?: Date | string
+}
+
+export type YoutubeCredentialUncheckedCreateWithoutUserInput = {
+  id?: string
+  refreshToken: string
+  createdAt?: Date | string
+  updatedAt?: Date | string
+}
+
+export type YoutubeCredentialCreateOrConnectWithoutUserInput = {
+  where: Prisma.YoutubeCredentialWhereUniqueInput
+  create: Prisma.XOR<Prisma.YoutubeCredentialCreateWithoutUserInput, Prisma.YoutubeCredentialUncheckedCreateWithoutUserInput>
+}
+
+export type YoutubeCredentialUpsertWithoutUserInput = {
+  update: Prisma.XOR<Prisma.YoutubeCredentialUpdateWithoutUserInput, Prisma.YoutubeCredentialUncheckedUpdateWithoutUserInput>
+  create: Prisma.XOR<Prisma.YoutubeCredentialCreateWithoutUserInput, Prisma.YoutubeCredentialUncheckedCreateWithoutUserInput>
+  where?: Prisma.YoutubeCredentialWhereInput
+}
+
+export type YoutubeCredentialUpdateToOneWithWhereWithoutUserInput = {
+  where?: Prisma.YoutubeCredentialWhereInput
+  data: Prisma.XOR<Prisma.YoutubeCredentialUpdateWithoutUserInput, Prisma.YoutubeCredentialUncheckedUpdateWithoutUserInput>
+}
+
+export type YoutubeCredentialUpdateWithoutUserInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  refreshToken?: Prisma.StringFieldUpdateOperationsInput | string
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+}
+
+export type YoutubeCredentialUncheckedUpdateWithoutUserInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  refreshToken?: Prisma.StringFieldUpdateOperationsInput | string
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+}
+
 
 
 export type YoutubeCredentialSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
@@ -313,6 +396,7 @@ export type YoutubeCredentialSelect<ExtArgs extends runtime.Types.Extensions.Int
   refreshToken?: boolean
   createdAt?: boolean
   updatedAt?: boolean
+  user?: boolean | Prisma.UserDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["youtubeCredential"]>
 
 export type YoutubeCredentialSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
@@ -321,6 +405,7 @@ export type YoutubeCredentialSelectCreateManyAndReturn<ExtArgs extends runtime.T
   refreshToken?: boolean
   createdAt?: boolean
   updatedAt?: boolean
+  user?: boolean | Prisma.UserDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["youtubeCredential"]>
 
 export type YoutubeCredentialSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
@@ -329,6 +414,7 @@ export type YoutubeCredentialSelectUpdateManyAndReturn<ExtArgs extends runtime.T
   refreshToken?: boolean
   createdAt?: boolean
   updatedAt?: boolean
+  user?: boolean | Prisma.UserDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["youtubeCredential"]>
 
 export type YoutubeCredentialSelectScalar = {
@@ -340,10 +426,21 @@ export type YoutubeCredentialSelectScalar = {
 }
 
 export type YoutubeCredentialOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "userId" | "refreshToken" | "createdAt" | "updatedAt", ExtArgs["result"]["youtubeCredential"]>
+export type YoutubeCredentialInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  user?: boolean | Prisma.UserDefaultArgs<ExtArgs>
+}
+export type YoutubeCredentialIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  user?: boolean | Prisma.UserDefaultArgs<ExtArgs>
+}
+export type YoutubeCredentialIncludeUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  user?: boolean | Prisma.UserDefaultArgs<ExtArgs>
+}
 
 export type $YoutubeCredentialPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   name: "YoutubeCredential"
-  objects: {}
+  objects: {
+    user: Prisma.$UserPayload<ExtArgs>
+  }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: string
     userId: string
@@ -744,6 +841,7 @@ readonly fields: YoutubeCredentialFieldRefs;
  */
 export interface Prisma__YoutubeCredentialClient<T, Null = never, ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
   readonly [Symbol.toStringTag]: "PrismaPromise"
+  user<T extends Prisma.UserDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.UserDefaultArgs<ExtArgs>>): Prisma.Prisma__UserClient<runtime.Types.Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
    * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -795,6 +893,10 @@ export type YoutubeCredentialFindUniqueArgs<ExtArgs extends runtime.Types.Extens
    */
   omit?: Prisma.YoutubeCredentialOmit<ExtArgs> | null
   /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.YoutubeCredentialInclude<ExtArgs> | null
+  /**
    * Filter, which YoutubeCredential to fetch.
    */
   where: Prisma.YoutubeCredentialWhereUniqueInput
@@ -813,6 +915,10 @@ export type YoutubeCredentialFindUniqueOrThrowArgs<ExtArgs extends runtime.Types
    */
   omit?: Prisma.YoutubeCredentialOmit<ExtArgs> | null
   /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.YoutubeCredentialInclude<ExtArgs> | null
+  /**
    * Filter, which YoutubeCredential to fetch.
    */
   where: Prisma.YoutubeCredentialWhereUniqueInput
@@ -830,6 +936,10 @@ export type YoutubeCredentialFindFirstArgs<ExtArgs extends runtime.Types.Extensi
    * Omit specific fields from the YoutubeCredential
    */
   omit?: Prisma.YoutubeCredentialOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.YoutubeCredentialInclude<ExtArgs> | null
   /**
    * Filter, which YoutubeCredential to fetch.
    */
@@ -879,6 +989,10 @@ export type YoutubeCredentialFindFirstOrThrowArgs<ExtArgs extends runtime.Types.
    */
   omit?: Prisma.YoutubeCredentialOmit<ExtArgs> | null
   /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.YoutubeCredentialInclude<ExtArgs> | null
+  /**
    * Filter, which YoutubeCredential to fetch.
    */
   where?: Prisma.YoutubeCredentialWhereInput
@@ -927,6 +1041,10 @@ export type YoutubeCredentialFindManyArgs<ExtArgs extends runtime.Types.Extensio
    */
   omit?: Prisma.YoutubeCredentialOmit<ExtArgs> | null
   /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.YoutubeCredentialInclude<ExtArgs> | null
+  /**
    * Filter, which YoutubeCredentials to fetch.
    */
   where?: Prisma.YoutubeCredentialWhereInput
@@ -970,6 +1088,10 @@ export type YoutubeCredentialCreateArgs<ExtArgs extends runtime.Types.Extensions
    */
   omit?: Prisma.YoutubeCredentialOmit<ExtArgs> | null
   /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.YoutubeCredentialInclude<ExtArgs> | null
+  /**
    * The data needed to create a YoutubeCredential.
    */
   data: Prisma.XOR<Prisma.YoutubeCredentialCreateInput, Prisma.YoutubeCredentialUncheckedCreateInput>
@@ -1003,6 +1125,10 @@ export type YoutubeCredentialCreateManyAndReturnArgs<ExtArgs extends runtime.Typ
    */
   data: Prisma.YoutubeCredentialCreateManyInput | Prisma.YoutubeCredentialCreateManyInput[]
   skipDuplicates?: boolean
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.YoutubeCredentialIncludeCreateManyAndReturn<ExtArgs> | null
 }
 
 /**
@@ -1017,6 +1143,10 @@ export type YoutubeCredentialUpdateArgs<ExtArgs extends runtime.Types.Extensions
    * Omit specific fields from the YoutubeCredential
    */
   omit?: Prisma.YoutubeCredentialOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.YoutubeCredentialInclude<ExtArgs> | null
   /**
    * The data needed to update a YoutubeCredential.
    */
@@ -1069,6 +1199,10 @@ export type YoutubeCredentialUpdateManyAndReturnArgs<ExtArgs extends runtime.Typ
    * Limit how many YoutubeCredentials to update.
    */
   limit?: number
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.YoutubeCredentialIncludeUpdateManyAndReturn<ExtArgs> | null
 }
 
 /**
@@ -1083,6 +1217,10 @@ export type YoutubeCredentialUpsertArgs<ExtArgs extends runtime.Types.Extensions
    * Omit specific fields from the YoutubeCredential
    */
   omit?: Prisma.YoutubeCredentialOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.YoutubeCredentialInclude<ExtArgs> | null
   /**
    * The filter to search for the YoutubeCredential to update in case it exists.
    */
@@ -1109,6 +1247,10 @@ export type YoutubeCredentialDeleteArgs<ExtArgs extends runtime.Types.Extensions
    * Omit specific fields from the YoutubeCredential
    */
   omit?: Prisma.YoutubeCredentialOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.YoutubeCredentialInclude<ExtArgs> | null
   /**
    * Filter which YoutubeCredential to delete.
    */
@@ -1141,4 +1283,8 @@ export type YoutubeCredentialDefaultArgs<ExtArgs extends runtime.Types.Extension
    * Omit specific fields from the YoutubeCredential
    */
   omit?: Prisma.YoutubeCredentialOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.YoutubeCredentialInclude<ExtArgs> | null
 }

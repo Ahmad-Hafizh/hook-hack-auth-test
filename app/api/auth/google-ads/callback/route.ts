@@ -19,9 +19,9 @@ export async function GET(request: NextRequest) {
     //   );
     // }
 
-    const { userId, userDbId } = await getUser();
+    const { userDbId } = await getUser();
 
-    if (!userId || !userDbId) {
+    if (!userDbId) {
       return NextResponse.json(
         {
           error: "User not found. Please sign in again.",
@@ -39,7 +39,7 @@ export async function GET(request: NextRequest) {
 
     // // Get ads credential for customer ID
     const adsCredential = await prisma.googleAdsCredential.findUnique({
-      where: { userId: userId },
+      where: { userId: userDbId },
     });
 
     console.log(adsCredential);
@@ -64,7 +64,6 @@ export async function GET(request: NextRequest) {
       });
 
       mccStatus = data;
-      console.log("mcc status", mccStatus);
     } catch (error: any) {
       return NextResponse.json(
         {
@@ -86,7 +85,7 @@ export async function GET(request: NextRequest) {
 
       return NextResponse.json(
         {
-          status: "connected",
+          status: "ACTIVE",
           message: "MCC already linked",
           url: next || `${process.env.NEXT_PUBLIC_APP_URL}/dashboard/settings`,
         },
@@ -95,7 +94,7 @@ export async function GET(request: NextRequest) {
     } else {
       // MCC not linked, call link API
       try {
-        await callAppV2Api.post(
+        const { data: mccLinkData } = await callAppV2Api.post(
           "/v1/google-ads/link",
           {
             customer_id: adsCredential.customerIds[0] || customer_id || "",
@@ -109,7 +108,7 @@ export async function GET(request: NextRequest) {
 
         return NextResponse.json(
           {
-            status: "linking",
+            status: mccLinkData.status || "PENDING",
             message: "MCC linking in progress",
             url:
               next || `${process.env.NEXT_PUBLIC_APP_URL}/dashboard/settings`,

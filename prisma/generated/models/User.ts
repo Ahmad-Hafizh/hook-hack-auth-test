@@ -46,6 +46,7 @@ export type UserMinAggregateOutputType = {
   name: string | null
   isLinkedWithGoogleAds: boolean | null
   isLinkedWithMCC: boolean | null
+  isLinkedWithYoutube: boolean | null
 }
 
 export type UserMaxAggregateOutputType = {
@@ -60,6 +61,7 @@ export type UserMaxAggregateOutputType = {
   name: string | null
   isLinkedWithGoogleAds: boolean | null
   isLinkedWithMCC: boolean | null
+  isLinkedWithYoutube: boolean | null
 }
 
 export type UserCountAggregateOutputType = {
@@ -74,6 +76,7 @@ export type UserCountAggregateOutputType = {
   name: number
   isLinkedWithGoogleAds: number
   isLinkedWithMCC: number
+  isLinkedWithYoutube: number
   _all: number
 }
 
@@ -98,6 +101,7 @@ export type UserMinAggregateInputType = {
   name?: true
   isLinkedWithGoogleAds?: true
   isLinkedWithMCC?: true
+  isLinkedWithYoutube?: true
 }
 
 export type UserMaxAggregateInputType = {
@@ -112,6 +116,7 @@ export type UserMaxAggregateInputType = {
   name?: true
   isLinkedWithGoogleAds?: true
   isLinkedWithMCC?: true
+  isLinkedWithYoutube?: true
 }
 
 export type UserCountAggregateInputType = {
@@ -126,6 +131,7 @@ export type UserCountAggregateInputType = {
   name?: true
   isLinkedWithGoogleAds?: true
   isLinkedWithMCC?: true
+  isLinkedWithYoutube?: true
   _all?: true
 }
 
@@ -227,6 +233,7 @@ export type UserGroupByOutputType = {
   name: string | null
   isLinkedWithGoogleAds: boolean
   isLinkedWithMCC: boolean
+  isLinkedWithYoutube: boolean
   _count: UserCountAggregateOutputType | null
   _avg: UserAvgAggregateOutputType | null
   _sum: UserSumAggregateOutputType | null
@@ -264,11 +271,14 @@ export type UserWhereInput = {
   name?: Prisma.StringNullableFilter<"User"> | string | null
   isLinkedWithGoogleAds?: Prisma.BoolFilter<"User"> | boolean
   isLinkedWithMCC?: Prisma.BoolFilter<"User"> | boolean
+  isLinkedWithYoutube?: Prisma.BoolFilter<"User"> | boolean
   Media?: Prisma.MediaListRelationFilter
   transaction?: Prisma.TransactionListRelationFilter
   YoutubeVideoSync?: Prisma.YoutubeVideoSyncListRelationFilter
   pdcas?: Prisma.PDCAListRelationFilter
   project?: Prisma.ProjectListRelationFilter
+  googleAdsCredential?: Prisma.XOR<Prisma.GoogleAdsCredentialNullableScalarRelationFilter, Prisma.GoogleAdsCredentialWhereInput> | null
+  youtubeCredential?: Prisma.XOR<Prisma.YoutubeCredentialNullableScalarRelationFilter, Prisma.YoutubeCredentialWhereInput> | null
 }
 
 export type UserOrderByWithRelationInput = {
@@ -283,11 +293,14 @@ export type UserOrderByWithRelationInput = {
   name?: Prisma.SortOrderInput | Prisma.SortOrder
   isLinkedWithGoogleAds?: Prisma.SortOrder
   isLinkedWithMCC?: Prisma.SortOrder
+  isLinkedWithYoutube?: Prisma.SortOrder
   Media?: Prisma.MediaOrderByRelationAggregateInput
   transaction?: Prisma.TransactionOrderByRelationAggregateInput
   YoutubeVideoSync?: Prisma.YoutubeVideoSyncOrderByRelationAggregateInput
   pdcas?: Prisma.PDCAOrderByRelationAggregateInput
   project?: Prisma.projectOrderByRelationAggregateInput
+  googleAdsCredential?: Prisma.GoogleAdsCredentialOrderByWithRelationInput
+  youtubeCredential?: Prisma.YoutubeCredentialOrderByWithRelationInput
 }
 
 export type UserWhereUniqueInput = Prisma.AtLeast<{
@@ -305,11 +318,14 @@ export type UserWhereUniqueInput = Prisma.AtLeast<{
   name?: Prisma.StringNullableFilter<"User"> | string | null
   isLinkedWithGoogleAds?: Prisma.BoolFilter<"User"> | boolean
   isLinkedWithMCC?: Prisma.BoolFilter<"User"> | boolean
+  isLinkedWithYoutube?: Prisma.BoolFilter<"User"> | boolean
   Media?: Prisma.MediaListRelationFilter
   transaction?: Prisma.TransactionListRelationFilter
   YoutubeVideoSync?: Prisma.YoutubeVideoSyncListRelationFilter
   pdcas?: Prisma.PDCAListRelationFilter
   project?: Prisma.ProjectListRelationFilter
+  googleAdsCredential?: Prisma.XOR<Prisma.GoogleAdsCredentialNullableScalarRelationFilter, Prisma.GoogleAdsCredentialWhereInput> | null
+  youtubeCredential?: Prisma.XOR<Prisma.YoutubeCredentialNullableScalarRelationFilter, Prisma.YoutubeCredentialWhereInput> | null
 }, "id" | "userId" | "email">
 
 export type UserOrderByWithAggregationInput = {
@@ -324,6 +340,7 @@ export type UserOrderByWithAggregationInput = {
   name?: Prisma.SortOrderInput | Prisma.SortOrder
   isLinkedWithGoogleAds?: Prisma.SortOrder
   isLinkedWithMCC?: Prisma.SortOrder
+  isLinkedWithYoutube?: Prisma.SortOrder
   _count?: Prisma.UserCountOrderByAggregateInput
   _avg?: Prisma.UserAvgOrderByAggregateInput
   _max?: Prisma.UserMaxOrderByAggregateInput
@@ -346,6 +363,7 @@ export type UserScalarWhereWithAggregatesInput = {
   name?: Prisma.StringNullableWithAggregatesFilter<"User"> | string | null
   isLinkedWithGoogleAds?: Prisma.BoolWithAggregatesFilter<"User"> | boolean
   isLinkedWithMCC?: Prisma.BoolWithAggregatesFilter<"User"> | boolean
+  isLinkedWithYoutube?: Prisma.BoolWithAggregatesFilter<"User"> | boolean
 }
 
 export type UserCreateInput = {
@@ -360,11 +378,14 @@ export type UserCreateInput = {
   name?: string | null
   isLinkedWithGoogleAds?: boolean
   isLinkedWithMCC?: boolean
+  isLinkedWithYoutube?: boolean
   Media?: Prisma.MediaCreateNestedManyWithoutUserInput
   transaction?: Prisma.TransactionCreateNestedManyWithoutUserInput
   YoutubeVideoSync?: Prisma.YoutubeVideoSyncCreateNestedManyWithoutUserInput
   pdcas?: Prisma.PDCACreateNestedManyWithoutUserInput
   project?: Prisma.projectCreateNestedManyWithoutUserInput
+  googleAdsCredential?: Prisma.GoogleAdsCredentialCreateNestedOneWithoutUserInput
+  youtubeCredential?: Prisma.YoutubeCredentialCreateNestedOneWithoutUserInput
 }
 
 export type UserUncheckedCreateInput = {
@@ -379,11 +400,14 @@ export type UserUncheckedCreateInput = {
   name?: string | null
   isLinkedWithGoogleAds?: boolean
   isLinkedWithMCC?: boolean
+  isLinkedWithYoutube?: boolean
   Media?: Prisma.MediaUncheckedCreateNestedManyWithoutUserInput
   transaction?: Prisma.TransactionUncheckedCreateNestedManyWithoutUserInput
   YoutubeVideoSync?: Prisma.YoutubeVideoSyncUncheckedCreateNestedManyWithoutUserInput
   pdcas?: Prisma.PDCAUncheckedCreateNestedManyWithoutUserInput
   project?: Prisma.projectUncheckedCreateNestedManyWithoutUserInput
+  googleAdsCredential?: Prisma.GoogleAdsCredentialUncheckedCreateNestedOneWithoutUserInput
+  youtubeCredential?: Prisma.YoutubeCredentialUncheckedCreateNestedOneWithoutUserInput
 }
 
 export type UserUpdateInput = {
@@ -398,11 +422,14 @@ export type UserUpdateInput = {
   name?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isLinkedWithGoogleAds?: Prisma.BoolFieldUpdateOperationsInput | boolean
   isLinkedWithMCC?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isLinkedWithYoutube?: Prisma.BoolFieldUpdateOperationsInput | boolean
   Media?: Prisma.MediaUpdateManyWithoutUserNestedInput
   transaction?: Prisma.TransactionUpdateManyWithoutUserNestedInput
   YoutubeVideoSync?: Prisma.YoutubeVideoSyncUpdateManyWithoutUserNestedInput
   pdcas?: Prisma.PDCAUpdateManyWithoutUserNestedInput
   project?: Prisma.projectUpdateManyWithoutUserNestedInput
+  googleAdsCredential?: Prisma.GoogleAdsCredentialUpdateOneWithoutUserNestedInput
+  youtubeCredential?: Prisma.YoutubeCredentialUpdateOneWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateInput = {
@@ -417,11 +444,14 @@ export type UserUncheckedUpdateInput = {
   name?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isLinkedWithGoogleAds?: Prisma.BoolFieldUpdateOperationsInput | boolean
   isLinkedWithMCC?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isLinkedWithYoutube?: Prisma.BoolFieldUpdateOperationsInput | boolean
   Media?: Prisma.MediaUncheckedUpdateManyWithoutUserNestedInput
   transaction?: Prisma.TransactionUncheckedUpdateManyWithoutUserNestedInput
   YoutubeVideoSync?: Prisma.YoutubeVideoSyncUncheckedUpdateManyWithoutUserNestedInput
   pdcas?: Prisma.PDCAUncheckedUpdateManyWithoutUserNestedInput
   project?: Prisma.projectUncheckedUpdateManyWithoutUserNestedInput
+  googleAdsCredential?: Prisma.GoogleAdsCredentialUncheckedUpdateOneWithoutUserNestedInput
+  youtubeCredential?: Prisma.YoutubeCredentialUncheckedUpdateOneWithoutUserNestedInput
 }
 
 export type UserCreateManyInput = {
@@ -436,6 +466,7 @@ export type UserCreateManyInput = {
   name?: string | null
   isLinkedWithGoogleAds?: boolean
   isLinkedWithMCC?: boolean
+  isLinkedWithYoutube?: boolean
 }
 
 export type UserUpdateManyMutationInput = {
@@ -450,6 +481,7 @@ export type UserUpdateManyMutationInput = {
   name?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isLinkedWithGoogleAds?: Prisma.BoolFieldUpdateOperationsInput | boolean
   isLinkedWithMCC?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isLinkedWithYoutube?: Prisma.BoolFieldUpdateOperationsInput | boolean
 }
 
 export type UserUncheckedUpdateManyInput = {
@@ -464,6 +496,7 @@ export type UserUncheckedUpdateManyInput = {
   name?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isLinkedWithGoogleAds?: Prisma.BoolFieldUpdateOperationsInput | boolean
   isLinkedWithMCC?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isLinkedWithYoutube?: Prisma.BoolFieldUpdateOperationsInput | boolean
 }
 
 export type UserCountOrderByAggregateInput = {
@@ -478,6 +511,7 @@ export type UserCountOrderByAggregateInput = {
   name?: Prisma.SortOrder
   isLinkedWithGoogleAds?: Prisma.SortOrder
   isLinkedWithMCC?: Prisma.SortOrder
+  isLinkedWithYoutube?: Prisma.SortOrder
 }
 
 export type UserAvgOrderByAggregateInput = {
@@ -496,6 +530,7 @@ export type UserMaxOrderByAggregateInput = {
   name?: Prisma.SortOrder
   isLinkedWithGoogleAds?: Prisma.SortOrder
   isLinkedWithMCC?: Prisma.SortOrder
+  isLinkedWithYoutube?: Prisma.SortOrder
 }
 
 export type UserMinOrderByAggregateInput = {
@@ -510,6 +545,7 @@ export type UserMinOrderByAggregateInput = {
   name?: Prisma.SortOrder
   isLinkedWithGoogleAds?: Prisma.SortOrder
   isLinkedWithMCC?: Prisma.SortOrder
+  isLinkedWithYoutube?: Prisma.SortOrder
 }
 
 export type UserSumOrderByAggregateInput = {
@@ -587,6 +623,20 @@ export type UserUpdateOneRequiredWithoutPdcasNestedInput = {
   update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutPdcasInput, Prisma.UserUpdateWithoutPdcasInput>, Prisma.UserUncheckedUpdateWithoutPdcasInput>
 }
 
+export type UserCreateNestedOneWithoutGoogleAdsCredentialInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutGoogleAdsCredentialInput, Prisma.UserUncheckedCreateWithoutGoogleAdsCredentialInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutGoogleAdsCredentialInput
+  connect?: Prisma.UserWhereUniqueInput
+}
+
+export type UserUpdateOneRequiredWithoutGoogleAdsCredentialNestedInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutGoogleAdsCredentialInput, Prisma.UserUncheckedCreateWithoutGoogleAdsCredentialInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutGoogleAdsCredentialInput
+  upsert?: Prisma.UserUpsertWithoutGoogleAdsCredentialInput
+  connect?: Prisma.UserWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutGoogleAdsCredentialInput, Prisma.UserUpdateWithoutGoogleAdsCredentialInput>, Prisma.UserUncheckedUpdateWithoutGoogleAdsCredentialInput>
+}
+
 export type UserCreateNestedOneWithoutMediaInput = {
   create?: Prisma.XOR<Prisma.UserCreateWithoutMediaInput, Prisma.UserUncheckedCreateWithoutMediaInput>
   connectOrCreate?: Prisma.UserCreateOrConnectWithoutMediaInput
@@ -599,6 +649,20 @@ export type UserUpdateOneRequiredWithoutMediaNestedInput = {
   upsert?: Prisma.UserUpsertWithoutMediaInput
   connect?: Prisma.UserWhereUniqueInput
   update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutMediaInput, Prisma.UserUpdateWithoutMediaInput>, Prisma.UserUncheckedUpdateWithoutMediaInput>
+}
+
+export type UserCreateNestedOneWithoutYoutubeCredentialInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutYoutubeCredentialInput, Prisma.UserUncheckedCreateWithoutYoutubeCredentialInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutYoutubeCredentialInput
+  connect?: Prisma.UserWhereUniqueInput
+}
+
+export type UserUpdateOneRequiredWithoutYoutubeCredentialNestedInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutYoutubeCredentialInput, Prisma.UserUncheckedCreateWithoutYoutubeCredentialInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutYoutubeCredentialInput
+  upsert?: Prisma.UserUpsertWithoutYoutubeCredentialInput
+  connect?: Prisma.UserWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutYoutubeCredentialInput, Prisma.UserUpdateWithoutYoutubeCredentialInput>, Prisma.UserUncheckedUpdateWithoutYoutubeCredentialInput>
 }
 
 export type UserCreateNestedOneWithoutYoutubeVideoSyncInput = {
@@ -627,10 +691,13 @@ export type UserCreateWithoutProjectInput = {
   name?: string | null
   isLinkedWithGoogleAds?: boolean
   isLinkedWithMCC?: boolean
+  isLinkedWithYoutube?: boolean
   Media?: Prisma.MediaCreateNestedManyWithoutUserInput
   transaction?: Prisma.TransactionCreateNestedManyWithoutUserInput
   YoutubeVideoSync?: Prisma.YoutubeVideoSyncCreateNestedManyWithoutUserInput
   pdcas?: Prisma.PDCACreateNestedManyWithoutUserInput
+  googleAdsCredential?: Prisma.GoogleAdsCredentialCreateNestedOneWithoutUserInput
+  youtubeCredential?: Prisma.YoutubeCredentialCreateNestedOneWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutProjectInput = {
@@ -645,10 +712,13 @@ export type UserUncheckedCreateWithoutProjectInput = {
   name?: string | null
   isLinkedWithGoogleAds?: boolean
   isLinkedWithMCC?: boolean
+  isLinkedWithYoutube?: boolean
   Media?: Prisma.MediaUncheckedCreateNestedManyWithoutUserInput
   transaction?: Prisma.TransactionUncheckedCreateNestedManyWithoutUserInput
   YoutubeVideoSync?: Prisma.YoutubeVideoSyncUncheckedCreateNestedManyWithoutUserInput
   pdcas?: Prisma.PDCAUncheckedCreateNestedManyWithoutUserInput
+  googleAdsCredential?: Prisma.GoogleAdsCredentialUncheckedCreateNestedOneWithoutUserInput
+  youtubeCredential?: Prisma.YoutubeCredentialUncheckedCreateNestedOneWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutProjectInput = {
@@ -679,10 +749,13 @@ export type UserUpdateWithoutProjectInput = {
   name?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isLinkedWithGoogleAds?: Prisma.BoolFieldUpdateOperationsInput | boolean
   isLinkedWithMCC?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isLinkedWithYoutube?: Prisma.BoolFieldUpdateOperationsInput | boolean
   Media?: Prisma.MediaUpdateManyWithoutUserNestedInput
   transaction?: Prisma.TransactionUpdateManyWithoutUserNestedInput
   YoutubeVideoSync?: Prisma.YoutubeVideoSyncUpdateManyWithoutUserNestedInput
   pdcas?: Prisma.PDCAUpdateManyWithoutUserNestedInput
+  googleAdsCredential?: Prisma.GoogleAdsCredentialUpdateOneWithoutUserNestedInput
+  youtubeCredential?: Prisma.YoutubeCredentialUpdateOneWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutProjectInput = {
@@ -697,10 +770,13 @@ export type UserUncheckedUpdateWithoutProjectInput = {
   name?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isLinkedWithGoogleAds?: Prisma.BoolFieldUpdateOperationsInput | boolean
   isLinkedWithMCC?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isLinkedWithYoutube?: Prisma.BoolFieldUpdateOperationsInput | boolean
   Media?: Prisma.MediaUncheckedUpdateManyWithoutUserNestedInput
   transaction?: Prisma.TransactionUncheckedUpdateManyWithoutUserNestedInput
   YoutubeVideoSync?: Prisma.YoutubeVideoSyncUncheckedUpdateManyWithoutUserNestedInput
   pdcas?: Prisma.PDCAUncheckedUpdateManyWithoutUserNestedInput
+  googleAdsCredential?: Prisma.GoogleAdsCredentialUncheckedUpdateOneWithoutUserNestedInput
+  youtubeCredential?: Prisma.YoutubeCredentialUncheckedUpdateOneWithoutUserNestedInput
 }
 
 export type UserCreateWithoutTransactionInput = {
@@ -715,10 +791,13 @@ export type UserCreateWithoutTransactionInput = {
   name?: string | null
   isLinkedWithGoogleAds?: boolean
   isLinkedWithMCC?: boolean
+  isLinkedWithYoutube?: boolean
   Media?: Prisma.MediaCreateNestedManyWithoutUserInput
   YoutubeVideoSync?: Prisma.YoutubeVideoSyncCreateNestedManyWithoutUserInput
   pdcas?: Prisma.PDCACreateNestedManyWithoutUserInput
   project?: Prisma.projectCreateNestedManyWithoutUserInput
+  googleAdsCredential?: Prisma.GoogleAdsCredentialCreateNestedOneWithoutUserInput
+  youtubeCredential?: Prisma.YoutubeCredentialCreateNestedOneWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutTransactionInput = {
@@ -733,10 +812,13 @@ export type UserUncheckedCreateWithoutTransactionInput = {
   name?: string | null
   isLinkedWithGoogleAds?: boolean
   isLinkedWithMCC?: boolean
+  isLinkedWithYoutube?: boolean
   Media?: Prisma.MediaUncheckedCreateNestedManyWithoutUserInput
   YoutubeVideoSync?: Prisma.YoutubeVideoSyncUncheckedCreateNestedManyWithoutUserInput
   pdcas?: Prisma.PDCAUncheckedCreateNestedManyWithoutUserInput
   project?: Prisma.projectUncheckedCreateNestedManyWithoutUserInput
+  googleAdsCredential?: Prisma.GoogleAdsCredentialUncheckedCreateNestedOneWithoutUserInput
+  youtubeCredential?: Prisma.YoutubeCredentialUncheckedCreateNestedOneWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutTransactionInput = {
@@ -767,10 +849,13 @@ export type UserUpdateWithoutTransactionInput = {
   name?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isLinkedWithGoogleAds?: Prisma.BoolFieldUpdateOperationsInput | boolean
   isLinkedWithMCC?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isLinkedWithYoutube?: Prisma.BoolFieldUpdateOperationsInput | boolean
   Media?: Prisma.MediaUpdateManyWithoutUserNestedInput
   YoutubeVideoSync?: Prisma.YoutubeVideoSyncUpdateManyWithoutUserNestedInput
   pdcas?: Prisma.PDCAUpdateManyWithoutUserNestedInput
   project?: Prisma.projectUpdateManyWithoutUserNestedInput
+  googleAdsCredential?: Prisma.GoogleAdsCredentialUpdateOneWithoutUserNestedInput
+  youtubeCredential?: Prisma.YoutubeCredentialUpdateOneWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutTransactionInput = {
@@ -785,10 +870,13 @@ export type UserUncheckedUpdateWithoutTransactionInput = {
   name?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isLinkedWithGoogleAds?: Prisma.BoolFieldUpdateOperationsInput | boolean
   isLinkedWithMCC?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isLinkedWithYoutube?: Prisma.BoolFieldUpdateOperationsInput | boolean
   Media?: Prisma.MediaUncheckedUpdateManyWithoutUserNestedInput
   YoutubeVideoSync?: Prisma.YoutubeVideoSyncUncheckedUpdateManyWithoutUserNestedInput
   pdcas?: Prisma.PDCAUncheckedUpdateManyWithoutUserNestedInput
   project?: Prisma.projectUncheckedUpdateManyWithoutUserNestedInput
+  googleAdsCredential?: Prisma.GoogleAdsCredentialUncheckedUpdateOneWithoutUserNestedInput
+  youtubeCredential?: Prisma.YoutubeCredentialUncheckedUpdateOneWithoutUserNestedInput
 }
 
 export type UserCreateWithoutPdcasInput = {
@@ -803,10 +891,13 @@ export type UserCreateWithoutPdcasInput = {
   name?: string | null
   isLinkedWithGoogleAds?: boolean
   isLinkedWithMCC?: boolean
+  isLinkedWithYoutube?: boolean
   Media?: Prisma.MediaCreateNestedManyWithoutUserInput
   transaction?: Prisma.TransactionCreateNestedManyWithoutUserInput
   YoutubeVideoSync?: Prisma.YoutubeVideoSyncCreateNestedManyWithoutUserInput
   project?: Prisma.projectCreateNestedManyWithoutUserInput
+  googleAdsCredential?: Prisma.GoogleAdsCredentialCreateNestedOneWithoutUserInput
+  youtubeCredential?: Prisma.YoutubeCredentialCreateNestedOneWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutPdcasInput = {
@@ -821,10 +912,13 @@ export type UserUncheckedCreateWithoutPdcasInput = {
   name?: string | null
   isLinkedWithGoogleAds?: boolean
   isLinkedWithMCC?: boolean
+  isLinkedWithYoutube?: boolean
   Media?: Prisma.MediaUncheckedCreateNestedManyWithoutUserInput
   transaction?: Prisma.TransactionUncheckedCreateNestedManyWithoutUserInput
   YoutubeVideoSync?: Prisma.YoutubeVideoSyncUncheckedCreateNestedManyWithoutUserInput
   project?: Prisma.projectUncheckedCreateNestedManyWithoutUserInput
+  googleAdsCredential?: Prisma.GoogleAdsCredentialUncheckedCreateNestedOneWithoutUserInput
+  youtubeCredential?: Prisma.YoutubeCredentialUncheckedCreateNestedOneWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutPdcasInput = {
@@ -855,10 +949,13 @@ export type UserUpdateWithoutPdcasInput = {
   name?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isLinkedWithGoogleAds?: Prisma.BoolFieldUpdateOperationsInput | boolean
   isLinkedWithMCC?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isLinkedWithYoutube?: Prisma.BoolFieldUpdateOperationsInput | boolean
   Media?: Prisma.MediaUpdateManyWithoutUserNestedInput
   transaction?: Prisma.TransactionUpdateManyWithoutUserNestedInput
   YoutubeVideoSync?: Prisma.YoutubeVideoSyncUpdateManyWithoutUserNestedInput
   project?: Prisma.projectUpdateManyWithoutUserNestedInput
+  googleAdsCredential?: Prisma.GoogleAdsCredentialUpdateOneWithoutUserNestedInput
+  youtubeCredential?: Prisma.YoutubeCredentialUpdateOneWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutPdcasInput = {
@@ -873,10 +970,113 @@ export type UserUncheckedUpdateWithoutPdcasInput = {
   name?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isLinkedWithGoogleAds?: Prisma.BoolFieldUpdateOperationsInput | boolean
   isLinkedWithMCC?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isLinkedWithYoutube?: Prisma.BoolFieldUpdateOperationsInput | boolean
   Media?: Prisma.MediaUncheckedUpdateManyWithoutUserNestedInput
   transaction?: Prisma.TransactionUncheckedUpdateManyWithoutUserNestedInput
   YoutubeVideoSync?: Prisma.YoutubeVideoSyncUncheckedUpdateManyWithoutUserNestedInput
   project?: Prisma.projectUncheckedUpdateManyWithoutUserNestedInput
+  googleAdsCredential?: Prisma.GoogleAdsCredentialUncheckedUpdateOneWithoutUserNestedInput
+  youtubeCredential?: Prisma.YoutubeCredentialUncheckedUpdateOneWithoutUserNestedInput
+}
+
+export type UserCreateWithoutGoogleAdsCredentialInput = {
+  id?: string
+  userId: string
+  email?: string | null
+  phoneNumber?: string | null
+  tiktokUsername?: string | null
+  credit?: number
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  name?: string | null
+  isLinkedWithGoogleAds?: boolean
+  isLinkedWithMCC?: boolean
+  isLinkedWithYoutube?: boolean
+  Media?: Prisma.MediaCreateNestedManyWithoutUserInput
+  transaction?: Prisma.TransactionCreateNestedManyWithoutUserInput
+  YoutubeVideoSync?: Prisma.YoutubeVideoSyncCreateNestedManyWithoutUserInput
+  pdcas?: Prisma.PDCACreateNestedManyWithoutUserInput
+  project?: Prisma.projectCreateNestedManyWithoutUserInput
+  youtubeCredential?: Prisma.YoutubeCredentialCreateNestedOneWithoutUserInput
+}
+
+export type UserUncheckedCreateWithoutGoogleAdsCredentialInput = {
+  id?: string
+  userId: string
+  email?: string | null
+  phoneNumber?: string | null
+  tiktokUsername?: string | null
+  credit?: number
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  name?: string | null
+  isLinkedWithGoogleAds?: boolean
+  isLinkedWithMCC?: boolean
+  isLinkedWithYoutube?: boolean
+  Media?: Prisma.MediaUncheckedCreateNestedManyWithoutUserInput
+  transaction?: Prisma.TransactionUncheckedCreateNestedManyWithoutUserInput
+  YoutubeVideoSync?: Prisma.YoutubeVideoSyncUncheckedCreateNestedManyWithoutUserInput
+  pdcas?: Prisma.PDCAUncheckedCreateNestedManyWithoutUserInput
+  project?: Prisma.projectUncheckedCreateNestedManyWithoutUserInput
+  youtubeCredential?: Prisma.YoutubeCredentialUncheckedCreateNestedOneWithoutUserInput
+}
+
+export type UserCreateOrConnectWithoutGoogleAdsCredentialInput = {
+  where: Prisma.UserWhereUniqueInput
+  create: Prisma.XOR<Prisma.UserCreateWithoutGoogleAdsCredentialInput, Prisma.UserUncheckedCreateWithoutGoogleAdsCredentialInput>
+}
+
+export type UserUpsertWithoutGoogleAdsCredentialInput = {
+  update: Prisma.XOR<Prisma.UserUpdateWithoutGoogleAdsCredentialInput, Prisma.UserUncheckedUpdateWithoutGoogleAdsCredentialInput>
+  create: Prisma.XOR<Prisma.UserCreateWithoutGoogleAdsCredentialInput, Prisma.UserUncheckedCreateWithoutGoogleAdsCredentialInput>
+  where?: Prisma.UserWhereInput
+}
+
+export type UserUpdateToOneWithWhereWithoutGoogleAdsCredentialInput = {
+  where?: Prisma.UserWhereInput
+  data: Prisma.XOR<Prisma.UserUpdateWithoutGoogleAdsCredentialInput, Prisma.UserUncheckedUpdateWithoutGoogleAdsCredentialInput>
+}
+
+export type UserUpdateWithoutGoogleAdsCredentialInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  userId?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  phoneNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  tiktokUsername?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  credit?: Prisma.IntFieldUpdateOperationsInput | number
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  name?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  isLinkedWithGoogleAds?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isLinkedWithMCC?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isLinkedWithYoutube?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  Media?: Prisma.MediaUpdateManyWithoutUserNestedInput
+  transaction?: Prisma.TransactionUpdateManyWithoutUserNestedInput
+  YoutubeVideoSync?: Prisma.YoutubeVideoSyncUpdateManyWithoutUserNestedInput
+  pdcas?: Prisma.PDCAUpdateManyWithoutUserNestedInput
+  project?: Prisma.projectUpdateManyWithoutUserNestedInput
+  youtubeCredential?: Prisma.YoutubeCredentialUpdateOneWithoutUserNestedInput
+}
+
+export type UserUncheckedUpdateWithoutGoogleAdsCredentialInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  userId?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  phoneNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  tiktokUsername?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  credit?: Prisma.IntFieldUpdateOperationsInput | number
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  name?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  isLinkedWithGoogleAds?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isLinkedWithMCC?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isLinkedWithYoutube?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  Media?: Prisma.MediaUncheckedUpdateManyWithoutUserNestedInput
+  transaction?: Prisma.TransactionUncheckedUpdateManyWithoutUserNestedInput
+  YoutubeVideoSync?: Prisma.YoutubeVideoSyncUncheckedUpdateManyWithoutUserNestedInput
+  pdcas?: Prisma.PDCAUncheckedUpdateManyWithoutUserNestedInput
+  project?: Prisma.projectUncheckedUpdateManyWithoutUserNestedInput
+  youtubeCredential?: Prisma.YoutubeCredentialUncheckedUpdateOneWithoutUserNestedInput
 }
 
 export type UserCreateWithoutMediaInput = {
@@ -891,10 +1091,13 @@ export type UserCreateWithoutMediaInput = {
   name?: string | null
   isLinkedWithGoogleAds?: boolean
   isLinkedWithMCC?: boolean
+  isLinkedWithYoutube?: boolean
   transaction?: Prisma.TransactionCreateNestedManyWithoutUserInput
   YoutubeVideoSync?: Prisma.YoutubeVideoSyncCreateNestedManyWithoutUserInput
   pdcas?: Prisma.PDCACreateNestedManyWithoutUserInput
   project?: Prisma.projectCreateNestedManyWithoutUserInput
+  googleAdsCredential?: Prisma.GoogleAdsCredentialCreateNestedOneWithoutUserInput
+  youtubeCredential?: Prisma.YoutubeCredentialCreateNestedOneWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutMediaInput = {
@@ -909,10 +1112,13 @@ export type UserUncheckedCreateWithoutMediaInput = {
   name?: string | null
   isLinkedWithGoogleAds?: boolean
   isLinkedWithMCC?: boolean
+  isLinkedWithYoutube?: boolean
   transaction?: Prisma.TransactionUncheckedCreateNestedManyWithoutUserInput
   YoutubeVideoSync?: Prisma.YoutubeVideoSyncUncheckedCreateNestedManyWithoutUserInput
   pdcas?: Prisma.PDCAUncheckedCreateNestedManyWithoutUserInput
   project?: Prisma.projectUncheckedCreateNestedManyWithoutUserInput
+  googleAdsCredential?: Prisma.GoogleAdsCredentialUncheckedCreateNestedOneWithoutUserInput
+  youtubeCredential?: Prisma.YoutubeCredentialUncheckedCreateNestedOneWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutMediaInput = {
@@ -943,10 +1149,13 @@ export type UserUpdateWithoutMediaInput = {
   name?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isLinkedWithGoogleAds?: Prisma.BoolFieldUpdateOperationsInput | boolean
   isLinkedWithMCC?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isLinkedWithYoutube?: Prisma.BoolFieldUpdateOperationsInput | boolean
   transaction?: Prisma.TransactionUpdateManyWithoutUserNestedInput
   YoutubeVideoSync?: Prisma.YoutubeVideoSyncUpdateManyWithoutUserNestedInput
   pdcas?: Prisma.PDCAUpdateManyWithoutUserNestedInput
   project?: Prisma.projectUpdateManyWithoutUserNestedInput
+  googleAdsCredential?: Prisma.GoogleAdsCredentialUpdateOneWithoutUserNestedInput
+  youtubeCredential?: Prisma.YoutubeCredentialUpdateOneWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutMediaInput = {
@@ -961,10 +1170,113 @@ export type UserUncheckedUpdateWithoutMediaInput = {
   name?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isLinkedWithGoogleAds?: Prisma.BoolFieldUpdateOperationsInput | boolean
   isLinkedWithMCC?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isLinkedWithYoutube?: Prisma.BoolFieldUpdateOperationsInput | boolean
   transaction?: Prisma.TransactionUncheckedUpdateManyWithoutUserNestedInput
   YoutubeVideoSync?: Prisma.YoutubeVideoSyncUncheckedUpdateManyWithoutUserNestedInput
   pdcas?: Prisma.PDCAUncheckedUpdateManyWithoutUserNestedInput
   project?: Prisma.projectUncheckedUpdateManyWithoutUserNestedInput
+  googleAdsCredential?: Prisma.GoogleAdsCredentialUncheckedUpdateOneWithoutUserNestedInput
+  youtubeCredential?: Prisma.YoutubeCredentialUncheckedUpdateOneWithoutUserNestedInput
+}
+
+export type UserCreateWithoutYoutubeCredentialInput = {
+  id?: string
+  userId: string
+  email?: string | null
+  phoneNumber?: string | null
+  tiktokUsername?: string | null
+  credit?: number
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  name?: string | null
+  isLinkedWithGoogleAds?: boolean
+  isLinkedWithMCC?: boolean
+  isLinkedWithYoutube?: boolean
+  Media?: Prisma.MediaCreateNestedManyWithoutUserInput
+  transaction?: Prisma.TransactionCreateNestedManyWithoutUserInput
+  YoutubeVideoSync?: Prisma.YoutubeVideoSyncCreateNestedManyWithoutUserInput
+  pdcas?: Prisma.PDCACreateNestedManyWithoutUserInput
+  project?: Prisma.projectCreateNestedManyWithoutUserInput
+  googleAdsCredential?: Prisma.GoogleAdsCredentialCreateNestedOneWithoutUserInput
+}
+
+export type UserUncheckedCreateWithoutYoutubeCredentialInput = {
+  id?: string
+  userId: string
+  email?: string | null
+  phoneNumber?: string | null
+  tiktokUsername?: string | null
+  credit?: number
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  name?: string | null
+  isLinkedWithGoogleAds?: boolean
+  isLinkedWithMCC?: boolean
+  isLinkedWithYoutube?: boolean
+  Media?: Prisma.MediaUncheckedCreateNestedManyWithoutUserInput
+  transaction?: Prisma.TransactionUncheckedCreateNestedManyWithoutUserInput
+  YoutubeVideoSync?: Prisma.YoutubeVideoSyncUncheckedCreateNestedManyWithoutUserInput
+  pdcas?: Prisma.PDCAUncheckedCreateNestedManyWithoutUserInput
+  project?: Prisma.projectUncheckedCreateNestedManyWithoutUserInput
+  googleAdsCredential?: Prisma.GoogleAdsCredentialUncheckedCreateNestedOneWithoutUserInput
+}
+
+export type UserCreateOrConnectWithoutYoutubeCredentialInput = {
+  where: Prisma.UserWhereUniqueInput
+  create: Prisma.XOR<Prisma.UserCreateWithoutYoutubeCredentialInput, Prisma.UserUncheckedCreateWithoutYoutubeCredentialInput>
+}
+
+export type UserUpsertWithoutYoutubeCredentialInput = {
+  update: Prisma.XOR<Prisma.UserUpdateWithoutYoutubeCredentialInput, Prisma.UserUncheckedUpdateWithoutYoutubeCredentialInput>
+  create: Prisma.XOR<Prisma.UserCreateWithoutYoutubeCredentialInput, Prisma.UserUncheckedCreateWithoutYoutubeCredentialInput>
+  where?: Prisma.UserWhereInput
+}
+
+export type UserUpdateToOneWithWhereWithoutYoutubeCredentialInput = {
+  where?: Prisma.UserWhereInput
+  data: Prisma.XOR<Prisma.UserUpdateWithoutYoutubeCredentialInput, Prisma.UserUncheckedUpdateWithoutYoutubeCredentialInput>
+}
+
+export type UserUpdateWithoutYoutubeCredentialInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  userId?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  phoneNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  tiktokUsername?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  credit?: Prisma.IntFieldUpdateOperationsInput | number
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  name?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  isLinkedWithGoogleAds?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isLinkedWithMCC?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isLinkedWithYoutube?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  Media?: Prisma.MediaUpdateManyWithoutUserNestedInput
+  transaction?: Prisma.TransactionUpdateManyWithoutUserNestedInput
+  YoutubeVideoSync?: Prisma.YoutubeVideoSyncUpdateManyWithoutUserNestedInput
+  pdcas?: Prisma.PDCAUpdateManyWithoutUserNestedInput
+  project?: Prisma.projectUpdateManyWithoutUserNestedInput
+  googleAdsCredential?: Prisma.GoogleAdsCredentialUpdateOneWithoutUserNestedInput
+}
+
+export type UserUncheckedUpdateWithoutYoutubeCredentialInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  userId?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  phoneNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  tiktokUsername?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  credit?: Prisma.IntFieldUpdateOperationsInput | number
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  name?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  isLinkedWithGoogleAds?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isLinkedWithMCC?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isLinkedWithYoutube?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  Media?: Prisma.MediaUncheckedUpdateManyWithoutUserNestedInput
+  transaction?: Prisma.TransactionUncheckedUpdateManyWithoutUserNestedInput
+  YoutubeVideoSync?: Prisma.YoutubeVideoSyncUncheckedUpdateManyWithoutUserNestedInput
+  pdcas?: Prisma.PDCAUncheckedUpdateManyWithoutUserNestedInput
+  project?: Prisma.projectUncheckedUpdateManyWithoutUserNestedInput
+  googleAdsCredential?: Prisma.GoogleAdsCredentialUncheckedUpdateOneWithoutUserNestedInput
 }
 
 export type UserCreateWithoutYoutubeVideoSyncInput = {
@@ -979,10 +1291,13 @@ export type UserCreateWithoutYoutubeVideoSyncInput = {
   name?: string | null
   isLinkedWithGoogleAds?: boolean
   isLinkedWithMCC?: boolean
+  isLinkedWithYoutube?: boolean
   Media?: Prisma.MediaCreateNestedManyWithoutUserInput
   transaction?: Prisma.TransactionCreateNestedManyWithoutUserInput
   pdcas?: Prisma.PDCACreateNestedManyWithoutUserInput
   project?: Prisma.projectCreateNestedManyWithoutUserInput
+  googleAdsCredential?: Prisma.GoogleAdsCredentialCreateNestedOneWithoutUserInput
+  youtubeCredential?: Prisma.YoutubeCredentialCreateNestedOneWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutYoutubeVideoSyncInput = {
@@ -997,10 +1312,13 @@ export type UserUncheckedCreateWithoutYoutubeVideoSyncInput = {
   name?: string | null
   isLinkedWithGoogleAds?: boolean
   isLinkedWithMCC?: boolean
+  isLinkedWithYoutube?: boolean
   Media?: Prisma.MediaUncheckedCreateNestedManyWithoutUserInput
   transaction?: Prisma.TransactionUncheckedCreateNestedManyWithoutUserInput
   pdcas?: Prisma.PDCAUncheckedCreateNestedManyWithoutUserInput
   project?: Prisma.projectUncheckedCreateNestedManyWithoutUserInput
+  googleAdsCredential?: Prisma.GoogleAdsCredentialUncheckedCreateNestedOneWithoutUserInput
+  youtubeCredential?: Prisma.YoutubeCredentialUncheckedCreateNestedOneWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutYoutubeVideoSyncInput = {
@@ -1031,10 +1349,13 @@ export type UserUpdateWithoutYoutubeVideoSyncInput = {
   name?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isLinkedWithGoogleAds?: Prisma.BoolFieldUpdateOperationsInput | boolean
   isLinkedWithMCC?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isLinkedWithYoutube?: Prisma.BoolFieldUpdateOperationsInput | boolean
   Media?: Prisma.MediaUpdateManyWithoutUserNestedInput
   transaction?: Prisma.TransactionUpdateManyWithoutUserNestedInput
   pdcas?: Prisma.PDCAUpdateManyWithoutUserNestedInput
   project?: Prisma.projectUpdateManyWithoutUserNestedInput
+  googleAdsCredential?: Prisma.GoogleAdsCredentialUpdateOneWithoutUserNestedInput
+  youtubeCredential?: Prisma.YoutubeCredentialUpdateOneWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutYoutubeVideoSyncInput = {
@@ -1049,10 +1370,13 @@ export type UserUncheckedUpdateWithoutYoutubeVideoSyncInput = {
   name?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isLinkedWithGoogleAds?: Prisma.BoolFieldUpdateOperationsInput | boolean
   isLinkedWithMCC?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isLinkedWithYoutube?: Prisma.BoolFieldUpdateOperationsInput | boolean
   Media?: Prisma.MediaUncheckedUpdateManyWithoutUserNestedInput
   transaction?: Prisma.TransactionUncheckedUpdateManyWithoutUserNestedInput
   pdcas?: Prisma.PDCAUncheckedUpdateManyWithoutUserNestedInput
   project?: Prisma.projectUncheckedUpdateManyWithoutUserNestedInput
+  googleAdsCredential?: Prisma.GoogleAdsCredentialUncheckedUpdateOneWithoutUserNestedInput
+  youtubeCredential?: Prisma.YoutubeCredentialUncheckedUpdateOneWithoutUserNestedInput
 }
 
 
@@ -1134,11 +1458,14 @@ export type UserSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = r
   name?: boolean
   isLinkedWithGoogleAds?: boolean
   isLinkedWithMCC?: boolean
+  isLinkedWithYoutube?: boolean
   Media?: boolean | Prisma.User$MediaArgs<ExtArgs>
   transaction?: boolean | Prisma.User$transactionArgs<ExtArgs>
   YoutubeVideoSync?: boolean | Prisma.User$YoutubeVideoSyncArgs<ExtArgs>
   pdcas?: boolean | Prisma.User$pdcasArgs<ExtArgs>
   project?: boolean | Prisma.User$projectArgs<ExtArgs>
+  googleAdsCredential?: boolean | Prisma.User$googleAdsCredentialArgs<ExtArgs>
+  youtubeCredential?: boolean | Prisma.User$youtubeCredentialArgs<ExtArgs>
   _count?: boolean | Prisma.UserCountOutputTypeDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["user"]>
 
@@ -1154,6 +1481,7 @@ export type UserSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensio
   name?: boolean
   isLinkedWithGoogleAds?: boolean
   isLinkedWithMCC?: boolean
+  isLinkedWithYoutube?: boolean
 }, ExtArgs["result"]["user"]>
 
 export type UserSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
@@ -1168,6 +1496,7 @@ export type UserSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensio
   name?: boolean
   isLinkedWithGoogleAds?: boolean
   isLinkedWithMCC?: boolean
+  isLinkedWithYoutube?: boolean
 }, ExtArgs["result"]["user"]>
 
 export type UserSelectScalar = {
@@ -1182,15 +1511,18 @@ export type UserSelectScalar = {
   name?: boolean
   isLinkedWithGoogleAds?: boolean
   isLinkedWithMCC?: boolean
+  isLinkedWithYoutube?: boolean
 }
 
-export type UserOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "userId" | "email" | "phoneNumber" | "tiktokUsername" | "credit" | "createdAt" | "updatedAt" | "name" | "isLinkedWithGoogleAds" | "isLinkedWithMCC", ExtArgs["result"]["user"]>
+export type UserOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "userId" | "email" | "phoneNumber" | "tiktokUsername" | "credit" | "createdAt" | "updatedAt" | "name" | "isLinkedWithGoogleAds" | "isLinkedWithMCC" | "isLinkedWithYoutube", ExtArgs["result"]["user"]>
 export type UserInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   Media?: boolean | Prisma.User$MediaArgs<ExtArgs>
   transaction?: boolean | Prisma.User$transactionArgs<ExtArgs>
   YoutubeVideoSync?: boolean | Prisma.User$YoutubeVideoSyncArgs<ExtArgs>
   pdcas?: boolean | Prisma.User$pdcasArgs<ExtArgs>
   project?: boolean | Prisma.User$projectArgs<ExtArgs>
+  googleAdsCredential?: boolean | Prisma.User$googleAdsCredentialArgs<ExtArgs>
+  youtubeCredential?: boolean | Prisma.User$youtubeCredentialArgs<ExtArgs>
   _count?: boolean | Prisma.UserCountOutputTypeDefaultArgs<ExtArgs>
 }
 export type UserIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {}
@@ -1204,6 +1536,8 @@ export type $UserPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs =
     YoutubeVideoSync: Prisma.$YoutubeVideoSyncPayload<ExtArgs>[]
     pdcas: Prisma.$PDCAPayload<ExtArgs>[]
     project: Prisma.$projectPayload<ExtArgs>[]
+    googleAdsCredential: Prisma.$GoogleAdsCredentialPayload<ExtArgs> | null
+    youtubeCredential: Prisma.$YoutubeCredentialPayload<ExtArgs> | null
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: string
@@ -1217,6 +1551,7 @@ export type $UserPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs =
     name: string | null
     isLinkedWithGoogleAds: boolean
     isLinkedWithMCC: boolean
+    isLinkedWithYoutube: boolean
   }, ExtArgs["result"]["user"]>
   composites: {}
 }
@@ -1616,6 +1951,8 @@ export interface Prisma__UserClient<T, Null = never, ExtArgs extends runtime.Typ
   YoutubeVideoSync<T extends Prisma.User$YoutubeVideoSyncArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$YoutubeVideoSyncArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$YoutubeVideoSyncPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   pdcas<T extends Prisma.User$pdcasArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$pdcasArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$PDCAPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   project<T extends Prisma.User$projectArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$projectArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$projectPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  googleAdsCredential<T extends Prisma.User$googleAdsCredentialArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$googleAdsCredentialArgs<ExtArgs>>): Prisma.Prisma__GoogleAdsCredentialClient<runtime.Types.Result.GetResult<Prisma.$GoogleAdsCredentialPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+  youtubeCredential<T extends Prisma.User$youtubeCredentialArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$youtubeCredentialArgs<ExtArgs>>): Prisma.Prisma__YoutubeCredentialClient<runtime.Types.Result.GetResult<Prisma.$YoutubeCredentialPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
    * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -1656,6 +1993,7 @@ export interface UserFieldRefs {
   readonly name: Prisma.FieldRef<"User", 'String'>
   readonly isLinkedWithGoogleAds: Prisma.FieldRef<"User", 'Boolean'>
   readonly isLinkedWithMCC: Prisma.FieldRef<"User", 'Boolean'>
+  readonly isLinkedWithYoutube: Prisma.FieldRef<"User", 'Boolean'>
 }
     
 
@@ -2161,6 +2499,44 @@ export type User$projectArgs<ExtArgs extends runtime.Types.Extensions.InternalAr
   take?: number
   skip?: number
   distinct?: Prisma.ProjectScalarFieldEnum | Prisma.ProjectScalarFieldEnum[]
+}
+
+/**
+ * User.googleAdsCredential
+ */
+export type User$googleAdsCredentialArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the GoogleAdsCredential
+   */
+  select?: Prisma.GoogleAdsCredentialSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the GoogleAdsCredential
+   */
+  omit?: Prisma.GoogleAdsCredentialOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.GoogleAdsCredentialInclude<ExtArgs> | null
+  where?: Prisma.GoogleAdsCredentialWhereInput
+}
+
+/**
+ * User.youtubeCredential
+ */
+export type User$youtubeCredentialArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the YoutubeCredential
+   */
+  select?: Prisma.YoutubeCredentialSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the YoutubeCredential
+   */
+  omit?: Prisma.YoutubeCredentialOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.YoutubeCredentialInclude<ExtArgs> | null
+  where?: Prisma.YoutubeCredentialWhereInput
 }
 
 /**

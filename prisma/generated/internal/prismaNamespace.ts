@@ -2103,7 +2103,8 @@ export const UserScalarFieldEnum = {
   updatedAt: 'updatedAt',
   name: 'name',
   isLinkedWithGoogleAds: 'isLinkedWithGoogleAds',
-  isLinkedWithMCC: 'isLinkedWithMCC'
+  isLinkedWithMCC: 'isLinkedWithMCC',
+  isLinkedWithYoutube: 'isLinkedWithYoutube'
 } as const
 
 export type UserScalarFieldEnum = (typeof UserScalarFieldEnum)[keyof typeof UserScalarFieldEnum]

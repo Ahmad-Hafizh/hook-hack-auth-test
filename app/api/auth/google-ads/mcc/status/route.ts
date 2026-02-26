@@ -5,9 +5,9 @@ import { NextRequest, NextResponse } from "next/server";
 
 export async function GET(request: NextRequest) {
   try {
-    const { userId, userDbId } = await getUser();
+    const { userDbId } = await getUser();
 
-    if (!userId || !userDbId) {
+    if (!userDbId) {
       return NextResponse.json({ error: "User not found" }, { status: 401 });
     }
 
@@ -18,16 +18,20 @@ export async function GET(request: NextRequest) {
       },
     });
 
-    if (!adsCredential || adsCredential.customerIds.length === 0) {
+    if (!adsCredential) {
       return NextResponse.json(
         { error: "Google Ads credential not found" },
         { status: 404 },
       );
     }
 
-    const { data } = await callAppV2Api.get("/v1/google-ads/mcc/status", {
+    console.log(adsCredential);
+
+    const { data } = await callAppV2Api.get("/v1/google-ads/link-status", {
       headers: {
         "X-User-ID": "cmlzyp3mo000004jrp6aqtc2a",
+      },
+      params: {
         customer_id: adsCredential.customerIds[0],
       },
     });
@@ -41,7 +45,7 @@ export async function GET(request: NextRequest) {
       });
     }
 
-    return NextResponse.json(data, { status: 200 });
+    return NextResponse.json({ status: data?.status }, { status: 200 });
   } catch (error) {
     console.error("MCC status check error:", error);
     return NextResponse.json(

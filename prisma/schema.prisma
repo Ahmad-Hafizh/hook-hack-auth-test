@@ -19,11 +19,14 @@ model User {
   name                  String?
   isLinkedWithGoogleAds Boolean            @default(false)
   isLinkedWithMCC       Boolean            @default(false)
+  isLinkedWithYoutube   Boolean            @default(false)
   Media                 Media[]
   transaction           Transaction[]
   YoutubeVideoSync      YoutubeVideoSync[]
   pdcas                 PDCA[]
   project               project[]
+  googleAdsCredential   GoogleAdsCredential?
+  youtubeCredential     YoutubeCredential?
 }
 
 /// This model contains row level security and requires additional setup for migrations. Visit https://pris.ly/d/row-level-security for more info.
@@ -278,6 +281,7 @@ model Ads {
 model GoogleAdsCredential {
   id           String    @id @default(dbgenerated("(gen_random_uuid())::text"))
   userId       String    @unique
+  user          User      @relation(fields: [userId], references: [id])
   refreshToken String
   customerIds  String[]
   createdAt    DateTime? @default(now()) @db.Timestamptz(6)
@@ -317,6 +321,7 @@ model Media {
 model YoutubeCredential {
   id           String   @id @default(dbgenerated("(gen_random_uuid())::text"))
   userId       String   @unique
+  user         User     @relation(fields: [userId], references: [id])
   refreshToken String
   createdAt    DateTime @default(now()) @db.Timestamptz(6)
   updatedAt    DateTime @default(now()) @db.Timestamptz(6)

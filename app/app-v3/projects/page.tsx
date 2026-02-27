@@ -21,8 +21,9 @@ import {
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { toast } from "sonner";
-import { useRouter } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
 import { Label } from "@/components/ui/label";
+import { errorToastCaller } from "../[sessionId]/planning/components/toastCaller";
 
 export interface Project {
   id: string;
@@ -44,13 +45,21 @@ const ProjectManagement: React.FC = () => {
   const [sortOrder, setSortOrder] = useState<"asc" | "desc">("desc");
   const router = useRouter();
 
+  const searchParams = useSearchParams();
+  const error = searchParams.get("error");
+
+  useEffect(() => {
+    if (error) {
+      toast.error(decodeURIComponent(error), { position: "top-center" });
+    }
+  }, [error]);
+
   const getProjectsList = async () => {
     try {
       setLoading(true);
       const { data } = await callApi.get("/app-v3/projects", {
         params: { search: searchQuery, page: currentPage, sort: sortOrder },
       });
-      console.log(data);
 
       if (data.projects) {
         setProjectList(data.projects);
@@ -58,11 +67,14 @@ const ProjectManagement: React.FC = () => {
         setTotalPage(data.totalPage);
       } else {
         setProjectList([]);
-        toast.info("No projects found. Create your first project!");
+        toast.info("No projects found. Create your first project!", {
+          position: "top-center",
+        });
       }
     } catch (error) {
       setProjectList([]);
-      console.log(error);
+      console.error("Failed to fetch projects:", error);
+      errorToastCaller(error);
     } finally {
       setLoading(false);
     }
@@ -72,10 +84,10 @@ const ProjectManagement: React.FC = () => {
     try {
       setLoadingSubmit(true);
       await callApi.post("/app-v3/projects", { name });
-      toast.success("Project created!");
+      toast.success("Project created!", { position: "top-center" });
     } catch (error) {
       console.error("Failed to create project:", error);
-      toast.error("Failed to create project");
+      errorToastCaller(error);
     } finally {
       setNewProjectName("");
       setLoadingSubmit(false);

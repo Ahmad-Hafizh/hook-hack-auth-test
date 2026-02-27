@@ -8,7 +8,7 @@ import { ArrowRight } from "lucide-react";
 import callApi from "@/config/axios/axios";
 import { Card } from "../../components/card";
 import Matrix from "./components/matrix";
-import { toast } from "sonner";
+import { errorToastCaller } from "../../components/toastCaller";
 
 const CompetitiveMatrixPage = ({
   onNext,
@@ -58,7 +58,7 @@ const CompetitiveMatrixPage = ({
         }
       }
     } catch (error) {
-      console.log(error);
+      errorToastCaller(error);
     } finally {
       setRegenerating(false);
     }
@@ -131,8 +131,7 @@ const CompetitiveMatrixPage = ({
         }
       }
     } catch (error) {
-      console.log(error);
-      toast.error(error instanceof Error ? error.message : "An error occurred");
+      errorToastCaller(error);
     } finally {
       setSubmitting(false);
       setSubmitProgress({ percent: 0, message: "" });
@@ -183,10 +182,7 @@ const CompetitiveMatrixPage = ({
             <Card variant="elevated" className="w-full">
               <div className="w-full overflow-x-scroll pb-10">
                 <div className="flex flex-row gap-8 w-fit items-start justify-start ">
-                  <Matrix
-                    type="user"
-                    matrix={competitiveMatrix.user}
-                  />
+                  <Matrix type="user" matrix={competitiveMatrix.user} />
                   <Matrix
                     type="suggestion"
                     matrix={competitiveMatrix.suggestion}
@@ -204,23 +200,27 @@ const CompetitiveMatrixPage = ({
                     <div className="bg-gray-50 p-5 rounded-xl border shadow-sm flex flex-row gap-6 h-full min-h-[860px] text-gray-500 ">
                       {competitiveMatrix.competitors?.map((matrix, index) => {
                         const matchedCandidate = candidates.find(
-                          (c: any) => c.url && matrix.url && c.url === matrix.url
+                          (c: any) =>
+                            c.url && matrix.url && c.url === matrix.url,
                         );
-                        const companyName = matchedCandidate?.company_name || matchedCandidate?.service_name || "";
+                        const companyName =
+                          matchedCandidate?.company_name ||
+                          matchedCandidate?.service_name ||
+                          "";
                         return (
-                        <div key={index} className="flex flex-row gap-6">
-                          <Matrix
-                            type="competitor"
-                            matrix={matrix}
-                            screenshotUrl={matrix.screenshot_url}
-                            companyName={companyName}
-                          />
-                          {index <
-                            (competitiveMatrix.competitors?.length || 0) -
-                              1 && (
-                            <hr className="w-[1px] h-full bg-slate-300" />
-                          )}
-                        </div>
+                          <div key={index} className="flex flex-row gap-6">
+                            <Matrix
+                              type="competitor"
+                              matrix={matrix}
+                              screenshotUrl={matrix.screenshot_url}
+                              companyName={companyName}
+                            />
+                            {index <
+                              (competitiveMatrix.competitors?.length || 0) -
+                                1 && (
+                              <hr className="w-[1px] h-full bg-slate-300" />
+                            )}
+                          </div>
                         );
                       }) || null}
                     </div>

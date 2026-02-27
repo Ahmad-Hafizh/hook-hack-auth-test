@@ -7,9 +7,8 @@ import { ArrowRight } from "lucide-react";
 import { usePlanningWhatDataContext } from "../../../context/planningWhatDataContext";
 import callApi from "@/config/axios/axios";
 import { Card } from "../../../components/card";
-import { Alert } from "@/components/ui/alert";
-import { usePlannningContext } from "@/app/app-v3/plannningContext";
 import { toast } from "sonner";
+import { errorToastCaller } from "../../../components/toastCaller";
 
 const InputUrlScratchPage = ({
   onNext,
@@ -23,6 +22,7 @@ const InputUrlScratchPage = ({
   const { onSetCandidates, candidates } = usePlanningWhatDataContext();
   const [regenerating, setRegenerating] = React.useState(false);
   const [submitting, setSubmitting] = React.useState(false);
+  const [sseMessage, setSseMessage] = React.useState("");
 
   const onSubmitSSE = async () => {
     try {
@@ -59,7 +59,10 @@ const InputUrlScratchPage = ({
           if (line.trim().startsWith("data: ")) {
             try {
               const jsonData = JSON.parse(line.substring(6));
-              console.log(jsonData);
+
+              if (jsonData.stage && jsonData.message) {
+                setSseMessage(jsonData.message);
+              }
 
               if (jsonData.candidates) {
                 onSetCandidates(jsonData.candidates);
@@ -95,12 +98,7 @@ const InputUrlScratchPage = ({
       }
     } catch (error) {
       console.log(error);
-      toast.error(
-        error instanceof Error ? error.message : "An unknown error occurred",
-        {
-          position: "bottom-left",
-        },
-      );
+      errorToastCaller(error);
     } finally {
       setSubmitting(false);
     }
@@ -118,14 +116,8 @@ const InputUrlScratchPage = ({
           setProductUrl(data.product);
         }
       }
-    } catch (error) {
-      console.log(error);
-      toast.error(
-        error instanceof Error ? error.message : "An unknown error occurred",
-        {
-          position: "bottom-left",
-        },
-      );
+    } catch (error: any) {
+      errorToastCaller(error);
     } finally {
       setRegenerating(false);
     }
@@ -153,7 +145,7 @@ const InputUrlScratchPage = ({
       <LoadingOverlay
         isVisible={submitting}
         progress={50}
-        message="LPを分析中..."
+        message={sseMessage || "LPを分析中..."}
         showProgress={false}
       />
 

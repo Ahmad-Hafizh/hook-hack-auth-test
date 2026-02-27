@@ -14,6 +14,7 @@ import TemplateSelector from "./components/TemplateSelector";
 import { ColorPicker } from "./components/ColorPicker";
 import { OrientationSelector } from "./components/OrientationSelector";
 import { LivePreview } from "./components/LivePreview";
+import { errorToastCaller } from "../../components/toastCaller";
 
 // Background image categories and items
 type BgCategory =
@@ -169,7 +170,7 @@ export const GenerationSettingsPage = ({
         onNext();
       }
     } catch (error) {
-      console.error("Error submitting settings:", error);
+      errorToastCaller(error);
       setRenderError("設定の保存に失敗しました。もう一度お試しください。");
     } finally {
       setSubmitting(false);
@@ -181,7 +182,7 @@ export const GenerationSettingsPage = ({
       const { data } = await callApi.post("/app-v3/planning/how/step4/fetch", {
         sessionId: sessionId,
       });
-      console.log("Fetched design settings:", data);
+
       if (data) {
         if (data.designSettings) {
           const ds = data.designSettings;
@@ -203,7 +204,7 @@ export const GenerationSettingsPage = ({
         }
       }
     } catch (error) {
-      console.log(error);
+      errorToastCaller(error);
     }
   };
 
@@ -516,7 +517,9 @@ export const GenerationSettingsPage = ({
               <div className="w-10 h-10 rounded-full bg-amber-100 flex items-center justify-center">
                 <AlertTriangle className="w-5 h-5 text-amber-600" />
               </div>
-              <h3 className="text-lg font-bold text-slate-800">クレジットが不足しています</h3>
+              <h3 className="text-lg font-bold text-slate-800">
+                クレジットが不足しています
+              </h3>
             </div>
             <p className="text-sm text-slate-600 mb-6">
               動画を生成するにはクレジットが必要です。クレジットを購入してから再度お試しください。
@@ -531,7 +534,9 @@ export const GenerationSettingsPage = ({
               <button
                 onClick={() => {
                   setShowCreditModal(false);
-                  router.push(`/dashboard/credits?redirect=/app-v3/planning/${sessionId}`);
+                  router.push(
+                    `/dashboard/credits?redirect=/app-v3/planning/${sessionId}`,
+                  );
                 }}
                 className="px-4 py-2 text-sm font-medium text-white bg-[#0093b4] hover:bg-[#007a92] rounded-lg transition-colors"
               >

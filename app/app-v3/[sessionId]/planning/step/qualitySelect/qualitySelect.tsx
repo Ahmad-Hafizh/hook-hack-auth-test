@@ -8,6 +8,7 @@ import callApi from "@/config/axios/axios";
 import LoadingOverlay from "@/components/ui/loading-overlay";
 import { Card } from "../../components/card";
 import { RadioCard } from "../../components/RadioCard";
+import { errorToastCaller } from "../../components/toastCaller";
 
 const QualitySelectPage = ({ onNext }: { onNext: () => void }) => {
   const [submitting, setSubmitting] = React.useState(false);
@@ -18,6 +19,8 @@ const QualitySelectPage = ({ onNext }: { onNext: () => void }) => {
   );
   const { sessionId } = useParams();
   const { onSetWhatType } = usePlannningContext();
+
+  // console.log(sessionId);
 
   const onSubmitSelection = async () => {
     try {
@@ -37,7 +40,7 @@ const QualitySelectPage = ({ onNext }: { onNext: () => void }) => {
       }
       onNext();
     } catch (error) {
-      console.log(error);
+      errorToastCaller(error);
     } finally {
       setSubmitting(false);
     }
@@ -62,7 +65,7 @@ const QualitySelectPage = ({ onNext }: { onNext: () => void }) => {
       }
       // Handle regeneration response if needed
     } catch (error) {
-      console.log(error);
+      errorToastCaller(error);
     } finally {
       setRegenerating(false);
     }
@@ -117,7 +120,9 @@ const QualitySelectPage = ({ onNext }: { onNext: () => void }) => {
                   value="speed"
                   icon={<TimerReset />}
                   title={"スピード重視​（所要​時間：約5分）​"}
-                  description={"LPの入力から、最適なコピーのバリエーション(how)を生成します。"}
+                  description={
+                    "LPの入力から、最適なコピーのバリエーション(how)を生成します。"
+                  }
                   checked={qualitySelection === "speed"}
                   onChange={(value) => {
                     setQualitySelection("speed");

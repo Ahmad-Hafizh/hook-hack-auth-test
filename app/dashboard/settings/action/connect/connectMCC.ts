@@ -1,5 +1,4 @@
 import callApi from "@/config/axios/axios";
-import { redirect } from "next/navigation";
 
 export const connectMCC = async (
   next: string = "/dashboard/settings",
@@ -14,13 +13,11 @@ export const connectMCC = async (
 
     if (data.url) {
       onRedirect?.(data.url);
-      redirect(data.url);
     }
   } catch (error: any) {
-    console.log(error.response.data.url);
-    if (error.response.data.url) {
+    console.log(error.response?.data?.url);
+    if (error.response?.data?.url) {
       onRedirect?.(error.response.data.url);
-      redirect(error.response.data.url);
     }
   }
 };

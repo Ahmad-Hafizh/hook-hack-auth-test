@@ -5,6 +5,7 @@ import { useParams, useRouter } from "next/navigation";
 import callApi from "@/config/axios/axios";
 import { usePlanningWhatDataContext } from "../../../context/planningWhatDataContext";
 import LoadingOverlay from "@/components/ui/loading-overlay";
+import { errorToastCaller } from "../../../components/toastCaller";
 
 const InputUrlSkipPage = ({
   onNext,
@@ -39,7 +40,7 @@ const InputUrlSkipPage = ({
         onNext();
       }
     } catch (error) {
-      console.log(error);
+      errorToastCaller(error);
     } finally {
       setSubmitting(false);
     }
@@ -67,7 +68,7 @@ const InputUrlSkipPage = ({
         }
       }
     } catch (error) {
-      console.log(error);
+      errorToastCaller(error);
     } finally {
       setRegenerating(false);
     }

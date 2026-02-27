@@ -36,7 +36,7 @@ export async function GET(request: NextRequest) {
       },
     });
 
-    if (data?.detail?.status === "ACTIVE") {
+    if (data?.status === "ACTIVE") {
       await prisma.user.update({
         where: { id: userDbId! },
         data: {

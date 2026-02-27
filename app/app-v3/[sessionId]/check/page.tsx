@@ -6,6 +6,7 @@ import { useRouter } from "next/navigation";
 import { Checkbox } from "@/components/ui/checkbox";
 import callApi from "@/config/axios/axios";
 import LoadingOverlay from "@/components/ui/loading-overlay";
+import { toast } from "sonner";
 
 interface Ad {
   ad_id: string;
@@ -59,11 +60,14 @@ const CheckSelectAdsPage = () => {
   const getAds = async () => {
     try {
       setIsLoading(true);
-      const { data } = await callApi.get("/app-v3/check");
+      const { data } = await callApi.get("/app-v3/check/dummy");
       console.log(data);
       setAds(data.ads);
-    } catch (error) {
+    } catch (error: any) {
       console.log(error);
+      toast.error(error.response?.data?.message || "広告の取得に失敗しました", {
+        position: "top-center",
+      });
     } finally {
       setIsLoading(false);
     }
@@ -71,60 +75,6 @@ const CheckSelectAdsPage = () => {
 
   // Fetch ads on mount + include generated videos from localStorage
   useEffect(() => {
-    // const fetchAds = async () => {
-    //   setIsLoading(true);
-    //   try {
-    //     // Get generated video URLs from localStorage (from generation page)
-    //     const generatedAds: Ad[] = [];
-    //     const storedUrls = localStorage.getItem("renderedVideoUrls");
-    //     if (storedUrls) {
-    //       try {
-    //         const urls = JSON.parse(storedUrls);
-    //         if (Array.isArray(urls) && urls.length > 0) {
-    //           urls.forEach((url: string, index: number) => {
-    //             generatedAds.push({
-    //               id: `generated-${index + 1}`,
-    //               title: `生成動画 Pattern ${index + 1}`,
-    //               campaign: "生成された広告",
-    //               videoSrc: url,
-    //               aspectRatio: "horizontal",
-    //               createdAt: new Date().toISOString(),
-    //             });
-    //           });
-    //         }
-    //       } catch (e) {
-    //         console.error("Error parsing renderedVideoUrls:", e);
-    //       }
-    //     } else {
-    //       // Fallback to single URL
-    //       const singleUrl = localStorage.getItem("renderedVideoUrl");
-    //       if (singleUrl) {
-    //         generatedAds.push({
-    //           id: "generated-1",
-    //           title: "生成動画 Pattern 1",
-    //           campaign: "生成された広告",
-    //           videoSrc: singleUrl,
-    //           aspectRatio: "horizontal",
-    //           createdAt: new Date().toISOString(),
-    //         });
-    //       }
-    //     }
-
-    //     // TODO: Replace with actual API call
-    //     // const { data } = await callApi.get("/check/ads");
-    //     // setAds([...generatedAds, ...data.ads]);
-
-    //     // Mock data for now - put generated ads first
-    //     await new Promise((resolve) => setTimeout(resolve, 500));
-    //     setAds([...generatedAds, ...baseMockAds]);
-    //   } catch (error) {
-    //     console.error("Error fetching ads:", error);
-    //   } finally {
-    //     setIsLoading(false);
-    //   }
-    // };
-
-    // fetchAds();
     getAds();
   }, []);
 
@@ -170,8 +120,8 @@ const CheckSelectAdsPage = () => {
   // Handle submit
   const handleSubmit = async () => {
     try {
-      const { data } = await callApi.post("/app-v3/check/analyse", {
-        ad_ids: selectedAds,
+      const { data } = await callApi.post("/app-v3/check/dummy/selected", {
+        selected_ad_ids: selectedAds,
       });
       console.log(data);
     } catch (error) {

@@ -5,10 +5,10 @@ import React, { useEffect } from "react";
 import { Spinner } from "@/components/ui/spinner";
 import { redirect, useParams } from "next/navigation";
 import { LoadingOverlay } from "@/components/ui/loading-overlay";
-import { usePlanningWhatDataContext } from "../../app/app-v3/planning/[sessionId]/context/planningWhatDataContext";
 import { Card, PageHeader, VisualSelector } from "@/components/lp-analyzer";
 import { ArrowRight } from "lucide-react";
 import callApi from "@/config/axios/axios";
+import { usePlanningWhatDataContext } from "@/app/app-v3/[sessionId]/planning/context/planningWhatDataContext";
 
 const KeyVisualsSelectionPage = ({
   onNext,

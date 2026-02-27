@@ -15,6 +15,7 @@ import { ModalButton, ModalOptions } from "./components/types";
 import SheetTabs from "./components/SheetTabs";
 import DataTable from "./components/DataTable";
 import Modal from "./components/Modal";
+import { errorToastCaller } from "../../components/toastCaller";
 
 const createEmptyRow15s = (): IDataRowFinalized => ({
   hookImage: "",
@@ -562,7 +563,7 @@ export const FinalizedDataVariantsPage = ({
         body2ImageB: [],
       });
     } catch (error) {
-      console.error("[handleBulkUploadFile] Error:", error);
+      errorToastCaller(error);
     } finally {
       setIsBulkUploading(false);
     }
@@ -582,7 +583,7 @@ export const FinalizedDataVariantsPage = ({
 
       onNext();
     } catch (error) {
-      console.log(error);
+      errorToastCaller(error);
     } finally {
       setSubmitting(false);
     }
@@ -608,7 +609,7 @@ export const FinalizedDataVariantsPage = ({
         }
       }
     } catch (error) {
-      console.log(error);
+      errorToastCaller(error);
     } finally {
       setRegenerating(false);
     }

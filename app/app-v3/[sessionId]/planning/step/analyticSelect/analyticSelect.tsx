@@ -9,6 +9,7 @@ import { usePlannningContext } from "../../../../plannningContext";
 import { Card } from "../../components/card";
 import { RadioCard } from "../../components/RadioCard";
 import { LoadingOverlay } from "@/components/ui/loading-overlay";
+import { errorToastCaller } from "../../components/toastCaller";
 
 const AnalyticSelectPage = ({
   onBack,
@@ -43,7 +44,7 @@ const AnalyticSelectPage = ({
       }
       onNext();
     } catch (error) {
-      console.log(error);
+      errorToastCaller(error);
     } finally {
       setSubmitting(false);
     }
@@ -67,7 +68,7 @@ const AnalyticSelectPage = ({
         }
       }
     } catch (error) {
-      console.log(error);
+      errorToastCaller(error);
     } finally {
       setRegenerating(false);
     }

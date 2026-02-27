@@ -9,7 +9,7 @@ import callApi from "@/config/axios/axios";
 import { useParams } from "next/navigation";
 import { DesireCard } from "./components/desireCard";
 import { IPositioningPatterns } from "../../context/dataTypes";
-import { toast } from "sonner";
+import { errorToastCaller } from "../../components/toastCaller";
 
 const DesireOrganizationPage = ({
   onNext,
@@ -73,7 +73,6 @@ const DesireOrganizationPage = ({
           if (line.trim().startsWith("data: ")) {
             try {
               const jsonData = JSON.parse(line.substring(6));
-              console.log(jsonData);
 
               if (jsonData.percent && jsonData.message) {
                 setSubmitProcess({
@@ -112,12 +111,7 @@ const DesireOrganizationPage = ({
         }
       }
     } catch (error: any) {
-      toast.error(
-        error.response?.data?.message || "An unknown error occurred",
-        {
-          position: "bottom-left",
-        },
-      );
+      errorToastCaller(error);
     } finally {
       setSubmitting(false);
     }
@@ -145,7 +139,7 @@ const DesireOrganizationPage = ({
       const selectedIds: string[] = data.selectedDesireOrganization || [];
       setCheckedTobes(selectedIds.filter((id: string) => validIds.has(id)));
     } catch (error) {
-      console.log(error);
+      errorToastCaller(error);
     } finally {
       setRegenerating(false);
     }

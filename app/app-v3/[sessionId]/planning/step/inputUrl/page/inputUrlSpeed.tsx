@@ -1,5 +1,4 @@
 import { Button } from "@/components/ui/button";
-import { Spinner } from "@/components/ui/spinner";
 import React, { useEffect } from "react";
 import { useParams } from "next/navigation";
 import { LoadingOverlay } from "@/components/ui/loading-overlay";
@@ -8,6 +7,7 @@ import { ArrowRight } from "lucide-react";
 import { usePlanningWhatDataContext } from "../../../context/planningWhatDataContext";
 import callApi from "@/config/axios/axios";
 import { Card } from "../../../components/card";
+import { errorToastCaller } from "../../../components/toastCaller";
 
 const InputUrlSpeedPage = ({
   onNext,
@@ -33,7 +33,7 @@ const InputUrlSpeedPage = ({
       onSetCandidates(data.candidates);
       onNext();
     } catch (error) {
-      console.log(error);
+      errorToastCaller(error);
     } finally {
       setLoading(false);
     }
@@ -52,7 +52,7 @@ const InputUrlSpeedPage = ({
         }
       }
     } catch (error) {
-      console.log(error);
+      errorToastCaller(error);
     } finally {
       setRegenerating(false);
     }

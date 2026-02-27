@@ -15,6 +15,7 @@ import {
   DialogTitle,
 } from "@/components/ui/dialog";
 import { toast } from "sonner";
+import { errorToastCaller } from "../../[sessionId]/planning/components/toastCaller";
 
 export interface PDCASession {
   id: string;
@@ -57,7 +58,7 @@ const PDCACycle: React.FC = () => {
 
   const onClickCycle = (cycleID: string, status: string) => {
     if (status !== "deleted") {
-      router.push(`/app-v3/planning/${cycleID}`);
+      router.push(`/app-v3/${cycleID}/planning`);
     } else {
       toast.error("このサイクルは削除されているため、アクセスできません");
     }
@@ -74,10 +75,13 @@ const PDCACycle: React.FC = () => {
         if (data.pdcaSession) {
           setPDCASessions((prev) => [data.pdcaSession, ...prev]);
         }
-        toast.success("新しいPDCAサイクルが作成されました");
+        toast.success("新しいPDCAサイクルが作成されました", {
+          position: "top-center",
+        });
       }
     } catch (error) {
       console.error("Failed to create session:", error);
+      errorToastCaller(error);
     } finally {
       setSubmitLoading(false);
     }
@@ -93,11 +97,13 @@ const PDCACycle: React.FC = () => {
       );
 
       if (status === 200) {
-        toast.success("PDCAサイクルが削除されました");
+        toast.success("PDCAサイクルが削除されました", {
+          position: "top-center",
+        });
       }
     } catch (error) {
       console.log(error);
-      toast.error("PDCAサイクルの削除に失敗しました");
+      errorToastCaller(error);
     }
   };
 
@@ -112,6 +118,7 @@ const PDCACycle: React.FC = () => {
     } catch (error) {
       console.error("Error loading sessions:", error);
       setPDCASessions([]);
+      errorToastCaller(error);
     } finally {
       setLoading(false);
     }

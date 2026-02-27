@@ -9,7 +9,7 @@ import { ArrowRight } from "lucide-react";
 import callApi from "@/config/axios/axios";
 import { useParams } from "next/navigation";
 import { IDesireOrganization } from "../../context/dataTypes";
-import { toast } from "sonner";
+import { errorToastCaller } from "../../components/toastCaller";
 
 const ValueOrganizationPage = ({
   onNext,
@@ -130,7 +130,6 @@ const ValueOrganizationPage = ({
           if (line.trim().startsWith("data: ")) {
             try {
               const jsonData = JSON.parse(line.substring(6));
-              console.log(jsonData);
 
               if (jsonData.percent && jsonData.message) {
                 setSubmitProgress({
@@ -158,12 +157,7 @@ const ValueOrganizationPage = ({
               onSetDesireOrganization(jsonData.desire_tobes);
               onNext();
             } catch (error: any) {
-              toast.error(
-                error.response?.data?.message || "An unknown error occurred",
-                {
-                  position: "bottom-left",
-                },
-              );
+              errorToastCaller(error);
             }
           }
         } catch (e) {
@@ -171,12 +165,7 @@ const ValueOrganizationPage = ({
         }
       }
     } catch (error: any) {
-      toast.error(
-        error.response?.data?.message || "An unknown error occurred",
-        {
-          position: "bottom-left",
-        },
-      );
+      errorToastCaller(error);
     } finally {
       setSubmitting(false);
       setSubmitProgress({ percent: 0, message: "" });
@@ -198,8 +187,8 @@ const ValueOrganizationPage = ({
           onSetValueOrganization(data.valueOrganization);
         }
       }
-    } catch (error) {
-      console.log(error);
+    } catch (error: any) {
+      errorToastCaller(error);
     } finally {
       setRegenerating(false);
     }

@@ -9,6 +9,7 @@ import { ArrowRight } from "lucide-react";
 import callApi from "@/config/axios/axios";
 import { IPositioningPatterns } from "../../context/dataTypes";
 import { PositioningPatternCard } from "./components/PositioningPatternCard";
+import { errorToastCaller } from "../../components/toastCaller";
 
 const PositioningOutlinePage = ({
   onPrev,
@@ -97,7 +98,7 @@ const PositioningOutlinePage = ({
 
       onNext();
     } catch (error) {
-      console.log(error);
+      errorToastCaller(error);
     } finally {
       setSubmitting(false);
     }
@@ -112,7 +113,6 @@ const PositioningOutlinePage = ({
 
       if (data) {
         if (data?.positioningPatterns) {
-          console.log(data.positioningPatterns);
           setPositioningPatterns(data.positioningPatterns);
         }
         if (data.selectedPositioningPatterns) {
@@ -120,7 +120,7 @@ const PositioningOutlinePage = ({
         }
       }
     } catch (error) {
-      console.log(error);
+      errorToastCaller(error);
     } finally {
       setRegenerating(false);
     }

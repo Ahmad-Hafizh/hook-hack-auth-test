@@ -19,6 +19,7 @@ import {
 } from "@/components/ui/dialog";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
+import { errorToastCaller } from "../../components/toastCaller";
 
 interface ServiceListPageProps {
   onBack?: () => void;
@@ -75,14 +76,8 @@ const WebsiteSelectionPage = ({
         onSetCompetitiveMatrix(data.key_message);
         onNext();
       }
-    } catch (error) {
-      console.log(error);
-      toast.error(
-        error instanceof Error ? error.message : "An unknown error occurred",
-        {
-          position: "bottom-left",
-        },
-      );
+    } catch (error: any) {
+      errorToastCaller(error);
     } finally {
       setSubmitting(false);
     }
@@ -120,13 +115,7 @@ const WebsiteSelectionPage = ({
         }
       }
     } catch (error: any) {
-      console.log(error);
-      toast.error(
-        error.response?.data?.message || "An unknown error occurred",
-        {
-          position: "bottom-left",
-        },
-      );
+      errorToastCaller(error);
     } finally {
       setRegenerating(false);
     }
@@ -165,7 +154,7 @@ const WebsiteSelectionPage = ({
       // Prepend new candidate to existing list — keeps all existing _uids intact
       onSetCandidates([newCandidate, ...candidates]);
     } catch (error) {
-      console.log(error);
+      errorToastCaller(error);
     } finally {
       setAddingCompetitor(false);
       serviceNameRef.current!.value = "";

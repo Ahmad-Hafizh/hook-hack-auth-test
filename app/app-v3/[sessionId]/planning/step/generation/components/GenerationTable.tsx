@@ -7,6 +7,7 @@ export interface RenderStatus {
   index: number;
   status: "planned" | "rendering" | "succeeded" | "failed";
   url?: string;
+  render_id?: string;
 }
 
 interface GenerationTableProps {

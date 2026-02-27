@@ -384,7 +384,7 @@ export const PDCATable: React.FC<PDCATableProps> = ({
       });
 
       // Navigate to the app-v3 planning page — the context will pick up the step from DB
-      router.push(`/app-v3/planning/${selectedCycle.id}`);
+      router.push(`/app-v3/${selectedCycle.id}/planning`);
     } catch (error) {
       console.error("Failed to navigate to step:", error);
     } finally {

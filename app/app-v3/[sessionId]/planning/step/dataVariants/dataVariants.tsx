@@ -12,6 +12,7 @@ import { usePlanningHowDataContext } from "../../context/planningHowDataContext"
 import PatternCounter from "./components/PatternCounter";
 import VerificationSelector from "./components/VerificationSelector";
 import CopyTable from "./components/CopyTable";
+import { errorToastCaller } from "../../components/toastCaller";
 
 export type VerificationTarget = "hook" | "body1" | "body2" | "cta";
 
@@ -326,7 +327,7 @@ export const SelectDataVariantsPage = ({
         onNext();
       }
     } catch (error) {
-      console.log(error);
+      errorToastCaller(error);
     } finally {
       setSubmitting(false);
     }
@@ -361,7 +362,7 @@ export const SelectDataVariantsPage = ({
         }
       }
     } catch (error) {
-      console.log(error);
+      errorToastCaller(error);
     } finally {
       setRegenerating(false);
     }

@@ -13,9 +13,11 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import callApi from "@/config/axios/axios";
 import { connectGoogleAds } from "./action/connect/connectGoogleAds";
-import { useRouter } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
 import { RefreshCcw } from "lucide-react";
 import { connectMCC } from "./action/connect/connectMCC";
+import { connectYoutube } from "./action/connect/connectYoutube";
+import { toast } from "sonner";
 
 export const dynamic = "force-dynamic";
 export const runtime = "nodejs";
@@ -28,6 +30,16 @@ export default function SettingsPage() {
   const [isYoutubeConnected, setIsYoutubeConnected] = useState(false);
   const [fetchingGoogleAdsStatus, setFetchingGoogleAdsStatus] = useState(false);
   const [fetchingMCCStatus, setFetchingMCCStatus] = useState(false);
+  const [fetchingYoutubeStatus, setFetchingYoutubeStatus] = useState(false);
+
+  const searchParams = useSearchParams();
+  const error = searchParams.get("error");
+
+  useEffect(() => {
+    if (error) {
+      toast.error(decodeURIComponent(error), { position: "top-center" });
+    }
+  }, [error]);
 
   const getGoogleAdsStatus = async () => {
     try {
@@ -54,18 +66,21 @@ export default function SettingsPage() {
     }
   };
 
+  const getYoutubeStatus = async () => {
+    try {
+      setFetchingYoutubeStatus(true);
+      const { data } = await callApi.get("/auth/youtube/status");
+      setIsYoutubeConnected(data.connected);
+    } catch (error) {
+      console.log(error);
+    } finally {
+      setFetchingYoutubeStatus(false);
+    }
+  };
+
   const handleConnectGoogleAds = async () => {
     try {
-      setIsLoading(true);
-      // const { data } = await callApi.get("/auth/google-ads/sign-in");
-
-      // console.log(data);
-
-      // if (data.connected) {
-      //   setIsGoogleAdsConnected(true);
-      // } else if (data.url) {
-      //   router.push(data.url);
-      // }
+      setFetchingGoogleAdsStatus(true);
       connectGoogleAds("/dashboard/settings", (url) => {
         router.push(url);
       });
@@ -75,23 +90,40 @@ export default function SettingsPage() {
         router.push(error.response.data.url);
       }
     } finally {
-      setIsLoading(false);
+      setFetchingGoogleAdsStatus(false);
     }
   };
 
   const handleConnectMCC = async () => {
     try {
+      setFetchingMCCStatus(true);
       connectMCC("/dashboard/settings", (url) => {
         router.push(url);
       });
     } catch (error) {
       console.log(error);
+    } finally {
+      setFetchingMCCStatus(false);
+    }
+  };
+
+  const handleConnectYoutube = async () => {
+    try {
+      setFetchingYoutubeStatus(true);
+      connectYoutube("/dashboard/settings", (url) => {
+        router.push(url);
+      });
+    } catch (error) {
+      console.log(error);
+    } finally {
+      setFetchingYoutubeStatus(false);
     }
   };
 
   useEffect(() => {
     getGoogleAdsStatus();
     getMCCStatus();
+    getYoutubeStatus();
   }, []);
 
   const handleSave = async () => {
@@ -210,12 +242,12 @@ export default function SettingsPage() {
                   <Button
                     variant="outline"
                     size="sm"
-                    className={`text-[13px] w-fit ${isGoogleAdsConnected ? "bg-green-100 border-green-200 text-green-500" : ""} `}
+                    className={`text-[13px] w-fit ${isGoogleAdsConnected ? "bg-green-100 border-green-500 text-green-700" : ""} `}
                     disabled={isGoogleAdsConnected || fetchingGoogleAdsStatus}
                     onClick={handleConnectGoogleAds}
                   >
                     {fetchingGoogleAdsStatus
-                      ? "Fetching..."
+                      ? "Connecting..."
                       : isGoogleAdsConnected
                         ? "Connected"
                         : "Connect"}
@@ -227,7 +259,7 @@ export default function SettingsPage() {
                     <Button
                       variant="outline"
                       size="sm"
-                      className={`text-[13px] group w-fit ${isMCCConnected === "ACTIVE" ? "bg-green-100 border-green-200 text-green-500" : ""} `}
+                      className={`text-[13px] group w-fit ${isMCCConnected === "ACTIVE" ? "bg-green-100 border-green-500 text-green-700" : ""} `}
                       disabled={
                         isMCCConnected === "ACTIVE" ||
                         isMCCConnected === "PENDING" ||
@@ -236,7 +268,7 @@ export default function SettingsPage() {
                       onClick={handleConnectMCC}
                     >
                       {fetchingMCCStatus
-                        ? "Fetching..."
+                        ? "Connecting..."
                         : isMCCConnected === "ACTIVE"
                           ? "Connected"
                           : isMCCConnected === "PENDING"
@@ -257,8 +289,23 @@ export default function SettingsPage() {
                 </div>
               </div>
             </div>
-            <div className="flex fle-col gap-2">
+            <div className="flex flex-col gap-2">
               <p className="text-[13px]">Youtube Account</p>
+              <div className="">
+                <Button
+                  variant="outline"
+                  size="sm"
+                  className={`text-[13px] w-fit ${isYoutubeConnected ? "bg-green-100 border-green-500 text-green-700" : ""} `}
+                  disabled={isYoutubeConnected || fetchingYoutubeStatus}
+                  onClick={handleConnectYoutube}
+                >
+                  {fetchingYoutubeStatus
+                    ? "Connecting..."
+                    : isYoutubeConnected
+                      ? "Connected"
+                      : "Connect"}
+                </Button>
+              </div>
             </div>
             {/* <div className="flex flex-col gap-2">
               <p className="text-[13px]">Google Ads MCC</p>

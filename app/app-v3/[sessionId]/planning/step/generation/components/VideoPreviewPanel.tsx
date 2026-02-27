@@ -1,13 +1,17 @@
 "use client";
-
-import React, { useState } from "react";
-import { Download, Loader, XCircle, Video } from "lucide-react";
+import React, { useEffect, useState } from "react";
+import { Download, Loader, XCircle, Video, UploadCloud } from "lucide-react";
+import callApi from "@/config/axios/axios";
+import { Button } from "@/components/ui/button";
 
 interface VideoPreviewPanelProps {
   videoUrl?: string;
   orientation: "horizontal" | "vertical";
   rowIndex: number | null;
   status?: string;
+  sessionId: string;
+  onOpenConnectYoutubeDialog: () => void;
+  renderId?: string;
 }
 
 export const VideoPreviewPanel: React.FC<VideoPreviewPanelProps> = ({
@@ -15,9 +19,19 @@ export const VideoPreviewPanel: React.FC<VideoPreviewPanelProps> = ({
   orientation,
   rowIndex,
   status,
+  sessionId,
+  onOpenConnectYoutubeDialog,
+  renderId,
 }) => {
   const [downloading, setDownloading] = useState(false);
-  console.log("status", status);
+  const [uploading, setUploading] = useState(false);
+  const [youtubeUploadStatus, setYoutubeUploadStatus] = useState<string | null>(
+    null,
+  );
+
+  useEffect(() => {
+    setYoutubeUploadStatus(null);
+  }, [videoUrl]);
 
   const handleDownload = async () => {
     if (!videoUrl) return;
@@ -38,6 +52,33 @@ export const VideoPreviewPanel: React.FC<VideoPreviewPanelProps> = ({
       window.open(videoUrl, "_blank");
     } finally {
       setDownloading(false);
+    }
+  };
+
+  const handleUpload = async () => {
+    try {
+      setUploading(true);
+      const { data: connectionStatus } = await callApi.get(
+        "/auth/youtube/status",
+      );
+
+      if (connectionStatus?.connected) {
+        const { data: youtubeUploadData } = await callApi.post(
+          "/app-v3/planning/generation/youtube/upload",
+          {
+            videoUrl,
+            sessionId,
+            renderId,
+          },
+        );
+        setYoutubeUploadStatus(youtubeUploadData.status);
+      } else {
+        onOpenConnectYoutubeDialog();
+      }
+    } catch (error) {
+      console.log(error);
+    } finally {
+      setUploading(false);
     }
   };
 
@@ -113,23 +154,52 @@ export const VideoPreviewPanel: React.FC<VideoPreviewPanelProps> = ({
               Your browser does not support the video tag.
             </video>
 
-            <button
-              onClick={handleDownload}
-              disabled={downloading}
-              className="mt-6 mb-4 bg-[#0093b4] hover:bg-[#007a92] text-white font-semibold py-2.5 px-6 rounded-lg shadow-sm transition-all duration-200 flex items-center gap-2 text-sm disabled:opacity-50"
-            >
-              {downloading ? (
-                <>
-                  <Loader className="w-4 h-4 animate-spin" />
-                  ダウンロード中...
-                </>
-              ) : (
-                <>
-                  <Download className="w-4 h-4" />
-                  ダウンロード
-                </>
-              )}
-            </button>
+            <div className="flex gap-2 mt-4">
+              <Button
+                onClick={handleDownload}
+                disabled={downloading}
+                variant={"outline"}
+              >
+                {downloading ? (
+                  <>
+                    <Loader className="w-4 h-4 animate-spin" />
+                    ダウンロード中...
+                  </>
+                ) : (
+                  <>
+                    <Download className="w-4 h-4" />
+                    ダウンロード
+                  </>
+                )}
+              </Button>
+
+              <Button
+                onClick={handleUpload}
+                disabled={uploading || youtubeUploadStatus !== null}
+                variant={"default"}
+              >
+                {uploading ? (
+                  <>
+                    <Loader className="w-4 h-4 animate-spin" />
+                    アップロード中...
+                  </>
+                ) : youtubeUploadStatus !== null ? (
+                  <>
+                    <Loader className="w-4 h-4 animate-spin" />
+                    {youtubeUploadStatus === "pending"
+                      ? "保留中..."
+                      : youtubeUploadStatus === "succeeded"
+                        ? "アップロード成功"
+                        : "アップロード失敗"}
+                  </>
+                ) : (
+                  <>
+                    <UploadCloud className="w-4 h-4" />
+                    YouTubeにアップロード
+                  </>
+                )}
+              </Button>
+            </div>
           </>
         ) : (
           <div className="text-sm text-slate-400">動画URLが見つかりません</div>

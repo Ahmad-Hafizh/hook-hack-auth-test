@@ -7,6 +7,7 @@ import { useParams } from "next/navigation";
 import { LoadingOverlay } from "@/components/ui/loading-overlay";
 import { usePlanningHowDataContext } from "../../context/planningHowDataContext";
 import { DurationDropdown } from "./components/DurationDropdown";
+import { errorToastCaller } from "../../components/toastCaller";
 
 const videoDurationOptions: VideoDurationOption[] = [
   {
@@ -58,7 +59,7 @@ export const DurationSelectionPage = ({
         setSubmitting(false);
       }
     } catch (error) {
-      console.log(error);
+      errorToastCaller(error);
       setSubmitting(false); // Ensure loading is set to false on error
     } finally {
       setSubmitting(false);
@@ -87,6 +88,8 @@ export const DurationSelectionPage = ({
       }
     } catch (error) {
       console.log(error);
+
+      // errorToastCaller(error);
     } finally {
       setRegenerating(false);
     }

@@ -75,7 +75,7 @@ export async function GET(request: NextRequest) {
       );
     }
 
-    if (mccStatus?.detail?.status === "ACTIVE") {
+    if (mccStatus?.status === "ACTIVE" || mccStatus?.status === "PENDING") {
       await prisma.user.update({
         where: { id: userDbId },
         data: { isLinkedWithMCC: true },

@@ -1,18 +1,14 @@
 import callApi from "@/config/axios/axios";
 
-export const connectGoogleAds = async (
+export const connectYoutube = async (
   next: string = "/dashboard/settings",
   onRedirect?: (url: string) => void,
 ) => {
   try {
-    const { data } = await callApi.get("/auth/google-ads/sign-in", {
-      params: {
-        next,
-      },
-    });
+    const { data } = await callApi.get("/auth/youtube/sign-in");
 
-    if (data.url) {
-      onRedirect?.(data.url);
+    if (data.oauth_url) {
+      onRedirect?.(data.oauth_url);
     }
   } catch (error: any) {
     console.log(error.response?.data?.url);

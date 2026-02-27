@@ -7,8 +7,8 @@ import { LoadingOverlay } from "@/components/ui/loading-overlay";
 
 import { Card, KeywordSelector, PageHeader } from "@/components/lp-analyzer";
 import { ArrowRight, RefreshCw } from "lucide-react";
-import { usePlanningWhatDataContext } from "../../app/app-v3/planning/[sessionId]/context/planningWhatDataContext";
 import callApi from "@/config/axios/axios";
+import { usePlanningWhatDataContext } from "@/app/app-v3/[sessionId]/planning/context/planningWhatDataContext";
 
 const KeywordSelectionPage = ({
   onNext,

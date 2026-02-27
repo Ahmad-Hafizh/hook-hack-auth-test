@@ -10,6 +10,19 @@ import callAppV2Api from "@/config/axios/axiosAppV2";
 import callApi from "@/config/axios/axios";
 import { useQuery } from "@tanstack/react-query";
 import { LoadingOverlay } from "@/components/ui/loading-overlay";
+import { errorToastCaller } from "../../components/toastCaller";
+import {
+  AlertDialog,
+  AlertDialogAction,
+  AlertDialogCancel,
+  AlertDialogContent,
+  AlertDialogDescription,
+  AlertDialogFooter,
+  AlertDialogHeader,
+  AlertDialogTitle,
+  AlertDialogTrigger,
+} from "@/components/ui/alert-dialog";
+import { connectYoutube } from "@/app/dashboard/settings/action/connect/connectYoutube";
 
 const GenerationPage = ({ onPrev }: { onPrev: () => void }) => {
   const { sessionId } = useParams();
@@ -24,9 +37,12 @@ const GenerationPage = ({ onPrev }: { onPrev: () => void }) => {
   const [jobId, setJobId] = useState<string>("");
   const [submitting, setSubmitting] = useState(false);
   const [renderError, setRenderError] = useState<string | null>(null);
-
+  const router = useRouter();
   // Selection state
   const [selectedRowIndex, setSelectedRowIndex] = useState<number | null>(null);
+
+  const [isDialogOpen, setIsDialogOpen] = useState(false);
+  const [connectingToYoutube, setConnectingToYoutube] = useState(false);
 
   // Summary stats
   const succeededCount = renderStatuses.filter(
@@ -50,15 +66,15 @@ const GenerationPage = ({ onPrev }: { onPrev: () => void }) => {
 
           // Initialize statuses: use rendered_videos from DB if available, otherwise "planned"
           if (data.rendered_videos && data.rendered_videos.length > 0) {
-            console.log(data.rendered_videos);
             const updatedStatuses: RenderStatus[] = data.rendered_videos.map(
               (v: any, i: number) => ({
                 index: i,
                 status: v.status as RenderStatus["status"],
                 url: v.url,
+                render_id: v.render_id,
               }),
             );
-            console.log("updated status", updatedStatuses);
+
             setRenderStatuses(updatedStatuses);
             if (updatedStatuses.length > 0) setSelectedRowIndex(0);
           } else {
@@ -81,7 +97,7 @@ const GenerationPage = ({ onPrev }: { onPrev: () => void }) => {
         }
       }
     } catch (error) {
-      console.log(error);
+      errorToastCaller(error);
     }
   };
 
@@ -100,9 +116,25 @@ const GenerationPage = ({ onPrev }: { onPrev: () => void }) => {
         setJobId(data.jobId);
       }
     } catch (error) {
-      console.log(error);
+      errorToastCaller(error);
     } finally {
       setSubmitting(false);
+    }
+  };
+
+  const handleConnectYoutube = () => {
+    try {
+      setIsDialogOpen(true);
+      setConnectingToYoutube(true);
+
+      connectYoutube(`/app-v3/${sessionId}/planning`, (url) =>
+        router.push(url),
+      );
+    } catch (error) {
+      errorToastCaller(error);
+    } finally {
+      setConnectingToYoutube(false);
+      setIsDialogOpen(false);
     }
   };
 
@@ -251,6 +283,7 @@ const GenerationPage = ({ onPrev }: { onPrev: () => void }) => {
                 index: idx,
                 status: (r.status as RenderStatus["status"]) || "succeeded",
                 url: r.url || updated[idx].url,
+                render_id: r.render_id || updated[idx].render_id,
               };
             }
           });
@@ -329,9 +362,37 @@ const GenerationPage = ({ onPrev }: { onPrev: () => void }) => {
             orientation={orientation}
             rowIndex={selectedRowIndex}
             status={selectedRenderStatus?.status}
+            sessionId={sessionId as string}
+            onOpenConnectYoutubeDialog={() => setIsDialogOpen(true)}
+            renderId={selectedRenderStatus?.render_id}
           />
         </div>
       </div>
+
+      <AlertDialog open={isDialogOpen} onOpenChange={setIsDialogOpen}>
+        <AlertDialogContent>
+          <AlertDialogHeader>
+            <AlertDialogTitle>
+              You haven't connected your account to YouTube integration
+            </AlertDialogTitle>
+            <AlertDialogDescription>
+              you can connect your account with the button below, or you can
+              download the video and upload it manually to your YouTube channel.
+            </AlertDialogDescription>
+          </AlertDialogHeader>
+          <AlertDialogFooter>
+            <AlertDialogCancel disabled={connectingToYoutube}>
+              Cancel
+            </AlertDialogCancel>
+            <AlertDialogAction
+              onClick={handleConnectYoutube}
+              disabled={connectingToYoutube}
+            >
+              {connectingToYoutube ? "Connecting..." : "Connect"}
+            </AlertDialogAction>
+          </AlertDialogFooter>
+        </AlertDialogContent>
+      </AlertDialog>
 
       {/* <div className="flex-1 flex items-center justify-center">
           <div className="text-center py-10">

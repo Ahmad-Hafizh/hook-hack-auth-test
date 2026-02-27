@@ -5,7 +5,7 @@ import {
   IDesireOrganization,
   IKeyVisuals,
   IPositioningPatterns,
-} from "../context/dataTypes";
+} from "./dataTypes";
 
 export const submitStep1Scratch = async ({
   sessionId,
